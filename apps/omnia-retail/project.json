@@ -44,8 +44,8 @@
           ],
           "fileReplacements": [
             {
-              "replace": "apps/omnia-retail/src/environments/environment.ts",
-              "with": "apps/omnia-retail/src/environments/environment.prod.ts"
+              "replace": "libs/shared/environments/src/lib/environment.ts",
+              "with": "libs/shared/environments/src/lib/environment.prod.ts"
             }
           ],
           "outputHashing": "all"

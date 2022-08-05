@@ -4,7 +4,8 @@
   "projects": {
     "omnia-retail": "apps/omnia-retail",
     "omnia-retail-e2e": "apps/omnia-retail-e2e",
-    "shared-styles": "libs/shared/styles",
-    "shared-assets": "libs/shared/assets"
+    "shared-assets": "libs/shared/assets",
+    "shared-environments": "libs/shared/environments",
+    "shared-styles": "libs/shared/styles"
   }
 }
