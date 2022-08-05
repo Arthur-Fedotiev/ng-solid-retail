@@ -15,6 +15,21 @@
               {
                 "sourceTag": "*",
                 "onlyDependOnLibsWithTags": ["*"]
+              },
+              {
+                "sourceTag": "scope:shared",
+                "onlyDependOnLibsWithTags": ["scope:shared"]
+              },
+              {
+                "sourceTag": "type:app",
+                "onlyDependOnLibsWithTags": [
+                  "type:feature",
+                  "type:api",
+                  "type:util",
+                  "type:ui",
+                  "type:domain",
+                  "type:shell"
+                ]
               }
             ]
           }

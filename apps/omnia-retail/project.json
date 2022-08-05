@@ -97,6 +97,6 @@
       }
     }
   },
-  "tags": ["scope:application"],
+  "tags": ["scope:omnia-retail", "type:app"],
   "implicitDependencies": ["shared-styles", "shared-assets"]
 }
