@@ -1,0 +1,27 @@
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+
+  &__profile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+  }
+}
+
+.user-avatar {
+  max-height: 3rem;
+  border-radius: 1.5rem;
+  margin: 0.25rem 1rem;
+}
+
+.drawer {
+  height: 100vh;
+
+  &__sidebar {
+    width: 4rem;
+    background: whitesmoke;
+    border-right: solid lightgray;
+  }
+}

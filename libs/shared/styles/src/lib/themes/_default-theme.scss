@@ -1,0 +1,36 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+@use '../components';
+
+$ft-app-light-primary: mat.define-palette(
+  mat.$blue-grey-palette,
+  A100,
+  A100,
+  A400
+);
+$ft-app-light-accent: mat.define-palette(mat.$pink-palette, A100, A100, A400);
+
+$ft-app-light-warn: mat.define-palette(mat.$red-palette);
+
+$ft-app-light-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $ft-app-light-primary,
+      accent: $ft-app-light-accent,
+      warn: $ft-app-light-warn,
+    ),
+  )
+);
+
+$ft-app-light-success: mat.define-palette(mat.$green-palette);
+$ft-app-light-info: mat.define-palette(mat.$blue-palette);
+
+$ft-app-light-variants: (
+  success: $ft-app-light-success,
+  info: $ft-app-light-info,
+);
+
+body {
+  @include mat.all-component-themes($ft-app-light-theme);
+  @include components.theme($ft-app-light-theme, null, $ft-app-light-variants);
+}

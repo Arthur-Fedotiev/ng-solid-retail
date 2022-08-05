@@ -25,6 +25,12 @@
             "output": "assets"
           }
         ],
+        "stylePreprocessorOptions": {
+          "includePaths": [
+            "libs/shared/styles/src/lib",
+            "libs/shared/styles/src/lib/mixins"
+          ]
+        },
         "styles": ["libs/shared/styles/src/index.scss"],
         "scripts": []
       },
