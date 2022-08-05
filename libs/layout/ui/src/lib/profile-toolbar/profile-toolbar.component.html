@@ -1,0 +1,32 @@
+<mat-toolbar class="toolbar">
+  <div class="toolbar__profile">
+    <img
+      [src]="
+        'https://lh3.googleusercontent.com/a-/AOh14GhmDJm8U1PpNgy_p9CsOeXrQkT8LEv7Mjv8woNdv08=s96-c'
+      "
+      class="toolbar__avatar"
+    />
+    <span>John Doe</span>
+    <button
+      mat-icon-button
+      [matMenuTriggerFor]="menu"
+      aria-label="Open profile menu"
+    >
+      <mat-icon>keyboard_arrow_down</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>
+        <mat-icon>dialpad</mat-icon>
+        <span>Redial</span>
+      </button>
+      <button mat-menu-item disabled>
+        <mat-icon>voicemail</mat-icon>
+        <span>Check voice mail</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>notifications_off</mat-icon>
+        <span>Disable alerts</span>
+      </button>
+    </mat-menu>
+  </div>
+</mat-toolbar>

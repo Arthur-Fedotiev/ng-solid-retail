@@ -3,9 +3,10 @@ import { CommonModule } from '@angular/common';
 import { SharedUiMaterialModule } from '@omnia/shared/ui-material';
 import { RouterModule } from '@angular/router';
 import { LayoutFeatureComponent } from './layout-feature.component';
+import { LayoutUiModule } from '@omnia/layout/ui';
 
 @NgModule({
-  imports: [CommonModule, SharedUiMaterialModule, RouterModule],
+  imports: [CommonModule, LayoutUiModule, SharedUiMaterialModule, RouterModule],
   declarations: [LayoutFeatureComponent],
   exports: [LayoutFeatureComponent],
 })
