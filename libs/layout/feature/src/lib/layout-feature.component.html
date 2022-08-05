@@ -1,13 +1,11 @@
 <mat-sidenav-container fullscreen>
   <mat-sidenav #sideNav (click)="sideNav.close()">
-    <nav>
-      <mat-nav-list>
-        <a mat-list-item [routerLink]="['products']">
-          <mat-icon>local_grocery_store</mat-icon>
-          <span>Products</span>
-        </a>
-      </mat-nav-list>
-    </nav>
+    <omnia-navigation-bar>
+      <a mat-list-item [routerLink]="['products']">
+        <mat-icon>local_grocery_store</mat-icon>
+        <span>Products</span>
+      </a></omnia-navigation-bar
+    >
   </mat-sidenav>
   <mat-drawer-container class="drawer">
     <mat-drawer class="drawer__sidebar" mode="side" opened>
