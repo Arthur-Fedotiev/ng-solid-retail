@@ -97,5 +97,6 @@
       }
     }
   },
-  "tags": []
+  "tags": ["scope:application"],
+  "implicitDependencies": ["shared-styles", "shared-assets"]
 }
