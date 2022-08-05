@@ -1,0 +1,3 @@
+@use '@angular/material' as mat;
+@use './default-theme' as *;
+@include mat.core();

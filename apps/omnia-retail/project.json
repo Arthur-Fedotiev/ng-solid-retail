@@ -14,10 +14,24 @@
         "tsConfig": "apps/omnia-retail/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
-          "apps/omnia-retail/src/favicon.ico",
-          "apps/omnia-retail/src/assets"
+          {
+            "glob": "favicon.ico",
+            "input": "libs/shared/assets/src",
+            "output": "./"
+          },
+          {
+            "glob": "**/*",
+            "input": "libs/shared/assets/src/assets",
+            "output": "assets"
+          }
         ],
-        "styles": ["apps/omnia-retail/src/styles.scss"],
+        "stylePreprocessorOptions": {
+          "includePaths": [
+            "libs/shared/styles/src/lib",
+            "libs/shared/styles/src/lib/mixins"
+          ]
+        },
+        "styles": ["libs/shared/styles/src/index.scss"],
         "scripts": []
       },
       "configurations": {
@@ -36,8 +50,8 @@
           ],
           "fileReplacements": [
             {
-              "replace": "apps/omnia-retail/src/environments/environment.ts",
-              "with": "apps/omnia-retail/src/environments/environment.prod.ts"
+              "replace": "libs/shared/environments/src/lib/environment.ts",
+              "with": "libs/shared/environments/src/lib/environment.prod.ts"
             }
           ],
           "outputHashing": "all"
@@ -89,5 +103,6 @@
       }
     }
   },
-  "tags": []
+  "tags": ["scope:omnia-retail", "type:app"],
+  "implicitDependencies": ["shared-styles", "shared-assets"]
 }

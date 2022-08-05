@@ -1,0 +1,14 @@
+$lineCountDefault: 1;
+
+@mixin text-overflow($textOverflow: ellipsis) {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: $textOverflow;
+}
+
+@mixin multiline-text-overflow($lineCount: $lineCountDefault) {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $lineCount;
+  overflow: hidden;
+}
