@@ -25,7 +25,7 @@
             "output": "assets"
           }
         ],
-        "styles": ["apps/omnia-retail/src/styles.scss"],
+        "styles": ["libs/shared/styles/src/index.scss"],
         "scripts": []
       },
       "configurations": {
