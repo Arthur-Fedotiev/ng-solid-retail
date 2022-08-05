@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
   selector: 'omnia-layout-feature',
@@ -6,8 +6,4 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   styleUrls: ['./layout-feature.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LayoutFeatureComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit(): void {}
-}
+export class LayoutFeatureComponent {}

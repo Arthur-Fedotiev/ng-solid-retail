@@ -1,8 +1,25 @@
+.nav-bar {
+  &__icon {
+    display: inline-block;
+    margin-right: 1rem;
+  }
+}
+
+.content {
+  width: 100%;
+  height: 100%;
+}
+
 .drawer {
   height: 100vh;
 
+  &__trigger {
+    margin: 1rem 0 0 1.25rem;
+    transform: scale(1.75);
+  }
+
   &__sidebar {
-    width: 4rem;
+    width: 5rem;
     background: whitesmoke;
     border-right: solid lightgray;
   }

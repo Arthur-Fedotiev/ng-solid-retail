@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { SharedUiMaterialModule } from '@omnia/shared/ui-material';
 
 import { NavigationBarComponent } from './navigation-bar.component';
 
@@ -8,6 +9,7 @@ describe('NavigationBarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [SharedUiMaterialModule],
       declarations: [NavigationBarComponent],
     }).compileComponents();
 
@@ -18,5 +20,9 @@ describe('NavigationBarComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should render', () => {
+    expect(fixture).toMatchSnapshot();
   });
 });
