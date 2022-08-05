@@ -239,6 +239,13 @@
   resolved "https://registry.yarnpkg.com/@angular/language-service/-/language-service-14.1.1.tgz#a025d55232da0813c1160ce895f31aa7ce1dcafb"
   integrity sha512-bpUXsScvqzBodt94hEZdAHRZwHf3qqzadBcpTxJLoeJm69Q6hU1OdT7Id8wQfDESREUfbux12E1yVv7rEoIhJg==
 
+"@angular/material@^14.1.1":
+  version "14.1.1"
+  resolved "https://registry.yarnpkg.com/@angular/material/-/material-14.1.1.tgz#fd8021addad113476d29ac279e23aa2a86022e08"
+  integrity sha512-HU83cgnAayItSXhyMdu1+edXj2DMjGXndvFicf300JtyliyjFmVzuM78O7hIJWLhT4Mohh/GkTlOSp4sc8xXhQ==
+  dependencies:
+    tslib "^2.3.0"
+
 "@angular/platform-browser-dynamic@~14.1.1":
   version "14.1.1"
   resolved "https://registry.yarnpkg.com/@angular/platform-browser-dynamic/-/platform-browser-dynamic-14.1.1.tgz#bd6d6eea0250a541de7a0fb4db23eda7a6081b60"
@@ -1809,6 +1816,13 @@
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/@leichtgewicht/ip-codec/-/ip-codec-2.0.4.tgz#b2ac626d6cb9c8718ab459166d4bb405b8ffa78b"
   integrity sha512-Hcv+nVC0kZnQ3tD9GVu5xSMR4VVYOteQIr/hwFPVEvPdlXqgGEuRjiheChHgdM+JyqdgNcmzZOX/tnl0JOiI7A==
+
+"@ngneat/until-destroy@^9.2.1":
+  version "9.2.1"
+  resolved "https://registry.yarnpkg.com/@ngneat/until-destroy/-/until-destroy-9.2.1.tgz#3cd22ee3306bbc1e4b2eeac8528bb07d4a676e03"
+  integrity sha512-St3lj5unUmcDe9YeWJl0fr292q6p7ReKH9lWJQ60Q2SdXWDUWDDff+81+5JZAfXFTEirNgRSgQ2iO4YpylBAAg==
+  dependencies:
+    tslib "^2.3.0"
 
 "@ngtools/webpack@14.1.1":
   version "14.1.1"
