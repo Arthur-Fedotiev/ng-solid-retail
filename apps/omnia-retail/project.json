@@ -14,8 +14,16 @@
         "tsConfig": "apps/omnia-retail/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
-          "apps/omnia-retail/src/favicon.ico",
-          "apps/omnia-retail/src/assets"
+          {
+            "glob": "favicon.ico",
+            "input": "libs/shared/assets/src",
+            "output": "./"
+          },
+          {
+            "glob": "**/*",
+            "input": "libs/shared/assets/src/assets",
+            "output": "assets"
+          }
         ],
         "styles": ["apps/omnia-retail/src/styles.scss"],
         "scripts": []
