@@ -15,10 +15,12 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@omnia/layout/feature": ["libs/layout/feature/src/index.ts"],
+      "@omnia/layout/ui": ["libs/layout/ui/src/index.ts"],
       "@omnia/shared/assets": ["libs/shared/assets/src/index.ts"],
       "@omnia/shared/environments": ["libs/shared/environments/src/index.ts"],
       "@omnia/shared/styles": ["libs/shared/styles/src/index.ts"],
-      "@omnia/shared/test": ["libs/shared/test/src/index.ts"]
+      "@omnia/shared/ui-material": ["libs/shared/ui-material/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

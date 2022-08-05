@@ -28,7 +28,8 @@
                   "type:util",
                   "type:ui",
                   "type:domain",
-                  "type:shell"
+                  "type:shell",
+                  "type:environments"
                 ]
               }
             ]

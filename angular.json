@@ -2,10 +2,13 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
+    "layout-feature": "libs/layout/feature",
+    "layout-ui": "libs/layout/ui",
     "omnia-retail": "apps/omnia-retail",
     "omnia-retail-e2e": "apps/omnia-retail-e2e",
     "shared-assets": "libs/shared/assets",
     "shared-environments": "libs/shared/environments",
-    "shared-styles": "libs/shared/styles"
+    "shared-styles": "libs/shared/styles",
+    "shared-ui-material": "libs/shared/ui-material"
   }
 }

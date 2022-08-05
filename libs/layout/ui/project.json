@@ -1,0 +1,25 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/layout/ui/src",
+  "prefix": "omnia",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/layout/ui"],
+      "options": {
+        "jestConfig": "libs/layout/ui/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/layout/ui/**/*.ts",
+          "libs/layout/ui/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": ["scope:layout", "type:ui"]
+}
