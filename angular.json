@@ -6,9 +6,13 @@
     "layout-ui": "libs/layout/ui",
     "omnia-retail": "apps/omnia-retail",
     "omnia-retail-e2e": "apps/omnia-retail-e2e",
+    "products-feature-display": "libs/products/feature-display",
+    "products-shell": "libs/products/shell",
+    "products-ui": "libs/products/ui",
     "shared-assets": "libs/shared/assets",
     "shared-environments": "libs/shared/environments",
     "shared-styles": "libs/shared/styles",
+    "shared-ui-list": "libs/shared/ui-list",
     "shared-ui-material": "libs/shared/ui-material"
   }
 }

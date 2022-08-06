@@ -1,0 +1,25 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/products/shell/src",
+  "prefix": "omnia",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/products/shell"],
+      "options": {
+        "jestConfig": "libs/products/shell/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/products/shell/**/*.ts",
+          "libs/products/shell/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": ["scope:products", "type:shell"]
+}
