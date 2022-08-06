@@ -1,0 +1,25 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/products/data-access/src",
+  "prefix": "omnia",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/products/data-access"],
+      "options": {
+        "jestConfig": "libs/products/data-access/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/products/data-access/**/*.ts",
+          "libs/products/data-access/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": ["scope:products", "type:data-access"]
+}
