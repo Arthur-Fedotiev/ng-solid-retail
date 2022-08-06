@@ -23,6 +23,11 @@
             "glob": "**/*",
             "input": "libs/shared/assets/src/assets",
             "output": "assets"
+          },
+          {
+            "glob": "**/*",
+            "input": "api",
+            "output": "api"
           }
         ],
         "stylePreprocessorOptions": {
@@ -77,7 +82,10 @@
           "browserTarget": "omnia-retail:build:development"
         }
       },
-      "defaultConfiguration": "development"
+      "defaultConfiguration": "development",
+      "options": {
+        "proxyConfig": "apps/omnia-retail/proxy.conf.json"
+      }
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
