@@ -6,7 +6,13 @@ const appRoutes: Route[] = [
   {
     path: '',
     component: LayoutFeatureComponent,
-    children: [],
+    children: [
+      {
+        path: 'products',
+        loadChildren: () =>
+          import('@omnia/products/shell').then((m) => m.ProductsShellModule),
+      },
+    ],
   },
 ];
 

@@ -16,12 +16,32 @@
       "SKU": "PORTELLEN21SHRY",
       "Prices": [
         {
-          "Id": "0efe1c1a-5e9e-4997-8fd8-3facf8092a2a",
+          "Id": "11111111-5e9e-4997-8fd8-3facf8092a2a",
           "Retailer": {
             "Id": "e417d0b1-9cdf-48be-92b5-cf78a0eaa5d3",
             "Name": "Omnia"
           },
           "Price": 1000,
+          "Tier": 1,
+          "UpdateTime": "2019-03-08T08:56:24.9171117+01:00"
+        },
+        {
+          "Id": "22222222-5e9e-4997-8fd8-3facf8092112",
+          "Retailer": {
+            "Id": "e417d0b1-9cdf-48be-92b5-cf78a0eaa5d3",
+            "Name": "Omnia"
+          },
+          "Price": 1000,
+          "Tier": 1,
+          "UpdateTime": "2019-03-08T08:56:24.9171117+01:00"
+        },
+        {
+          "Id": "33333333-5e9e-4997-8fd8-3facf8092112",
+          "Retailer": {
+            "Id": "11111-9cdf-48be-92b5-cf78a0eaa5d3",
+            "Name": "Amazon"
+          },
+          "Price": 1100,
           "Tier": 1,
           "UpdateTime": "2019-03-08T08:56:24.9171117+01:00"
         }
@@ -43,16 +63,64 @@
       "SKU": "PORTELLEN21SHRY",
       "Prices": [
         {
-          "Id": "0efe1c1a-5e9e-4997-8fd8-3facf8092a2a",
+          "Id": "1",
           "Retailer": {
-            "Id": "e417d0b1-9cdf-48be-92b5-cf78a0eaa5d3",
+            "Id": "000-9cdf-48be-92b5-cf78a0eaa5d3",
             "Name": "Omnia"
           },
           "Price": 1000,
           "Tier": 1,
           "UpdateTime": "2019-03-08T08:56:24.9171117+01:00"
+        },
+        {
+          "Id": "2",
+          "Retailer": {
+            "Id": "111-9cdf-48be-92b5-cf78a0eaa5d3",
+            "Name": "Amazon"
+          },
+          "Price": 1100,
+          "Tier": 1,
+          "UpdateTime": "2019-03-08T08:56:24.9171117+01:00"
+        },
+        {
+          "Id": "3",
+          "Retailer": {
+            "Id": "000-9cdf-48be-92b5-cf78a0eaa5d3",
+            "Name": "Omnia"
+          },
+          "Price": 500,
+          "Tier": 2,
+          "UpdateTime": "2019-03-08T08:56:24.9171117+01:00"
+        },
+        {
+          "Id": "4",
+          "Retailer": {
+            "Id": "111-9cdf-48be-92b5-cf78a0eaa5d3",
+            "Name": "Amazon"
+          },
+          "Price": 650,
+          "Tier": 2,
+          "UpdateTime": "2019-03-08T08:56:24.9171117+01:00"
         }
       ]
+    }
+  ],
+  "retailers": [
+    {
+      "Id": "000-9cdf-48be-92b5-cf78a0eaa5d3",
+      "Name": "Omnia"
+    },
+    {
+      "Id": "111-9cdf-48be-92b5-cf78a0eaa5d3",
+      "Name": "Amazon"
+    },
+    {
+      "Id": "222-9cdf-48be-92b5-cf78a0eaa5d3",
+      "Name": "Walmart"
+    },
+    {
+      "Id": "333-9cdf-48be-92b5-cf78a0eaa5d3",
+      "Name": "Costco"
     }
   ],
   "users": {

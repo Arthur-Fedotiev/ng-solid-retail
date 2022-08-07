@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "nx",
     "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2020 browser module main",
-    "api": "json-server api/db.json --routes api/routes.json --no-cors=true",
+    "api": "json-server api/db.json --routes api/routes.json --no-cors=true --watch=true",
     "start": "nx serve",
     "build": "nx build",
     "test": "nx test"
@@ -17,6 +17,7 @@
     "@angular/common": "~14.1.1",
     "@angular/compiler": "~14.1.1",
     "@angular/core": "~14.1.1",
+    "@angular/flex-layout": "^14.0.0-beta.40",
     "@angular/forms": "~14.1.1",
     "@angular/material": "^14.1.1",
     "@angular/platform-browser": "~14.1.1",

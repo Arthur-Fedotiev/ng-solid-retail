@@ -10,16 +10,27 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "lib": ["es2017", "dom"],
+    "lib": ["ESNext", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
       "@omnia/layout/feature": ["libs/layout/feature/src/index.ts"],
       "@omnia/layout/ui": ["libs/layout/ui/src/index.ts"],
+      "@omnia/products-feature-display": [
+        "libs/products/feature-display/src/index.ts"
+      ],
+      "@omnia/products/data-access": ["libs/products/data-access/src/index.ts"],
+      "@omnia/products/domain": ["libs/products/domain/src/index.ts"],
+      "@omnia/products/infrastructure": [
+        "libs/products/infrastructure/src/index.ts"
+      ],
+      "@omnia/products/shell": ["libs/products/shell/src/index.ts"],
+      "@omnia/products/ui": ["libs/products/ui/src/index.ts"],
       "@omnia/shared/assets": ["libs/shared/assets/src/index.ts"],
       "@omnia/shared/environments": ["libs/shared/environments/src/index.ts"],
       "@omnia/shared/styles": ["libs/shared/styles/src/index.ts"],
+      "@omnia/shared/ui-list": ["libs/shared/ui-list/src/index.ts"],
       "@omnia/shared/ui-material": ["libs/shared/ui-material/src/index.ts"]
     }
   },
