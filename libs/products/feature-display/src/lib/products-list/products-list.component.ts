@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ProductsFacadeService } from '@omnia/products/data-access';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'omnia-products-list',
@@ -8,16 +9,14 @@ import { ProductsFacadeService } from '@omnia/products/data-access';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductsListComponent implements OnInit {
-  public readonly products$ = this.productsFacade.productsShortInfo$;
+  public readonly products$ = this.productsFacade.productsShortInfo$.pipe(
+    tap((products) => console.log('products', products))
+  );
 
   constructor(private readonly productsFacade: ProductsFacadeService) {}
 
   public ngOnInit(): void {
     this.loadProducts();
-  }
-
-  public trackById(index: number, item: { id: string }): string | number {
-    return item.id ?? index;
   }
 
   private loadProducts() {

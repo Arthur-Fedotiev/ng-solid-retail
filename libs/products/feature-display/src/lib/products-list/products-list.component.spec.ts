@@ -54,19 +54,4 @@ describe('ProductsListComponent', () => {
       expect(facadeService.loadProducts).toHaveBeenCalledTimes(1);
     });
   });
-
-  describe('#trackBy', () => {
-    it('should track by id', fakeAsync(() => {
-      const productsStub = makeProductViewModelsStub();
-      const trackSpy = jest.spyOn(component, 'trackById');
-
-      productsSelectorStub$.next(productsStub);
-      tick();
-      fixture.detectChanges();
-
-      productsStub.forEach((_, index) =>
-        expect(trackSpy).toHaveBeenCalledWith(index, productsStub[index])
-      );
-    }));
-  });
 });

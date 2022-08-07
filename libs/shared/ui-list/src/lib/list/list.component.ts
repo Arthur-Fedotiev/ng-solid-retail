@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ContentChild,
+  Input,
+  TemplateRef,
+} from '@angular/core';
 
 @Component({
   selector: 'omnia-list',
@@ -6,8 +12,13 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   styleUrls: ['./list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ListComponent implements OnInit {
-  constructor() {}
+export class ListComponent {
+  @Input() items!: ReadonlyArray<unknown> | null;
 
-  ngOnInit(): void {}
+  @ContentChild('omniaListItem')
+  itemTemplate!: TemplateRef<unknown>;
+
+  public trackById(index: number, item: any): string | number {
+    return item && 'id' in item ? item.id : index;
+  }
 }

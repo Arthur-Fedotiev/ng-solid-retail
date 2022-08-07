@@ -6,7 +6,8 @@ exports[`ProductCardComponent should render the product  1`] = `
   product={[Function Object]}
 >
   <mat-card
-    class="mat-card mat-focus-indicator example-card"
+    class="mat-card mat-focus-indicator card mat-elevation-z8"
+    tabindex="0"
   >
     <img
       alt="Photo of a Shiba Inu"
@@ -27,7 +28,7 @@ exports[`ProductCardComponent should render the product  1`] = `
         <mat-card-title
           class="mat-card-title"
         >
-          Shiba Inu
+          Product 1
         </mat-card-title>
         <mat-card-subtitle
           class="mat-card-subtitle"

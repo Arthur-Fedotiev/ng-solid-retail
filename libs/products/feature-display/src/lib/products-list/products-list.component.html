@@ -1,6 +1,5 @@
-<omnia-list>
-  <omnia-product-card
-    *ngFor="let product of products$ | async; trackBy: trackById"
-    [product]="product"
-  ></omnia-product-card>
+<omnia-list class="products-list" [items]="products$ | async">
+  <ng-template #omniaListItem let-product>
+    <omnia-product-card [product]="product"></omnia-product-card>
+  </ng-template>
 </omnia-list>

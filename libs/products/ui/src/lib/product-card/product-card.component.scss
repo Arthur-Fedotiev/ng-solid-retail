@@ -1,0 +1,27 @@
+.card {
+  margin-bottom: 2rem;
+
+  &__header {
+    border-bottom: 2px solid lightgrey;
+    margin-bottom: 1rem;
+  }
+
+  &__price-container {
+    padding: 0.25rem;
+    margin-left: auto;
+    text-align: right;
+
+    .price {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 0.5rem;
+      background-color: rgb(75, 121, 247);
+      color: #fff;
+    }
+  }
+
+  &__title {
+    font-size: 1rem;
+    text-align: center;
+  }
+}

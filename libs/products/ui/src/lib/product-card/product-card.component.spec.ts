@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import {
   ComponentFixture,
   ComponentFixtureAutoDetect,
@@ -22,7 +23,7 @@ describe('ProductCardComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ProductCardComponent],
-      imports: [SharedUiMaterialModule],
+      imports: [SharedUiMaterialModule, CommonModule],
       providers: [{ provide: ComponentFixtureAutoDetect, useValue: true }],
     }).compileComponents();
   });

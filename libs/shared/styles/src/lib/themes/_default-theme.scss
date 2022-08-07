@@ -9,7 +9,6 @@ $ft-app-light-primary: mat.define-palette(
   A400
 );
 $ft-app-light-accent: mat.define-palette(mat.$pink-palette, A100, A100, A400);
-
 $ft-app-light-warn: mat.define-palette(mat.$red-palette);
 
 $ft-app-light-theme: mat.define-light-theme(

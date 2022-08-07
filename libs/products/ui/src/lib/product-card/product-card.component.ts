@@ -13,13 +13,7 @@ import { ProductShortInfo } from './product-short-info';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductCardComponent implements OnInit {
-  @Input() product: ProductShortInfo = {
-    id: '1',
-    price: 1,
-    name: 'Product 1',
-    sku: 'SKU 1',
-    retailer: 'Retailer 1',
-  };
+  @Input() product!: ProductShortInfo;
 
   constructor() {}
 
