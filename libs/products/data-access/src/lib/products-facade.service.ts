@@ -5,12 +5,15 @@ import {
   BehaviorSubject,
   distinctUntilChanged,
   filter,
+  map,
   pluck,
   take,
   tap,
 } from 'rxjs';
 import { ProductsStateModel } from './models/products-state.model';
+import { toProductShortInfo } from './utils/to-product-short-info';
 import { toProductViewModel } from './utils/to-product-view-model';
+import { toProductsByPrice } from './utils/to-products-by-price';
 
 @Injectable({
   providedIn: 'root',
@@ -23,6 +26,14 @@ export class ProductsFacadeService {
     pluck('products'),
     distinctUntilChanged(),
     filter(Boolean)
+  );
+
+  public readonly productsListForEachPrice$ = this.products$.pipe(
+    map((products) => products.reduce(toProductsByPrice, []))
+  );
+
+  public readonly productsShortInfo$ = this.productsListForEachPrice$.pipe(
+    map((products) => products.map(toProductShortInfo))
   );
 
   constructor(

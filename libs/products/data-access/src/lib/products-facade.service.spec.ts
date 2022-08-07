@@ -2,9 +2,11 @@ import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { GetProducts, Product } from '@omnia/products/domain';
 import { GET_PRODUCTS, makeProductsStub } from '@omnia/products/infrastructure';
 import { asyncScheduler, scheduled } from 'rxjs';
+import { ProductsStateModel } from './models/products-state.model';
 import { ProductViewModel } from './models/ProductViewModel';
 
 import { ProductsFacadeService } from './products-facade.service';
+import { makeProductViewModelsStub } from './testing/make-product-view-models-stub';
 
 describe('ProductsFacadeService', () => {
   let service: ProductsFacadeService;
@@ -59,6 +61,47 @@ describe('ProductsFacadeService', () => {
 
       service.products$.subscribe((products) => {
         expect(products).toEqual(expected);
+      });
+
+      tick();
+    }));
+  });
+
+  describe('products state derivations', () => {
+    it('should derive productsList for each product price', fakeAsync(() => {
+      const productsViewModelsStub = makeProductViewModelsStub(1);
+      const expected = productsViewModelsStub.reduce(
+        (count, product) => count + product.prices.length,
+        0
+      );
+
+      service.state$.next(new ProductsStateModel(productsViewModelsStub));
+
+      tick();
+
+      service.productsListForEachPrice$.subscribe((products) => {
+        expect(products.length).toEqual(expected);
+      });
+
+      tick();
+    }));
+
+    it('should derive products short info', fakeAsync(() => {
+      const productsViewModelsStub = makeProductViewModelsStub(1);
+      const expectedShortInfo = {
+        id: productsViewModelsStub[0].id,
+        price: productsViewModelsStub[0].prices[0].price,
+        name: productsViewModelsStub[0].name,
+        sku: productsViewModelsStub[0].sku,
+        retailer: productsViewModelsStub[0].prices[0].retailer.name,
+      };
+
+      service.state$.next(new ProductsStateModel(productsViewModelsStub));
+
+      tick();
+
+      service.productsShortInfo$.subscribe((products) => {
+        expect(products[0]).toEqual(expectedShortInfo);
       });
 
       tick();

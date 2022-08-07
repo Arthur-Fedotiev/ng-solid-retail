@@ -1,3 +1,6 @@
 <omnia-list>
-  <pre>{{ products$ | async | json }}</pre>
+  <omnia-product-card
+    *ngFor="let product of products$ | async; trackBy: trackById"
+    [product]="product"
+  ></omnia-product-card>
 </omnia-list>

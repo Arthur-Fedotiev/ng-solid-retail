@@ -1,4 +1,3 @@
-import { Product } from '@omnia/products/domain';
 import { ProductViewModel } from './ProductViewModel';
 
 export class ProductsStateModel {
@@ -8,9 +7,7 @@ export class ProductsStateModel {
   public readonly loading = false;
   public readonly error: string | null = null;
 
-  constructor(products?: Product[]) {
-    this.products = products
-      ? products.map((product) => new ProductViewModel(product))
-      : null;
+  constructor(products?: ReadonlyArray<ProductViewModel>) {
+    this.products = products ? products : null;
   }
 }

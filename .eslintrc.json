@@ -63,7 +63,10 @@
               },
               {
                 "sourceTag": "type:infrastructure",
-                "onlyDependOnLibsWithTags": ["type:data-infrastructure"]
+                "onlyDependOnLibsWithTags": [
+                  "type:infrastructure",
+                  "type:domain"
+                ]
               },
               {
                 "sourceTag": "type:api",
