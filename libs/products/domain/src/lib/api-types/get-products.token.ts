@@ -2,5 +2,5 @@ import { Observable } from 'rxjs';
 import { Product } from '../..';
 
 export interface GetProducts {
-  getProducts(): Observable<Product[]>;
+  getProducts(): Observable<ReadonlyArray<Product>>;
 }

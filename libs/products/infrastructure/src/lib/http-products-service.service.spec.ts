@@ -5,6 +5,7 @@ import { of } from 'rxjs';
 
 import { HttpProductsService } from './http-products-service.service';
 import { PRODUCT_URLS } from './providers/products-urls.token';
+import { makeProductsStub } from './testing/make-products-stub';
 
 describe('HttpProductsService', () => {
   let httpClientMock: jest.Mocked<HttpClient>;
@@ -32,13 +33,7 @@ describe('HttpProductsService', () => {
   });
 
   describe('getProducts', () => {
-    const makeProductsStub = (count: number): Partial<Product>[] =>
-      Array(count).map((_, i) => ({
-        Id: i.toString(),
-        Name: `Product ${i}`,
-        Description: `Product ${i} description`,
-      }));
-    let productsStub: Partial<Product>[];
+    let productsStub: ReadonlyArray<Product>;
 
     beforeEach(() => (productsStub = makeProductsStub(3)));
 

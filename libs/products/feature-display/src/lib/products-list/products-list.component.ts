@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ProductsFacadeService } from '@omnia/products/data-access';
 
 @Component({
   selector: 'omnia-products-list',
@@ -7,7 +8,15 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductsListComponent implements OnInit {
-  constructor() {}
+  public readonly products$ = this.productsFacade.products$;
 
-  ngOnInit(): void {}
+  constructor(private readonly productsFacade: ProductsFacadeService) {}
+
+  public ngOnInit(): void {
+    this.loadProducts();
+  }
+
+  private loadProducts() {
+    this.productsFacade.loadProducts();
+  }
 }
