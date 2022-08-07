@@ -64,7 +64,7 @@ exports[`LayoutFeatureComponent should render 1`] = `
               </a>
               <a
                 class="mat-list-item mat-focus-indicator nav-bar__item"
-                href="/products"
+                href="/products/create"
                 mat-list-item=""
               >
                 <span
@@ -156,6 +156,7 @@ exports[`LayoutFeatureComponent should render 1`] = `
         />
         <mat-drawer-content
           class="mat-drawer-content"
+          color="accent"
         >
           <header>
             <omnia-profile-toolbar>
@@ -207,9 +208,6 @@ exports[`LayoutFeatureComponent should render 1`] = `
           <main
             class="content"
           >
-            <p>
-              Main content
-            </p>
             <router-outlet />
           </main>
         </mat-drawer-content>

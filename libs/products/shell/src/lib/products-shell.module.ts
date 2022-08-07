@@ -14,6 +14,20 @@ import { RouterModule } from '@angular/router';
             (m) => m.ProductsFeatureDisplayModule
           ),
       },
+      {
+        path: 'create',
+        loadChildren: () =>
+          import('@omnia/products/feature-create-product').then(
+            (m) => m.ProductsFeatureCreateProductModule
+          ),
+      },
+      {
+        path: ':id/edit',
+        loadChildren: () =>
+          import('@omnia/products/feature-create-product').then(
+            (m) => m.ProductsFeatureCreateProductModule
+          ),
+      },
     ]),
   ],
 })
