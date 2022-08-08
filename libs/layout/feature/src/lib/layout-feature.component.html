@@ -5,7 +5,11 @@
         <mat-icon class="nav-bar__icon">local_grocery_store</mat-icon>
         <span>Products</span>
       </a>
-      <a class="nav-bar__item" mat-list-item [routerLink]="['products']">
+      <a
+        class="nav-bar__item"
+        mat-list-item
+        [routerLink]="['products', 'create']"
+      >
         <mat-icon class="nav-bar__icon">library_add</mat-icon>
         <span>Create product</span>
       </a></omnia-navigation-bar
@@ -28,7 +32,7 @@
     <mat-drawer-content color="accent">
       <!-- TODO: add user data as an input instead of hard code -->
       <header><omnia-profile-toolbar></omnia-profile-toolbar></header>
-      <main class="content .test-color" color="accent">
+      <main class="content">
         <router-outlet></router-outlet>
       </main>
     </mat-drawer-content>

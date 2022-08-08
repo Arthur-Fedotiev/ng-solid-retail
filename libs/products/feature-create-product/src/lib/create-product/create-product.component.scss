@@ -1,0 +1,21 @@
+:host {
+  main {
+    padding: 1rem 0 2rem;
+  }
+}
+
+.create-product {
+  margin-top: 1.25rem;
+}
+
+.prices {
+  &__action {
+    margin-bottom: 1.25rem;
+
+    &--add {
+      @media (min-width: 960px) {
+        width: 25%;
+      }
+    }
+  }
+}

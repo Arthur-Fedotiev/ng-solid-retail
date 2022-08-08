@@ -1,8 +1,8 @@
 import { inject, InjectionToken } from '@angular/core';
-import { GetProducts } from '@omnia/products/domain';
+import { ProductsApi } from '@omnia/products/domain';
 import { HttpProductsService } from '../http-products-service.service';
 
-export const GET_PRODUCTS = new InjectionToken<GetProducts>('GetProducts', {
+export const PRODUCTS_API = new InjectionToken<ProductsApi>('ProductsApi', {
   providedIn: 'root',
   factory: () => inject(HttpProductsService),
 });
