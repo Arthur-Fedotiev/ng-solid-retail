@@ -1,0 +1,19 @@
+name: Lint test build on PR
+'on': pull_request
+jobs:
+  build_and_preview:
+    if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: nrwl/nx-set-shas@v2
+        with:
+          main-branch-name: '${{ github.event.pull_request.base.ref }}'
+      - run: yarn install --frozen-lockfile
+
+      - run: npx nx workspace-lint
+      - run: npx nx affected --target=lint --parallel=3
+      - run: npx nx affected --target=test --parallel=3 --ci --code-coverage
+      - run: npx nx affected --target=build --parallel=3
