@@ -6,10 +6,11 @@
       "Description": "21 year old sherry cask Port Ellen",
       "Categories": [
         {
-          "Id": "ad327ca5-ec10-4051-9b05-43ebaa3157ce",
+          "Id": "1",
           "Name": "Whisky"
         },
         {
+          "Id": "2",
           "Name": "Scotch"
         }
       ],
@@ -53,10 +54,11 @@
       "Description": "21 year old sherry cask Port Ellen",
       "Categories": [
         {
-          "Id": "ad327ca5-ec10-4051-9b05-43ebaa3157ce",
+          "Id": "1",
           "Name": "Whisky"
         },
         {
+          "Id": "2",
           "Name": "Scotch"
         }
       ],
@@ -121,6 +123,16 @@
     {
       "Id": "333-9cdf-48be-92b5-cf78a0eaa5d3",
       "Name": "Costco"
+    }
+  ],
+  "categories": [
+    {
+      "Id": "1",
+      "Name": "Whisky"
+    },
+    {
+      "Id": "2",
+      "Name": "Scotch"
     }
   ],
   "users": {

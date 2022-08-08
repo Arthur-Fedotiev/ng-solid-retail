@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
-import { GetProducts, Product } from '@omnia/products/domain';
-import { GET_PRODUCTS } from '@omnia/products/infrastructure';
+import { ProductsApi, Product, Category } from '@omnia/products/domain';
+import { PRODUCTS_API } from '@omnia/products/infrastructure';
 import {
   BehaviorSubject,
   distinctUntilChanged,
@@ -10,6 +10,8 @@ import {
   take,
   tap,
 } from 'rxjs';
+import { CategoryEnum } from './constants/category.enum';
+import { CategoryViewModel } from './models/CategoryViewModel';
 import { ProductsStateModel } from './models/products-state.model';
 import { toProductShortInfo } from './utils/to-product-short-info';
 import { toProductViewModel } from './utils/to-product-view-model';
@@ -36,23 +38,48 @@ export class ProductsFacadeService {
     map((products) => products.map(toProductShortInfo))
   );
 
+  public readonly categories$ = this.state$.pipe(
+    pluck('categories'),
+    distinctUntilChanged(),
+    filter(Boolean)
+  );
+
   constructor(
-    @Inject(GET_PRODUCTS) private readonly getProducts: GetProducts
+    @Inject(PRODUCTS_API) private readonly productsApi: ProductsApi
   ) {}
 
   public loadProducts(): void {
-    this.getProducts
+    this.productsApi
       .getProducts()
-      .pipe(tap(this.updateProduct.bind(this)), take(1))
+      .pipe(tap(this.updateProduct), take(1))
       .subscribe();
   }
 
-  private updateProduct(products: ReadonlyArray<Product>): void {
+  public loadCategories(): void {
+    this.productsApi
+      .getCategories()
+      .pipe(tap(this.updateCategories), take(1))
+      .subscribe();
+  }
+
+  private updateProduct = (products: ReadonlyArray<Product>) => {
     this.state$.next(
       (this.state = {
         ...this.state,
         products: products.map(toProductViewModel),
       })
     );
-  }
+  };
+
+  private readonly updateCategories = (categories: ReadonlyArray<Category>) => {
+    this.state$.next(
+      (this.state = {
+        ...this.state,
+        categories: categories.map(
+          ({ Id, Name }) =>
+            new CategoryViewModel(Id as string, Name as CategoryEnum)
+        ),
+      })
+    );
+  };
 }

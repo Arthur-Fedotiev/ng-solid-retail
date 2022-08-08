@@ -1,6 +1,6 @@
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { GetProducts, Product } from '@omnia/products/domain';
-import { GET_PRODUCTS, makeProductsStub } from '@omnia/products/infrastructure';
+import { Product, ProductsApi } from '@omnia/products/domain';
+import { PRODUCTS_API, makeProductsStub } from '@omnia/products/infrastructure';
 import { asyncScheduler, scheduled } from 'rxjs';
 import { ProductsStateModel } from './models/products-state.model';
 import { ProductViewModel } from './models/ProductViewModel';
@@ -10,23 +10,24 @@ import { makeProductViewModelsStub } from './testing/make-product-view-models-st
 
 describe('ProductsFacadeService', () => {
   let service: ProductsFacadeService;
-  let getProductsProviderMock: jest.Mocked<GetProducts>;
+  let productsApiProviderMock: jest.Mocked<ProductsApi>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
         {
-          provide: GET_PRODUCTS,
+          provide: PRODUCTS_API,
           useValue: {
             getProducts: jest.fn(),
+            getCategories: jest.fn(),
           },
         },
       ],
     });
     service = TestBed.inject(ProductsFacadeService);
-    getProductsProviderMock = TestBed.inject(
-      GET_PRODUCTS
-    ) as jest.Mocked<GetProducts>;
+    productsApiProviderMock = TestBed.inject(
+      PRODUCTS_API
+    ) as jest.Mocked<ProductsApi>;
   });
 
   it('should be created', () => {
@@ -39,21 +40,21 @@ describe('ProductsFacadeService', () => {
     beforeEach(() => (productsStub = makeProductsStub(5)));
     afterEach(() => jest.clearAllMocks());
 
-    it('should delegate to getProducts', fakeAsync(() => {
-      getProductsProviderMock.getProducts.mockReturnValue(
+    it('should delegate to GetProducts', fakeAsync(() => {
+      productsApiProviderMock.getProducts.mockReturnValue(
         scheduled([productsStub], asyncScheduler)
       );
 
       service.loadProducts();
       tick();
 
-      expect(getProductsProviderMock.getProducts).toHaveBeenCalledTimes(1);
+      expect(productsApiProviderMock.getProducts).toHaveBeenCalledTimes(1);
     }));
 
     it('should set product state', fakeAsync(() => {
       const expected = productsStub.map((p) => new ProductViewModel(p));
 
-      getProductsProviderMock.getProducts.mockReturnValue(
+      productsApiProviderMock.getProducts.mockReturnValue(
         scheduled([productsStub], asyncScheduler)
       );
 
@@ -102,6 +103,40 @@ describe('ProductsFacadeService', () => {
 
       service.productsShortInfo$.subscribe((products) => {
         expect(products[0]).toEqual(expectedShortInfo);
+      });
+
+      tick();
+    }));
+  });
+
+  describe('loadCategories', () => {
+    it('should delegate to GetCategories', fakeAsync(() => {
+      productsApiProviderMock.getCategories.mockReturnValue(
+        scheduled([[]], asyncScheduler)
+      );
+
+      service.loadCategories();
+      tick();
+
+      expect(productsApiProviderMock.getCategories).toHaveBeenCalledTimes(1);
+    }));
+
+    it('should set categories state', fakeAsync(() => {
+      const categoriesStub = [
+        { Id: '1', Name: 'Category 1' },
+        { Id: '2', Name: 'Category 2' },
+      ];
+
+      const expected = categoriesStub.map((c) => ({ id: c.Id, name: c.Name }));
+
+      productsApiProviderMock.getCategories.mockReturnValue(
+        scheduled([categoriesStub], asyncScheduler)
+      );
+
+      service.loadCategories();
+
+      service.categories$.subscribe((categories) => {
+        expect(categories).toEqual(expected);
       });
 
       tick();

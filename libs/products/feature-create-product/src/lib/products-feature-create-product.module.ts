@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { CreateProductModule } from './create-product/create-product.module';
 import { RouterModule } from '@angular/router';
 import { CreateProductComponent } from './create-product/create-product.component';
@@ -12,7 +11,6 @@ import { CreateProductComponent } from './create-product/create-product.componen
         component: CreateProductComponent,
       },
     ]),
-    CommonModule,
     CreateProductModule,
   ],
 })

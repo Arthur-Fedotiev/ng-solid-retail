@@ -1,3 +1,4 @@
 export interface ProductUrls {
-  readonly getProducts: string;
+  readonly productsApi: string;
+  readonly categoriesApi: string;
 }

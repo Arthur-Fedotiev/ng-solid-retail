@@ -34,7 +34,8 @@
       "@omnia/shared/environments": ["libs/shared/environments/src/index.ts"],
       "@omnia/shared/styles": ["libs/shared/styles/src/index.ts"],
       "@omnia/shared/ui-list": ["libs/shared/ui-list/src/index.ts"],
-      "@omnia/shared/ui-material": ["libs/shared/ui-material/src/index.ts"]
+      "@omnia/shared/ui-material": ["libs/shared/ui-material/src/index.ts"],
+      "@omnia/shared/util": ["libs/shared/util/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

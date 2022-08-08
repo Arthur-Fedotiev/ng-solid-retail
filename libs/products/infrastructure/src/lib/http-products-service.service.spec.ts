@@ -17,7 +17,10 @@ describe('HttpProductsService', () => {
       providers: [
         {
           provide: PRODUCT_URLS,
-          useValue: { getProducts: '/test-api/products' },
+          useValue: {
+            productsApi: '/test-api/products',
+            categoriesApi: '/test-api/categories',
+          },
         },
         { provide: HttpClient, useValue: { get: jest.fn() } },
       ],
@@ -40,21 +43,45 @@ describe('HttpProductsService', () => {
     afterEach(() => jest.clearAllMocks());
 
     it('should call http.get with the correct url', () => {
-      httpClientMock.get.mockReturnValue(of(productsStub));
+      httpClientMock.get.mockReturnValueOnce(of(productsStub));
 
       service.getProducts().subscribe();
 
       expect(httpClientMock.get).toHaveBeenNthCalledWith(
         1,
-        productUrlsMock.getProducts
+        productUrlsMock.productsApi
       );
     });
 
     it('should return products', fakeAsync(() => {
-      httpClientMock.get.mockReturnValue(of(productsStub));
+      httpClientMock.get.mockReturnValueOnce(of(productsStub));
 
       service.getProducts().subscribe((products) => {
         expect(products).toEqual(productsStub);
+      });
+
+      tick();
+    }));
+  });
+
+  describe('getCategories', () => {
+    it('should call http.get with the correct url', () => {
+      httpClientMock.get.mockReturnValueOnce(of([]));
+
+      service.getCategories().subscribe();
+
+      expect(httpClientMock.get).toHaveBeenNthCalledWith(
+        1,
+        productUrlsMock.categoriesApi
+      );
+    });
+
+    it('should return an array of categories', fakeAsync(() => {
+      const categoriesStub = ['category1', 'category2'];
+      httpClientMock.get.mockReturnValueOnce(of(categoriesStub));
+
+      service.getCategories().subscribe((categories) => {
+        expect(categories).toEqual(categoriesStub);
       });
 
       tick();

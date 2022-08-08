@@ -4,6 +4,7 @@ import { ProductUrls } from '@omnia/products/domain';
 export const PRODUCT_URLS = new InjectionToken<ProductUrls>('ProductUrls', {
   providedIn: 'root',
   factory: () => ({
-    getProducts: '/api/products',
+    productsApi: '/api/products',
+    categoriesApi: '/api/categories',
   }),
 });

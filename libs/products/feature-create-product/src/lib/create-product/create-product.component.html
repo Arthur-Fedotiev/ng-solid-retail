@@ -1,1 +1,128 @@
-<p>create-product works!</p>
+<div fxLayout="row nowrap" fxLayoutAlign="center">
+  <section
+    class="create-product"
+    fxFlex="50%"
+    fxFlex.xs="90%"
+    fxFlex.sm="60%"
+    fxFlex.md="75"
+  >
+    <h3>Create New Product</h3>
+
+    <form
+      fxLayout="column nowrap"
+      [formGroup]="productForm"
+      class="create-product__form"
+    >
+      <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input placeholder="Product name" matInput formControlName="name" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Description</mat-label>
+        <textarea
+          matInput
+          placeholder="Product short description"
+          formControlName="description"
+        ></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Categories</mat-label>
+        <mat-select
+          multiple
+          placeholder="Select Product Categories"
+          formControlName="categories"
+        >
+          <mat-option
+            *ngFor="let category of categories$ | async"
+            [value]="category"
+            >{{ category.name }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>SKU</mat-label>
+        <input placeholder="Product SKU" matInput formControlName="sku" />
+      </mat-form-field>
+
+      <ng-container formArrayName="prices">
+        <ng-container *ngFor="let _ of prices.controls; index as i">
+          <div
+            fxLayout.lt-md="column nowrap"
+            fxLayout.gt-sm="row nowrap"
+            fxLayoutGap.gt-sm="1rem"
+            fxLayoutAlign.gt-sm="space-between center"
+            class="prices"
+            [formGroupName]="i"
+          >
+            <mat-form-field appearance="outline">
+              <mat-label>Price</mat-label>
+              <input
+                matInput
+                formControlName="price"
+                placeholder="Product Price"
+              />
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Tier</mat-label>
+              <input
+                matInput
+                formControlName="tier"
+                placeholder="Product Tier"
+              />
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Retailer</mat-label>
+              <mat-select
+                formControlName="retailer"
+                placeholder="Product Retailer"
+              >
+                <mat-option [value]="{ name: 'Omnia', id: '111' }"
+                  >Omnia</mat-option
+                >
+              </mat-select>
+            </mat-form-field>
+            <button
+              class="prices__action"
+              fxHide.gt-sm
+              mat-raised-button
+              color="warn"
+              (click)="deletePrice(i)"
+            >
+              DELETE PRICE
+            </button>
+            <button
+              class="prices__action"
+              fxHide.lt-md
+              color="warn"
+              mat-mini-fab
+              (click)="deletePrice(i)"
+            >
+              <mat-icon class="delete-btn">delete_forever</mat-icon>
+            </button>
+          </div>
+        </ng-container>
+      </ng-container>
+
+      <button
+        mat-raised-button
+        class="prices__action prices__action--add"
+        type="button"
+        color="success"
+        (click)="addPrice()"
+      >
+        ADD PRICE
+      </button>
+      <button
+        mat-raised-button
+        color="warn"
+        [disabled]="!productForm.valid || !productForm.dirty"
+        (click)="onSave()"
+      >
+        SAVE
+      </button>
+    </form>
+  </section>
+</div>

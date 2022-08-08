@@ -1,6 +1,7 @@
 import { Observable } from 'rxjs';
-import { Product } from '../..';
+import { Category, Product } from '../..';
 
-export interface GetProducts {
+export interface ProductsApi {
   getProducts(): Observable<ReadonlyArray<Product>>;
+  getCategories(): Observable<ReadonlyArray<Category>>;
 }
