@@ -79,8 +79,10 @@
                 formControlName="retailer"
                 placeholder="Product Retailer"
               >
-                <mat-option [value]="{ name: 'Omnia', id: '111' }"
-                  >Omnia</mat-option
+                <mat-option
+                  *ngFor="let retailer of retailers$ | async"
+                  [value]="retailer"
+                  >{{ retailer.name }}</mat-option
                 >
               </mat-select>
             </mat-form-field>

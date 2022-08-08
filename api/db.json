@@ -159,6 +159,43 @@
           "UpdateTime": "2022-08-08T12:56:51+03:00"
         }
       ]
+    },
+    {
+      "Id": "fc8672e7-b026-4f96-8005-f1312edc3f5f",
+      "id": "fc8672e7-b026-4f96-8005-f1312edc3f5f",
+      "Name": "Barbell Full Squat",
+      "SKU": "sadfsadfdsa",
+      "Description": "dsfsdfsd",
+      "Categories": [
+        {
+          "Id": "1",
+          "Name": "Whisky"
+        }
+      ],
+      "Prices": [
+        {
+          "Id": "8851472a-37c6-4d0e-96c4-1d6574455fb6",
+          "id": "8851472a-37c6-4d0e-96c4-1d6574455fb6",
+          "Price": "67",
+          "Tier": "2",
+          "Retailer": {
+            "Id": "111",
+            "Name": "Omnia"
+          },
+          "UpdateTime": "2022-08-08T13:44:43+03:00"
+        },
+        {
+          "Id": "e874aff8-bc2d-4a95-8fff-3f3704bf3d14",
+          "id": "e874aff8-bc2d-4a95-8fff-3f3704bf3d14",
+          "Price": "3450",
+          "Tier": 1,
+          "Retailer": {
+            "Id": "111",
+            "Name": "Omnia"
+          },
+          "UpdateTime": "2022-08-08T13:44:43+03:00"
+        }
+      ]
     }
   ],
   "retailers": [
@@ -187,6 +224,30 @@
     {
       "Id": "2",
       "Name": "Scotch"
+    }
+  ],
+  "prices": [
+    {
+      "Id": "8851472a-37c6-4d0e-96c4-1d6574455fb6",
+      "id": "8851472a-37c6-4d0e-96c4-1d6574455fb6",
+      "Price": "67",
+      "Tier": "2",
+      "Retailer": {
+        "Id": "111",
+        "Name": "Omnia"
+      },
+      "UpdateTime": "2022-08-08T13:44:43+03:00"
+    },
+    {
+      "Id": "e874aff8-bc2d-4a95-8fff-3f3704bf3d14",
+      "id": "e874aff8-bc2d-4a95-8fff-3f3704bf3d14",
+      "Price": "3450",
+      "Tier": 1,
+      "Retailer": {
+        "Id": "111",
+        "Name": "Omnia"
+      },
+      "UpdateTime": "2022-08-08T13:44:43+03:00"
     }
   ],
   "users": {

@@ -28,10 +28,6 @@ exports[`ProductCardComponent should render the product  1`] = `
       class="mat-card-header card__header"
     >
       <div
-        class="mat-card-avatar"
-        mat-card-avatar=""
-      />
-      <div
         class="mat-card-header-text"
       >
         <mat-card-title

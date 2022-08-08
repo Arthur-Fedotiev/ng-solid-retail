@@ -10,10 +10,7 @@ import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { SharedUiMaterialModule } from '@omnia/shared/ui-material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { CreateProductComponent } from './create-product.component';
-import {
-  CreateProductForm,
-  ProductsFacadeService,
-} from '@omnia/products/data-access';
+import { ProductsFacadeService } from '@omnia/products/data-access';
 import { Subject } from 'rxjs';
 
 describe('CreateProductComponent', () => {
@@ -39,6 +36,7 @@ describe('CreateProductComponent', () => {
           provide: ProductsFacadeService,
           useValue: {
             loadCategories: jest.fn(),
+            loadRetailers: jest.fn(),
             createProduct: jest.fn(),
             categories$: categoriesSubj,
           },

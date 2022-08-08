@@ -1,4 +1,4 @@
-import { InjectionToken, inject } from '@angular/core';
+import { InjectionToken } from '@angular/core';
 import { ProductUrls } from '@omnia/products/domain';
 
 export const PRODUCT_URLS = new InjectionToken<ProductUrls>('ProductUrls', {
@@ -6,5 +6,7 @@ export const PRODUCT_URLS = new InjectionToken<ProductUrls>('ProductUrls', {
   factory: () => ({
     productsApi: '/api/products',
     categoriesApi: '/api/categories',
+    pricesApi: '/api/prices',
+    retailersApi: '/api/retailers',
   }),
 });

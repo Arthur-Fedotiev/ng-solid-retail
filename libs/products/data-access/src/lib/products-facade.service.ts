@@ -1,5 +1,10 @@
 import { Inject, Injectable } from '@angular/core';
-import { ProductsApi, Product, Category } from '@omnia/products/domain';
+import {
+  ProductsApi,
+  Product,
+  Category,
+  Retailer,
+} from '@omnia/products/domain';
 import { PRODUCTS_API } from '@omnia/products/infrastructure';
 import { IdGenerator, ID_GENERATOR } from '@omnia/shared/util';
 import {
@@ -7,6 +12,7 @@ import {
   distinctUntilChanged,
   filter,
   map,
+  Observable,
   pluck,
   take,
   tap,
@@ -19,9 +25,11 @@ import {
   ToProductPostDto,
   TO_PRODUCT_POST_DTO,
 } from './providers/to-product-post-dto.token';
+import { toCategoryViewModel } from './utils/to-category-view-model';
 import { toProductShortInfo } from './utils/to-product-short-info';
 import { toProductViewModel } from './utils/to-product-view-model';
 import { toProductsByPrice } from './utils/to-products-by-price';
+import { toRetailerViewModel } from './utils/to-retailer-view-model';
 
 @Injectable({
   providedIn: 'root',
@@ -50,6 +58,12 @@ export class ProductsFacadeService {
     filter(Boolean)
   );
 
+  public readonly retailers$ = this.state$.pipe(
+    pluck('retailers'),
+    distinctUntilChanged(),
+    filter(Boolean)
+  );
+
   constructor(
     @Inject(PRODUCTS_API)
     private readonly productsApi: ProductsApi,
@@ -73,13 +87,20 @@ export class ProductsFacadeService {
       .subscribe();
   }
 
-  public createProduct(createProductFormValue: CreateProductForm) {
+  public loadRetailers(): void {
+    this.productsApi
+      .getRetailers()
+      .pipe(tap(this.updateRetailers), take(1))
+      .subscribe();
+  }
+
+  public createProduct(createProductFormValue: CreateProductForm): void {
     this.productsApi
       .createProduct(
         this.toProductPostDto(createProductFormValue, this.idGenerator)
       )
       .pipe(take(1))
-      .subscribe(console.log);
+      .subscribe();
   }
 
   private updateProduct = (products: ReadonlyArray<Product>) => {
@@ -91,14 +112,22 @@ export class ProductsFacadeService {
     );
   };
 
-  private readonly updateCategories = (categories: ReadonlyArray<Category>) => {
+  private updateRetailers = (retailers: ReadonlyArray<Retailer>) => {
     this.state$.next(
       (this.state = {
         ...this.state,
-        categories: categories.map(
-          ({ Id, Name }) =>
-            new CategoryViewModel(Id as string, Name as CategoryEnum)
-        ),
+        retailers: retailers.map(toRetailerViewModel),
+      })
+    );
+  };
+
+  private readonly updateCategories = (
+    categories: ReadonlyArray<Category>
+  ): void => {
+    this.state$.next(
+      (this.state = {
+        ...this.state,
+        categories: categories.map(toCategoryViewModel),
       })
     );
   };

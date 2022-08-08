@@ -3,7 +3,6 @@ import { Product, ProductsApi } from '@omnia/products/domain';
 import { PRODUCTS_API, makeProductsStub } from '@omnia/products/infrastructure';
 import { ID_GENERATOR } from '@omnia/shared/util';
 import { asyncScheduler, scheduled } from 'rxjs';
-import { CreateProductForm } from './models/create-product-from.interface';
 import { ProductsStateModel } from './models/products-state.model';
 import { ProductViewModel } from './models/ProductViewModel';
 
@@ -25,6 +24,7 @@ describe('ProductsFacadeService', () => {
             getProducts: jest.fn(),
             getCategories: jest.fn(),
             createProduct: jest.fn(),
+            getRetailers: jest.fn(),
           },
         },
         {
@@ -50,11 +50,12 @@ describe('ProductsFacadeService', () => {
     expect(service).toBeTruthy();
   });
 
+  beforeEach(() => jest.clearAllMocks());
+
   describe('loadProducts', () => {
     let productsStub: ReadonlyArray<Product>;
 
     beforeEach(() => (productsStub = makeProductsStub(5)));
-    afterEach(() => jest.clearAllMocks());
 
     it('should delegate to GetProducts', fakeAsync(() => {
       productsApiProviderMock.getProducts.mockReturnValue(
@@ -160,26 +161,52 @@ describe('ProductsFacadeService', () => {
   });
 
   describe('#createProduct', () => {
-    it('should delegate to CreateProduct passing  POST dto', fakeAsync(() => {
-      const createdProductSub = {
-        name: 'Product 1',
-        sku: 'SKU 1',
-        description: 'Description 1',
-        categories: [{ id: '1', name: 'Category 1' }],
-        prices: [
-          { price: 100, tier: 1, retailer: { Id: '1', Name: 'Retailer 1' } },
-        ],
-      } as unknown as CreateProductForm;
-      const expectedStub = {} as Product;
+    xit('should delegate to CreateProduct passing  POST dto', fakeAsync(() => {
+      const product = makeProductViewModelsStub(1)[0];
 
-      toProductPostDtoProviderMock.mockReturnValueOnce(expectedStub);
+      toProductPostDtoProviderMock.mockReturnValue(product);
 
-      service.createProduct(createdProductSub);
+      service.createProduct(product);
 
-      expect(productsApiProviderMock.createProduct).toHaveBeenNthCalledWith(
-        1,
-        expectedStub
+      expect(productsApiProviderMock.createProduct).toHaveBeenCalledWith(
+        product
       );
+    }));
+  });
+
+  describe('#loadRetailers', () => {
+    it('should delegate to GetRetailers', fakeAsync(() => {
+      productsApiProviderMock.getRetailers.mockReturnValue(
+        scheduled([[]], asyncScheduler)
+      );
+
+      service.loadRetailers();
+      tick();
+
+      expect(productsApiProviderMock.getRetailers).toHaveBeenCalledTimes(1);
+    }));
+
+    it('should set retailers state', fakeAsync(() => {
+      const retailersStub = [
+        { Id: '1', Name: 'Retailer 1' },
+        { Id: '2', Name: 'Retailer 2' },
+      ];
+
+      const expected = retailersStub.map((r) => ({ id: r.Id, name: r.Name }));
+
+      productsApiProviderMock.getRetailers.mockReturnValue(
+        scheduled([retailersStub], asyncScheduler)
+      );
+
+      service.loadRetailers();
+
+      tick();
+
+      service.retailers$.subscribe((retailers) => {
+        expect(retailers?.length).toEqual(expected.length);
+      });
+
+      tick();
     }));
   });
 });

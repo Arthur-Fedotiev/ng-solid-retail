@@ -15,6 +15,7 @@ import { validateSize } from './util/validate-size';
 })
 export class CreateProductComponent implements OnInit {
   public readonly categories$ = this.productsFacade.categories$;
+  public readonly retailers$ = this.productsFacade.retailers$;
 
   public readonly productForm = this.fb.group({
     name: [
@@ -41,6 +42,7 @@ export class CreateProductComponent implements OnInit {
 
   public ngOnInit(): void {
     this.productsFacade.loadCategories();
+    this.productsFacade.loadRetailers();
   }
 
   public addPrice() {
@@ -52,8 +54,6 @@ export class CreateProductComponent implements OnInit {
   }
 
   public onSave(): void {
-    console.log(this.productForm.value);
-
     this.productsFacade.createProduct(
       this.productForm.value as CreateProductForm
     );

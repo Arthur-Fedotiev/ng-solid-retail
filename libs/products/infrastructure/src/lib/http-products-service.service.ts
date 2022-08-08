@@ -5,8 +5,10 @@ import {
   Product,
   ProductUrls,
   Category,
+  Price,
+  Retailer,
 } from '@omnia/products/domain';
-import { Observable, tap } from 'rxjs';
+import { forkJoin, Observable, of, switchMap } from 'rxjs';
 import { PRODUCT_URLS } from './providers/products-urls.token';
 
 @Injectable({
@@ -18,20 +20,36 @@ export class HttpProductsService implements ProductsApi {
     private readonly http: HttpClient
   ) {}
 
-  public getCategories(): Observable<readonly Category[]> {
-    return this.http.get<Category[]>(this.productUrls.categoriesApi);
+  public getCategories(): Observable<ReadonlyArray<Category>> {
+    return this.http.get<ReadonlyArray<Category>>(
+      this.productUrls.categoriesApi
+    );
   }
 
-  public getProducts(): Observable<readonly Product[]> {
-    return this.http.get<Product[]>(this.productUrls.productsApi);
+  public getProducts(): Observable<ReadonlyArray<Product>> {
+    return this.http.get<ReadonlyArray<Product>>(this.productUrls.productsApi);
+  }
+
+  public getRetailers() {
+    return this.http.get<ReadonlyArray<Retailer>>(
+      this.productUrls.retailersApi
+    );
   }
 
   public createProduct(product: Product): Observable<Product> {
-    console.log('createProduct', product);
-    console.log('createProduct', this.productUrls.productsApi);
+    const { Prices } = product;
+    const prices$ = Prices.length
+      ? Prices.map((price) => this.createOnePrice(price))
+      : [of({})];
 
-    return this.http
-      .post<Product>(this.productUrls.productsApi, product)
-      .pipe(tap((createdProduct) => console.log(createdProduct)));
+    return forkJoin(prices$).pipe(
+      switchMap(() =>
+        this.http.post<Product>(this.productUrls.productsApi, product)
+      )
+    );
+  }
+
+  private createOnePrice(price: Price): Observable<Price> {
+    return this.http.post<Price>(this.productUrls.pricesApi, price);
   }
 }

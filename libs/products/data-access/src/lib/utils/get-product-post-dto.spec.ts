@@ -16,6 +16,8 @@ describe('getProductPostDto', () => {
     } as unknown as CreateProductForm;
 
     const expectedId = idGeneratorMock();
+    const expectedPriceId = idGeneratorMock();
+
     const expected = {
       Id: expectedId,
       id: expectedId,
@@ -25,6 +27,7 @@ describe('getProductPostDto', () => {
       Categories: product.categories.map((c) => ({ Id: c.id, Name: c.name })),
       Prices: product.prices.map((p) => ({
         Id: idGeneratorMock(),
+        id: expectedPriceId,
         Price: p.price,
         Tier: p.tier,
         Retailer: { Id: p.retailer.id, Name: p.retailer.name },
