@@ -1,0 +1,13 @@
+<div class="list" fxLayout="row wrap" fxLayoutGap="1rem" fxLayoutAlign="center">
+  <div
+    *ngFor="let item of items; trackBy: trackById"
+    class="list__item"
+    fxFlex="90%"
+    fxFlex.gt-xs="47.5%"
+    fxFlex.gt-sm="22.5%"
+  >
+    <ng-container
+      *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"
+    ></ng-container>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AppComponent should render 1`] = `
+<omnia-root
+  __ngContext__={[Function Number]}
+>
+  <router-outlet />
+</omnia-root>
+`;

@@ -1,0 +1,218 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LayoutFeatureComponent should render 1`] = `
+<omnia-layout-feature
+  __ngContext__={[Function Number]}
+>
+  <mat-sidenav-container
+    class="mat-drawer-container mat-sidenav-container"
+    fullscreen=""
+  >
+    <div
+      class="mat-drawer-backdrop"
+    />
+    <div
+      aria-hidden="true"
+      class="cdk-visually-hidden cdk-focus-trap-anchor"
+    />
+    <mat-sidenav
+      class="mat-drawer mat-sidenav ng-trigger ng-trigger-transform mat-drawer-over"
+      style="box-shadow:none;visibility:hidden;0:box-shadow;1:visibility;"
+      tabindex="-1"
+    >
+      <div
+        cdkscrollable=""
+        class="mat-drawer-inner-container"
+      >
+        <omnia-navigation-bar
+          class="nav-bar"
+        >
+          <nav
+            class="nav-container"
+          >
+            <mat-nav-list
+              class="mat-nav-list mat-list-base nav-container__list"
+              role="navigation"
+            >
+              <a
+                class="mat-list-item mat-focus-indicator nav-bar__item"
+                href="/products"
+                mat-list-item=""
+              >
+                <span
+                  class="mat-list-item-content"
+                >
+                  <span
+                    class="mat-ripple mat-list-item-ripple"
+                    mat-ripple=""
+                  />
+                  <span
+                    class="mat-list-text"
+                  />
+                  <mat-icon
+                    aria-hidden="true"
+                    class="mat-icon notranslate nav-bar__icon material-icons mat-ligature-font mat-icon-no-color"
+                    data-mat-icon-type="font"
+                    role="img"
+                  >
+                    local_grocery_store
+                  </mat-icon>
+                  <span>
+                    Products
+                  </span>
+                </span>
+              </a>
+              <a
+                class="mat-list-item mat-focus-indicator nav-bar__item"
+                href="/products/create"
+                mat-list-item=""
+              >
+                <span
+                  class="mat-list-item-content"
+                >
+                  <span
+                    class="mat-ripple mat-list-item-ripple"
+                    mat-ripple=""
+                  />
+                  <span
+                    class="mat-list-text"
+                  />
+                  <mat-icon
+                    aria-hidden="true"
+                    class="mat-icon notranslate nav-bar__icon material-icons mat-ligature-font mat-icon-no-color"
+                    data-mat-icon-type="font"
+                    role="img"
+                  >
+                    library_add
+                  </mat-icon>
+                  <span>
+                    Create product
+                  </span>
+                </span>
+              </a>
+            </mat-nav-list>
+          </nav>
+        </omnia-navigation-bar>
+      </div>
+    </mat-sidenav>
+    <div
+      aria-hidden="true"
+      class="cdk-visually-hidden cdk-focus-trap-anchor"
+    />
+    <mat-sidenav-content
+      class="mat-drawer-content mat-sidenav-content"
+    >
+      <mat-drawer-container
+        class="mat-drawer-container drawer"
+      >
+        <div
+          class="mat-drawer-backdrop"
+        />
+        <div
+          aria-hidden="true"
+          class="cdk-visually-hidden cdk-focus-trap-anchor"
+        />
+        <mat-drawer
+          class="mat-drawer drawer__sidebar ng-trigger ng-trigger-transform mat-drawer-side mat-drawer-opened"
+          mode="side"
+          opened=""
+          style="transform:none;visibility:visible;0:transform;1:visibility;"
+          tabindex="-1"
+        >
+          <div
+            cdkscrollable=""
+            class="mat-drawer-inner-container"
+          >
+            <button
+              class="mat-focus-indicator drawer__trigger mat-icon-button mat-button-base _mat-animation-noopable"
+              mat-icon-button=""
+            >
+              <span
+                class="mat-button-wrapper"
+              >
+                <mat-icon
+                  aria-hidden="false"
+                  aria-label="Menu icon"
+                  class="mat-icon notranslate material-icons mat-ligature-font mat-icon-no-color"
+                  data-mat-icon-name="menu"
+                  data-mat-icon-type="font"
+                  fonticon="menu"
+                  role="img"
+                />
+              </span>
+              <span
+                class="mat-ripple mat-button-ripple mat-button-ripple-round"
+                matripple=""
+              />
+              <span
+                class="mat-button-focus-overlay"
+              />
+            </button>
+          </div>
+        </mat-drawer>
+        <div
+          aria-hidden="true"
+          class="cdk-visually-hidden cdk-focus-trap-anchor"
+        />
+        <mat-drawer-content
+          class="mat-drawer-content"
+          color="accent"
+        >
+          <header>
+            <omnia-profile-toolbar>
+              <mat-toolbar
+                class="mat-toolbar toolbar mat-toolbar-single-row"
+              >
+                <div
+                  class="toolbar__profile"
+                >
+                  <img
+                    class="toolbar__avatar"
+                    src="https://i.pinimg.com/280x280_RS/a9/7d/6f/a97d6f224a5526c8a49eedc19f0a73c4.jpg"
+                  />
+                  <span>
+                    John Doe
+                  </span>
+                  <button
+                    aria-haspopup="menu"
+                    aria-label="Open profile menu"
+                    class="mat-focus-indicator mat-menu-trigger mat-icon-button mat-button-base _mat-animation-noopable"
+                    mat-icon-button=""
+                  >
+                    <span
+                      class="mat-button-wrapper"
+                    >
+                      <mat-icon
+                        aria-hidden="true"
+                        class="mat-icon notranslate material-icons mat-ligature-font mat-icon-no-color"
+                        data-mat-icon-type="font"
+                        role="img"
+                      >
+                        keyboard_arrow_down
+                      </mat-icon>
+                    </span>
+                    <span
+                      class="mat-ripple mat-button-ripple mat-button-ripple-round"
+                      matripple=""
+                    />
+                    <span
+                      class="mat-button-focus-overlay"
+                    />
+                  </button>
+                  <mat-menu>
+                  </mat-menu>
+                </div>
+              </mat-toolbar>
+            </omnia-profile-toolbar>
+          </header>
+          <main
+            class="content"
+          >
+            <router-outlet />
+          </main>
+        </mat-drawer-content>
+      </mat-drawer-container>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</omnia-layout-feature>
+`;

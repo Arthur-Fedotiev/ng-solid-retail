@@ -2,7 +2,22 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
+    "layout-feature": "libs/layout/feature",
+    "layout-ui": "libs/layout/ui",
     "omnia-retail": "apps/omnia-retail",
-    "omnia-retail-e2e": "apps/omnia-retail-e2e"
+    "omnia-retail-e2e": "apps/omnia-retail-e2e",
+    "products-data-access": "libs/products/data-access",
+    "products-domain": "libs/products/domain",
+    "products-feature-create-product": "libs/products/feature-create-product",
+    "products-feature-display": "libs/products/feature-display",
+    "products-infrastructure": "libs/products/infrastructure",
+    "products-shell": "libs/products/shell",
+    "products-ui": "libs/products/ui",
+    "shared-assets": "libs/shared/assets",
+    "shared-environments": "libs/shared/environments",
+    "shared-styles": "libs/shared/styles",
+    "shared-ui-list": "libs/shared/ui-list",
+    "shared-ui-material": "libs/shared/ui-material",
+    "shared-util": "libs/shared/util"
   }
 }

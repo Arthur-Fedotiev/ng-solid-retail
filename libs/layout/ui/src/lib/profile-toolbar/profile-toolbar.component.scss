@@ -1,0 +1,17 @@
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+
+  &__profile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+  }
+
+  &__avatar {
+    max-height: 3rem;
+    border-radius: 1.5rem;
+    margin: 0.25rem 1rem;
+  }
+}

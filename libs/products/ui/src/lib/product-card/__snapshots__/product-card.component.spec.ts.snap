@@ -1,0 +1,103 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProductCardComponent should render the product  1`] = `
+<omnia-product-card
+  __ngContext__={[Function Number]}
+  product={[Function Object]}
+>
+  <mat-card
+    class="mat-card mat-focus-indicator card mat-elevation-z3"
+    tabindex="0"
+  >
+    <img
+      alt="Photo of Product 1"
+      class="mat-card-image"
+      mat-card-image=""
+      src="https://m.media-amazon.com/images/I/711eKF9vJuL._AC_UY695_.jpg"
+    />
+    <p
+      class="card__price-container"
+    >
+      <span
+        class="price"
+      >
+        $1
+      </span>
+    </p>
+    <mat-card-header
+      class="mat-card-header card__header"
+    >
+      <div
+        class="mat-card-header-text"
+      >
+        <mat-card-title
+          class="mat-card-title card__title"
+        >
+          Product 1
+        </mat-card-title>
+      </div>
+    </mat-card-header>
+    <mat-card-content
+      class="mat-card-content card__content"
+      fxlayout="row nowrap"
+      fxlayoutalign="start center"
+      fxlayoutgap="2rem"
+    >
+      <div>
+        <p>
+          Retailer
+        </p>
+        <p>
+          GTIN
+        </p>
+      </div>
+      <div>
+        <p>
+          Retailer 1
+        </p>
+        <p>
+          SKU 1
+        </p>
+      </div>
+    </mat-card-content>
+    <mat-card-actions
+      class="mat-card-actions"
+    >
+      <button
+        class="mat-focus-indicator mat-button mat-button-base"
+        mat-button=""
+      >
+        <span
+          class="mat-button-wrapper"
+        >
+          EDIT
+        </span>
+        <span
+          class="mat-ripple mat-button-ripple"
+          matripple=""
+        />
+        <span
+          class="mat-button-focus-overlay"
+        />
+      </button>
+      <button
+        class="mat-focus-indicator mat-button mat-button-base"
+        mat-button=""
+      >
+        <span
+          class="mat-button-wrapper"
+        >
+          DELETE
+        </span>
+        <span
+          class="mat-ripple mat-button-ripple"
+          matripple=""
+        />
+        <span
+          class="mat-button-focus-overlay"
+        />
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</omnia-product-card>
+`;
