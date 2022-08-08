@@ -9,7 +9,9 @@ jobs:
         with:
           fetch-depth: 0
       - uses: nrwl/nx-set-shas@v2
-      - run: npm ci
+        with:
+          main-branch-name: '${{ github.event.pull_request.base.ref }}'
+      - run: yarn install --frozen-lockfile
 
       - run: npx nx workspace-lint
       - run: npx nx format:check
