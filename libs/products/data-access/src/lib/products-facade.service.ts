@@ -1,6 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { ProductsApi, Product, Category } from '@omnia/products/domain';
 import { PRODUCTS_API } from '@omnia/products/infrastructure';
+import { IdGenerator, ID_GENERATOR } from '@omnia/shared/util';
 import {
   BehaviorSubject,
   distinctUntilChanged,
@@ -12,7 +13,12 @@ import {
 } from 'rxjs';
 import { CategoryEnum } from './constants/category.enum';
 import { CategoryViewModel } from './models/CategoryViewModel';
+import { CreateProductForm } from './models/create-product-from.interface';
 import { ProductsStateModel } from './models/products-state.model';
+import {
+  ToProductPostDto,
+  TO_PRODUCT_POST_DTO,
+} from './providers/to-product-post-dto.token';
 import { toProductShortInfo } from './utils/to-product-short-info';
 import { toProductViewModel } from './utils/to-product-view-model';
 import { toProductsByPrice } from './utils/to-products-by-price';
@@ -45,7 +51,12 @@ export class ProductsFacadeService {
   );
 
   constructor(
-    @Inject(PRODUCTS_API) private readonly productsApi: ProductsApi
+    @Inject(PRODUCTS_API)
+    private readonly productsApi: ProductsApi,
+    @Inject(TO_PRODUCT_POST_DTO)
+    private readonly toProductPostDto: ToProductPostDto,
+    @Inject(ID_GENERATOR)
+    private readonly idGenerator: IdGenerator
   ) {}
 
   public loadProducts(): void {
@@ -60,6 +71,15 @@ export class ProductsFacadeService {
       .getCategories()
       .pipe(tap(this.updateCategories), take(1))
       .subscribe();
+  }
+
+  public createProduct(createProductFormValue: CreateProductForm) {
+    this.productsApi
+      .createProduct(
+        this.toProductPostDto(createProductFormValue, this.idGenerator)
+      )
+      .pipe(take(1))
+      .subscribe(console.log);
   }
 
   private updateProduct = (products: ReadonlyArray<Product>) => {

@@ -10,7 +10,10 @@ import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { SharedUiMaterialModule } from '@omnia/shared/ui-material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { CreateProductComponent } from './create-product.component';
-import { ProductsFacadeService } from '@omnia/products/data-access';
+import {
+  CreateProductForm,
+  ProductsFacadeService,
+} from '@omnia/products/data-access';
 import { Subject } from 'rxjs';
 
 describe('CreateProductComponent', () => {
@@ -36,6 +39,7 @@ describe('CreateProductComponent', () => {
           provide: ProductsFacadeService,
           useValue: {
             loadCategories: jest.fn(),
+            createProduct: jest.fn(),
             categories$: categoriesSubj,
           },
         },
@@ -101,6 +105,24 @@ describe('CreateProductComponent', () => {
 
       expect(component.prices.length).toBe(3);
     });
+  });
+
+  describe('onSave', () => {
+    it('should delegate to facade to create product', fakeAsync(() => {
+      const createProductSpy = jest.spyOn(productFacadeMock, 'createProduct');
+      const expectedProduct = {
+        name: '',
+        description: '',
+        sku: '',
+        categories: [{ name: '', id: '' }],
+        prices: [{ tier: 1, price: 0, retailer: { name: '', id: '' } }],
+      };
+      component.productForm.setValue(expectedProduct);
+
+      component.onSave();
+
+      expect(createProductSpy).toHaveBeenCalledWith(expectedProduct);
+    }));
   });
 
   describe('#load', () => {

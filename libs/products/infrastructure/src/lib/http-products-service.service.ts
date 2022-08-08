@@ -6,7 +6,7 @@ import {
   ProductUrls,
   Category,
 } from '@omnia/products/domain';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { PRODUCT_URLS } from './providers/products-urls.token';
 
 @Injectable({
@@ -24,5 +24,14 @@ export class HttpProductsService implements ProductsApi {
 
   public getProducts(): Observable<readonly Product[]> {
     return this.http.get<Product[]>(this.productUrls.productsApi);
+  }
+
+  public createProduct(product: Product): Observable<Product> {
+    console.log('createProduct', product);
+    console.log('createProduct', this.productUrls.productsApi);
+
+    return this.http
+      .post<Product>(this.productUrls.productsApi, product)
+      .pipe(tap((createdProduct) => console.log(createdProduct)));
   }
 }

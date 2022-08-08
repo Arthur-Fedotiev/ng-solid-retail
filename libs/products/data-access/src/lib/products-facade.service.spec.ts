@@ -1,16 +1,20 @@
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { Product, ProductsApi } from '@omnia/products/domain';
 import { PRODUCTS_API, makeProductsStub } from '@omnia/products/infrastructure';
+import { ID_GENERATOR } from '@omnia/shared/util';
 import { asyncScheduler, scheduled } from 'rxjs';
+import { CreateProductForm } from './models/create-product-from.interface';
 import { ProductsStateModel } from './models/products-state.model';
 import { ProductViewModel } from './models/ProductViewModel';
 
 import { ProductsFacadeService } from './products-facade.service';
+import { TO_PRODUCT_POST_DTO } from './providers/to-product-post-dto.token';
 import { makeProductViewModelsStub } from './testing/make-product-view-models-stub';
 
 describe('ProductsFacadeService', () => {
   let service: ProductsFacadeService;
   let productsApiProviderMock: jest.Mocked<ProductsApi>;
+  let toProductPostDtoProviderMock: jest.Mock;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -20,7 +24,16 @@ describe('ProductsFacadeService', () => {
           useValue: {
             getProducts: jest.fn(),
             getCategories: jest.fn(),
+            createProduct: jest.fn(),
           },
+        },
+        {
+          provide: TO_PRODUCT_POST_DTO,
+          useValue: jest.fn(),
+        },
+        {
+          provide: ID_GENERATOR,
+          useValue: () => 'id',
         },
       ],
     });
@@ -28,6 +41,9 @@ describe('ProductsFacadeService', () => {
     productsApiProviderMock = TestBed.inject(
       PRODUCTS_API
     ) as jest.Mocked<ProductsApi>;
+    toProductPostDtoProviderMock = TestBed.inject(
+      TO_PRODUCT_POST_DTO
+    ) as jest.Mock;
   });
 
   it('should be created', () => {
@@ -140,6 +156,30 @@ describe('ProductsFacadeService', () => {
       });
 
       tick();
+    }));
+  });
+
+  describe('#createProduct', () => {
+    it('should delegate to CreateProduct passing  POST dto', fakeAsync(() => {
+      const createdProductSub = {
+        name: 'Product 1',
+        sku: 'SKU 1',
+        description: 'Description 1',
+        categories: [{ id: '1', name: 'Category 1' }],
+        prices: [
+          { price: 100, tier: 1, retailer: { Id: '1', Name: 'Retailer 1' } },
+        ],
+      } as unknown as CreateProductForm;
+      const expectedStub = {} as Product;
+
+      toProductPostDtoProviderMock.mockReturnValueOnce(expectedStub);
+
+      service.createProduct(createdProductSub);
+
+      expect(productsApiProviderMock.createProduct).toHaveBeenNthCalledWith(
+        1,
+        expectedStub
+      );
     }));
   });
 });

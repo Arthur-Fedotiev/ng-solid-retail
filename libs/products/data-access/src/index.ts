@@ -5,3 +5,4 @@ export { PriceViewModel } from './lib/models/PriceViewModel';
 export { ProductsFacadeService } from './lib/products-facade.service';
 export { toProductViewModel } from './lib/utils/to-product-view-model';
 export { makeProductViewModelsStub } from './lib/testing/make-product-view-models-stub';
+export { CreateProductForm } from './lib/models/create-product-from.interface';

@@ -1,6 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormArray, NonNullableFormBuilder, Validators } from '@angular/forms';
-import { ProductsFacadeService } from '@omnia/products/data-access';
+import {
+  CreateProductForm,
+  ProductsFacadeService,
+} from '@omnia/products/data-access';
 import { PriceFormGroup } from './models/price-form-group.type';
 import { validateSize } from './util/validate-size';
 
@@ -50,7 +53,10 @@ export class CreateProductComponent implements OnInit {
 
   public onSave(): void {
     console.log(this.productForm.value);
-    // this.productsFacade.createProduct(this.productForm.value);
+
+    this.productsFacade.createProduct(
+      this.productForm.value as CreateProductForm
+    );
   }
 
   private get priceFormGroup(): PriceFormGroup {
