@@ -19,6 +19,7 @@ export const getProductPostDto = (
 
       return {
         id: priceId,
+        productId,
         Price: p.price,
         Tier: p.tier,
         Retailer: { id: p.retailer.id, Name: p.retailer.name },

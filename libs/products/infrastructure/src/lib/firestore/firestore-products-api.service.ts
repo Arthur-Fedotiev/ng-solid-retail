@@ -16,10 +16,12 @@ import {
   forkJoin,
   from,
   map,
+  mergeMap,
   Observable,
   of,
   switchMap,
   take,
+  tap,
 } from 'rxjs';
 
 @Injectable({
@@ -47,7 +49,7 @@ export class FirestoreProductsApiService implements ProductsApi {
     const id = product.id;
 
     const prices$ = Prices.length
-      ? Prices.map((price) => this.createOnePrice(price))
+      ? Prices.map((price) => this.createOnePrice({ ...price, productId: id }))
       : [of({})];
 
     const product$ = id
@@ -66,7 +68,27 @@ export class FirestoreProductsApiService implements ProductsApi {
       .pipe(map(convertSnaps));
   }
 
+  public deleteProduct(productId: string): Observable<any> {
+    return from(this.afs.doc<Product>(`products/${productId}`).delete()).pipe(
+      tap(() => console.log('deleted product')),
+      switchMap(() => this.deletePrices(productId))
+    );
+  }
+
   private createOnePrice(price: Price): Observable<DocumentReference<Price>> {
     return from(this.afs.collection<Price>(`prices`).add(price)).pipe(take(1));
+  }
+
+  private deletePrices(productId: string): Observable<void[]> {
+    return from(
+      this.afs
+        .collection<Price>(`prices`)
+        .ref.where('productId', '==', productId)
+        .get()
+    ).pipe(
+      mergeMap(({ docs }) =>
+        forkJoin(docs.map((doc) => from(doc.ref.delete())))
+      )
+    );
   }
 }

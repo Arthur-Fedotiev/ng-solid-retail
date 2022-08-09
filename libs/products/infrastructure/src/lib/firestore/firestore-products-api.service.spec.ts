@@ -5,31 +5,40 @@ import { makeProductsStub } from '../testing/make-products-stub';
 import { makeCollectionStub } from './testing/make-collection-stub';
 import { FirestoreProductsApiService } from './firestore-products-api.service';
 
-describe('FirestoreProductsApiService', () => {
-  const collectionGetMock = jest.fn().mockReturnValue(EMPTY);
-  const collectionAddMock = jest.fn().mockReturnValue(EMPTY);
-  const docSetMock = jest.fn().mockReturnValue(EMPTY);
+export class AngularFirestoreMock {
+  collectionGetMock = jest.fn().mockReturnValue(EMPTY);
+  collectionAddMock = jest.fn().mockReturnValue(EMPTY);
+  docSetMock = jest.fn().mockReturnValue(EMPTY);
+  deleteMock = jest.fn().mockReturnValue(of());
+  whereMock = jest.fn().mockReturnValue(this);
 
+  collection = jest.fn().mockReturnValue({
+    add: this.collectionAddMock,
+    get: this.collectionGetMock,
+    ref: { where: this.whereMock },
+  });
+  doc = jest
+    .fn()
+    .mockReturnValue({ set: this.docSetMock, delete: this.deleteMock });
+}
+
+describe('FirestoreProductsApiService', () => {
   let service: FirestoreProductsApiService;
-  let afsMock: jest.Mocked<AngularFirestore>;
+  let afsMock: AngularFirestoreMock;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
         {
           provide: AngularFirestore,
-          useValue: {
-            collection: jest.fn().mockReturnValue({
-              add: collectionAddMock,
-              get: collectionGetMock,
-            }),
-            doc: jest.fn().mockReturnValue({ set: docSetMock }),
-          },
+          useClass: AngularFirestoreMock,
         },
       ],
     });
     service = TestBed.inject(FirestoreProductsApiService);
-    afsMock = TestBed.inject(AngularFirestore) as jest.Mocked<AngularFirestore>;
+    afsMock = TestBed.inject(
+      AngularFirestore
+    ) as unknown as AngularFirestoreMock;
   });
 
   it('should be created', () => {
@@ -51,7 +60,7 @@ describe('FirestoreProductsApiService', () => {
 
       service.getProducts().subscribe();
 
-      collectionGetMock.mockReturnValueOnce(of(collectionStub)),
+      afsMock.collectionGetMock.mockReturnValueOnce(of(collectionStub)),
         service.getProducts().subscribe((products) => {
           expect(products).toEqual(productsStub);
         });
@@ -74,7 +83,7 @@ describe('FirestoreProductsApiService', () => {
 
       service.getCategories().subscribe();
 
-      collectionGetMock.mockReturnValueOnce(of(collectionStub)),
+      afsMock.collectionGetMock.mockReturnValueOnce(of(collectionStub)),
         service.getCategories().subscribe((categories) => {
           expect(categories).toEqual(categoriesStub);
         });
@@ -97,7 +106,7 @@ describe('FirestoreProductsApiService', () => {
 
       service.getRetailers().subscribe();
 
-      collectionGetMock.mockReturnValueOnce(of(collectionStub)),
+      afsMock.collectionGetMock.mockReturnValueOnce(of(collectionStub)),
         service.getRetailers().subscribe((retailers) => {
           expect(retailers).toEqual(retailersStub);
         });
@@ -124,6 +133,25 @@ describe('FirestoreProductsApiService', () => {
       expect(afsMock.collection).toHaveBeenCalledTimes(
         productStub.Prices.length
       );
+    });
+  });
+
+  // TODO: cover edge cases for prices cascade delete
+  describe('deleteProduct', () => {
+    it('should call afs.collection with the correct collection name and id', () => {
+      const productId = 'productId';
+
+      service.deleteProduct(productId).subscribe();
+
+      expect(afsMock.doc).toHaveBeenCalledWith(`products/${productId}`);
+    });
+
+    it('should call afs.doc.delete', () => {
+      const productId = 'productId';
+
+      service.deleteProduct(productId).subscribe();
+
+      expect(afsMock.deleteMock).toHaveBeenCalledTimes(1);
     });
   });
 });

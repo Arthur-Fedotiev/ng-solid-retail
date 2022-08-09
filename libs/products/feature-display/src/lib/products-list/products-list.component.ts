@@ -16,7 +16,11 @@ export class ProductsListComponent implements OnInit {
     this.loadProducts();
   }
 
-  private loadProducts() {
+  public onClick(productId: string): void {
+    this.productsFacade.selectProduct(productId);
+  }
+
+  private loadProducts(): void {
     this.productsFacade.loadProducts();
   }
 }

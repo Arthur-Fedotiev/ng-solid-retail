@@ -12,13 +12,11 @@ import {
   distinctUntilChanged,
   filter,
   map,
-  Observable,
   pluck,
   take,
   tap,
+  withLatestFrom,
 } from 'rxjs';
-import { CategoryEnum } from './constants/category.enum';
-import { CategoryViewModel } from './models/CategoryViewModel';
 import { CreateProductForm } from './models/create-product-from.interface';
 import { ProductsStateModel } from './models/products-state.model';
 import {
@@ -42,6 +40,16 @@ export class ProductsFacadeService {
     pluck('products'),
     distinctUntilChanged(),
     filter(Boolean)
+  );
+
+  public readonly selectedProduct$ = this.state$.pipe(
+    pluck('selectedProductId'),
+    distinctUntilChanged(),
+    filter(Boolean),
+    withLatestFrom(this.products$),
+    map(([selectedProductId, products]) =>
+      products.find((product) => product.id === selectedProductId)
+    )
   );
 
   public readonly productsListForEachPrice$ = this.products$.pipe(
@@ -76,7 +84,7 @@ export class ProductsFacadeService {
   public loadProducts(): void {
     this.productsApi
       .getProducts()
-      .pipe(tap(this.updateProduct), take(1))
+      .pipe(tap(this.updateProducts), take(1))
       .subscribe();
   }
 
@@ -103,7 +111,37 @@ export class ProductsFacadeService {
       .subscribe();
   }
 
-  private updateProduct = (products: ReadonlyArray<Product>) => {
+  public deleteProduct(id: string): void {
+    this.productsApi
+      .deleteProduct(id)
+      .pipe(
+        tap(() => this.removeProduct(id)),
+        take(1)
+      )
+      .subscribe();
+  }
+
+  public selectProduct(productId: string) {
+    this.state$.next(
+      (this.state = {
+        ...this.state,
+        selectedProductId: productId,
+      })
+    );
+  }
+
+  private removeProduct(id: string): void {
+    this.state$.next(
+      (this.state = {
+        ...this.state,
+        products: this.state.products
+          ? this.state.products.filter((product) => product.id !== id)
+          : null,
+      })
+    );
+  }
+
+  private updateProducts = (products: ReadonlyArray<Product>): void => {
     this.state$.next(
       (this.state = {
         ...this.state,
@@ -112,7 +150,7 @@ export class ProductsFacadeService {
     );
   };
 
-  private updateRetailers = (retailers: ReadonlyArray<Retailer>) => {
+  private updateRetailers = (retailers: ReadonlyArray<Retailer>): void => {
     this.state$.next(
       (this.state = {
         ...this.state,

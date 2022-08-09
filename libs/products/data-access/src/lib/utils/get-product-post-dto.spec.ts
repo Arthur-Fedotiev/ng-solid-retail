@@ -25,6 +25,7 @@ describe('getProductPostDto', () => {
       Categories: product.categories.map((c) => ({ id: c.id, Name: c.name })),
       Prices: product.prices.map((p) => ({
         id: idGeneratorMock(),
+        productId: expectedId,
         Price: p.price,
         Tier: p.tier,
         Retailer: { id: p.retailer.id, Name: p.retailer.name },

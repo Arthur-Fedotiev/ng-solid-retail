@@ -2,7 +2,7 @@ import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { Product, ProductsApi } from '@omnia/products/domain';
 import { PRODUCTS_API, makeProductsStub } from '@omnia/products/infrastructure';
 import { ID_GENERATOR } from '@omnia/shared/util';
-import { asyncScheduler, scheduled } from 'rxjs';
+import { asyncScheduler, of, scheduled } from 'rxjs';
 import { ProductsStateModel } from './models/products-state.model';
 import { ProductViewModel } from './models/ProductViewModel';
 
@@ -25,6 +25,7 @@ describe('ProductsFacadeService', () => {
             getCategories: jest.fn(),
             createProduct: jest.fn(),
             getRetailers: jest.fn(),
+            deleteProduct: jest.fn().mockReturnValue(of()),
           },
         },
         {
@@ -50,7 +51,7 @@ describe('ProductsFacadeService', () => {
     expect(service).toBeTruthy();
   });
 
-  beforeEach(() => jest.clearAllMocks());
+  afterEach(() => jest.clearAllMocks());
 
   describe('loadProducts', () => {
     let productsStub: ReadonlyArray<Product>;
@@ -204,6 +205,34 @@ describe('ProductsFacadeService', () => {
 
       service.retailers$.subscribe((retailers) => {
         expect(retailers?.length).toEqual(expected.length);
+      });
+
+      tick();
+    }));
+  });
+
+  describe('#deleteProduct', () => {
+    it('should delegate to DeleteProduct passing id', fakeAsync(() => {
+      const id = 'id';
+
+      productsApiProviderMock.deleteProduct.mockReturnValue(of());
+
+      service.deleteProduct(id);
+
+      expect(productsApiProviderMock.deleteProduct).toHaveBeenCalledWith(id);
+    }));
+
+    it('should remove product from state', fakeAsync(() => {
+      const productsStub = makeProductViewModelsStub(1);
+      const id = productsStub[0].id;
+
+      Object.assign(service, { state: new ProductsStateModel(productsStub) });
+      productsApiProviderMock.deleteProduct.mockReturnValue(of());
+
+      service.deleteProduct(id);
+
+      service.products$.subscribe((products) => {
+        expect(products.length).toEqual(0);
       });
 
       tick();

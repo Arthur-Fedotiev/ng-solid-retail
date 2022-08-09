@@ -6,4 +6,5 @@ export interface ProductsApi {
   getCategories(): Observable<ReadonlyArray<Category>>;
   createProduct(product: Product): Observable<Product>;
   getRetailers(): Observable<ReadonlyArray<Retailer>>;
+  deleteProduct(productId: string): Observable<void>;
 }

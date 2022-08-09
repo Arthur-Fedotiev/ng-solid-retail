@@ -49,6 +49,12 @@ export class HttpProductsService implements ProductsApi {
     );
   }
 
+  public deleteProduct(productId: string): Observable<void> {
+    return this.http.delete<void>(
+      `${this.productUrls.productsApi}/${productId}`
+    );
+  }
+
   private createOnePrice(price: Price): Observable<Price> {
     return this.http.post<Price>(this.productUrls.pricesApi, price);
   }

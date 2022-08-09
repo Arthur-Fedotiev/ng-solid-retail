@@ -10,6 +10,7 @@ export const makeProductsStub = (count: number): ReadonlyArray<Product> =>
       Prices: [
         {
           id: '1',
+          productId: i.toString(),
           Retailer: { id: '1', Name: 'Retailer 1' },
           Price: i,
           Tier: 1,
@@ -17,6 +18,7 @@ export const makeProductsStub = (count: number): ReadonlyArray<Product> =>
         },
         {
           id: '2',
+          productId: i.toString(),
           Retailer: { id: '2', Name: 'Retailer 2' },
           Price: i * 2,
 
@@ -25,6 +27,7 @@ export const makeProductsStub = (count: number): ReadonlyArray<Product> =>
         },
         {
           id: '3',
+          productId: i.toString(),
           Retailer: { id: '3', Name: 'Retailer 3' },
           Price: i * 3,
           Tier: 3,

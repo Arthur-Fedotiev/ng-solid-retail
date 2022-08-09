@@ -60,44 +60,6 @@ exports[`ProductCardComponent should render the product  1`] = `
         </p>
       </div>
     </mat-card-content>
-    <mat-card-actions
-      class="mat-card-actions"
-    >
-      <button
-        class="mat-focus-indicator mat-button mat-button-base"
-        mat-button=""
-      >
-        <span
-          class="mat-button-wrapper"
-        >
-          EDIT
-        </span>
-        <span
-          class="mat-ripple mat-button-ripple"
-          matripple=""
-        />
-        <span
-          class="mat-button-focus-overlay"
-        />
-      </button>
-      <button
-        class="mat-focus-indicator mat-button mat-button-base"
-        mat-button=""
-      >
-        <span
-          class="mat-button-wrapper"
-        >
-          DELETE
-        </span>
-        <span
-          class="mat-ripple mat-button-ripple"
-          matripple=""
-        />
-        <span
-          class="mat-button-focus-overlay"
-        />
-      </button>
-    </mat-card-actions>
   </mat-card>
 </omnia-product-card>
 `;
