@@ -1,5 +1,6 @@
 import * as functions from 'firebase-functions';
 import * as jsonServer from 'json-server';
+import cors from 'cors';
 
 const main = jsonServer.create();
 const app = jsonServer.create();
@@ -11,6 +12,7 @@ const middlewares = jsonServer.defaults({
 });
 
 app.use(middlewares);
+app.use(cors({origin: true}));
 app.use(router);
 app.listen(3000);
 
