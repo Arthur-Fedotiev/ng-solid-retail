@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { ProductShortInfo } from './product-short-info';
 
 @Component({
@@ -12,10 +7,6 @@ import { ProductShortInfo } from './product-short-info';
   styleUrls: ['./product-card.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductCardComponent implements OnInit {
+export class ProductCardComponent {
   @Input() product!: ProductShortInfo;
-
-  constructor() {}
-
-  ngOnInit(): void {}
 }
