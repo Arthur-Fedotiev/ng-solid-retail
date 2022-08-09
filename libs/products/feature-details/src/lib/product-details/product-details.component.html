@@ -1,0 +1,22 @@
+<pre>{{ product$ | async | json }}</pre>
+<mat-card class="example-card" *ngIf="product$ | async as product">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title> {{ product.name }} </mat-card-title>
+    <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+  </mat-card-header>
+  <img
+    mat-card-image
+    src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+    alt="Photo of a {{ product.name }}"
+  />
+  <mat-card-content>
+    <p>
+      {{ product.description }}
+    </p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button>EDIT</button>
+    <button mat-button>DELETE</button>
+  </mat-card-actions>
+</mat-card>

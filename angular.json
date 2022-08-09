@@ -9,6 +9,7 @@
     "products-data-access": "libs/products/data-access",
     "products-domain": "libs/products/domain",
     "products-feature-create-product": "libs/products/feature-create-product",
+    "products-feature-details": "libs/products/feature-details",
     "products-feature-display": "libs/products/feature-display",
     "products-infrastructure": "libs/products/infrastructure",
     "products-shell": "libs/products/shell",

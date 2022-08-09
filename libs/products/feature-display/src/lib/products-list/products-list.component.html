@@ -2,6 +2,7 @@
   <ng-template #omniaListItem let-product>
     <omnia-product-card
       [product]="product"
+      class="products-list__item"
       (click)="onClick(product.id)"
     ></omnia-product-card>
   </ng-template>

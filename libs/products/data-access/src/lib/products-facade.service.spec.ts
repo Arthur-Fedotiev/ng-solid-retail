@@ -1,4 +1,5 @@
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { Router } from '@angular/router';
 import { Product, ProductsApi } from '@omnia/products/domain';
 import { PRODUCTS_API, makeProductsStub } from '@omnia/products/infrastructure';
 import { ID_GENERATOR } from '@omnia/shared/util';
@@ -14,6 +15,7 @@ describe('ProductsFacadeService', () => {
   let service: ProductsFacadeService;
   let productsApiProviderMock: jest.Mocked<ProductsApi>;
   let toProductPostDtoProviderMock: jest.Mock;
+  let routerMock: jest.Mocked<Router>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -36,12 +38,16 @@ describe('ProductsFacadeService', () => {
           provide: ID_GENERATOR,
           useValue: () => 'id',
         },
+        { provide: Router, useValue: { navigate: jest.fn() } },
       ],
     });
     service = TestBed.inject(ProductsFacadeService);
+    routerMock = TestBed.inject(Router) as jest.Mocked<Router>;
+
     productsApiProviderMock = TestBed.inject(
       PRODUCTS_API
     ) as jest.Mocked<ProductsApi>;
+
     toProductPostDtoProviderMock = TestBed.inject(
       TO_PRODUCT_POST_DTO
     ) as jest.Mock;
@@ -237,5 +243,30 @@ describe('ProductsFacadeService', () => {
 
       tick();
     }));
+  });
+
+  describe('#selectProduct', () => {
+    it('should set selected product state', fakeAsync(() => {
+      const product = makeProductViewModelsStub(1)[0];
+
+      service.productSelected(product.id);
+
+      service.selectedProduct$.subscribe((selectedProduct) => {
+        expect(selectedProduct).toEqual(product);
+      });
+
+      tick();
+    }));
+
+    it('should navigate to product detail page', () => {
+      const product = makeProductViewModelsStub(1)[0];
+
+      service.productSelected(product.id);
+
+      expect(routerMock.navigate).toHaveBeenCalledWith([
+        '/products',
+        product.id,
+      ]);
+    });
   });
 });

@@ -28,6 +28,13 @@ import { RouterModule } from '@angular/router';
             (m) => m.ProductsFeatureCreateProductModule
           ),
       },
+      {
+        path: ':id',
+        loadChildren: () =>
+          import('@omnia/products/feature-details').then(
+            (m) => m.ProductsFeatureDetailsModule
+          ),
+      },
     ]),
   ],
 })

@@ -1,4 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   ProductsApi,
   Product,
@@ -78,7 +79,8 @@ export class ProductsFacadeService {
     @Inject(TO_PRODUCT_POST_DTO)
     private readonly toProductPostDto: ToProductPostDto,
     @Inject(ID_GENERATOR)
-    private readonly idGenerator: IdGenerator
+    private readonly idGenerator: IdGenerator,
+    private readonly router: Router
   ) {}
 
   public loadProducts(): void {
@@ -121,7 +123,8 @@ export class ProductsFacadeService {
       .subscribe();
   }
 
-  public selectProduct(productId: string) {
+  public productSelected(productId: string) {
+    this.navigateToProductPage(productId);
     this.state$.next(
       (this.state = {
         ...this.state,
@@ -169,4 +172,8 @@ export class ProductsFacadeService {
       })
     );
   };
+
+  private navigateToProductPage(productId: string): void {
+    this.router.navigate(['/products', productId]);
+  }
 }

@@ -55,7 +55,10 @@ describe('ProductsListComponent', () => {
 
       component.onClick(productId);
 
-      expect(facadeService.selectProduct).toHaveBeenNthCalledWith(1, productId);
+      expect(facadeService.productSelected).toHaveBeenNthCalledWith(
+        1,
+        productId
+      );
     });
   });
 });
