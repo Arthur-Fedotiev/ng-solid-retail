@@ -3,5 +3,7 @@
   "sourceRoot": "libs/shared/styles/src",
   "prefix": "omnia",
   "targets": {},
-  "tags": ["scope:shared,type:styles"]
+  "tags": [
+    "scope:shared,type:styles"
+  ]
 }

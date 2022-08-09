@@ -4,7 +4,7 @@ import { toCategoryViewModel } from './to-category-view-model';
 const testCases = [
   {
     input: {
-      Id: '1',
+      id: '1',
       Name: 'Electronics',
     },
     expected: {
@@ -14,7 +14,7 @@ const testCases = [
   },
   {
     input: {
-      Id: '2',
+      id: '2',
       Name: 'Brandy',
     },
     expected: {
@@ -24,7 +24,7 @@ const testCases = [
   },
   {
     input: {
-      Id: '3',
+      id: '3',
       Name: 'Food',
     },
     expected: {

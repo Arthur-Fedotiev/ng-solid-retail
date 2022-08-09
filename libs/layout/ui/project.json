@@ -5,7 +5,9 @@
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/layout/ui"],
+      "outputs": [
+        "coverage/libs/layout/ui"
+      ],
       "options": {
         "jestConfig": "libs/layout/ui/jest.config.ts",
         "passWithNoTests": true
@@ -21,5 +23,8 @@
       }
     }
   },
-  "tags": ["scope:layout", "type:ui"]
+  "tags": [
+    "scope:layout",
+    "type:ui"
+  ]
 }

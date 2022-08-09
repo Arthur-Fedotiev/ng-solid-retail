@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "omnia-retail-6ad5b"
+  },
+  "targets": {
+    "omnia-retail-6ad5b": {
+      "hosting": {
+        "omnia-retail": [
+          "omnia-retail-6ad5b"
+        ]
+      }
+    }
   }
 }

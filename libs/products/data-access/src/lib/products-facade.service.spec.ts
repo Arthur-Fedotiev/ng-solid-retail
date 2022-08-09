@@ -140,11 +140,11 @@ describe('ProductsFacadeService', () => {
 
     it('should set categories state', fakeAsync(() => {
       const categoriesStub = [
-        { Id: '1', Name: 'Category 1' },
-        { Id: '2', Name: 'Category 2' },
+        { id: '1', Name: 'Category 1' },
+        { id: '2', Name: 'Category 2' },
       ];
 
-      const expected = categoriesStub.map((c) => ({ id: c.Id, name: c.Name }));
+      const expected = categoriesStub.map((c) => ({ id: c.id, name: c.Name }));
 
       productsApiProviderMock.getCategories.mockReturnValue(
         scheduled([categoriesStub], asyncScheduler)
@@ -188,11 +188,11 @@ describe('ProductsFacadeService', () => {
 
     it('should set retailers state', fakeAsync(() => {
       const retailersStub = [
-        { Id: '1', Name: 'Retailer 1' },
-        { Id: '2', Name: 'Retailer 2' },
+        { id: '1', Name: 'Retailer 1' },
+        { id: '2', Name: 'Retailer 2' },
       ];
 
-      const expected = retailersStub.map((r) => ({ id: r.Id, name: r.Name }));
+      const expected = retailersStub.map((r) => ({ id: r.id, name: r.Name }));
 
       productsApiProviderMock.getRetailers.mockReturnValue(
         scheduled([retailersStub], asyncScheduler)

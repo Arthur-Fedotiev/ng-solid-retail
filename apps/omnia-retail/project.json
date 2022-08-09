@@ -5,7 +5,9 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/omnia-retail",
         "index": "apps/omnia-retail/src/index.html",
@@ -36,7 +38,9 @@
             "libs/shared/styles/src/lib/mixins"
           ]
         },
-        "styles": ["libs/shared/styles/src/index.scss"],
+        "styles": [
+          "libs/shared/styles/src/index.scss"
+        ],
         "scripts": []
       },
       "configurations": {
@@ -104,13 +108,31 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/omnia-retail"],
+      "outputs": [
+        "coverage/apps/omnia-retail"
+      ],
       "options": {
         "jestConfig": "apps/omnia-retail/jest.config.ts",
         "passWithNoTests": true
       }
+    },
+    "deploy": {
+      "executor": "@angular/fire:deploy",
+      "options": {
+        "prerender": false,
+        "ssr": false,
+        "browserTarget": "omnia-retail:build:production",
+        "firebaseProject": "omnia-retail-6ad5b",
+        "firebaseHostingSite": "omnia-retail-6ad5b"
+      }
     }
   },
-  "tags": ["scope:omnia-retail", "type:app"],
-  "implicitDependencies": ["shared-styles", "shared-assets"]
+  "tags": [
+    "scope:omnia-retail",
+    "type:app"
+  ],
+  "implicitDependencies": [
+    "shared-styles",
+    "shared-assets"
+  ]
 }

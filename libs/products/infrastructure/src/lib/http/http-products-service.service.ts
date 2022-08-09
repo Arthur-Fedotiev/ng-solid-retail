@@ -9,7 +9,7 @@ import {
   Retailer,
 } from '@omnia/products/domain';
 import { forkJoin, Observable, of, switchMap } from 'rxjs';
-import { PRODUCT_URLS } from './providers/products-urls.token';
+import { PRODUCT_URLS } from '../providers/products-urls.token';
 
 @Injectable({
   providedIn: 'root',
