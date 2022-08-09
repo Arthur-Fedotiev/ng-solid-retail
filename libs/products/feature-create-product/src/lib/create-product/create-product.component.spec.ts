@@ -72,8 +72,6 @@ describe('CreateProductComponent', () => {
         prices: [{ tier: 1, price: 0, retailer: [{ name: '', id: '' }] }],
       };
 
-      console.log(component.productForm.errors);
-
       expect(component.productForm.value).toEqual(
         expect.objectContaining({
           ...expectedInitialFormGroupValue,
