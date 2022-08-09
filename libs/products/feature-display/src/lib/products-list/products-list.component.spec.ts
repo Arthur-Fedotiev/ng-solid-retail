@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ProductsFacadeService } from '@omnia/products/data-access';
+
 import { SharedUiListModule } from '@omnia/shared/ui-list';
 import { Subject } from 'rxjs';
 

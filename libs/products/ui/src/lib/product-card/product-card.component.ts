@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+
 import { ProductShortInfo } from './product-short-info';
 
 @Component({
