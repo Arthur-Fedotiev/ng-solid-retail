@@ -4,6 +4,8 @@
 /dist
 /tmp
 /out-tsc
+/functions/lib
+
 
 # dependencies
 node_modules
@@ -39,3 +41,4 @@ testem.log
 Thumbs.db
 
 .angular
+.firebase/*.cache
