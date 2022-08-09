@@ -1,17 +1,5 @@
-import { Category } from '@omnia/products/domain';
 import { CategoryEnum } from '../constants/category.enum';
-import { CategoryViewModel } from '../models/CategoryViewModel';
-
-export const toCategoryViewModel = ({
-  Id,
-  Name,
-}: Category): CategoryViewModel =>
-  new CategoryViewModel(Id as string, Name as CategoryEnum);
-
-//test suit for toCategoryViewModel
-// 1. define test cases constant
-// 2. run it.each on defined constant
-// 3. expect result to be equal to expected value
+import { toCategoryViewModel } from './to-category-view-model';
 
 const testCases = [
   {
