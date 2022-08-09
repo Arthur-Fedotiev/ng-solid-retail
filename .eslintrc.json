@@ -41,7 +41,8 @@
                   "type:util",
                   "type:ui",
                   "type:domain",
-                  "type:shell"
+                  "type:shell",
+                  "type:environments"
                 ]
               },
               {
@@ -65,7 +66,8 @@
                 "sourceTag": "type:infrastructure",
                 "onlyDependOnLibsWithTags": [
                   "type:infrastructure",
-                  "type:domain"
+                  "type:domain",
+                  "type:environments"
                 ]
               },
               {

@@ -1,0 +1,258 @@
+{
+  "products": [
+    {
+      "Id": "170e64cc-2b71-440e-94fe-90c98cb24abc",
+      "Name": "Port Ellen 21yr",
+      "Description": "21 year old sherry cask Port Ellen",
+      "Categories": [
+        {
+          "Id": "1",
+          "Name": "Whisky"
+        },
+        {
+          "Id": "2",
+          "Name": "Scotch"
+        }
+      ],
+      "SKU": "PORTELLEN21SHRY",
+      "Prices": [
+        {
+          "Id": "11111111-5e9e-4997-8fd8-3facf8092a2a",
+          "Retailer": {
+            "Id": "e417d0b1-9cdf-48be-92b5-cf78a0eaa5d3",
+            "Name": "Omnia"
+          },
+          "Price": 1000,
+          "Tier": 1,
+          "UpdateTime": "2019-03-08T08:56:24.9171117+01:00"
+        },
+        {
+          "Id": "22222222-5e9e-4997-8fd8-3facf8092112",
+          "Retailer": {
+            "Id": "e417d0b1-9cdf-48be-92b5-cf78a0eaa5d3",
+            "Name": "Omnia"
+          },
+          "Price": 1000,
+          "Tier": 1,
+          "UpdateTime": "2019-03-08T08:56:24.9171117+01:00"
+        },
+        {
+          "Id": "33333333-5e9e-4997-8fd8-3facf8092112",
+          "Retailer": {
+            "Id": "111-9cdf-48be-92b5-cf78a0eaa5d3",
+            "Name": "Amazon"
+          },
+          "Price": 1100,
+          "Tier": 1,
+          "UpdateTime": "2019-03-08T08:56:24.9171117+01:00"
+        }
+      ]
+    },
+    {
+      "Id": "170e64cc-2b71-440e-94fe-90c98cb24abc",
+      "Name": "Port Ellen 21yr",
+      "Description": "21 year old sherry cask Port Ellen",
+      "Categories": [
+        {
+          "Id": "1",
+          "Name": "Whisky"
+        },
+        {
+          "Id": "2",
+          "Name": "Scotch"
+        }
+      ],
+      "SKU": "PORTELLEN21SHRY",
+      "Prices": [
+        {
+          "Id": "1",
+          "Retailer": {
+            "Id": "000-9cdf-48be-92b5-cf78a0eaa5d3",
+            "Name": "Omnia"
+          },
+          "Price": 1000,
+          "Tier": 1,
+          "UpdateTime": "2019-03-08T08:56:24.9171117+01:00"
+        },
+        {
+          "Id": "2",
+          "Retailer": {
+            "Id": "111-9cdf-48be-92b5-cf78a0eaa5d3",
+            "Name": "Amazon"
+          },
+          "Price": 1100,
+          "Tier": 1,
+          "UpdateTime": "2019-03-08T08:56:24.9171117+01:00"
+        },
+        {
+          "Id": "3",
+          "Retailer": {
+            "Id": "000-9cdf-48be-92b5-cf78a0eaa5d3",
+            "Name": "Omnia"
+          },
+          "Price": 500,
+          "Tier": 2,
+          "UpdateTime": "2019-03-08T08:56:24.9171117+01:00"
+        },
+        {
+          "Id": "4",
+          "Retailer": {
+            "Id": "111-9cdf-48be-92b5-cf78a0eaa5d3",
+            "Name": "Amazon"
+          },
+          "Price": 650,
+          "Tier": 2,
+          "UpdateTime": "2019-03-08T08:56:24.9171117+01:00"
+        }
+      ]
+    },
+    {
+      "Id": "a12b0fcf-933d-4fe3-8d9e-d8ec4fed2cd7",
+      "id": "a12b0fcf-933d-4fe3-8d9e-d8ec4fed2cd7",
+      "Name": "T-Bar Row with Handle",
+      "SKU": "dsaf",
+      "Description": "T-Bar Row with Handle",
+      "Categories": [
+        {
+          "Id": "1",
+          "Name": "Whisky"
+        }
+      ],
+      "Prices": [
+        {
+          "Id": "84f7d88c-4edd-4819-9f35-763248fc5a7c",
+          "Price": "560",
+          "Tier": 1,
+          "Retailer": {
+            "Id": "000-9cdf-48be-92b5-cf78a0eaa5d3",
+            "Name": "Omnia"
+          },
+          "UpdateTime": "2022-08-08T12:52:35+03:00"
+        }
+      ]
+    },
+    {
+      "Id": "abbba609-66ea-4453-a969-c653a9b361d7",
+      "id": "abbba609-66ea-4453-a969-c653a9b361d7",
+      "Name": "adsfasfdsa",
+      "SKU": "sdfsdaf",
+      "Description": "dfasdfa",
+      "Categories": [
+        {
+          "Id": "1",
+          "Name": "Whisky"
+        },
+        {
+          "Id": "2",
+          "Name": "Scotch"
+        }
+      ],
+      "Prices": [
+        {
+          "Id": "396fa858-6ae8-4d3f-b18d-02ca98f2b83f",
+          "Price": "45",
+          "Tier": 1,
+          "Retailer": {
+            "Id": "000-9cdf-48be-92b5-cf78a0eaa5d3",
+            "Name": "Omnia"
+          },
+          "UpdateTime": "2022-08-08T12:56:51+03:00"
+        }
+      ]
+    },
+    {
+      "Id": "fc8672e7-b026-4f96-8005-f1312edc3f5f",
+      "id": "fc8672e7-b026-4f96-8005-f1312edc3f5f",
+      "Name": "Barbell Full Squat",
+      "SKU": "sadfsadfdsa",
+      "Description": "dsfsdfsd",
+      "Categories": [
+        {
+          "Id": "1",
+          "Name": "Whisky"
+        }
+      ],
+      "Prices": [
+        {
+          "Id": "8851472a-37c6-4d0e-96c4-1d6574455fb6",
+          "id": "8851472a-37c6-4d0e-96c4-1d6574455fb6",
+          "Price": "67",
+          "Tier": "2",
+          "Retailer": {
+            "Id": "111",
+            "Name": "Omnia"
+          },
+          "UpdateTime": "2022-08-08T13:44:43+03:00"
+        },
+        {
+          "Id": "e874aff8-bc2d-4a95-8fff-3f3704bf3d14",
+          "id": "e874aff8-bc2d-4a95-8fff-3f3704bf3d14",
+          "Price": "3450",
+          "Tier": 1,
+          "Retailer": {
+            "Id": "111",
+            "Name": "Omnia"
+          },
+          "UpdateTime": "2022-08-08T13:44:43+03:00"
+        }
+      ]
+    }
+  ],
+  "retailers": [
+    {
+      "Id": "000-9cdf-48be-92b5-cf78a0eaa5d3",
+      "Name": "Omnia"
+    },
+    {
+      "Id": "111-9cdf-48be-92b5-cf78a0eaa5d3",
+      "Name": "Amazon"
+    },
+    {
+      "Id": "222-9cdf-48be-92b5-cf78a0eaa5d3",
+      "Name": "Walmart"
+    },
+    {
+      "Id": "333-9cdf-48be-92b5-cf78a0eaa5d3",
+      "Name": "Costco"
+    }
+  ],
+  "categories": [
+    {
+      "Id": "1",
+      "Name": "Whisky"
+    },
+    {
+      "Id": "2",
+      "Name": "Scotch"
+    }
+  ],
+  "prices": [
+    {
+      "Id": "8851472a-37c6-4d0e-96c4-1d6574455fb6",
+      "id": "8851472a-37c6-4d0e-96c4-1d6574455fb6",
+      "Price": "67",
+      "Tier": "2",
+      "Retailer": {
+        "Id": "111",
+        "Name": "Omnia"
+      },
+      "UpdateTime": "2022-08-08T13:44:43+03:00"
+    },
+    {
+      "Id": "e874aff8-bc2d-4a95-8fff-3f3704bf3d14",
+      "id": "e874aff8-bc2d-4a95-8fff-3f3704bf3d14",
+      "Price": "3450",
+      "Tier": 1,
+      "Retailer": {
+        "Id": "111",
+        "Name": "Omnia"
+      },
+      "UpdateTime": "2022-08-08T13:44:43+03:00"
+    }
+  ],
+  "users": {
+    "name": "John",
+    "surname": "Doe",
+    "avatarUrl": "https://i.pinimg.com/280x280_RS/a9/7d/6f/a97d6f224a5526c8a49eedc19f0a73c4.jpg"
+  }
+}

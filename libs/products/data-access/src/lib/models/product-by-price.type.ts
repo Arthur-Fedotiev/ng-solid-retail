@@ -1,5 +1,5 @@
 import { ProductViewModel } from '../..';
 
-export type ProductByPrice = Omit<ProductViewModel, 'prices'> & {
-  price: ProductViewModel['prices'][number];
+export type ProductByPrice = Pick<ProductViewModel, 'id' | 'name' | 'sku'> & {
+  price: { price: number; retailer: { name: string } };
 };
