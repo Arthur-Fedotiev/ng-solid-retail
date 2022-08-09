@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ProductsFacadeService } from '@omnia/products/data-access';
-import { tap } from 'rxjs';
 
 @Component({
   selector: 'omnia-products-list',
@@ -9,9 +8,7 @@ import { tap } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductsListComponent implements OnInit {
-  public readonly products$ = this.productsFacade.productsShortInfo$.pipe(
-    tap((products) => console.log('products', products))
-  );
+  public readonly products$ = this.productsFacade.productsShortInfo$;
 
   constructor(private readonly productsFacade: ProductsFacadeService) {}
 
@@ -19,7 +16,11 @@ export class ProductsListComponent implements OnInit {
     this.loadProducts();
   }
 
-  private loadProducts() {
+  public onClick(productId: string): void {
+    this.productsFacade.selectProduct(productId);
+  }
+
+  private loadProducts(): void {
     this.productsFacade.loadProducts();
   }
 }

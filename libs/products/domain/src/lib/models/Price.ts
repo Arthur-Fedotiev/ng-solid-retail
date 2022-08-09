@@ -1,7 +1,8 @@
 import { Retailer } from './Retailer';
 
 export interface Price {
-  Id: string;
+  id: string;
+  productId: string;
   Retailer: Retailer;
   Price: number;
   Tier: number;

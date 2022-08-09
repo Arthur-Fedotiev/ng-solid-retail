@@ -5,7 +5,9 @@
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/products/shell"],
+      "outputs": [
+        "coverage/libs/products/shell"
+      ],
       "options": {
         "jestConfig": "libs/products/shell/jest.config.ts",
         "passWithNoTests": true
@@ -21,5 +23,8 @@
       }
     }
   },
-  "tags": ["scope:products", "type:shell"]
+  "tags": [
+    "scope:products",
+    "type:shell"
+  ]
 }

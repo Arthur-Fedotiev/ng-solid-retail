@@ -6,7 +6,9 @@
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/products/feature-display"],
+      "outputs": [
+        "coverage/libs/products/feature-display"
+      ],
       "options": {
         "jestConfig": "libs/products/feature-display/jest.config.ts",
         "passWithNoTests": true
@@ -22,5 +24,8 @@
       }
     }
   },
-  "tags": ["scope:products", "type:feature"]
+  "tags": [
+    "scope:products",
+    "type:feature"
+  ]
 }

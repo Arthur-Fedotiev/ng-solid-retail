@@ -4,8 +4,8 @@ import { Product, ProductUrls } from '@omnia/products/domain';
 import { of } from 'rxjs';
 
 import { HttpProductsService } from './http-products-service.service';
-import { PRODUCT_URLS } from './providers/products-urls.token';
-import { makeProductsStub } from './testing/make-products-stub';
+import { PRODUCT_URLS } from '../providers/products-urls.token';
+import { makeProductsStub } from '../testing/make-products-stub';
 
 describe('HttpProductsService', () => {
   let httpClientMock: jest.Mocked<HttpClient>;
@@ -127,11 +127,11 @@ describe('HttpProductsService', () => {
 
     it('should also create one price for when the product is created', fakeAsync(() => {
       const productPOSTDtoStub = {
-        Id: '1',
+        id: '1',
         Name: 'test',
         Prices: [
-          { Id: '1', Price: 1 },
-          { Id: '2', Price: 2 },
+          { id: '1', Price: 1 },
+          { id: '2', Price: 2 },
         ],
       } as unknown as Product;
       const expectedPrices = productPOSTDtoStub.Prices;

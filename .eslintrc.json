@@ -67,7 +67,8 @@
                 "onlyDependOnLibsWithTags": [
                   "type:infrastructure",
                   "type:domain",
-                  "type:environments"
+                  "type:environments",
+                  "type:util"
                 ]
               },
               {

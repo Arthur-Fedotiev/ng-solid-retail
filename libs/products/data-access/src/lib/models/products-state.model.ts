@@ -3,11 +3,11 @@ import { ProductViewModel } from './ProductViewModel';
 import { RetailerViewModel } from './RetailerViewModel';
 
 export class ProductsStateModel {
-  public readonly products: ReadonlyArray<ProductViewModel> | null;
+  public products: ReadonlyArray<ProductViewModel> | null;
   public readonly categories: ReadonlyArray<CategoryViewModel> | null;
   public readonly retailers: ReadonlyArray<RetailerViewModel> | null;
 
-  public readonly selectedProduct: ProductViewModel | null = null;
+  public readonly selectedProductId: string | null = null;
   public readonly loading = false;
   public readonly error: string | null = null;
 

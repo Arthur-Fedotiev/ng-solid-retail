@@ -9,7 +9,7 @@ import {
   Retailer,
 } from '@omnia/products/domain';
 import { forkJoin, Observable, of, switchMap } from 'rxjs';
-import { PRODUCT_URLS } from './providers/products-urls.token';
+import { PRODUCT_URLS } from '../providers/products-urls.token';
 
 @Injectable({
   providedIn: 'root',
@@ -46,6 +46,12 @@ export class HttpProductsService implements ProductsApi {
       switchMap(() =>
         this.http.post<Product>(this.productUrls.productsApi, product)
       )
+    );
+  }
+
+  public deleteProduct(productId: string): Observable<void> {
+    return this.http.delete<void>(
+      `${this.productUrls.productsApi}/${productId}`
     );
   }
 
