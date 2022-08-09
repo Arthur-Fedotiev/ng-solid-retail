@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  baseUrl: 'http://localhost:3000',
+  api: 'https://us-central1-omnia-retail-6ad5b.cloudfunctions.net/api',
 };
