@@ -10,4 +10,11 @@ export enum CategoryEnum {
   Tequila = 'Tequila',
   Brandy = 'Brandy',
   OtherDrinks = 'OtherDrinks',
+  Electronics = 'Electronics',
+  Computers = 'Computers',
+  Tablets = 'Tablets',
+  Smartphones = 'Smartphones',
+  Laptops = 'Laptops',
+  OtherElectronics = 'OtherElectronics',
+  Food = 'Food',
 }
