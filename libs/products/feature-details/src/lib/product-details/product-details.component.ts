@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductsFacadeService } from '@omnia/products/data-access';
 
@@ -8,13 +8,19 @@ import { ProductsFacadeService } from '@omnia/products/data-access';
   styleUrls: ['./product-details.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductDetailsComponent {
-  public readonly product$ = this.productsFacade.selectedProduct$;
+export class ProductDetailsComponent implements OnDestroy {
+  public readonly product = this.route.snapshot.data['product'];
 
   constructor(
     private readonly route: ActivatedRoute,
     private readonly productsFacade: ProductsFacadeService
-  ) {
-    console.log(this.route.snapshot.data['exercise'] ?? null);
+  ) {}
+
+  public ngOnDestroy(): void {
+    this.releaseResources();
+  }
+
+  private releaseResources(): void {
+    this.productsFacade.releaseSelectedProduct();
   }
 }

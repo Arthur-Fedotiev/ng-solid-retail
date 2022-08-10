@@ -131,6 +131,15 @@ export class ProductsFacadeService {
       .subscribe();
   }
 
+  public releaseSelectedProduct(): void {
+    this.state$.next(
+      (this.state = {
+        ...this.state,
+        selectedProduct: null,
+      })
+    );
+  }
+
   private removeProduct(id: string): void {
     this.state$.next(
       (this.state = {
