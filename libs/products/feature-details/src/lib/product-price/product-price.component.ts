@@ -29,8 +29,8 @@ export class ProductPriceComponent implements OnInit {
   @Input() public price!: PriceViewModel;
   @Input() public isEditMode = false;
 
-  @Output() protected save = new EventEmitter<ProductPrice>();
-  @Output() protected discard = new EventEmitter<ProductPrice>();
+  @Output() protected save = new EventEmitter<PriceViewModel>();
+  @Output() protected discard = new EventEmitter<PriceViewModel>();
 
   public readonly priceForm = this.formBuilder.group<{
     price: null | number;
@@ -54,15 +54,16 @@ export class ProductPriceComponent implements OnInit {
   }
 
   public savePrice(): void {
-    this.save.emit({
-      ...this.price,
+    const updatedPrice = Object.assign(this.price, {
       price: this.priceForm.value.price as number,
     });
+
+    this.save.emit(updatedPrice);
     this.toggleEditMode();
   }
 
   public discardPrice(): void {
-    this.discard.emit(this.price);
+    this.discard.emit();
     this.resetForm();
     this.toggleEditMode();
   }

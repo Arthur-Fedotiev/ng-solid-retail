@@ -30,10 +30,22 @@
       }}</span>
     </p>
 
+    <h3 class="mat-title">Categories</h3>
+
+    <ng-container
+      *ngFor="let category of product.categories; index as i; last as last"
+    >
+      <p class="subheading-2">{{ category.name }}{{ last ? '.' : ', ' }}</p>
+    </ng-container>
+
     <h3 class="mat-title">Prices by retailers</h3>
 
     <div *ngFor="let price of product.prices; index as i">
-      <omnia-product-price #productPrice="omniaProductPrice" [price]="price">
+      <omnia-product-price
+        #productPrice="omniaProductPrice"
+        [price]="price"
+        (save)="updateProductPrice(product, $event)"
+      >
         <button action mat-mini-fab color="primary">
           <mat-icon>edit</mat-icon>
         </button></omnia-product-price
@@ -41,10 +53,13 @@
     </div>
   </mat-card-content>
   <mat-card-actions>
-    <button class="prices__action" mat-raised-button color="warn">
+    <button
+      class="prices__action"
+      mat-raised-button
+      color="warn"
+      (click)="deleteProduct(product.id)"
+    >
       DELETE PRODUCT
     </button>
   </mat-card-actions>
 </mat-card>
-
-<!-- <pre> {{ product.prices | json }} </pre> -->

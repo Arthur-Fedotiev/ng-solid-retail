@@ -80,6 +80,27 @@ export class FirestoreProductsApiService implements ProductsApi {
     return forkJoin(prices$).pipe(switchMap(() => product$));
   }
 
+  public updateProductPrice(
+    product: Product,
+    price: Price
+  ): Observable<Product> {
+    return this.updateProduct(product).pipe(
+      switchMap((product) => this.updatePrice(price).pipe(mapTo(product)))
+    );
+  }
+
+  private updateProduct(product: Product): Observable<Product> {
+    return from(
+      this.afs.doc<Product>(`products/${product.id}`).update(product)
+    ).pipe(mapTo(product));
+  }
+
+  private updatePrice(price: Price): Observable<Price> {
+    return from(this.afs.doc<Price>(`prices/${price.id}`).update(price)).pipe(
+      mapTo(price)
+    );
+  }
+
   public getRetailers(): Observable<readonly Retailer[]> {
     return this.afs
       .collection<Product>('retailers')
@@ -94,8 +115,11 @@ export class FirestoreProductsApiService implements ProductsApi {
     );
   }
 
-  private createOnePrice(price: Price): Observable<DocumentReference<Price>> {
-    return from(this.afs.collection<Price>(`prices`).add(price)).pipe(take(1));
+  private createOnePrice(price: Price): Observable<Price> {
+    return from(this.afs.doc<Price>(`prices/${price.id}`).set(price)).pipe(
+      mapTo(price),
+      take(1)
+    );
   }
 
   private deletePrices(productId: string): Observable<void[]> {

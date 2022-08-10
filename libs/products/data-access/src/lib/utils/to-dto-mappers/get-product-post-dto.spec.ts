@@ -7,7 +7,7 @@ describe('getProductPostDto', () => {
     const idGeneratorMock = jest.fn(() => 'id');
     const product = {
       name: 'Product 1',
-      sku: 'SKU 1',
+      sku: 'skU',
       description: 'Description 1',
       categories: [{ id: '1', name: 'Category 1' }],
       prices: [
@@ -20,7 +20,7 @@ describe('getProductPostDto', () => {
     const expected = {
       id: expectedId,
       Name: product.name,
-      SKU: product.sku,
+      SKU: product.sku.toUpperCase(),
       Description: product.description,
       Categories: product.categories.map((c) => ({ id: c.id, Name: c.name })),
       Prices: product.prices.map((p) => ({

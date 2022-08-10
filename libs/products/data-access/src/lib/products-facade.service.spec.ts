@@ -9,6 +9,7 @@ import { ProductViewModel } from './models/ProductViewModel';
 
 import { ProductsFacadeService } from './products-facade.service';
 import { TO_PRODUCT_POST_DTO } from './providers/to-product-post-dto.token';
+import { TO_PRODUCT_PATCH_DTO } from './providers/to-product-update-dto.token';
 import { makeProductViewModelsStub } from './testing/make-product-view-models-stub';
 import { toProductViewModel } from './utils/to-product-view-model';
 
@@ -16,6 +17,7 @@ describe('ProductsFacadeService', () => {
   let service: ProductsFacadeService;
   let productsApiProviderMock: jest.Mocked<ProductsApi>;
   let toProductPostDtoProviderMock: jest.Mock;
+  let toProductPatchDtoProviderMock: jest.Mock;
   let routerMock: jest.Mocked<Router>;
 
   beforeEach(() => {
@@ -30,10 +32,15 @@ describe('ProductsFacadeService', () => {
             getRetailers: jest.fn(),
             deleteProduct: jest.fn().mockReturnValue(of()),
             getOneProduct: jest.fn(),
+            updateProductPrice: jest.fn(),
           },
         },
         {
           provide: TO_PRODUCT_POST_DTO,
+          useValue: jest.fn(),
+        },
+        {
+          provide: TO_PRODUCT_PATCH_DTO,
           useValue: jest.fn(),
         },
         {
@@ -52,6 +59,9 @@ describe('ProductsFacadeService', () => {
 
     toProductPostDtoProviderMock = TestBed.inject(
       TO_PRODUCT_POST_DTO
+    ) as jest.Mock;
+    toProductPatchDtoProviderMock = TestBed.inject(
+      TO_PRODUCT_PATCH_DTO
     ) as jest.Mock;
   });
 
@@ -287,5 +297,32 @@ describe('ProductsFacadeService', () => {
         done();
       });
     });
+  });
+
+  describe('#updateProductPrice', () => {
+    it('should delegate to UpdateProductPrice passing updated product an updated price', fakeAsync(() => {
+      const productStub = makeProductViewModelsStub(1)[0];
+      const priceStub = productStub.prices[0].id;
+
+      const expectedProduct = { Prices: [{ id: priceStub }] };
+      const expectedPrice = { id: priceStub };
+
+      toProductPatchDtoProviderMock.mockReturnValue(expectedProduct);
+      productsApiProviderMock.updateProductPrice.mockReturnValue(
+        of(expectedProduct as Product)
+      );
+
+      service.selectedProductPriceUpdate(productStub, priceStub);
+
+      tick();
+      // expect(
+      //   productsApiProviderMock.updateProductPrice.mock.calls[0]
+      // ).toMatchSnapshot();
+
+      expect(productsApiProviderMock.updateProductPrice).toHaveBeenCalledWith(
+        expectedProduct,
+        expectedPrice
+      );
+    }));
   });
 });

@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProductsFacadeService #updateProductPrice should delegate to UpdateProductPrice passing updated product an updated price 1`] = `
+Array [
+  Object {
+    "Prices": Array [
+      Object {
+        "id": "1",
+      },
+    ],
+  },
+  Object {
+    "id": "1",
+  },
+]
+`;

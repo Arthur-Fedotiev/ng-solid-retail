@@ -1,6 +1,6 @@
 import { Product } from '@omnia/products/domain';
-import { CreateProductForm } from '../models/create-product-from.interface';
 import { IdGenerator, toISOStringWithTimezone } from '@omnia/shared/util';
+import { CreateProductForm } from '../../models/create-product-from.interface';
 
 export const getProductPostDto = (
   product: CreateProductForm,
@@ -11,12 +11,11 @@ export const getProductPostDto = (
   return {
     id: productId,
     Name: product.name,
-    SKU: product.sku,
+    SKU: product.sku.toUpperCase(),
     Description: product.description,
     Categories: product.categories.map((c) => ({ id: c.id, Name: c.name })),
     Prices: product.prices.map((p) => {
       const priceId = IdGenerator();
-
       return {
         id: priceId,
         productId,

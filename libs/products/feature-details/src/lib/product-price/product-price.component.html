@@ -1,24 +1,28 @@
-<h4
+<div
   fxLayout="row nowrap"
-  fxLayoutAlign="center baseline"
+  fxLayoutAlign="space-between baseline"
   fxLayoutGap="1rem"
-  class="mat-subheading-2"
 >
   <ng-container *ngIf="!isEditMode; else editTpl">
-    <span class="mat-body-strong">
+    <span class="mat-subheading-2">
       {{ price.retailer.name }} - {{ price.price }}$
     </span>
-    <span class="mat-body"> (Tier: {{ price.tier }}) </span></ng-container
+    <span class="mat-subheading-2"> Tier: {{ price.tier }} </span></ng-container
   >
 
   <div (click)="isEditMode ? discardPrice() : toggleEditMode()">
     <ng-template [ngTemplateOutlet]="action"></ng-template>
   </div>
-</h4>
+</div>
 
 <ng-template #editTpl>
-  <form [formGroup]="priceForm">
-    <mat-form-field appearance="outline">
+  <form
+    fxLayout="row nowrap"
+    fxLayoutAlign="space-between baseline"
+    fxLayoutGap="1rem"
+    [formGroup]="priceForm"
+  >
+    <mat-form-field fxFlex="60%" fxFlex.gt-sm="100%" appearance="outline">
       <mat-label
         >{{ price.retailer.name }} Tier {{ price.tier }} Price</mat-label
       >
