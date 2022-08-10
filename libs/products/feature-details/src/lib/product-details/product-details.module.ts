@@ -5,6 +5,7 @@ import { SharedUiMaterialModule } from '@omnia/shared/ui-material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import { LowestTierPricePipeModule } from './lowest-tier-price.pipe';
+import { ProductPriceModule } from '../product-price/product-price.module';
 
 @NgModule({
   declarations: [ProductDetailsComponent],
@@ -14,6 +15,7 @@ import { LowestTierPricePipeModule } from './lowest-tier-price.pipe';
     FlexLayoutModule,
     FormsModule,
     LowestTierPricePipeModule,
+    ProductPriceModule,
   ],
   exports: [ProductDetailsComponent],
 })

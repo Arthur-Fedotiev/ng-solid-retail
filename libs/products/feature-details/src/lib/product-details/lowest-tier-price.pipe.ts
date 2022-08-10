@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
 })
 export class LowestTierPricePipe implements PipeTransform {
   transform(
-    value: { price: number; tier: number }[],
+    value: readonly { price: number; tier: number }[],
     tier: number = 1
   ): number | null {
     const lowestPrice = value.reduce((prev: number | null, curr) => {

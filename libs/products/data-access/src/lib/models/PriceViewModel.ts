@@ -10,7 +10,7 @@ export class PriceViewModel {
       dto.Retailer.id,
       dto.Retailer.Name
     ),
-    public readonly price: number = dto.Price,
+    public readonly price: number = Number(dto.Price),
     public readonly tier: number = dto.Tier,
     public readonly updateTime: string = dto.UpdateTime
   ) {}

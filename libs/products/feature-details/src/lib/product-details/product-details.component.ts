@@ -9,7 +9,7 @@ import { ProductsFacadeService } from '@omnia/products/data-access';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductDetailsComponent implements OnDestroy {
-  public readonly product = this.route.snapshot.data['product'];
+  public readonly product$ = this.productsFacade.selectedProduct$;
 
   constructor(
     private readonly route: ActivatedRoute,

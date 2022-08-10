@@ -1,4 +1,5 @@
 <mat-card
+  *ngIf="product$ | async as product"
   fxLayout="column nowrap"
   fxLayoutAlign="start center"
   fxLayoutGap="3rem"
@@ -31,63 +32,19 @@
 
     <h3 class="mat-title">Prices by retailers</h3>
 
-    <div *ngFor="let price of product.prices">
-      <h4 class="mat-subheading-2">
-        <span class="mat-body-strong">
-          {{ price.retailer.name }} - {{ price.price }}$
-        </span>
-        <span class="mat-body">
-          (Tier: {{ price.tier }}, last updated:
-          {{ price.updateTime | date: 'medium' }})
-        </span>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Price</mat-label>
-          <input
-            placeholder="Price"
-            matInput
-            [value]="price.price"
-            [(ngModel)]="price.price"
-          /> </mat-form-field
-        ><button mat-mini-fab>
+    <div *ngFor="let price of product.prices; index as i">
+      <omnia-product-price #productPrice="omniaProductPrice" [price]="price">
+        <button action mat-mini-fab color="primary">
           <mat-icon>edit</mat-icon>
-        </button>
-      </h4>
+        </button></omnia-product-price
+      >
     </div>
   </mat-card-content>
   <mat-card-actions>
-    <button class="prices__action" mat-raised-button color="primary">
-      EDIT EXERCISE
-    </button>
     <button class="prices__action" mat-raised-button color="warn">
-      DELETE EXERCISE
+      DELETE PRODUCT
     </button>
   </mat-card-actions>
 </mat-card>
 
-<ng-template #priceTpl let-state let-isEdit="isEdit">
-  <h4 class="mat-subheading-2">
-    <ng-container *ngIf="!isEdit; else editTpl">
-      <span class="mat-body-strong">
-        {{ state.retailer.name }} - {{ state.price }}$
-      </span>
-      <span class="mat-body">
-        (Tier: {{ state.tier }}, last updated:
-        {{ state.updateTime | date: 'medium' }})
-      </span>
-    </ng-container>
-
-    <ng-template #editTpl
-      ><mat-form-field appearance="outline">
-        <mat-label>Price</mat-label>
-        <input
-          placeholder="Price"
-          matInput
-          [value]="state.price"
-          [(ngModel)]="state.price"
-        /> </mat-form-field
-    ></ng-template>
-  </h4>
-</ng-template>
-
-<pre> {{ product.prices | json }} </pre>
+<!-- <pre> {{ product.prices | json }} </pre> -->

@@ -1,13 +1,17 @@
-.product-card {
-  height: 100%;
+:host {
+  display: block;
 
-  &__photo {
-    width: 50vh;
-  }
+  .product-card {
+    height: 100%;
 
-  &__content {
-    .mat-title {
-      text-align: center;
+    &__photo {
+      width: 50vh;
+    }
+
+    &__content {
+      .mat-title {
+        text-align: center;
+      }
     }
   }
 }
