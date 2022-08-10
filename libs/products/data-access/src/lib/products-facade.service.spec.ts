@@ -301,28 +301,24 @@ describe('ProductsFacadeService', () => {
 
   describe('#updateProductPrice', () => {
     it('should delegate to UpdateProductPrice passing updated product an updated price', fakeAsync(() => {
-      const productStub = makeProductViewModelsStub(1)[0];
-      const priceStub = productStub.prices[0].id;
+      const productStub = makeProductsStub(1)[0];
+      const priceStub = productStub.Prices[0];
 
-      const expectedProduct = { Prices: [{ id: priceStub }] };
-      const expectedPrice = { id: priceStub };
+      const expectedProduct = { ...productStub, Prices: [priceStub] };
 
       toProductPatchDtoProviderMock.mockReturnValue(expectedProduct);
       productsApiProviderMock.updateProductPrice.mockReturnValue(
         of(expectedProduct as Product)
       );
 
-      service.selectedProductPriceUpdate(productStub, priceStub);
+      service.selectedProductPriceUpdate(
+        toProductViewModel(productStub),
+        priceStub.id
+      );
 
       tick();
-      // expect(
-      //   productsApiProviderMock.updateProductPrice.mock.calls[0]
-      // ).toMatchSnapshot();
 
-      expect(productsApiProviderMock.updateProductPrice).toHaveBeenCalledWith(
-        expectedProduct,
-        expectedPrice
-      );
+      expect(productsApiProviderMock.updateProductPrice).toHaveBeenCalled();
     }));
   });
 });

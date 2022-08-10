@@ -1,5 +1,5 @@
-import { CreateProductForm } from '../models/create-product-from.interface';
 import { toISOStringWithTimezone } from '@omnia/shared/util';
+import { CreateProductForm } from '../../models/create-product-from.interface';
 import { getProductPostDto } from './get-product-post-dto';
 
 describe('getProductPostDto', () => {
@@ -22,13 +22,16 @@ describe('getProductPostDto', () => {
       Name: product.name,
       SKU: product.sku.toUpperCase(),
       Description: product.description,
-      Categories: product.categories.map((c) => ({ id: c.id, Name: c.name })),
-      Prices: product.prices.map((p) => ({
+      Categories: product.categories.map((category) => ({
+        id: category.id,
+        Name: category.name,
+      })),
+      Prices: product.prices.map((price) => ({
         id: idGeneratorMock(),
         productId: expectedId,
-        Price: p.price,
-        Tier: p.tier,
-        Retailer: { id: p.retailer.id, Name: p.retailer.name },
+        Price: price.price,
+        Tier: price.tier,
+        Retailer: { id: price.retailer.id, Name: price.retailer.name },
         UpdateTime: toISOStringWithTimezone(new Date()),
       })),
     };

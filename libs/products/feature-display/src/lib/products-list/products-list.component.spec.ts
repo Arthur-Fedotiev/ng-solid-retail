@@ -25,7 +25,7 @@ describe('ProductsListComponent', () => {
           useValue: {
             productsShortInfo$: productsSelectorStub$,
             loadProducts: jest.fn(),
-            selectProduct: jest.fn(),
+            productSelected: jest.fn(),
           },
         },
       ],
