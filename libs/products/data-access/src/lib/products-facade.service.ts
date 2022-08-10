@@ -20,6 +20,7 @@ import {
 } from 'rxjs';
 import { CreateProductForm } from './models/create-product-from.interface';
 import { ProductsStateModel } from './models/products-state.model';
+import { ProductViewModel } from './models/ProductViewModel';
 import {
   ToProductPostDto,
   TO_PRODUCT_POST_DTO,
@@ -44,13 +45,9 @@ export class ProductsFacadeService {
   );
 
   public readonly selectedProduct$ = this.state$.pipe(
-    pluck('selectedProductId'),
+    pluck('selectedProduct'),
     distinctUntilChanged(),
-    filter(Boolean),
-    withLatestFrom(this.products$),
-    map(([selectedProductId, products]) =>
-      products.find((product) => product.id === selectedProductId)
-    )
+    filter(Boolean)
   );
 
   public readonly productsListForEachPrice$ = this.products$.pipe(
@@ -125,12 +122,13 @@ export class ProductsFacadeService {
 
   public productSelected(productId: string) {
     this.navigateToProductPage(productId);
-    this.state$.next(
-      (this.state = {
-        ...this.state,
-        selectedProductId: productId,
-      })
-    );
+  }
+
+  public loadProduct(id: string) {
+    this.productsApi
+      .getOneProduct(id)
+      .pipe(tap(this.updateSelectedProduct), take(1))
+      .subscribe();
   }
 
   private removeProduct(id: string): void {
@@ -149,6 +147,15 @@ export class ProductsFacadeService {
       (this.state = {
         ...this.state,
         products: products.map(toProductViewModel),
+      })
+    );
+  };
+
+  private updateSelectedProduct = (selectedProduct: Product) => {
+    this.state$.next(
+      (this.state = {
+        ...this.state,
+        selectedProduct: toProductViewModel(selectedProduct),
       })
     );
   };

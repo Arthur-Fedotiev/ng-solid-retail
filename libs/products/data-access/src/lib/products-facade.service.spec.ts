@@ -10,6 +10,7 @@ import { ProductViewModel } from './models/ProductViewModel';
 import { ProductsFacadeService } from './products-facade.service';
 import { TO_PRODUCT_POST_DTO } from './providers/to-product-post-dto.token';
 import { makeProductViewModelsStub } from './testing/make-product-view-models-stub';
+import { toProductViewModel } from './utils/to-product-view-model';
 
 describe('ProductsFacadeService', () => {
   let service: ProductsFacadeService;
@@ -28,6 +29,7 @@ describe('ProductsFacadeService', () => {
             createProduct: jest.fn(),
             getRetailers: jest.fn(),
             deleteProduct: jest.fn().mockReturnValue(of()),
+            getOneProduct: jest.fn(),
           },
         },
         {
@@ -246,18 +248,6 @@ describe('ProductsFacadeService', () => {
   });
 
   describe('#selectProduct', () => {
-    it('should set selected product state', fakeAsync(() => {
-      const product = makeProductViewModelsStub(1)[0];
-
-      service.productSelected(product.id);
-
-      service.selectedProduct$.subscribe((selectedProduct) => {
-        expect(selectedProduct).toEqual(product);
-      });
-
-      tick();
-    }));
-
     it('should navigate to product detail page', () => {
       const product = makeProductViewModelsStub(1)[0];
 
@@ -267,6 +257,35 @@ describe('ProductsFacadeService', () => {
         '/products',
         product.id,
       ]);
+    });
+  });
+
+  describe('#loadProduct', () => {
+    it('should delegate to GetProduct passing id', () => {
+      const id = 'id';
+
+      productsApiProviderMock.getOneProduct.mockReturnValue(
+        scheduled([{} as Product], asyncScheduler)
+      );
+
+      service.loadProduct(id);
+
+      expect(productsApiProviderMock.getOneProduct).toHaveBeenCalledWith(id);
+    });
+
+    it('should set selected product state', (done: jest.DoneCallback) => {
+      const product = makeProductsStub(1)[0];
+
+      productsApiProviderMock.getOneProduct.mockReturnValue(
+        scheduled([product], asyncScheduler)
+      );
+
+      service.loadProduct(product.id);
+
+      service.selectedProduct$.subscribe((selectedProduct) => {
+        expect(selectedProduct).toEqual(toProductViewModel(product));
+        done();
+      });
     });
   });
 });

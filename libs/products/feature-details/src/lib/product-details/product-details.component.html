@@ -1,5 +1,5 @@
 <pre>{{ product$ | async | json }}</pre>
-<mat-card class="example-card" *ngIf="product$ | async as product">
+<mat-card *ngIf="product$ | async as product" class="product-card">
   <mat-card-header>
     <div mat-card-avatar class="example-header-image"></div>
     <mat-card-title> {{ product.name }} </mat-card-title>

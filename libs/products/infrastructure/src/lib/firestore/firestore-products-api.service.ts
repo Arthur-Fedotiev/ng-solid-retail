@@ -10,15 +10,18 @@ import {
   ProductsApi,
   Retailer,
 } from '@omnia/products/domain';
-import { convertSnaps } from '@omnia/shared/util';
+import { convertOneSnap, convertSnaps } from '@omnia/shared/util';
+import firebase from 'firebase/compat/app';
 import {
   first,
   forkJoin,
   from,
   map,
+  mapTo,
   mergeMap,
   Observable,
   of,
+  pipe,
   switchMap,
   take,
   tap,
@@ -37,6 +40,18 @@ export class FirestoreProductsApiService implements ProductsApi {
       .pipe(map(convertSnaps));
   }
 
+  public getOneProduct(id: string): Observable<Product> {
+    return this.afs
+      .doc<Product>(`products/${id}`)
+      .get()
+      .pipe(
+        map<firebase.firestore.DocumentSnapshot<Product>, Product>(
+          convertOneSnap
+        ),
+        take(1)
+      );
+  }
+
   public getCategories(): Observable<readonly Category[]> {
     return this.afs
       .collection<Product>('categories')
@@ -44,7 +59,7 @@ export class FirestoreProductsApiService implements ProductsApi {
       .pipe(map(convertSnaps));
   }
 
-  public createProduct(product: Product): Observable<any> {
+  public createProduct(product: Product): Observable<Product> {
     const { Prices } = product;
     const id = product.id;
 
@@ -52,10 +67,14 @@ export class FirestoreProductsApiService implements ProductsApi {
       ? Prices.map((price) => this.createOnePrice({ ...price, productId: id }))
       : [of({})];
 
+    const toFirstProduct = () => pipe(first(), mapTo(product));
+
     const product$ = id
-      ? from(this.afs.doc<Product>(`products/${id}`).set(product)).pipe(first())
+      ? from(this.afs.doc<Product>(`products/${id}`).set(product)).pipe(
+          toFirstProduct()
+        )
       : from(this.afs.collection<Product>(`products`).add(product)).pipe(
-          first()
+          toFirstProduct()
         );
 
     return forkJoin(prices$).pipe(switchMap(() => product$));

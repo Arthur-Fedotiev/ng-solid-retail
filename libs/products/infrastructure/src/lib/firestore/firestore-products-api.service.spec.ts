@@ -4,11 +4,14 @@ import { EMPTY, of } from 'rxjs';
 import { makeProductsStub } from '../testing/make-products-stub';
 import { makeCollectionStub } from './testing/make-collection-stub';
 import { FirestoreProductsApiService } from './firestore-products-api.service';
+import { makeDocStub } from './testing/make-doc-stub';
 
 export class AngularFirestoreMock {
   collectionGetMock = jest.fn().mockReturnValue(EMPTY);
   collectionAddMock = jest.fn().mockReturnValue(EMPTY);
   docSetMock = jest.fn().mockReturnValue(EMPTY);
+  docGetMock = jest.fn().mockReturnValue(EMPTY);
+
   deleteMock = jest.fn().mockReturnValue(of());
   whereMock = jest.fn().mockReturnValue(this);
 
@@ -17,9 +20,11 @@ export class AngularFirestoreMock {
     get: this.collectionGetMock,
     ref: { where: this.whereMock },
   });
-  doc = jest
-    .fn()
-    .mockReturnValue({ set: this.docSetMock, delete: this.deleteMock });
+  doc = jest.fn().mockReturnValue({
+    get: this.docGetMock,
+    set: this.docSetMock,
+    delete: this.deleteMock,
+  });
 }
 
 describe('FirestoreProductsApiService', () => {
@@ -115,7 +120,6 @@ describe('FirestoreProductsApiService', () => {
     }));
   });
 
-  //createProduct
   describe('createProduct', () => {
     it('should call afs.collection with the correct name', () => {
       const productStub = makeProductsStub(1)[0];
@@ -153,5 +157,28 @@ describe('FirestoreProductsApiService', () => {
 
       expect(afsMock.deleteMock).toHaveBeenCalledTimes(1);
     });
+  });
+
+  describe('getOneProduct', () => {
+    it('should use products collection passing id', () => {
+      const productId = 'productId';
+
+      service.getOneProduct(productId).subscribe();
+
+      expect(afsMock.doc).toHaveBeenCalledWith(`products/${productId}`);
+    });
+
+    it('should return product', fakeAsync(() => {
+      const productStub = makeProductsStub(1)[0];
+      const docStub = makeDocStub(productStub);
+
+      afsMock.docGetMock.mockReturnValue(of(docStub));
+
+      service
+        .getOneProduct('1')
+        .subscribe((product) => expect(product).toEqual(productStub));
+
+      tick();
+    }));
   });
 });

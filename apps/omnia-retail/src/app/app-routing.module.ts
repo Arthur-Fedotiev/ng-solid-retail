@@ -12,6 +12,10 @@ const appRoutes: Route[] = [
         loadChildren: () =>
           import('@omnia/products/shell').then((m) => m.ProductsShellModule),
       },
+      {
+        path: '**',
+        redirectTo: 'products',
+      },
     ],
   },
 ];

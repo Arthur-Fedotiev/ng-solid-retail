@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ProductsFacadeService } from '@omnia/products/data-access';
 
 @Component({
@@ -10,5 +11,10 @@ import { ProductsFacadeService } from '@omnia/products/data-access';
 export class ProductDetailsComponent {
   public readonly product$ = this.productsFacade.selectedProduct$;
 
-  constructor(private readonly productsFacade: ProductsFacadeService) {}
+  constructor(
+    private readonly route: ActivatedRoute,
+    private readonly productsFacade: ProductsFacadeService
+  ) {
+    console.log(this.route.snapshot.data['exercise'] ?? null);
+  }
 }
