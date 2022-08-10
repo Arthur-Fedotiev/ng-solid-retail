@@ -1,14 +1,18 @@
-import { fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { EMPTY, of } from 'rxjs';
+import { of } from 'rxjs';
 import { makeProductsStub } from '../testing/make-products-stub';
 import { makeCollectionStub } from './testing/make-collection-stub';
 import { FirestoreProductsApiService } from './firestore-products-api.service';
+import { makeDocStub } from './testing/make-doc-stub';
 
 export class AngularFirestoreMock {
-  collectionGetMock = jest.fn().mockReturnValue(EMPTY);
-  collectionAddMock = jest.fn().mockReturnValue(EMPTY);
-  docSetMock = jest.fn().mockReturnValue(EMPTY);
+  collectionGetMock = jest.fn().mockReturnValue(of());
+  collectionAddMock = jest.fn().mockReturnValue(of());
+  docSetMock = jest.fn().mockReturnValue(of());
+  docGetMock = jest.fn().mockReturnValue(of());
+  docUpdateMock = jest.fn().mockReturnValue(of());
+
   deleteMock = jest.fn().mockReturnValue(of());
   whereMock = jest.fn().mockReturnValue(this);
 
@@ -17,9 +21,12 @@ export class AngularFirestoreMock {
     get: this.collectionGetMock,
     ref: { where: this.whereMock },
   });
-  doc = jest
-    .fn()
-    .mockReturnValue({ set: this.docSetMock, delete: this.deleteMock });
+  doc = jest.fn().mockReturnValue({
+    get: this.docGetMock,
+    set: this.docSetMock,
+    delete: this.deleteMock,
+    update: this.docUpdateMock,
+  });
 }
 
 describe('FirestoreProductsApiService', () => {
@@ -115,25 +122,28 @@ describe('FirestoreProductsApiService', () => {
     }));
   });
 
-  //createProduct
   describe('createProduct', () => {
-    it('should call afs.collection with the correct name', () => {
+    it('should call afs get with the correct name', waitForAsync(() => {
       const productStub = makeProductsStub(1)[0];
 
-      service.createProduct(productStub).subscribe();
+      afsMock.docGetMock.mockReturnValue(of());
 
-      expect(afsMock.collection).toHaveBeenCalledWith('prices');
-    });
+      service.createProduct(productStub).subscribe(() => {
+        expect(afsMock.docGetMock).toHaveBeenCalledWith(
+          `prices/${productStub.Prices[0].id}`
+        );
+      });
+    }));
 
-    it('should call persist each price', () => {
+    it('should call persist each price', waitForAsync(() => {
       const productStub = makeProductsStub(1)[0];
 
-      service.createProduct(productStub).subscribe();
+      afsMock.docGetMock.mockReturnValue(of());
 
-      expect(afsMock.collection).toHaveBeenCalledTimes(
-        productStub.Prices.length
-      );
-    });
+      service.createProduct(productStub).subscribe(() => {
+        expect(afsMock.docGetMock).toBeCalledTimes(productStub.Prices.length);
+      });
+    }));
   });
 
   // TODO: cover edge cases for prices cascade delete
@@ -153,5 +163,49 @@ describe('FirestoreProductsApiService', () => {
 
       expect(afsMock.deleteMock).toHaveBeenCalledTimes(1);
     });
+  });
+
+  describe('getOneProduct', () => {
+    it('should use products collection passing id', () => {
+      const productId = 'productId';
+
+      service.getOneProduct(productId).subscribe();
+
+      expect(afsMock.doc).toHaveBeenCalledWith(`products/${productId}`);
+    });
+
+    it('should return product', fakeAsync(() => {
+      const productStub = makeProductsStub(1)[0];
+      const docStub = makeDocStub(productStub);
+
+      afsMock.docGetMock.mockReturnValue(of(docStub));
+
+      service
+        .getOneProduct('1')
+        .subscribe((product) => expect(product).toEqual(productStub));
+
+      tick();
+    }));
+  });
+
+  describe('#updateProductPrice', () => {
+    //should call afs.doc with the correct collection name and id
+    it('should call afs.doc with the correct collection name and id', waitForAsync(() => {
+      const productStub = makeProductsStub(1)[0];
+      const priceStub = productStub.Prices[0];
+
+      service.updateProductPrice(productStub, priceStub).subscribe(() => {
+        expect(afsMock.doc).toHaveBeenCalledWith(`product/${productStub.id}`);
+      });
+    }));
+
+    it('should call afs.doc.update with the correct price', waitForAsync(() => {
+      const productStub = makeProductsStub(1)[0];
+      const priceStub = productStub.Prices[0];
+
+      service.updateProductPrice(productStub, priceStub).subscribe(() => {
+        expect(afsMock.docUpdateMock).toHaveBeenCalledWith(null);
+      });
+    }));
   });
 });

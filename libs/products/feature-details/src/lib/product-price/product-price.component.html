@@ -1,0 +1,50 @@
+<div
+  fxLayout="row nowrap"
+  fxLayoutAlign="space-between baseline"
+  fxLayoutGap="1rem"
+>
+  <ng-container *ngIf="!isEditMode; else editTpl">
+    <span class="mat-subheading-2">
+      {{ price.retailer.name }} - {{ price.price }}$
+    </span>
+    <span class="mat-subheading-2"> Tier: {{ price.tier }} </span></ng-container
+  >
+
+  <div (click)="isEditMode ? discardPrice() : toggleEditMode()">
+    <ng-template [ngTemplateOutlet]="action"></ng-template>
+  </div>
+</div>
+
+<ng-template #editTpl>
+  <form
+    fxLayout="row nowrap"
+    fxLayoutAlign="space-between baseline"
+    fxLayoutGap="1rem"
+    [formGroup]="priceForm"
+  >
+    <mat-form-field fxFlex="60%" fxFlex.gt-sm="100%" appearance="outline">
+      <mat-label
+        >{{ price.retailer.name }} Tier {{ price.tier }} Price</mat-label
+      >
+      <input
+        matInput
+        type="number"
+        placeholder="Price"
+        [formControlName]="'price'"
+      />
+    </mat-form-field>
+    <button
+      aria-labelledby="save price"
+      color="success"
+      mat-mini-fab
+      [disabled]="isSaveDisabled$ | async"
+      (click)="savePrice()"
+    >
+      <mat-icon>save</mat-icon>
+    </button>
+  </form>
+</ng-template>
+
+<ng-template #action>
+  <ng-content select="[action]"></ng-content>
+</ng-template>

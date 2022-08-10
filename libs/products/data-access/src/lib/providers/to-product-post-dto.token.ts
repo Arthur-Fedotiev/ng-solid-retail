@@ -2,7 +2,7 @@ import { InjectionToken } from '@angular/core';
 import { Product } from '@omnia/products/domain';
 import { IdGenerator } from '@omnia/shared/util';
 import { CreateProductForm } from '../models/create-product-from.interface';
-import { getProductPostDto } from '../utils/get-product-post-dto';
+import { getProductPostDto } from '../utils/to-dto-mappers/get-product-post-dto';
 
 export type ToProductPostDto = {
   (product: CreateProductForm, IdGenerator: IdGenerator): Product;

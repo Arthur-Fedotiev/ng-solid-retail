@@ -1,0 +1,17 @@
+:host {
+  display: block;
+
+  .product-card {
+    height: 100%;
+
+    &__photo {
+      width: 50vh;
+    }
+
+    &__content {
+      .mat-title {
+        text-align: center;
+      }
+    }
+  }
+}

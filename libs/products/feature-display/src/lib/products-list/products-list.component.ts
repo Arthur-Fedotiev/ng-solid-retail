@@ -17,7 +17,7 @@ export class ProductsListComponent implements OnInit {
   }
 
   public onClick(productId: string): void {
-    this.productsFacade.selectProduct(productId);
+    this.productsFacade.productSelected(productId);
   }
 
   private loadProducts(): void {

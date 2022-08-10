@@ -1,4 +1,5 @@
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { Router } from '@angular/router';
 import { Product, ProductsApi } from '@omnia/products/domain';
 import { PRODUCTS_API, makeProductsStub } from '@omnia/products/infrastructure';
 import { ID_GENERATOR } from '@omnia/shared/util';
@@ -8,12 +9,16 @@ import { ProductViewModel } from './models/ProductViewModel';
 
 import { ProductsFacadeService } from './products-facade.service';
 import { TO_PRODUCT_POST_DTO } from './providers/to-product-post-dto.token';
+import { TO_PRODUCT_PATCH_DTO } from './providers/to-product-update-dto.token';
 import { makeProductViewModelsStub } from './testing/make-product-view-models-stub';
+import { toProductViewModel } from './utils/to-product-view-model';
 
 describe('ProductsFacadeService', () => {
   let service: ProductsFacadeService;
   let productsApiProviderMock: jest.Mocked<ProductsApi>;
   let toProductPostDtoProviderMock: jest.Mock;
+  let toProductPatchDtoProviderMock: jest.Mock;
+  let routerMock: jest.Mocked<Router>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -26,6 +31,8 @@ describe('ProductsFacadeService', () => {
             createProduct: jest.fn(),
             getRetailers: jest.fn(),
             deleteProduct: jest.fn().mockReturnValue(of()),
+            getOneProduct: jest.fn(),
+            updateProductPrice: jest.fn(),
           },
         },
         {
@@ -33,17 +40,28 @@ describe('ProductsFacadeService', () => {
           useValue: jest.fn(),
         },
         {
+          provide: TO_PRODUCT_PATCH_DTO,
+          useValue: jest.fn(),
+        },
+        {
           provide: ID_GENERATOR,
           useValue: () => 'id',
         },
+        { provide: Router, useValue: { navigate: jest.fn() } },
       ],
     });
     service = TestBed.inject(ProductsFacadeService);
+    routerMock = TestBed.inject(Router) as jest.Mocked<Router>;
+
     productsApiProviderMock = TestBed.inject(
       PRODUCTS_API
     ) as jest.Mocked<ProductsApi>;
+
     toProductPostDtoProviderMock = TestBed.inject(
       TO_PRODUCT_POST_DTO
+    ) as jest.Mock;
+    toProductPatchDtoProviderMock = TestBed.inject(
+      TO_PRODUCT_PATCH_DTO
     ) as jest.Mock;
   });
 
@@ -236,6 +254,71 @@ describe('ProductsFacadeService', () => {
       });
 
       tick();
+    }));
+  });
+
+  describe('#selectProduct', () => {
+    it('should navigate to product detail page', () => {
+      const product = makeProductViewModelsStub(1)[0];
+
+      service.productSelected(product.id);
+
+      expect(routerMock.navigate).toHaveBeenCalledWith([
+        '/products',
+        product.id,
+      ]);
+    });
+  });
+
+  describe('#loadProduct', () => {
+    it('should delegate to GetProduct passing id', () => {
+      const id = 'id';
+
+      productsApiProviderMock.getOneProduct.mockReturnValue(
+        scheduled([{} as Product], asyncScheduler)
+      );
+
+      service.loadProduct(id);
+
+      expect(productsApiProviderMock.getOneProduct).toHaveBeenCalledWith(id);
+    });
+
+    it('should set selected product state', (done: jest.DoneCallback) => {
+      const product = makeProductsStub(1)[0];
+
+      productsApiProviderMock.getOneProduct.mockReturnValue(
+        scheduled([product], asyncScheduler)
+      );
+
+      service.loadProduct(product.id);
+
+      service.selectedProduct$.subscribe((selectedProduct) => {
+        expect(selectedProduct).toEqual(toProductViewModel(product));
+        done();
+      });
+    });
+  });
+
+  describe('#updateProductPrice', () => {
+    it('should delegate to UpdateProductPrice passing updated product an updated price', fakeAsync(() => {
+      const productStub = makeProductsStub(1)[0];
+      const priceStub = productStub.Prices[0];
+
+      const expectedProduct = { ...productStub, Prices: [priceStub] };
+
+      toProductPatchDtoProviderMock.mockReturnValue(expectedProduct);
+      productsApiProviderMock.updateProductPrice.mockReturnValue(
+        of(expectedProduct as Product)
+      );
+
+      service.selectedProductPriceUpdate(
+        toProductViewModel(productStub),
+        priceStub.id
+      );
+
+      tick();
+
+      expect(productsApiProviderMock.updateProductPrice).toHaveBeenCalled();
     }));
   });
 });

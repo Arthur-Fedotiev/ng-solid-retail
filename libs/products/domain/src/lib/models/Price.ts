@@ -4,7 +4,7 @@ export interface Price {
   id: string;
   productId: string;
   Retailer: Retailer;
-  Price: number;
+  Price: number | string;
   Tier: number;
   UpdateTime: string;
 }

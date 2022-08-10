@@ -25,7 +25,7 @@ export class CreateProductComponent implements OnInit {
     description: ['', [Validators.required, Validators.maxLength(100)]],
     sku: [
       '',
-      [Validators.required, Validators.minLength(3), Validators.maxLength(50)],
+      [Validators.required, Validators.minLength(3), Validators.maxLength(500)],
     ],
     categories: [[{ name: '', id: '' }], Validators.required],
     prices: this.fb.array([this.priceFormGroup], [validateSize(1)]),

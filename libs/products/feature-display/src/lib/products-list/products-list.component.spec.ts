@@ -25,7 +25,7 @@ describe('ProductsListComponent', () => {
           useValue: {
             productsShortInfo$: productsSelectorStub$,
             loadProducts: jest.fn(),
-            selectProduct: jest.fn(),
+            productSelected: jest.fn(),
           },
         },
       ],
@@ -55,7 +55,10 @@ describe('ProductsListComponent', () => {
 
       component.onClick(productId);
 
-      expect(facadeService.selectProduct).toHaveBeenNthCalledWith(1, productId);
+      expect(facadeService.productSelected).toHaveBeenNthCalledWith(
+        1,
+        productId
+      );
     });
   });
 });

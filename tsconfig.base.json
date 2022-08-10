@@ -25,6 +25,9 @@
       "@omnia/products/feature-create-product": [
         "libs/products/feature-create-product/src/index.ts"
       ],
+      "@omnia/products/feature-details": [
+        "libs/products/feature-details/src/index.ts"
+      ],
       "@omnia/products/infrastructure": [
         "libs/products/infrastructure/src/index.ts"
       ],

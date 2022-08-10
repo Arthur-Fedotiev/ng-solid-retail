@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { ProductDetailsResolver } from '@omnia/products/data-access';
 
 @NgModule({
   imports: [
@@ -23,9 +24,22 @@ import { RouterModule } from '@angular/router';
       },
       {
         path: ':id/edit',
+        resolve: {
+          product: ProductDetailsResolver,
+        },
         loadChildren: () =>
           import('@omnia/products/feature-create-product').then(
             (m) => m.ProductsFeatureCreateProductModule
+          ),
+      },
+      {
+        path: ':id',
+        resolve: {
+          product: ProductDetailsResolver,
+        },
+        loadChildren: () =>
+          import('@omnia/products/feature-details').then(
+            (m) => m.ProductsFeatureDetailsModule
           ),
       },
     ]),
