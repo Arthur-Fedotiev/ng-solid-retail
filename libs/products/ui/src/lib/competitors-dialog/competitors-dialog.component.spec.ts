@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SharedUiMaterialModule } from '@omnia/shared/ui-material';
@@ -11,7 +12,7 @@ describe('CompetitorsDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SharedUiMaterialModule],
+      imports: [SharedUiMaterialModule, CommonModule],
       providers: [
         {
           provide: MAT_DIALOG_DATA,

@@ -1,10 +1,18 @@
 <h1 mat-dialog-title>Competitors for {{ data.category.name }}</h1>
 <div mat-dialog-content>
-  <mat-list>
-    <mat-list-item
-      *ngFor="let competitor of data.retailers$ | async; trackBy: trackById"
-    >
-      <li>{{ competitor.name }}</li>
-    </mat-list-item>
-  </mat-list>
+  <ng-container *ngIf="data.retailers$ | async as competitors; else loading"
+    ><mat-list>
+      <mat-list-item *ngFor="let competitor of competitors; trackBy: trackById">
+        <li>{{ competitor.name }}</li>
+      </mat-list-item>
+    </mat-list></ng-container
+  >
 </div>
+
+<ng-template #loading>
+  <mat-progress-spinner
+    mode="determinate"
+    [value]="75"
+    color="primary"
+  ></mat-progress-spinner>
+</ng-template>

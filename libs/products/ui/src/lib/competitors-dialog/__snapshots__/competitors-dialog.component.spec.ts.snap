@@ -14,10 +14,32 @@ exports[`CompetitorsDialogComponent should render the competitors 1`] = `
     class="mat-dialog-content"
     mat-dialog-content=""
   >
-    <mat-list
-      class="mat-list mat-list-base"
+    <mat-progress-spinner
+      aria-valuemax="100"
+      aria-valuemin="0"
+      aria-valuenow="75"
+      class="mat-progress-spinner mat-spinner mat-primary mat-progress-spinner-indeterminate-animation"
+      color="primary"
+      mode="determinate"
+      role="progressbar"
+      style="width: 100px; height: 100px;"
+      tabindex="-1"
     >
-    </mat-list>
+      <svg
+        aria-hidden="true"
+        focusable="false"
+        preserveAspectRatio="xMidYMid meet"
+        style="width: 100px; height: 100px;"
+        viewBox="0 0 100 100"
+      >
+        <circle
+          cx="50%"
+          cy="50%"
+          r="45"
+          style="stroke-dashoffset: 70.68583470577035px; stroke-dasharray: 282.7433388230814px; stroke-width: 10%; transform-origin: 50% 50%;"
+        />
+      </svg>
+    </mat-progress-spinner>
   </div>
 </omnia-competitors-dialog>
 `;
