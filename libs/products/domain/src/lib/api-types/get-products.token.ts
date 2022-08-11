@@ -9,4 +9,7 @@ export interface ProductsApi {
   getRetailers(): Observable<ReadonlyArray<Retailer>>;
   deleteProduct(productId: string): Observable<void>;
   updateProductPrice(product: Product, price: Price): Observable<Product>;
+  getCompetitorsForCategory(
+    category: Category
+  ): Observable<ReadonlyArray<Retailer>>;
 }

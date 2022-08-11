@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>Competitors for {{ data.category.name }}</h1>
+<div mat-dialog-content>
+  <ul *ngFor="let competitor of data.retailers$ | async">
+    <li>
+      <span>{{ competitor.name }}</span>
+    </li>
+  </ul>
+</div>

@@ -7,3 +7,5 @@ export { toProductViewModel } from './lib/utils/to-product-view-model';
 export { makeProductViewModelsStub } from './lib/testing/make-product-view-models-stub';
 export { CreateProductForm } from './lib/models/create-product-from.interface';
 export { ProductDetailsResolver } from './lib/resolvers/product-details.resolver';
+export { RetailerViewModel } from './lib/models/RetailerViewModel';
+export { CategoryViewModel } from './lib/models/CategoryViewModel';

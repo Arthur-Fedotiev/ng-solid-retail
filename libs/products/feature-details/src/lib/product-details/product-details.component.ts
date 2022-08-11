@@ -1,9 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import {
+  CategoryViewModel,
   PriceViewModel,
   ProductsFacadeService,
   ProductViewModel,
 } from '@omnia/products/data-access';
+import { CompetitorsDialogComponent } from '@omnia/products/ui';
 
 @Component({
   selector: 'omnia-product-details',
@@ -14,7 +17,10 @@ import {
 export class ProductDetailsComponent implements OnDestroy {
   public readonly product$ = this.productsFacade.selectedProduct$;
 
-  constructor(private readonly productsFacade: ProductsFacadeService) {}
+  constructor(
+    private readonly productsFacade: ProductsFacadeService,
+    public dialog: MatDialog
+  ) {}
 
   public ngOnDestroy(): void {
     this.releaseResources();
@@ -36,6 +42,16 @@ export class ProductDetailsComponent implements OnDestroy {
 
   public deleteProduct(id: string): void {
     this.productsFacade.deleteSelectedProduct(id);
+  }
+
+  public openCompetitorsDialog(category: CategoryViewModel): void {
+    this.dialog.open(CompetitorsDialogComponent, {
+      width: '500px',
+      data: {
+        category,
+        retailers$: this.productsFacade.getCompetitorsForCategory$(category),
+      },
+    });
   }
 
   private releaseResources(): void {

@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  AngularFirestore,
-  DocumentReference,
-} from '@angular/fire/compat/firestore';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import {
   Category,
   Price,
@@ -57,6 +54,24 @@ export class FirestoreProductsApiService implements ProductsApi {
       .collection<Product>('categories')
       .get()
       .pipe(map(convertSnaps));
+  }
+
+  public getCompetitorsForCategory(
+    category: Category
+  ): Observable<ReadonlyArray<Retailer>> {
+    return from(
+      this.afs
+        .collection<Product>('products')
+        .ref.where('Categories', 'array-contains', category)
+        .get()
+    ).pipe(
+      map(convertSnaps),
+      map((products) =>
+        products
+          .map((product) => product.Prices.map((price) => price.Retailer))
+          .flat(1)
+      )
+    );
   }
 
   public createProduct(product: Product): Observable<Product> {

@@ -13,6 +13,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTreeModule } from '@angular/material/tree';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 export const MATERIAL_MODULES = [
   MatInputModule,
@@ -30,4 +31,5 @@ export const MATERIAL_MODULES = [
   MatDialogModule,
   MatTreeModule,
   MatExpansionModule,
+  MatTooltipModule,
 ];

@@ -5,6 +5,7 @@ import { makeProductsStub } from '../testing/make-products-stub';
 import { makeCollectionStub } from './testing/make-collection-stub';
 import { FirestoreProductsApiService } from './firestore-products-api.service';
 import { makeDocStub } from './testing/make-doc-stub';
+import { Category } from '@omnia/products/domain';
 
 export class AngularFirestoreMock {
   collectionGetMock = jest.fn().mockReturnValue(of());
@@ -14,7 +15,7 @@ export class AngularFirestoreMock {
   docUpdateMock = jest.fn().mockReturnValue(of());
 
   deleteMock = jest.fn().mockReturnValue(of());
-  whereMock = jest.fn().mockReturnValue(this);
+  whereMock = jest.fn().mockReturnValue({ get: this.docGetMock });
 
   collection = jest.fn().mockReturnValue({
     add: this.collectionAddMock,
@@ -206,6 +207,40 @@ describe('FirestoreProductsApiService', () => {
       service.updateProductPrice(productStub, priceStub).subscribe(() => {
         expect(afsMock.docUpdateMock).toHaveBeenCalledWith(null);
       });
+    }));
+  });
+
+  describe('getCompetitorsForCategory', () => {
+    it('should call firestore with the correct data', () => {
+      const categoryStub = makeProductsStub(1)[0].Categories[0];
+
+      service.getCompetitorsForCategory(categoryStub).subscribe();
+
+      expect(afsMock.whereMock).toHaveBeenCalledWith(
+        'Categories',
+        'array-contains',
+        categoryStub
+      );
+    });
+
+    it('should return competitors', fakeAsync(() => {
+      const productsStub = makeProductsStub(3).slice(0, 1);
+      const collectionStub = makeCollectionStub(productsStub);
+      const categoryStub = productsStub[0].Categories[0];
+
+      const expectedRetailers = productsStub[0].Prices.map(
+        (price) => price.Retailer
+      );
+
+      afsMock.docGetMock.mockReturnValue(of(collectionStub));
+
+      service
+        .getCompetitorsForCategory(categoryStub)
+        .subscribe((competitors) => {
+          expect(competitors).toEqual(expectedRetailers);
+        });
+
+      tick();
     }));
   });
 });

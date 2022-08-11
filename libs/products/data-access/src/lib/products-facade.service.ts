@@ -14,15 +14,18 @@ import {
   distinctUntilChanged,
   filter,
   map,
+  Observable,
   pluck,
   take,
   tap,
   withLatestFrom,
 } from 'rxjs';
+import { CategoryViewModel } from './models/CategoryViewModel';
 import { CreateProductForm } from './models/create-product-from.interface';
 import { PriceViewModel } from './models/PriceViewModel';
 import { ProductsStateModel } from './models/products-state.model';
 import { ProductViewModel } from './models/ProductViewModel';
+import { RetailerViewModel } from './models/RetailerViewModel';
 import {
   ToProductPostDto,
   TO_PRODUCT_POST_DTO,
@@ -153,6 +156,16 @@ export class ProductsFacadeService {
       )
       .pipe(tap(this.updateSelectedProduct), take(1))
       .subscribe();
+  }
+
+  public getCompetitorsForCategory$({
+    id,
+    name,
+  }: CategoryViewModel): Observable<RetailerViewModel[]> {
+    return this.productsApi.getCompetitorsForCategory({ id, Name: name }).pipe(
+      map((retailers) => retailers.map(toRetailerViewModel)),
+      take(1)
+    );
   }
 
   public loadProduct(id: string) {

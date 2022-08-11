@@ -3,7 +3,6 @@ import {
   makeProductViewModelsStub,
   PriceViewModel,
   ProductsFacadeService,
-  ProductViewModel,
 } from '@omnia/products/data-access';
 import { Subject } from 'rxjs';
 

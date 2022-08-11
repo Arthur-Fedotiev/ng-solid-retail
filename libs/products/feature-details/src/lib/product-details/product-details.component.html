@@ -35,7 +35,15 @@
     <ng-container
       *ngFor="let category of product.categories; index as i; last as last"
     >
-      <p class="subheading-2">{{ category.name }}{{ last ? '.' : ', ' }}</p>
+      <button
+        mat-raised-button
+        matTooltip="Info about all competitors for the category"
+        class="subheading-2"
+        aria-label="Button that displays a tooltip when focused or hovered over"
+        (click)="openCompetitorsDialog(category)"
+      >
+        {{ category.name }} {{ last ? '' : ', ' }}
+      </button>
     </ng-container>
 
     <h3 class="mat-title">Prices by retailers</h3>
