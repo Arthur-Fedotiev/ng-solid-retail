@@ -110,6 +110,7 @@ describe('CreateProductComponent', () => {
         name: '',
         description: '',
         sku: '',
+        url: '',
         categories: [{ name: '', id: '' }],
         prices: [{ tier: 1, price: 0, retailer: { name: '', id: '' } }],
       };

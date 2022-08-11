@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 
 interface CompetitorsDialogData {
@@ -14,10 +14,7 @@ interface CompetitorsDialogData {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CompetitorsDialogComponent {
-  constructor(
-    public dialogRef: MatDialogRef<CompetitorsDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: CompetitorsDialogData
-  ) {}
+  constructor(@Inject(MAT_DIALOG_DATA) public data: CompetitorsDialogData) {}
 
   public trackById(index: number, item: { name: string; id: string }): string {
     return item.id ?? index;

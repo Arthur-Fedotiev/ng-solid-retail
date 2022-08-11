@@ -13,7 +13,7 @@ exports[`ProductCardComponent should render the product  1`] = `
       alt="Photo of Product 1"
       class="mat-card-image"
       mat-card-image=""
-      src="https://m.media-amazon.com/images/I/711eKF9vJuL._AC_UY695_.jpg"
+      src="https://www.example.com"
     />
     <p
       class="card__price-container"

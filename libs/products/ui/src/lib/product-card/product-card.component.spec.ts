@@ -15,6 +15,7 @@ describe('ProductCardComponent', () => {
     name: 'Product 1',
     sku: 'SKU 1',
     retailer: 'Retailer 1',
+    url: 'https://www.example.com',
   };
 
   let component: ProductCardComponent;

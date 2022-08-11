@@ -132,6 +132,7 @@ describe('ProductsFacadeService', () => {
         price: productsViewModelsStub[0].prices[0].price,
         name: productsViewModelsStub[0].name,
         sku: productsViewModelsStub[0].sku,
+        url: productsViewModelsStub[0].url,
         retailer: productsViewModelsStub[0].prices[0].retailer.name,
       };
 
@@ -178,20 +179,6 @@ describe('ProductsFacadeService', () => {
       });
 
       tick();
-    }));
-  });
-
-  describe('#createProduct', () => {
-    xit('should delegate to CreateProduct passing  POST dto', fakeAsync(() => {
-      const product = makeProductViewModelsStub(1)[0];
-
-      toProductPostDtoProviderMock.mockReturnValue(product);
-
-      service.createProduct(product);
-
-      expect(productsApiProviderMock.createProduct).toHaveBeenCalledWith(
-        product
-      );
     }));
   });
 

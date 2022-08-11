@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CompetitorsDialogComponent should render the competitors 1`] = `
+<omnia-competitors-dialog
+  __ngContext__={[Function Number]}
+  data={[Function Object]}
+>
+  <h1
+    class="mat-dialog-title"
+    mat-dialog-title=""
+  >
+    Competitors for Category 1
+  </h1><div
+    class="mat-dialog-content"
+    mat-dialog-content=""
+  >
+    <mat-list
+      class="mat-list mat-list-base"
+    >
+    </mat-list>
+  </div>
+</omnia-competitors-dialog>
+`;
