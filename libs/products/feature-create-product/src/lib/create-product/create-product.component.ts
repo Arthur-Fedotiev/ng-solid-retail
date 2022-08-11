@@ -68,7 +68,10 @@ export class CreateProductComponent implements OnInit {
   private get priceFormGroup(): PriceFormGroup {
     return this.fb.group({
       tier: [1, [Validators.required, Validators.min(1), Validators.max(3)]],
-      retailer: [{ name: '', id: '' }, Validators.required],
+      retailer: [
+        null as unknown as PriceFormGroup['controls']['retailer']['value'],
+        Validators.required,
+      ],
       price: [0, [Validators.required, Validators.min(1)]],
     });
   }

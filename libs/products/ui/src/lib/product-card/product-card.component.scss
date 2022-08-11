@@ -1,9 +1,11 @@
+@use 'shared/colors' as *;
+
 .card {
   margin-bottom: 2rem;
 
   &__header {
-    border-bottom: 2px solid lightgrey;
     margin-bottom: 1rem;
+    border-bottom: 2px solid app-color('M300');
   }
 
   &__price-container {
@@ -15,8 +17,8 @@
       display: inline-block;
       padding: 0.25rem 0.75rem;
       border-radius: 0.5rem;
-      background-color: rgb(75, 121, 247);
-      color: #fff;
+      background-color: app-color('B900');
+      color: app-color('M0');
     }
   }
 

@@ -1,11 +1,14 @@
+@use 'shared/colors' as *;
+
 :host {
   display: block;
 
   .product-card {
     height: 100%;
+    background-color: inherit;
 
     &__photo {
-      width: 50vh;
+      width: 35vw;
     }
 
     &__content {
