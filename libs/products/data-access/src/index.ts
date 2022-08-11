@@ -9,3 +9,4 @@ export { CreateProductForm } from './lib/models/create-product-from.interface';
 export { ProductDetailsResolver } from './lib/resolvers/product-details.resolver';
 export { RetailerViewModel } from './lib/models/RetailerViewModel';
 export { CategoryViewModel } from './lib/models/CategoryViewModel';
+export { CategoryEnum } from './lib/constants/category.enum';

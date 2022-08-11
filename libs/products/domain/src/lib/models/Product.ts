@@ -8,6 +8,7 @@ export class Product {
   public readonly SKU: string;
   public readonly Categories: Category[];
   public readonly Prices: Price[];
+  public readonly Url: string;
 
   constructor(product: Product) {
     this.id = product.id;
@@ -16,5 +17,6 @@ export class Product {
     this.SKU = product.SKU;
     this.Categories = product.Categories;
     this.Prices = product.Prices;
+    this.Url = product.Url;
   }
 }

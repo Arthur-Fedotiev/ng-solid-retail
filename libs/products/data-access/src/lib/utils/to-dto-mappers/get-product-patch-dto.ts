@@ -9,6 +9,7 @@ export const getProductPatchDto = (product: ProductViewModel): Product => {
     SKU: product.sku.toUpperCase(),
     Description: product.description,
     Categories: product.categories.map((c) => ({ id: c.id, Name: c.name })),
+    Url: product.url,
     Prices: product.prices.map((price) => ({
       id: price.id,
       productId: product.id,

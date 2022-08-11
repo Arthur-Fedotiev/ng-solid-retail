@@ -5,11 +5,12 @@ import { CategoryViewModel } from './CategoryViewModel';
 
 export class ProductViewModel {
   constructor(
-    dto: Product,
+    private readonly dto: Product,
     public readonly id: string = dto.id,
     public readonly name: string = dto.Name,
     public readonly description: string = dto.Description,
     public readonly sku: string = dto.SKU,
+    public readonly url: string = dto.Url,
     public readonly categories: ReadonlyArray<CategoryViewModel> = dto.Categories.map(
       ({ id, Name }) =>
         new CategoryViewModel(id as string, Name as CategoryEnum)
@@ -18,4 +19,8 @@ export class ProductViewModel {
       (price) => new PriceViewModel(price)
     )
   ) {}
+
+  public clone(dto: Partial<ProductViewModel> = {}): ProductViewModel {
+    return Object.assign(new ProductViewModel(this.dto), dto);
+  }
 }

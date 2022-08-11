@@ -3,7 +3,7 @@ import { RetailerViewModel } from './RetailerViewModel';
 
 export class PriceViewModel {
   constructor(
-    dto: Price,
+    private readonly dto: Price,
     public readonly id: string = dto.id,
     public readonly productId: string = dto.productId,
     public readonly retailer: RetailerViewModel = new RetailerViewModel(
@@ -14,4 +14,8 @@ export class PriceViewModel {
     public readonly updateTime: string = dto.UpdateTime,
     public readonly price: number = Number(dto.Price)
   ) {}
+
+  public clone(dto: Partial<PriceViewModel> = {}): PriceViewModel {
+    return Object.assign(new PriceViewModel(this.dto), dto);
+  }
 }

@@ -19,7 +19,7 @@ export class CompetitorsDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: CompetitorsDialogData
   ) {}
 
-  onNoClick(): void {
-    this.dialogRef.close();
+  public trackById(index: number, item: { name: string; id: string }): string {
+    return item.id ?? index;
   }
 }

@@ -4,6 +4,7 @@ import {
   CreateProductForm,
   ProductsFacadeService,
 } from '@omnia/products/data-access';
+import { WithId } from '@omnia/shared/util';
 import { PriceFormGroup } from './models/price-form-group.type';
 import { validateSize } from './util/validate-size';
 
@@ -27,6 +28,7 @@ export class CreateProductComponent implements OnInit {
       '',
       [Validators.required, Validators.minLength(3), Validators.maxLength(500)],
     ],
+    url: ['', [Validators.required, Validators.maxLength(150)]],
     categories: [[{ name: '', id: '' }], Validators.required],
     prices: this.fb.array([this.priceFormGroup], [validateSize(1)]),
   });
@@ -57,6 +59,10 @@ export class CreateProductComponent implements OnInit {
     this.productsFacade.createProduct(
       this.productForm.value as CreateProductForm
     );
+  }
+
+  public trackById(index: number, item: WithId<unknown>): string {
+    return item.id ?? index;
   }
 
   private get priceFormGroup(): PriceFormGroup {

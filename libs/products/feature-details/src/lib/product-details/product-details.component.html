@@ -14,7 +14,7 @@
   <img
     class="product-card__photo"
     mat-card-image
-    src="https://m.media-amazon.com/images/I/711eKF9vJuL._AC_UY695_.jpg"
+    src="{{ product.url }}"
     alt="Photo of a {{ product.name }}"
   />
   <mat-card-content class="product-card__content">
@@ -33,7 +33,11 @@
     <h3 class="mat-title">Categories</h3>
 
     <ng-container
-      *ngFor="let category of product.categories; index as i; last as last"
+      *ngFor="
+        let category of product.categories;
+        index as i;
+        trackBy: trackById
+      "
     >
       <button
         mat-raised-button
@@ -42,13 +46,13 @@
         aria-label="Button that displays a tooltip when focused or hovered over"
         (click)="openCompetitorsDialog(category)"
       >
-        {{ category.name }} {{ last ? '' : ', ' }}
+        {{ category.name }}
       </button>
     </ng-container>
 
     <h3 class="mat-title">Prices by retailers</h3>
 
-    <div *ngFor="let price of product.prices; index as i">
+    <div *ngFor="let price of product.prices; trackBy: trackById">
       <omnia-product-price
         #productPrice="omniaProductPrice"
         [price]="price"

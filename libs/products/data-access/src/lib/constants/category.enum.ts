@@ -17,4 +17,10 @@ export enum CategoryEnum {
   Laptops = 'Laptops',
   OtherElectronics = 'OtherElectronics',
   Food = 'Food',
+  Books = 'Books',
+  Movies = 'Movies',
+  Magazine = 'Magazine',
+  Furniture = 'Furniture',
+  OtherFurniture = 'OtherFurniture',
+  Other = 'Other',
 }

@@ -7,6 +7,7 @@ export const makeProductsStub = (count: number): ReadonlyArray<Product> =>
       id: i.toString(),
       Name: `Product ${i}`,
       Description: `Product ${i} description`,
+      Url: `Product ${i} url`,
       Prices: [
         {
           id: '1',

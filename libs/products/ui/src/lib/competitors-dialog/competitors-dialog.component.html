@@ -1,8 +1,10 @@
 <h1 mat-dialog-title>Competitors for {{ data.category.name }}</h1>
 <div mat-dialog-content>
-  <ul *ngFor="let competitor of data.retailers$ | async">
-    <li>
-      <span>{{ competitor.name }}</span>
-    </li>
-  </ul>
+  <mat-list>
+    <mat-list-item
+      *ngFor="let competitor of data.retailers$ | async; trackBy: trackById"
+    >
+      <li>{{ competitor.name }}</li>
+    </mat-list-item>
+  </mat-list>
 </div>

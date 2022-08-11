@@ -7,6 +7,7 @@ import {
   ProductViewModel,
 } from '@omnia/products/data-access';
 import { CompetitorsDialogComponent } from '@omnia/products/ui';
+import { WithId } from '@omnia/shared/util';
 
 @Component({
   selector: 'omnia-product-details',
@@ -31,11 +32,11 @@ export class ProductDetailsComponent implements OnDestroy {
     $event: PriceViewModel
   ): void {
     const updatedPrices = product.prices.map((price) =>
-      price.id === $event.id ? { ...price, ...$event } : price
+      price.id === $event.id ? price.clone($event) : price
     );
 
     this.productsFacade.selectedProductPriceUpdate(
-      { ...product, prices: updatedPrices },
+      product.clone({ prices: updatedPrices }),
       $event.id
     );
   }
@@ -52,6 +53,10 @@ export class ProductDetailsComponent implements OnDestroy {
         retailers$: this.productsFacade.getCompetitorsForCategory$(category),
       },
     });
+  }
+
+  public trackById(index: number, item: WithId<unknown>): string {
+    return item.id ?? index;
   }
 
   private releaseResources(): void {
