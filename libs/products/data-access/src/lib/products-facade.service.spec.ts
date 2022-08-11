@@ -4,6 +4,7 @@ import { Product, ProductsApi } from '@omnia/products/domain';
 import { PRODUCTS_API, makeProductsStub } from '@omnia/products/infrastructure';
 import { ID_GENERATOR } from '@omnia/shared/util';
 import { asyncScheduler, of, scheduled } from 'rxjs';
+import { CategoryEnum } from './constants/category.enum';
 import { ProductsStateModel } from './models/products-state.model';
 import { ProductViewModel } from './models/ProductViewModel';
 
@@ -33,6 +34,7 @@ describe('ProductsFacadeService', () => {
             deleteProduct: jest.fn().mockReturnValue(of()),
             getOneProduct: jest.fn(),
             updateProductPrice: jest.fn(),
+            getCompetitorsForCategory: jest.fn().mockReturnValue(of()),
           },
         },
         {
@@ -130,6 +132,7 @@ describe('ProductsFacadeService', () => {
         price: productsViewModelsStub[0].prices[0].price,
         name: productsViewModelsStub[0].name,
         sku: productsViewModelsStub[0].sku,
+        url: productsViewModelsStub[0].url,
         retailer: productsViewModelsStub[0].prices[0].retailer.name,
       };
 
@@ -176,20 +179,6 @@ describe('ProductsFacadeService', () => {
       });
 
       tick();
-    }));
-  });
-
-  describe('#createProduct', () => {
-    xit('should delegate to CreateProduct passing  POST dto', fakeAsync(() => {
-      const product = makeProductViewModelsStub(1)[0];
-
-      toProductPostDtoProviderMock.mockReturnValue(product);
-
-      service.createProduct(product);
-
-      expect(productsApiProviderMock.createProduct).toHaveBeenCalledWith(
-        product
-      );
     }));
   });
 
@@ -319,6 +308,37 @@ describe('ProductsFacadeService', () => {
       tick();
 
       expect(productsApiProviderMock.updateProductPrice).toHaveBeenCalled();
+    }));
+  });
+
+  describe('#getCompetitorsForCategory$', () => {
+    it('should delegate to GetCompetitorsForCategory passing Category', fakeAsync(() => {
+      const categoryStub = { id: '1', name: CategoryEnum.Wine };
+      const expected = { id: '1', Name: CategoryEnum.Wine };
+
+      service.getCompetitorsForCategory$(categoryStub);
+      tick();
+
+      expect(
+        productsApiProviderMock.getCompetitorsForCategory
+      ).toHaveBeenCalledWith(expected);
+    }));
+
+    it('should return retailers mapped to view models', fakeAsync(() => {
+      const categoryStub = { id: '1', name: CategoryEnum.Wine };
+      const expected = [{ id: '1', name: 'Competitor 1' }];
+
+      productsApiProviderMock.getCompetitorsForCategory.mockReturnValue(
+        of([{ id: '1', Name: 'Competitor 1' }])
+      );
+
+      service
+        .getCompetitorsForCategory$(categoryStub)
+        .subscribe((competitors) => {
+          expect(competitors).toEqual(expected);
+        });
+
+      tick();
     }));
   });
 });

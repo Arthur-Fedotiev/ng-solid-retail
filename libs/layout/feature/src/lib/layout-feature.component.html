@@ -16,7 +16,7 @@
     >
   </mat-sidenav>
   <mat-drawer-container class="drawer">
-    <mat-drawer class="drawer__sidebar" mode="side" opened>
+    <mat-drawer fxHide.lt-lg class="drawer__sidebar" mode="side" opened>
       <button
         class="drawer__trigger"
         mat-icon-button
@@ -31,7 +31,22 @@
     </mat-drawer>
     <mat-drawer-content color="accent">
       <!-- TODO: add user data as an input instead of hard code -->
-      <header><omnia-profile-toolbar></omnia-profile-toolbar></header>
+      <header>
+        <omnia-profile-toolbar>
+          <button
+            fxHide.gt-md
+            class="drawer__trigger"
+            mat-icon-button
+            (click)="sideNav.open('mouse')"
+          >
+            <mat-icon
+              aria-hidden="false"
+              aria-label="Menu icon"
+              fontIcon="menu"
+            ></mat-icon>
+          </button>
+        </omnia-profile-toolbar>
+      </header>
       <main class="content">
         <router-outlet></router-outlet>
       </main>

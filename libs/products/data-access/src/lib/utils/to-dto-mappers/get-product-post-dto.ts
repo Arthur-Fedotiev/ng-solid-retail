@@ -13,6 +13,7 @@ export const getProductPostDto = (
     Name: product.name,
     SKU: product.sku.toUpperCase(),
     Description: product.description,
+    Url: product.url,
     Categories: product.categories.map((c) => ({ id: c.id, Name: c.name })),
     Prices: product.prices.map((p) => {
       const priceId = IdGenerator();

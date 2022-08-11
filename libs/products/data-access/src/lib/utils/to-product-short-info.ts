@@ -4,6 +4,7 @@ export const toProductShortInfo = ({
   id,
   name,
   sku,
+  url,
   price: {
     price,
     retailer: { name: retailer },
@@ -12,6 +13,7 @@ export const toProductShortInfo = ({
   id,
   name,
   sku,
+  url,
   price,
   retailer,
 });

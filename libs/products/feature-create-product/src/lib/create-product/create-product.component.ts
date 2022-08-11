@@ -4,6 +4,7 @@ import {
   CreateProductForm,
   ProductsFacadeService,
 } from '@omnia/products/data-access';
+import { WithId } from '@omnia/shared/util';
 import { PriceFormGroup } from './models/price-form-group.type';
 import { validateSize } from './util/validate-size';
 
@@ -20,13 +21,14 @@ export class CreateProductComponent implements OnInit {
   public readonly productForm = this.fb.group({
     name: [
       '',
-      [Validators.required, Validators.minLength(3), Validators.maxLength(50)],
+      [Validators.required, Validators.minLength(3), Validators.maxLength(150)],
     ],
-    description: ['', [Validators.required, Validators.maxLength(100)]],
+    description: ['', [Validators.required, Validators.maxLength(5000)]],
     sku: [
       '',
-      [Validators.required, Validators.minLength(3), Validators.maxLength(500)],
+      [Validators.required, Validators.minLength(3), Validators.maxLength(50)],
     ],
+    url: ['', [Validators.required, Validators.maxLength(150)]],
     categories: [[{ name: '', id: '' }], Validators.required],
     prices: this.fb.array([this.priceFormGroup], [validateSize(1)]),
   });
@@ -59,10 +61,17 @@ export class CreateProductComponent implements OnInit {
     );
   }
 
+  public trackById(index: number, item: WithId<unknown>): string {
+    return item.id ?? index;
+  }
+
   private get priceFormGroup(): PriceFormGroup {
     return this.fb.group({
       tier: [1, [Validators.required, Validators.min(1), Validators.max(3)]],
-      retailer: [{ name: '', id: '' }, Validators.required],
+      retailer: [
+        null as unknown as PriceFormGroup['controls']['retailer']['value'],
+        Validators.required,
+      ],
       price: [0, [Validators.required, Validators.min(1)]],
     });
   }

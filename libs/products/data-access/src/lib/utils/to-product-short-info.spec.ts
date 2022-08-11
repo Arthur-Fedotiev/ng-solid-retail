@@ -6,6 +6,7 @@ const testCases = [
       id: '1',
       name: 'Electronics',
       sku: '1',
+      url: 'https://www.example.com',
       price: {
         price: 1,
         retailer: { name: 'retailer' },
@@ -14,6 +15,7 @@ const testCases = [
     expected: {
       id: '1',
       name: 'Electronics',
+      url: 'https://www.example.com',
       sku: '1',
       price: 1,
       retailer: 'retailer',
@@ -23,6 +25,7 @@ const testCases = [
     input: {
       id: '2',
       name: 'Brandy',
+      url: 'https://www.example.com',
       sku: '2',
       price: {
         price: 2,
@@ -32,6 +35,7 @@ const testCases = [
     expected: {
       id: '2',
       name: 'Brandy',
+      url: 'https://www.example.com',
       sku: '2',
       price: 2,
       retailer: 'retailer',

@@ -114,6 +114,7 @@ exports[`LayoutFeatureComponent should render 1`] = `
         />
         <mat-drawer
           class="mat-drawer drawer__sidebar ng-trigger ng-trigger-transform mat-drawer-side mat-drawer-opened"
+          fxhide.lt-lg=""
           mode="side"
           opened=""
           style="transform:none;visibility:visible;0:transform;1:visibility;"
@@ -163,6 +164,32 @@ exports[`LayoutFeatureComponent should render 1`] = `
               <mat-toolbar
                 class="mat-toolbar toolbar mat-toolbar-single-row"
               >
+                <button
+                  class="mat-focus-indicator drawer__trigger mat-icon-button mat-button-base _mat-animation-noopable"
+                  fxhide.gt-md=""
+                  mat-icon-button=""
+                >
+                  <span
+                    class="mat-button-wrapper"
+                  >
+                    <mat-icon
+                      aria-hidden="false"
+                      aria-label="Menu icon"
+                      class="mat-icon notranslate material-icons mat-ligature-font mat-icon-no-color"
+                      data-mat-icon-name="menu"
+                      data-mat-icon-type="font"
+                      fonticon="menu"
+                      role="img"
+                    />
+                  </span>
+                  <span
+                    class="mat-ripple mat-button-ripple mat-button-ripple-round"
+                    matripple=""
+                  />
+                  <span
+                    class="mat-button-focus-overlay"
+                  />
+                </button>
                 <div
                   class="toolbar__profile"
                 >

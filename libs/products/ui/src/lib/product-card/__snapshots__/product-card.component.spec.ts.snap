@@ -13,7 +13,7 @@ exports[`ProductCardComponent should render the product  1`] = `
       alt="Photo of Product 1"
       class="mat-card-image"
       mat-card-image=""
-      src="https://m.media-amazon.com/images/I/711eKF9vJuL._AC_UY695_.jpg"
+      src="https://www.example.com"
     />
     <p
       class="card__price-container"
@@ -31,7 +31,9 @@ exports[`ProductCardComponent should render the product  1`] = `
         class="mat-card-header-text"
       >
         <mat-card-title
-          class="mat-card-title card__title"
+          aria-describedby="cdk-describedby-message-a-7-8"
+          cdk-describedby-host="a-7"
+          class="mat-card-title mat-tooltip-trigger card__title"
         >
           Product 1
         </mat-card-title>

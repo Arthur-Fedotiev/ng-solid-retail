@@ -1,0 +1,22 @@
+$colors: (
+  'M900': #1b1c1d,
+  'M800': #4e5052,
+  'M700': #969798,
+  'M600': #f1f3f4,
+  'M500': #727779,
+  'M300': #d9dadc,
+  'M100': #f1f3f4,
+  'M0': #ffffff,
+  'S50': #fafdfd,
+  'S100': #f0f8f8,
+  'B900': #4b79f7,
+  'R50': #ffebee,
+  'R100': #ffcacf,
+  'R500': #fa3126,
+  'R600': #eb2327,
+  'R700': #d91421,
+);
+
+@function app-color($color) {
+  @return map-get($colors, $color);
+}

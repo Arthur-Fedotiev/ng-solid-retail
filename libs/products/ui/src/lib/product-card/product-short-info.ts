@@ -5,6 +5,7 @@ export interface ProductCard {
 export interface ProductShortInfo {
   id: string;
   price: number;
+  url: string;
   name: string;
   sku: string;
   retailer: string;

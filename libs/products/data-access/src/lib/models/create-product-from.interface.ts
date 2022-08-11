@@ -2,7 +2,7 @@ export interface CreateProductForm {
   name: string;
   sku: string;
   description: string;
-
+  url: string;
   categories: ReadonlyArray<{ id: string; name: string }>;
   prices: ReadonlyArray<{
     price: number;

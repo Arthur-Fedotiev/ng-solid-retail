@@ -65,4 +65,10 @@ export class HttpProductsService implements ProductsApi {
   updateProductPrice(product: Product, price: Price): Observable<Product> {
     throw new Error('Method not implemented.');
   }
+
+  getCompetitorsForCategory(
+    category: Category
+  ): Observable<readonly Retailer[]> {
+    throw new Error('Method not implemented.');
+  }
 }

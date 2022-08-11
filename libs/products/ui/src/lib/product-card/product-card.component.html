@@ -1,14 +1,16 @@
 <mat-card class="card mat-elevation-z3" tabindex="0">
   <img
     mat-card-image
-    src="https://m.media-amazon.com/images/I/711eKF9vJuL._AC_UY695_.jpg"
+    src="{{ product.url }}"
     alt="Photo of {{ product.name }}"
   />
   <p class="card__price-container">
     <span class="price">${{ product.price }}</span>
   </p>
   <mat-card-header class="card__header">
-    <mat-card-title class="card__title">{{ product.name }}</mat-card-title>
+    <mat-card-title [matTooltip]="product.name" class="card__title">{{
+      product.name
+    }}</mat-card-title>
   </mat-card-header>
   <mat-card-content
     class="card__content"

@@ -1,6 +1,10 @@
+@use 'shared/colors' as *;
+
 .toolbar {
   display: flex;
   justify-content: space-between;
+  background: app-color('M0');
+  border-bottom: solid app-color('M300');
 
   &__profile {
     display: flex;

@@ -1,3 +1,5 @@
+@use 'shared/colors' as *;
+
 .nav-bar {
   &__icon {
     display: inline-block;
@@ -14,13 +16,18 @@
   height: 100vh;
 
   &__trigger {
-    margin: 1rem 0 0 1.25rem;
-    transform: scale(1.75);
+    margin: 1vw 0 0 0.5vw;
+    transform: scale(1.25);
   }
 
   &__sidebar {
-    width: 5rem;
-    background: whitesmoke;
-    border-right: solid lightgray;
+    width: 5vw;
+    background: app-color('M0');
+    border-right: solid app-color('M300');
   }
+}
+
+.content {
+  padding-top: 1rem;
+  background-color: app-color('S50');
 }

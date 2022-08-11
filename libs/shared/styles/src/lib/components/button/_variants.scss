@@ -4,7 +4,6 @@
 
 $_ripple-opacity: 0.1;
 
-// Applies a focus style to an mat-button element for each of the supported palettes.
 @mixin _focus-overlay-color($config-or-theme, $variants) {
   $config: mat.get-color-config($config-or-theme);
 

@@ -1,11 +1,13 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDialog } from '@angular/material/dialog';
 import {
+  CategoryEnum,
   makeProductViewModelsStub,
   PriceViewModel,
   ProductsFacadeService,
-  ProductViewModel,
 } from '@omnia/products/data-access';
-import { Subject } from 'rxjs';
+import { CompetitorsDialogComponent } from '@omnia/products/ui';
+import { of, Subject } from 'rxjs';
 
 import { ProductDetailsComponent } from './product-details.component';
 
@@ -15,6 +17,7 @@ describe('ProductDetailsComponent', () => {
   let component: ProductDetailsComponent;
   let fixture: ComponentFixture<ProductDetailsComponent>;
   let facadeMock: jest.Mocked<ProductsFacadeService>;
+  let dialogMock: jest.Mocked<MatDialog>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -26,12 +29,20 @@ describe('ProductDetailsComponent', () => {
             selectedProduct$: productsSelectorStub$,
             releaseSelectedProduct: jest.fn(),
             selectedProductPriceUpdate: jest.fn(),
+            getCompetitorsForCategory$: jest.fn(),
+          },
+        },
+        {
+          provide: MatDialog,
+          useValue: {
+            open: jest.fn(),
           },
         },
       ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ProductDetailsComponent);
+    dialogMock = TestBed.inject(MatDialog) as jest.Mocked<MatDialog>;
     facadeMock = TestBed.inject(
       ProductsFacadeService
     ) as jest.Mocked<ProductsFacadeService>;
@@ -80,6 +91,31 @@ describe('ProductDetailsComponent', () => {
         1,
         expectedProduct,
         priceStub.id
+      );
+    });
+  });
+
+  describe('#openCompetitorsDialog', () => {
+    it('should open the competitors dialog', () => {
+      const categoryStub = {
+        id: '1',
+        name: CategoryEnum.Wine,
+      };
+      const competitorsStub$ = of([{ id: '1', name: '1' }]);
+
+      facadeMock.getCompetitorsForCategory$.mockReturnValue(competitorsStub$);
+
+      component.openCompetitorsDialog(categoryStub);
+
+      expect(dialogMock.open).toHaveBeenCalledWith(
+        CompetitorsDialogComponent,
+        expect.objectContaining({
+          width: '500px',
+          data: expect.objectContaining({
+            category: categoryStub,
+            retailers$: competitorsStub$,
+          }),
+        })
       );
     });
   });

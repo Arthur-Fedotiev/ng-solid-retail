@@ -35,7 +35,7 @@
           formControlName="categories"
         >
           <mat-option
-            *ngFor="let category of categories$ | async"
+            *ngFor="let category of categories$ | async; trackBy: trackById"
             [value]="category"
             >{{ category.name }}</mat-option
           >
@@ -45,6 +45,16 @@
       <mat-form-field appearance="outline">
         <mat-label>SKU</mat-label>
         <input placeholder="Product SKU" matInput formControlName="sku" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Image url</mat-label>
+        <input
+          type="text"
+          placeholder="Product image url"
+          matInput
+          formControlName="url"
+        />
       </mat-form-field>
 
       <ng-container formArrayName="prices">
@@ -120,7 +130,7 @@
       </button>
       <button
         mat-raised-button
-        color="warn"
+        color="primary"
         [disabled]="!productForm.valid || !productForm.dirty"
         (click)="onSave()"
       >
