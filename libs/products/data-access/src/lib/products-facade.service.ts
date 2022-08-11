@@ -18,11 +18,9 @@ import {
   pluck,
   take,
   tap,
-  withLatestFrom,
 } from 'rxjs';
 import { CategoryViewModel } from './models/CategoryViewModel';
 import { CreateProductForm } from './models/create-product-from.interface';
-import { PriceViewModel } from './models/PriceViewModel';
 import { ProductsStateModel } from './models/products-state.model';
 import { ProductViewModel } from './models/ProductViewModel';
 import { RetailerViewModel } from './models/RetailerViewModel';
@@ -117,7 +115,10 @@ export class ProductsFacadeService {
       .createProduct(
         this.toProductPostDto(createProductFormValue, this.idGenerator)
       )
-      .pipe(take(1))
+      .pipe(
+        tap(() => this.navigateToProductDisplayPage()),
+        take(1)
+      )
       .subscribe();
   }
 
@@ -163,6 +164,11 @@ export class ProductsFacadeService {
     name,
   }: CategoryViewModel): Observable<RetailerViewModel[]> {
     return this.productsApi.getCompetitorsForCategory({ id, Name: name }).pipe(
+      map((retailers) => [
+        ...new Map(
+          retailers.map((retailer) => [retailer.id, retailer])
+        ).values(),
+      ]),
       map((retailers) => retailers.map(toRetailerViewModel)),
       take(1)
     );

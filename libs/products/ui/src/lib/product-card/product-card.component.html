@@ -8,7 +8,9 @@
     <span class="price">${{ product.price }}</span>
   </p>
   <mat-card-header class="card__header">
-    <mat-card-title class="card__title">{{ product.name }}</mat-card-title>
+    <mat-card-title [matTooltip]="product.name" class="card__title">{{
+      product.name
+    }}</mat-card-title>
   </mat-card-header>
   <mat-card-content
     class="card__content"

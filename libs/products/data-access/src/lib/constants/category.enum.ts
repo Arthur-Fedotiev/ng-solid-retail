@@ -1,4 +1,6 @@
 export enum CategoryEnum {
+  // categories that could be used for a product by any retailer
+
   Wine = 'Wine',
   Beer = 'Beer',
   Spirits = 'Spirits',
@@ -23,4 +25,6 @@ export enum CategoryEnum {
   Furniture = 'Furniture',
   OtherFurniture = 'OtherFurniture',
   Other = 'Other',
+  Appliances = 'Appliances',
+  Medicine = 'Medicine',
 }

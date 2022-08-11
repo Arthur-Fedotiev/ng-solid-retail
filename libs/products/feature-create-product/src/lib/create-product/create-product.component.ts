@@ -21,12 +21,12 @@ export class CreateProductComponent implements OnInit {
   public readonly productForm = this.fb.group({
     name: [
       '',
-      [Validators.required, Validators.minLength(3), Validators.maxLength(50)],
+      [Validators.required, Validators.minLength(3), Validators.maxLength(150)],
     ],
-    description: ['', [Validators.required, Validators.maxLength(100)]],
+    description: ['', [Validators.required, Validators.maxLength(5000)]],
     sku: [
       '',
-      [Validators.required, Validators.minLength(3), Validators.maxLength(500)],
+      [Validators.required, Validators.minLength(3), Validators.maxLength(50)],
     ],
     url: ['', [Validators.required, Validators.maxLength(150)]],
     categories: [[{ name: '', id: '' }], Validators.required],

@@ -114,7 +114,7 @@ exports[`LayoutFeatureComponent should render 1`] = `
         />
         <mat-drawer
           class="mat-drawer drawer__sidebar ng-trigger ng-trigger-transform mat-drawer-side mat-drawer-opened"
-          fxhide.lt-md=""
+          fxhide.lt-lg=""
           mode="side"
           opened=""
           style="transform:none;visibility:visible;0:transform;1:visibility;"
@@ -166,7 +166,7 @@ exports[`LayoutFeatureComponent should render 1`] = `
               >
                 <button
                   class="mat-focus-indicator drawer__trigger mat-icon-button mat-button-base _mat-animation-noopable"
-                  fxhide.gt-sm=""
+                  fxhide.gt-md=""
                   mat-icon-button=""
                 >
                   <span
