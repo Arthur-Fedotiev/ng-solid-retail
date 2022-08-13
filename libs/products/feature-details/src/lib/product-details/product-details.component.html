@@ -19,36 +19,21 @@
   />
   <mat-card-content class="product-card__content">
     <h3 class="mat-title">Description</h3>
-    <p>
+    <p class="product-card__description">
       {{ product.description }}
     </p>
 
-    <h3 class="mat-title">Lowest Tier 1 price</h3>
-    <p>
-      <span *ngIf="product.prices | omniaLowestTierPrice as lowestPrice">{{
-        lowestPrice ? lowestPrice + '$' : 'N/A'
-      }}</span>
-    </p>
-
-    <h3 class="mat-title">Categories</h3>
-
-    <ng-container
-      *ngFor="
-        let category of product.categories;
-        index as i;
-        trackBy: trackById
-      "
-    >
-      <button
-        mat-raised-button
-        matTooltip="Info about all competitors for the category"
-        class="subheading-2"
-        aria-label="Button that displays a tooltip when focused or hovered over"
-        (click)="openCompetitorsDialog(category)"
-      >
-        {{ category.name }}
-      </button>
+    <ng-container *ngIf="product.prices | omniaLowestTierPrice as lowestPrice">
+      <h3 class="mat-title">
+        Lowest Tier 1 price:
+        <span>{{ lowestPrice ? lowestPrice + '$' : 'N/A' }}</span>
+      </h3>
     </ng-container>
+
+    <omnia-product-categories
+      [categories]="product.categories"
+      (categorySelected)="openCompetitorsDialog($event)"
+    ></omnia-product-categories>
 
     <h3 class="mat-title">Prices by retailers</h3>
 

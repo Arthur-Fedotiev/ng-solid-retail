@@ -7,7 +7,7 @@ import {
   ProductViewModel,
 } from '@omnia/products/data-access';
 import { CompetitorsDialogComponent } from '@omnia/products/ui';
-import { WithId } from '@omnia/shared/util';
+import { toISOStringWithTimezone, WithId } from '@omnia/shared/util';
 
 @Component({
   selector: 'omnia-product-details',
@@ -32,7 +32,12 @@ export class ProductDetailsComponent implements OnDestroy {
     $event: PriceViewModel
   ): void {
     const updatedPrices = product.prices.map((price) =>
-      price.id === $event.id ? price.clone($event) : price
+      price.id === $event.id
+        ? price.clone({
+            ...$event,
+            updateTime: toISOStringWithTimezone(new Date()),
+          })
+        : price
     );
 
     this.productsFacade.selectedProductPriceUpdate(

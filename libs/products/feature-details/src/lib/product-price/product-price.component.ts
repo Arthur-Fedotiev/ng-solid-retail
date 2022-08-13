@@ -10,14 +10,6 @@ import { FormBuilder } from '@angular/forms';
 import { PriceViewModel } from '@omnia/products/data-access';
 import { map, startWith } from 'rxjs';
 
-interface ProductPrice {
-  price: number;
-  tier: number;
-  retailer: {
-    name: string;
-  };
-}
-
 @Component({
   exportAs: 'omniaProductPrice',
   selector: 'omnia-product-price',
@@ -34,19 +26,24 @@ export class ProductPriceComponent implements OnInit {
 
   public readonly priceForm = this.formBuilder.group<{
     price: null | number;
+    tier: number;
   }>({
     price: null,
+    tier: 1,
   });
 
   public readonly isSaveDisabled$ = this.priceForm.valueChanges.pipe(
-    map(({ price }) => price === this.price.price || price == null),
+    map(
+      ({ price, tier }) =>
+        this.isChanged(price, 'price') || this.isChanged(tier, 'tier')
+    ),
     startWith(true)
   );
 
   constructor(private readonly formBuilder: FormBuilder) {}
 
   public ngOnInit(): void {
-    this.priceForm.setValue({ price: this.price.price });
+    this.priceForm.setValue({ price: this.price.price, tier: this.price.tier });
   }
 
   public toggleEditMode(): void {
@@ -54,21 +51,32 @@ export class ProductPriceComponent implements OnInit {
   }
 
   public savePrice(): void {
-    const updatedPrice = Object.assign(this.price, {
-      price: this.priceForm.value.price as number,
-    });
+    const updatedPrice = Object.assign(this.price, this.priceForm.value);
 
     this.save.emit(updatedPrice);
-    this.toggleEditMode();
+    this.toggleNextTick();
   }
 
   public discardPrice(): void {
     this.discard.emit();
     this.resetForm();
-    this.toggleEditMode();
+    this.isEditMode = false;
   }
 
   private resetForm(): void {
-    this.priceForm.reset({ price: this.price.price });
+    this.priceForm.reset({ price: this.price.price, tier: this.price.tier });
+  }
+
+  private isChanged(
+    val: number | null | undefined,
+    key: keyof PriceViewModel
+  ): boolean {
+    return val === this.priceForm.get(key) || val == null;
+  }
+
+  private toggleNextTick(): void {
+    setTimeout(() => {
+      this.isEditMode = false;
+    });
   }
 }

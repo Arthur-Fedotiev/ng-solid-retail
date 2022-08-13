@@ -11,7 +11,7 @@ exports[`ProductCardComponent should render the product  1`] = `
   >
     <img
       alt="Photo of Product 1"
-      class="mat-card-image"
+      class="mat-card-image card__image"
       mat-card-image=""
       src="https://www.example.com"
     />
