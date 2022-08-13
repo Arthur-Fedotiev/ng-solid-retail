@@ -8,7 +8,6 @@ import {
   Price,
 } from '@omnia/products/domain';
 import { PRODUCTS_API } from '@omnia/products/infrastructure';
-import { IdGenerator, ID_GENERATOR } from '@omnia/shared/util';
 import {
   BehaviorSubject,
   distinctUntilChanged,
@@ -25,13 +24,10 @@ import { ProductsStateModel } from './models/products-state.model';
 import { ProductViewModel } from './models/ProductViewModel';
 import { RetailerViewModel } from './models/RetailerViewModel';
 import {
-  ToProductPostDto,
-  TO_PRODUCT_POST_DTO,
-} from './providers/to-product-post-dto.token';
-import {
-  ToProductPATCHDto,
-  TO_PRODUCT_PATCH_DTO,
-} from './providers/to-product-update-dto.token';
+  ToProductSaveDto,
+  TO_PRODUCT_SAVE_DTO,
+} from './providers/to-product-save-dto.token';
+
 import { toCategoryViewModel } from './utils/to-category-view-model';
 import { toProductShortInfo } from './utils/to-product-short-info';
 import { toProductViewModel } from './utils/to-product-view-model';
@@ -80,12 +76,8 @@ export class ProductsFacadeService {
   constructor(
     @Inject(PRODUCTS_API)
     private readonly productsApi: ProductsApi,
-    @Inject(TO_PRODUCT_POST_DTO)
-    private readonly toProductPostDto: ToProductPostDto,
-    @Inject(TO_PRODUCT_PATCH_DTO)
-    private readonly toProductPatchDto: ToProductPATCHDto,
-    @Inject(ID_GENERATOR)
-    private readonly idGenerator: IdGenerator,
+    @Inject(TO_PRODUCT_SAVE_DTO)
+    private readonly toProductSaveDto: ToProductSaveDto,
     private readonly router: Router
   ) {}
 
@@ -112,9 +104,7 @@ export class ProductsFacadeService {
 
   public createProduct(createProductFormValue: CreateProductForm): void {
     this.productsApi
-      .createProduct(
-        this.toProductPostDto(createProductFormValue, this.idGenerator)
-      )
+      .createProduct(this.toProductSaveDto(createProductFormValue))
       .pipe(
         tap(() => this.navigateToProductDisplayPage()),
         take(1)
@@ -145,14 +135,14 @@ export class ProductsFacadeService {
     product: ProductViewModel,
     updatedPriceId: string
   ) {
-    const patchProductDto = this.toProductPatchDto(product);
+    const patchProductDto = this.toProductSaveDto(product);
     const pricePatchDto = patchProductDto.Prices.find(
       (price) => price.id === updatedPriceId
     );
 
     this.productsApi
       .updateProductPrice(
-        this.toProductPatchDto(product),
+        this.toProductSaveDto(product),
         pricePatchDto as Price
       )
       .pipe(tap(this.updateSelectedProduct), take(1))

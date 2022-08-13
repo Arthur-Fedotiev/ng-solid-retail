@@ -9,16 +9,14 @@ import { ProductsStateModel } from './models/products-state.model';
 import { ProductViewModel } from './models/ProductViewModel';
 
 import { ProductsFacadeService } from './products-facade.service';
-import { TO_PRODUCT_POST_DTO } from './providers/to-product-post-dto.token';
-import { TO_PRODUCT_PATCH_DTO } from './providers/to-product-update-dto.token';
+import { TO_PRODUCT_SAVE_DTO } from './providers/to-product-save-dto.token';
 import { makeProductViewModelsStub } from './testing/make-product-view-models-stub';
 import { toProductViewModel } from './utils/to-product-view-model';
 
 describe('ProductsFacadeService', () => {
   let service: ProductsFacadeService;
   let productsApiProviderMock: jest.Mocked<ProductsApi>;
-  let toProductPostDtoProviderMock: jest.Mock;
-  let toProductPatchDtoProviderMock: jest.Mock;
+  let toProductSaveDtoMock: jest.Mock;
   let routerMock: jest.Mocked<Router>;
 
   beforeEach(() => {
@@ -38,13 +36,10 @@ describe('ProductsFacadeService', () => {
           },
         },
         {
-          provide: TO_PRODUCT_POST_DTO,
+          provide: TO_PRODUCT_SAVE_DTO,
           useValue: jest.fn(),
         },
-        {
-          provide: TO_PRODUCT_PATCH_DTO,
-          useValue: jest.fn(),
-        },
+
         {
           provide: ID_GENERATOR,
           useValue: () => 'id',
@@ -59,12 +54,7 @@ describe('ProductsFacadeService', () => {
       PRODUCTS_API
     ) as jest.Mocked<ProductsApi>;
 
-    toProductPostDtoProviderMock = TestBed.inject(
-      TO_PRODUCT_POST_DTO
-    ) as jest.Mock;
-    toProductPatchDtoProviderMock = TestBed.inject(
-      TO_PRODUCT_PATCH_DTO
-    ) as jest.Mock;
+    toProductSaveDtoMock = TestBed.inject(TO_PRODUCT_SAVE_DTO) as jest.Mock;
   });
 
   it('should be created', () => {
@@ -295,7 +285,7 @@ describe('ProductsFacadeService', () => {
 
       const expectedProduct = { ...productStub, Prices: [priceStub] };
 
-      toProductPatchDtoProviderMock.mockReturnValue(expectedProduct);
+      toProductSaveDtoMock.mockReturnValue(expectedProduct);
       productsApiProviderMock.updateProductPrice.mockReturnValue(
         of(expectedProduct as Product)
       );
