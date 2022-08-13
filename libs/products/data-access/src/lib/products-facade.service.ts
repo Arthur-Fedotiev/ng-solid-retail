@@ -138,13 +138,10 @@ export class ProductsFacadeService {
     const patchProductDto = this.toProductSaveDto(product);
     const pricePatchDto = patchProductDto.Prices.find(
       (price) => price.id === updatedPriceId
-    );
+    ) as Price;
 
     this.productsApi
-      .updateProductPrice(
-        this.toProductSaveDto(product),
-        pricePatchDto as Price
-      )
+      .updateProductPrice(this.toProductSaveDto(product), pricePatchDto)
       .pipe(tap(this.updateSelectedProduct), take(1))
       .subscribe();
   }

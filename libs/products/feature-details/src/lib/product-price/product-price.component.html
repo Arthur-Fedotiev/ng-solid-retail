@@ -4,15 +4,16 @@
   fxLayoutGap="1rem"
 >
   <ng-container *ngIf="!isEditMode; else editTpl">
-    <span fxFlex="40%" class="mat-subheading-2">
-      {{ price.retailer.name }} - {{ price.price }}$
-    </span>
-    <span fxFlex="30%" class="mat-subheading-2">
+    <div fxFlex="50%" class="mat-subheading-2">
+      <span>{{ price.retailer.name }} - ${{ price.price }}</span>
+      <span class="update-time">{{ price.updateTime | date: 'medium' }}</span>
+    </div>
+    <span fxFlex="25%" class="mat-subheading-2">
       Tier: {{ price.tier }}
     </span></ng-container
   >
 
-  <div fxFlex="30%" (click)="isEditMode ? discardPrice() : toggleEditMode()">
+  <div fxFlex="25%" (click)="isEditMode ? discardPrice() : toggleEditMode()">
     <ng-template [ngTemplateOutlet]="action"></ng-template>
   </div>
 </div>

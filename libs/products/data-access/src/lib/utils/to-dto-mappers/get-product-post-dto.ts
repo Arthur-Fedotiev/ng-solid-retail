@@ -27,15 +27,20 @@ export const getSaveProductDto =
         Name: category.name,
       })),
       Prices: product.prices.map((price) => {
-        const priceId = isPriceViewModel(price) ? price.id : IdGenerator();
+        const { id, UpdateTime } = isPriceViewModel(price)
+          ? { id: price.id, UpdateTime: price.updateTime }
+          : {
+              id: IdGenerator(),
+              UpdateTime: toISOStringWithTimezone(new Date()),
+            };
 
         return {
-          id: priceId,
+          id,
           productId,
           Price: price.price,
           Tier: price.tier,
           Retailer: { id: price.retailer.id, Name: price.retailer.name },
-          UpdateTime: toISOStringWithTimezone(new Date()),
+          UpdateTime,
         };
       }),
     };

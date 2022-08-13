@@ -10,14 +10,6 @@ import { FormBuilder } from '@angular/forms';
 import { PriceViewModel } from '@omnia/products/data-access';
 import { map, startWith } from 'rxjs';
 
-interface ProductPrice {
-  price: number;
-  tier: number;
-  retailer: {
-    name: string;
-  };
-}
-
 @Component({
   exportAs: 'omniaProductPrice',
   selector: 'omnia-product-price',
