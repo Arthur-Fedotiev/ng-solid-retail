@@ -13,22 +13,40 @@
     </span></ng-container
   >
 
-  <div fxFlex="25%" (click)="isEditMode ? discardPrice() : toggleEditMode()">
+  <div
+    fxLayout="column nowrap"
+    fxLayoutGap="3rem"
+    fxLayoutAlign="center"
+    fxFlex="25%"
+    (click)="isEditMode ? discardPrice() : toggleEditMode()"
+  >
     <ng-template [ngTemplateOutlet]="action"></ng-template>
+    <ng-container *ngIf="isEditMode">
+      <button
+        fxHide.gt-xs
+        aria-labelledby="save price"
+        color="success"
+        mat-mini-fab
+        [disabled]="isSaveDisabled$ | async"
+        (click)="savePrice()"
+      >
+        <mat-icon>save</mat-icon>
+      </button></ng-container
+    >
   </div>
 </div>
 
 <ng-template #editTpl>
   <form
-    fxLayout="row nowrap"
-    fxLayoutAlign="space-between baseline"
+    fxLayout="column nowrap"
+    fxLayoutAlign="start center"
+    fxLayout.gt-xs="row nowrap"
+    fxLayoutAlign="center baseline"
     fxLayoutGap="1rem"
     [formGroup]="priceForm"
   >
-    <mat-form-field fxFlex="60%" fxFlex.gt-sm="100%" appearance="outline">
-      <mat-label
-        >{{ price.retailer.name }} Tier {{ price.tier }} Price</mat-label
-      >
+    <mat-form-field fxFlex="30%" fxFlex.gt-sm="100%" appearance="outline">
+      <mat-label>{{ price.retailer.name }} Price</mat-label>
       <input
         matInput
         type="number"
@@ -36,7 +54,19 @@
         [formControlName]="'price'"
       />
     </mat-form-field>
+    <mat-form-field fxFlex="30%" fxFlex.gt-sm="100%" appearance="outline">
+      <mat-label>Price Tier Price</mat-label>
+      <input
+        matInput
+        type="number"
+        placeholder="Tier"
+        [formControlName]="'tier'"
+      />
+    </mat-form-field>
+
     <button
+      fxHide.lt-sm
+      fxFlexAlign.lt-sm="center"
       aria-labelledby="save price"
       color="success"
       mat-mini-fab

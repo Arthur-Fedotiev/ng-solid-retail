@@ -24,8 +24,8 @@ import { ProductsStateModel } from './models/products-state.model';
 import { ProductViewModel } from './models/ProductViewModel';
 import { RetailerViewModel } from './models/RetailerViewModel';
 import {
-  ToProductSaveDto,
   TO_PRODUCT_SAVE_DTO,
+  ToProductSaveDto,
 } from './providers/to-product-save-dto.token';
 
 import { toCategoryViewModel } from './utils/to-category-view-model';

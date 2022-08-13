@@ -23,10 +23,12 @@
       {{ product.description }}
     </p>
 
-    <h3 class="mat-title">
-      Lowest Tier 1 price:
-      <ng-template [ngTemplateOutlet]="lowestPrice"></ng-template>
-    </h3>
+    <ng-container *ngIf="product.prices | omniaLowestTierPrice as lowestPrice">
+      <h3 class="mat-title">
+        Lowest Tier 1 price:
+        <span>{{ lowestPrice ? lowestPrice + '$' : 'N/A' }}</span>
+      </h3>
+    </ng-container>
 
     <omnia-product-categories
       [categories]="product.categories"
@@ -57,10 +59,4 @@
       DELETE PRODUCT
     </button>
   </mat-card-actions>
-
-  <ng-template #lowestPrice>
-    <span *ngIf="product.prices | omniaLowestTierPrice as lowestPrice">{{
-      lowestPrice ? lowestPrice + '$' : 'N/A'
-    }}</span>
-  </ng-template>
 </mat-card>
