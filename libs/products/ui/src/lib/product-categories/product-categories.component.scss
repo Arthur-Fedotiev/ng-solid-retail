@@ -1,0 +1,10 @@
+:host {
+  display: block;
+  margin-bottom: 1rem;
+
+  ::ng-deep {
+    .mat-chip-list-wrapper {
+      justify-content: center;
+    }
+  }
+}

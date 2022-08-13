@@ -14,6 +14,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatChipsModule } from '@angular/material/chips';
 
 export const MATERIAL_MODULES = [
   MatInputModule,
@@ -32,4 +33,5 @@ export const MATERIAL_MODULES = [
   MatTreeModule,
   MatExpansionModule,
   MatTooltipModule,
+  MatChipsModule,
 ];
