@@ -117,11 +117,13 @@ export class ProductsFacadeService {
     this.navigateToProductDisplayPage();
   }
 
-  public deleteProduct(id: string): void {
+  public deleteProduct(id: string, { isOptimistically = true } = {}): void {
+    isOptimistically && this.removeProduct(id);
+
     this.productsApi
       .deleteProduct(id)
       .pipe(
-        tap(() => this.removeProduct(id)),
+        tap(() => !isOptimistically && this.removeProduct(id)),
         take(1)
       )
       .subscribe();
