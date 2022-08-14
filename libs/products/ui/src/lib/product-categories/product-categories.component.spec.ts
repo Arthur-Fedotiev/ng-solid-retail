@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SharedUiMaterialModule } from '@omnia/shared/ui-material';
+import { TRACK_BY_ID_OR_IDX } from '@omnia/shared/util';
 import { ProductCategoriesComponent } from './product-categories.component';
 
 describe('ProductCategoriesComponent', () => {
@@ -13,6 +14,12 @@ describe('ProductCategoriesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      providers: [
+        {
+          provide: TRACK_BY_ID_OR_IDX,
+          useValue: () => 'id',
+        },
+      ],
       imports: [CommonModule, SharedUiMaterialModule],
       declarations: [ProductCategoriesComponent],
     }).compileComponents();
@@ -24,5 +31,9 @@ describe('ProductCategoriesComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should use track by id token', () => {
+    expect(component.trackById).toBeTruthy();
   });
 });

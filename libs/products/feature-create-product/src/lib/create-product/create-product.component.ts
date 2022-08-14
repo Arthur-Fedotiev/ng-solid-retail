@@ -1,10 +1,15 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+  OnInit,
+} from '@angular/core';
 import { FormArray, NonNullableFormBuilder, Validators } from '@angular/forms';
 import {
   CreateProductForm,
   ProductsFacadeService,
 } from '@omnia/products/data-access';
-import { WithId } from '@omnia/shared/util';
+import { TrackByIdOrIdx, TRACK_BY_ID_OR_IDX } from '@omnia/shared/util';
 import { PriceFormGroup } from './models/price-form-group.type';
 import { validateSize } from './util/validate-size';
 
@@ -38,6 +43,7 @@ export class CreateProductComponent implements OnInit {
   }
 
   constructor(
+    @Inject(TRACK_BY_ID_OR_IDX) public readonly trackById: TrackByIdOrIdx,
     private readonly fb: NonNullableFormBuilder,
     private readonly productsFacade: ProductsFacadeService
   ) {}
@@ -59,10 +65,6 @@ export class CreateProductComponent implements OnInit {
     this.productsFacade.createProduct(
       this.productForm.value as CreateProductForm
     );
-  }
-
-  public trackById(index: number, item: WithId<unknown>): string {
-    return item.id ?? index;
   }
 
   private get priceFormGroup(): PriceFormGroup {

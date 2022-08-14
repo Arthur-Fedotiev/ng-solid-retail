@@ -4,6 +4,7 @@ exports[`CompetitorsDialogComponent should render the competitors 1`] = `
 <omnia-competitors-dialog
   __ngContext__={[Function Number]}
   data={[Function Object]}
+  trackById={[Function Function]}
 >
   <h1
     class="mat-dialog-title"
