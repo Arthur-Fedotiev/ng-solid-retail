@@ -214,7 +214,7 @@ describe('ProductsFacadeService', () => {
 
       productsApiProviderMock.deleteProduct.mockReturnValue(of());
 
-      service.deleteProduct(id);
+      service.deleteProduct(id, true);
 
       expect(productsApiProviderMock.deleteProduct).toHaveBeenCalledWith(id);
     }));
@@ -226,7 +226,7 @@ describe('ProductsFacadeService', () => {
       Object.assign(service, { state: new ProductsStateModel(productsStub) });
       productsApiProviderMock.deleteProduct.mockReturnValue(of());
 
-      service.deleteProduct(id);
+      service.deleteProduct(id, true);
 
       service.products$.subscribe((products) => {
         expect(products.length).toEqual(0);
