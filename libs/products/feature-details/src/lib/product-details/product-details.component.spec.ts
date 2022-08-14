@@ -28,7 +28,7 @@ describe('ProductDetailsComponent', () => {
           useValue: {
             selectedProduct$: productsSelectorStub$,
             releaseSelectedProduct: jest.fn(),
-            selectedProductPriceUpdate: jest.fn(),
+            selectedProductUpdate: jest.fn(),
             getCompetitorsForCategory$: jest.fn(),
           },
         },
@@ -87,10 +87,9 @@ describe('ProductDetailsComponent', () => {
         prices: expectedPrices,
       });
 
-      expect(facadeMock.selectedProductPriceUpdate).toHaveBeenNthCalledWith(
+      expect(facadeMock.selectedProductUpdate).toHaveBeenNthCalledWith(
         1,
-        expectedProduct,
-        priceStub.id
+        expectedProduct
       );
     });
   });

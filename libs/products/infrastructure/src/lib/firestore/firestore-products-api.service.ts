@@ -2,27 +2,13 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import {
   Category,
-  Price,
   Product,
   ProductsApi,
   Retailer,
 } from '@omnia/products/domain';
 import { convertOneSnap, convertSnaps } from '@omnia/shared/util';
 import firebase from 'firebase/compat/app';
-import {
-  first,
-  forkJoin,
-  from,
-  map,
-  mapTo,
-  mergeMap,
-  Observable,
-  of,
-  pipe,
-  switchMap,
-  take,
-  tap,
-} from 'rxjs';
+import { first, from, map, mapTo, Observable, pipe, take } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -75,12 +61,7 @@ export class FirestoreProductsApiService implements ProductsApi {
   }
 
   public createProduct(product: Product): Observable<Product> {
-    const { Prices } = product;
     const id = product.id;
-
-    const prices$ = Prices.length
-      ? Prices.map((price) => this.createOnePrice({ ...price, productId: id }))
-      : [of({})];
 
     const toFirstProduct = () => pipe(first(), mapTo(product));
 
@@ -92,28 +73,13 @@ export class FirestoreProductsApiService implements ProductsApi {
           toFirstProduct()
         );
 
-    return forkJoin(prices$).pipe(switchMap(() => product$));
+    return product$;
   }
 
-  public updateProductPrice(
-    product: Product,
-    price: Price
-  ): Observable<Product> {
-    return this.updateProduct(product).pipe(
-      switchMap((product) => this.updatePrice(price).pipe(mapTo(product)))
-    );
-  }
-
-  private updateProduct(product: Product): Observable<Product> {
+  public updateProduct(product: Product): Observable<Product> {
     return from(
       this.afs.doc<Product>(`products/${product.id}`).update(product)
     ).pipe(mapTo(product));
-  }
-
-  private updatePrice(price: Price): Observable<Price> {
-    return from(this.afs.doc<Price>(`prices/${price.id}`).update(price)).pipe(
-      mapTo(price)
-    );
   }
 
   public getRetailers(): Observable<readonly Retailer[]> {
@@ -123,30 +89,7 @@ export class FirestoreProductsApiService implements ProductsApi {
       .pipe(map(convertSnaps));
   }
 
-  public deleteProduct(productId: string): Observable<any> {
-    return from(this.afs.doc<Product>(`products/${productId}`).delete()).pipe(
-      tap(() => console.log('deleted product')),
-      switchMap(() => this.deletePrices(productId))
-    );
-  }
-
-  private createOnePrice(price: Price): Observable<Price> {
-    return from(this.afs.doc<Price>(`prices/${price.id}`).set(price)).pipe(
-      mapTo(price),
-      take(1)
-    );
-  }
-
-  private deletePrices(productId: string): Observable<void[]> {
-    return from(
-      this.afs
-        .collection<Price>(`prices`)
-        .ref.where('productId', '==', productId)
-        .get()
-    ).pipe(
-      mergeMap(({ docs }) =>
-        forkJoin(docs.map((doc) => from(doc.ref.delete())))
-      )
-    );
+  public deleteProduct(productId: string): Observable<void> {
+    return from(this.afs.doc<Product>(`products/${productId}`).delete()).pipe();
   }
 }

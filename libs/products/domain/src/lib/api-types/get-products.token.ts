@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { Category, Price, Product, Retailer } from '../..';
+import { Category, Product, Retailer } from '../..';
 
 export interface ProductsApi {
   getProducts(): Observable<ReadonlyArray<Product>>;
@@ -8,7 +8,7 @@ export interface ProductsApi {
   createProduct(product: Product): Observable<Product>;
   getRetailers(): Observable<ReadonlyArray<Retailer>>;
   deleteProduct(productId: string): Observable<void>;
-  updateProductPrice(product: Product, price: Price): Observable<Product>;
+  updateProduct(product: Product): Observable<Product>;
   getCompetitorsForCategory(
     category: Category
   ): Observable<ReadonlyArray<Retailer>>;

@@ -131,17 +131,9 @@ export class ProductsFacadeService {
     this.navigateToProductPage(productId);
   }
 
-  public selectedProductPriceUpdate(
-    product: ProductViewModel,
-    updatedPriceId: string
-  ) {
-    const patchProductDto = this.toProductSaveDto(product);
-    const pricePatchDto = patchProductDto.Prices.find(
-      (price) => price.id === updatedPriceId
-    ) as Price;
-
+  public selectedProductUpdate(product: ProductViewModel) {
     this.productsApi
-      .updateProductPrice(this.toProductSaveDto(product), pricePatchDto)
+      .updateProduct(this.toProductSaveDto(product))
       .pipe(tap(this.updateSelectedProduct), take(1))
       .subscribe();
   }
