@@ -5,7 +5,7 @@
   fxLayoutAlign="center center"
 >
   <div
-    *ngFor="let item of items; trackBy: trackById"
+    *ngFor="let item of items; trackBy: $any(trackById)"
     class="list__item"
     fxFlex="90%"
     fxFlex.gt-xs="75%"
