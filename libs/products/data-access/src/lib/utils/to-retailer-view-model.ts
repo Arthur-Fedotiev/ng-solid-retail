@@ -1,5 +1,6 @@
 import { Retailer } from '@omnia/products/domain';
 import { RetailerViewModel } from '../models/RetailerViewModel';
 
-export const toRetailerViewModel = (retailer: Retailer): RetailerViewModel =>
-  new RetailerViewModel(retailer.id, retailer.Name);
+export const toRetailerViewModel = (
+  { id, Name }: Retailer = {} as Retailer
+): RetailerViewModel => new RetailerViewModel(id, Name);
