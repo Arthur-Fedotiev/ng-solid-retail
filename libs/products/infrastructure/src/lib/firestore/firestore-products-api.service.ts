@@ -9,6 +9,7 @@ import {
 import { convertOneSnap, convertSnaps } from '@omnia/shared/util';
 import firebase from 'firebase/compat/app';
 import { first, from, map, mapTo, Observable, pipe, take } from 'rxjs';
+import { ProductCollectionsEnum } from './product-collections.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -18,14 +19,14 @@ export class FirestoreProductsApiService implements ProductsApi {
 
   public getProducts(): Observable<ReadonlyArray<Product>> {
     return this.afs
-      .collection<Product>('products')
+      .collection<Product>(ProductCollectionsEnum.Products)
       .get()
       .pipe(map(convertSnaps));
   }
 
   public getOneProduct(id: string): Observable<Product> {
     return this.afs
-      .doc<Product>(`products/${id}`)
+      .doc<Product>(`${ProductCollectionsEnum.Products}/${id}`)
       .get()
       .pipe(
         map<firebase.firestore.DocumentSnapshot<Product>, Product>(
@@ -37,7 +38,7 @@ export class FirestoreProductsApiService implements ProductsApi {
 
   public getCategories(): Observable<readonly Category[]> {
     return this.afs
-      .collection<Product>('categories')
+      .collection<Product>(`${ProductCollectionsEnum.Categories}`)
       .get()
       .pipe(map(convertSnaps));
   }
@@ -47,7 +48,7 @@ export class FirestoreProductsApiService implements ProductsApi {
   ): Observable<ReadonlyArray<Retailer>> {
     return from(
       this.afs
-        .collection<Product>('products')
+        .collection<Product>(`${ProductCollectionsEnum.Products}`)
         .ref.where('Categories', 'array-contains', category)
         .get()
     ).pipe(
@@ -66,30 +67,40 @@ export class FirestoreProductsApiService implements ProductsApi {
     const toFirstProduct = () => pipe(first(), mapTo(product));
 
     const product$ = id
-      ? from(this.afs.doc<Product>(`products/${id}`).set(product)).pipe(
-          toFirstProduct()
-        )
-      : from(this.afs.collection<Product>(`products`).add(product)).pipe(
-          toFirstProduct()
-        );
+      ? from(
+          this.afs
+            .doc<Product>(`${ProductCollectionsEnum.Products}/${id}`)
+            .set(product)
+        ).pipe(toFirstProduct())
+      : from(
+          this.afs
+            .collection<Product>(`${ProductCollectionsEnum.Products}`)
+            .add(product)
+        ).pipe(toFirstProduct());
 
     return product$;
   }
 
   public updateProduct(product: Product): Observable<Product> {
     return from(
-      this.afs.doc<Product>(`products/${product.id}`).update(product)
+      this.afs
+        .doc<Product>(`${ProductCollectionsEnum.Products}/${product.id}`)
+        .update(product)
     ).pipe(mapTo(product));
   }
 
   public getRetailers(): Observable<readonly Retailer[]> {
     return this.afs
-      .collection<Product>('retailers')
+      .collection<Product>(`${ProductCollectionsEnum.Retailers}`)
       .get()
       .pipe(map(convertSnaps));
   }
 
   public deleteProduct(productId: string): Observable<void> {
-    return from(this.afs.doc<Product>(`products/${productId}`).delete()).pipe();
+    return from(
+      this.afs
+        .doc<Product>(`${ProductCollectionsEnum.Products}/${productId}`)
+        .delete()
+    ).pipe();
   }
 }
