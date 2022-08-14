@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+  OnDestroy,
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import {
   CategoryViewModel,
@@ -7,7 +12,11 @@ import {
   ProductViewModel,
 } from '@omnia/products/data-access';
 import { CompetitorsDialogComponent } from '@omnia/products/ui';
-import { toISOStringWithTimezone, WithId } from '@omnia/shared/util';
+import {
+  toISOStringWithTimezone,
+  TrackByIdOrIdx,
+  TRACK_BY_ID_OR_IDX,
+} from '@omnia/shared/util';
 
 @Component({
   selector: 'omnia-product-details',
@@ -19,6 +28,7 @@ export class ProductDetailsComponent implements OnDestroy {
   public readonly product$ = this.productsFacade.selectedProduct$;
 
   constructor(
+    @Inject(TRACK_BY_ID_OR_IDX) public readonly trackById: TrackByIdOrIdx,
     private readonly productsFacade: ProductsFacadeService,
     public dialog: MatDialog
   ) {}
@@ -58,10 +68,6 @@ export class ProductDetailsComponent implements OnDestroy {
         retailers$: this.productsFacade.getCompetitorsForCategory$(category),
       },
     });
-  }
-
-  public trackById(index: number, item: WithId<unknown>): string {
-    return item.id ?? index;
   }
 
   private releaseResources(): void {

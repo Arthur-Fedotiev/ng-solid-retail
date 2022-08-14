@@ -2,9 +2,11 @@ import {
   ChangeDetectionStrategy,
   Component,
   ContentChild,
+  Inject,
   Input,
   TemplateRef,
 } from '@angular/core';
+import { TRACK_BY_ID_OR_IDX, TrackByIdOrIdx } from '@omnia/shared/util';
 
 @Component({
   selector: 'omnia-list',
@@ -18,7 +20,7 @@ export class ListComponent {
   @ContentChild('omniaListItem')
   itemTemplate!: TemplateRef<unknown>;
 
-  public trackById(index: number, item: any): string | number {
-    return item && 'id' in item ? item.id : index;
-  }
+  constructor(
+    @Inject(TRACK_BY_ID_OR_IDX) public readonly trackById: TrackByIdOrIdx
+  ) {}
 }

@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { WithId } from '@omnia/shared/util';
+import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
+import { TrackByIdOrIdx, TRACK_BY_ID_OR_IDX } from '@omnia/shared/util';
 
 @Component({
   selector: 'omnia-product-categories',
@@ -12,9 +12,9 @@ export class ProductCategoriesComponent<
   @Input() categories!: T;
   @Output() categorySelected = new EventEmitter<T[number]>();
 
-  public trackById(index: number, item: WithId<unknown>): string {
-    return item.id ?? index;
-  }
+  constructor(
+    @Inject(TRACK_BY_ID_OR_IDX) public readonly trackById: TrackByIdOrIdx
+  ) {}
 
   public onCategorySelected(category: T[number]): void {
     this.categorySelected.emit(category);

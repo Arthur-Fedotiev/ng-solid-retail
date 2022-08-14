@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { TRACK_BY_ID_OR_IDX, TrackByIdOrIdx } from '@omnia/shared/util';
 import { Observable } from 'rxjs';
 
 interface CompetitorsDialogData {
@@ -14,9 +15,8 @@ interface CompetitorsDialogData {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CompetitorsDialogComponent {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: CompetitorsDialogData) {}
-
-  public trackById(index: number, item: { name: string; id: string }): string {
-    return item.id ?? index;
-  }
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: CompetitorsDialogData,
+    @Inject(TRACK_BY_ID_OR_IDX) public readonly trackById: TrackByIdOrIdx
+  ) {}
 }
