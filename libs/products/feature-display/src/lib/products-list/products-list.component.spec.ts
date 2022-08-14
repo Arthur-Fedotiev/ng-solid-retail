@@ -7,6 +7,7 @@ import { Subject } from 'rxjs';
 import { ProductsListComponent } from './products-list.component';
 import { CommonModule } from '@angular/common';
 import { ProductsUiModule } from '@omnia/products/ui';
+import { Router } from '@angular/router';
 
 describe('ProductsListComponent', () => {
   const productsSelectorStub$ = new Subject();
@@ -27,6 +28,10 @@ describe('ProductsListComponent', () => {
             loadProducts: jest.fn(),
             productSelected: jest.fn(),
           },
+        },
+        {
+          provide: Router,
+          useValue: { getCurrentNavigation: jest.fn() },
         },
       ],
     }).compileComponents();

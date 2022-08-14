@@ -106,18 +106,21 @@ export class ProductsFacadeService {
     this.productsApi
       .createProduct(this.toProductSaveDto(createProductFormValue))
       .pipe(
-        tap(() => this.navigateToProductDisplayPage()),
+        tap(() => this.navigateToProductDisplayPage(false)),
         take(1)
       )
       .subscribe();
   }
 
-  public deleteSelectedProduct(id: string): void {
-    this.deleteProduct(id);
-    this.navigateToProductDisplayPage();
+  public deleteSelectedProduct(
+    id: string,
+    { isOptimistically = true } = {}
+  ): void {
+    this.deleteProduct(id, isOptimistically);
+    this.navigateToProductDisplayPage(isOptimistically);
   }
 
-  public deleteProduct(id: string, { isOptimistically = true } = {}): void {
+  public deleteProduct(id: string, isOptimistically: boolean): void {
     isOptimistically && this.removeProduct(id);
 
     this.productsApi
@@ -224,7 +227,9 @@ export class ProductsFacadeService {
     this.router.navigate(['/products', productId]);
   }
 
-  private navigateToProductDisplayPage(): void {
-    this.router.navigate(['products', 'display']);
+  private navigateToProductDisplayPage(isHydrated: boolean): void {
+    this.router.navigate(['products', 'display'], {
+      state: { isHydrated },
+    });
   }
 }

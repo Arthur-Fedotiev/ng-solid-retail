@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ProductsFacadeService } from '@omnia/products/data-access';
 
 @Component({
@@ -9,8 +10,13 @@ import { ProductsFacadeService } from '@omnia/products/data-access';
 })
 export class ProductsListComponent implements OnInit {
   public readonly products$ = this.productsFacade.productsShortInfo$;
+  private readonly isHydrated =
+    !!this.router.getCurrentNavigation()?.extras?.state?.['isHydrated'];
 
-  constructor(private readonly productsFacade: ProductsFacadeService) {}
+  constructor(
+    private readonly productsFacade: ProductsFacadeService,
+    private readonly router: Router
+  ) {}
 
   public ngOnInit(): void {
     this.loadProducts();
@@ -21,6 +27,6 @@ export class ProductsListComponent implements OnInit {
   }
 
   private loadProducts(): void {
-    this.productsFacade.loadProducts();
+    !this.isHydrated && this.productsFacade.loadProducts();
   }
 }
