@@ -49,11 +49,11 @@ export class ProductDetailsComponent implements OnDestroy {
           })
         : price
     );
+    const updateProduct = product.clone({
+      prices: updatedPrices,
+    });
 
-    this.productsFacade.selectedProductPriceUpdate(
-      product.clone({ prices: updatedPrices }),
-      $event.id
-    );
+    this.productsFacade.selectedProductUpdate(updateProduct);
   }
 
   public deleteProduct(id: string): void {

@@ -31,7 +31,7 @@ describe('ProductsFacadeService', () => {
             getRetailers: jest.fn(),
             deleteProduct: jest.fn().mockReturnValue(of()),
             getOneProduct: jest.fn(),
-            updateProductPrice: jest.fn(),
+            updateProduct: jest.fn(),
             getCompetitorsForCategory: jest.fn().mockReturnValue(of()),
           },
         },
@@ -279,25 +279,22 @@ describe('ProductsFacadeService', () => {
   });
 
   describe('#updateProductPrice', () => {
-    it('should delegate to UpdateProductPrice passing updated product an updated price', fakeAsync(() => {
+    it('should delegate to UpdateProduct passing updated product an updated price', fakeAsync(() => {
       const productStub = makeProductsStub(1)[0];
       const priceStub = productStub.Prices[0];
 
       const expectedProduct = { ...productStub, Prices: [priceStub] };
 
       toProductSaveDtoMock.mockReturnValue(expectedProduct);
-      productsApiProviderMock.updateProductPrice.mockReturnValue(
+      productsApiProviderMock.updateProduct.mockReturnValue(
         of(expectedProduct as Product)
       );
 
-      service.selectedProductPriceUpdate(
-        toProductViewModel(productStub),
-        priceStub.id
-      );
+      service.selectedProductUpdate(toProductViewModel(productStub));
 
       tick();
 
-      expect(productsApiProviderMock.updateProductPrice).toHaveBeenCalled();
+      expect(productsApiProviderMock.updateProduct).toHaveBeenCalled();
     }));
   });
 
