@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Product, ProductsApi } from '@omnia/products/domain';
 import { PRODUCTS_API, makeProductsStub } from '@omnia/products/infrastructure';
 import { ID_GENERATOR } from '@omnia/shared/util';
-import { asyncScheduler, of, scheduled } from 'rxjs';
+import { asyncScheduler, EMPTY, of, scheduled, Subject } from 'rxjs';
 import { CategoryEnum } from './constants/category.enum';
 import { ProductsStateModel } from './models/products-state.model';
 import { ProductViewModel } from './models/ProductViewModel';
@@ -14,6 +14,10 @@ import { makeProductViewModelsStub } from './testing/make-product-view-models-st
 import { toProductViewModel } from './utils/to-product-view-model';
 
 describe('ProductsFacadeService', () => {
+  const getProductsSubj$ = new Subject();
+  const getCategoriesSubj$ = new Subject();
+  const getRetailersSubj$ = new Subject();
+
   let service: ProductsFacadeService;
   let productsApiProviderMock: jest.Mocked<ProductsApi>;
   let toProductSaveDtoMock: jest.Mock;
@@ -25,10 +29,10 @@ describe('ProductsFacadeService', () => {
         {
           provide: PRODUCTS_API,
           useValue: {
-            getProducts: jest.fn(),
-            getCategories: jest.fn(),
+            getProducts: jest.fn().mockReturnValue(getProductsSubj$),
+            getCategories: jest.fn().mockReturnValue(getCategoriesSubj$),
+            getRetailers: jest.fn().mockReturnValue(getRetailersSubj$),
             createProduct: jest.fn(),
-            getRetailers: jest.fn(),
             deleteProduct: jest.fn().mockReturnValue(of()),
             getOneProduct: jest.fn(),
             updateProduct: jest.fn(),
@@ -68,30 +72,23 @@ describe('ProductsFacadeService', () => {
 
     beforeEach(() => (productsStub = makeProductsStub(5)));
 
-    it('should delegate to GetProducts', fakeAsync(() => {
+    it('should delegate to GetProducts', () => {
       productsApiProviderMock.getProducts.mockReturnValue(
         scheduled([productsStub], asyncScheduler)
       );
-
-      service.loadProducts();
-      tick();
 
       expect(productsApiProviderMock.getProducts).toHaveBeenCalledTimes(1);
-    }));
+    });
 
     it('should set product state', fakeAsync(() => {
+      const productsStub = makeProductsStub(5);
       const expected = productsStub.map((p) => new ProductViewModel(p));
-
-      productsApiProviderMock.getProducts.mockReturnValue(
-        scheduled([productsStub], asyncScheduler)
-      );
-
-      service.loadProducts();
 
       service.products$.subscribe((products) => {
         expect(products).toEqual(expected);
       });
 
+      getProductsSubj$.next(productsStub);
       tick();
     }));
   });
@@ -104,7 +101,7 @@ describe('ProductsFacadeService', () => {
         0
       );
 
-      service.state$.next(new ProductsStateModel(productsViewModelsStub));
+      service.state$.next(new ProductsStateModel(of(productsViewModelsStub)));
 
       tick();
 
@@ -126,7 +123,7 @@ describe('ProductsFacadeService', () => {
         retailer: productsViewModelsStub[0].prices[0].retailer.name,
       };
 
-      service.state$.next(new ProductsStateModel(productsViewModelsStub));
+      service.state$.next(new ProductsStateModel(of(productsViewModelsStub)));
 
       tick();
 
@@ -144,9 +141,6 @@ describe('ProductsFacadeService', () => {
         scheduled([[]], asyncScheduler)
       );
 
-      service.loadCategories();
-      tick();
-
       expect(productsApiProviderMock.getCategories).toHaveBeenCalledTimes(1);
     }));
 
@@ -158,16 +152,11 @@ describe('ProductsFacadeService', () => {
 
       const expected = categoriesStub.map((c) => ({ id: c.id, name: c.Name }));
 
-      productsApiProviderMock.getCategories.mockReturnValue(
-        scheduled([categoriesStub], asyncScheduler)
-      );
-
-      service.loadCategories();
-
       service.categories$.subscribe((categories) => {
         expect(categories).toEqual(expected);
       });
 
+      getCategoriesSubj$.next(categoriesStub);
       tick();
     }));
   });
@@ -177,9 +166,6 @@ describe('ProductsFacadeService', () => {
       productsApiProviderMock.getRetailers.mockReturnValue(
         scheduled([[]], asyncScheduler)
       );
-
-      service.loadRetailers();
-      tick();
 
       expect(productsApiProviderMock.getRetailers).toHaveBeenCalledTimes(1);
     }));
@@ -192,18 +178,13 @@ describe('ProductsFacadeService', () => {
 
       const expected = retailersStub.map((r) => ({ id: r.id, name: r.Name }));
 
-      productsApiProviderMock.getRetailers.mockReturnValue(
-        scheduled([retailersStub], asyncScheduler)
-      );
-
-      service.loadRetailers();
-
       tick();
 
       service.retailers$.subscribe((retailers) => {
-        expect(retailers?.length).toEqual(expected.length);
+        expect(retailers).toEqual(expected);
       });
 
+      getRetailersSubj$.next(retailersStub);
       tick();
     }));
   });
@@ -214,25 +195,19 @@ describe('ProductsFacadeService', () => {
 
       productsApiProviderMock.deleteProduct.mockReturnValue(of());
 
-      service.deleteProduct(id, true);
+      service.deleteSelectedProduct(id);
 
       expect(productsApiProviderMock.deleteProduct).toHaveBeenCalledWith(id);
     }));
 
-    it('should remove product from state', fakeAsync(() => {
-      const productsStub = makeProductViewModelsStub(1);
-      const id = productsStub[0].id;
+    it('should navigate to products list', fakeAsync(() => {
+      const id = 'id';
 
-      Object.assign(service, { state: new ProductsStateModel(productsStub) });
       productsApiProviderMock.deleteProduct.mockReturnValue(of());
 
-      service.deleteProduct(id, true);
+      service.deleteSelectedProduct(id);
 
-      service.products$.subscribe((products) => {
-        expect(products.length).toEqual(0);
-      });
-
-      tick();
+      expect(routerMock.navigate).toHaveBeenCalledWith(['products', 'display']);
     }));
   });
 
@@ -256,26 +231,26 @@ describe('ProductsFacadeService', () => {
       productsApiProviderMock.getOneProduct.mockReturnValue(
         scheduled([{} as Product], asyncScheduler)
       );
-
       service.loadProduct(id);
 
       expect(productsApiProviderMock.getOneProduct).toHaveBeenCalledWith(id);
     });
 
-    it('should set selected product state', (done: jest.DoneCallback) => {
+    it('should set selected product state', fakeAsync(() => {
       const product = makeProductsStub(1)[0];
+      const expected = toProductViewModel(product);
 
       productsApiProviderMock.getOneProduct.mockReturnValue(
         scheduled([product], asyncScheduler)
       );
 
-      service.loadProduct(product.id);
-
       service.selectedProduct$.subscribe((selectedProduct) => {
-        expect(selectedProduct).toEqual(toProductViewModel(product));
-        done();
+        expect(selectedProduct).toEqual(expected);
       });
-    });
+
+      service.loadProduct(product.id);
+      tick();
+    }));
   });
 
   describe('#updateProductPrice', () => {

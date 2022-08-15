@@ -6,7 +6,7 @@ import {
   TestBed,
   tick,
 } from '@angular/core/testing';
-import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { SharedUiMaterialModule } from '@omnia/shared/ui-material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { CreateProductComponent } from './create-product.component';
@@ -18,7 +18,6 @@ describe('CreateProductComponent', () => {
 
   let component: CreateProductComponent;
   let fixture: ComponentFixture<CreateProductComponent>;
-  let fb: NonNullableFormBuilder;
   let productFacadeMock: jest.Mocked<ProductsFacadeService>;
 
   beforeEach(async () => {
@@ -35,8 +34,6 @@ describe('CreateProductComponent', () => {
         {
           provide: ProductsFacadeService,
           useValue: {
-            loadCategories: jest.fn(),
-            loadRetailers: jest.fn(),
             createProduct: jest.fn(),
             categories$: categoriesSubj,
           },
@@ -47,7 +44,6 @@ describe('CreateProductComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(CreateProductComponent);
-    fb = TestBed.inject(NonNullableFormBuilder);
     productFacadeMock = TestBed.inject(
       ProductsFacadeService
     ) as jest.Mocked<ProductsFacadeService>;
@@ -124,10 +120,6 @@ describe('CreateProductComponent', () => {
   });
 
   describe('#load', () => {
-    it('should load categories on init', () => {
-      expect(productFacadeMock.loadCategories).toHaveBeenCalled();
-    });
-
     it('should get categories', fakeAsync(() => {
       const categoriesStub = [
         { id: '1', name: 'Category 1' },

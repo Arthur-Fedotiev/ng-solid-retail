@@ -25,7 +25,6 @@ describe('ProductsListComponent', () => {
           provide: ProductsFacadeService,
           useValue: {
             productsShortInfo$: productsSelectorStub$,
-            loadProducts: jest.fn(),
             productSelected: jest.fn(),
           },
         },
@@ -46,12 +45,6 @@ describe('ProductsListComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
-
-  describe('#loadProducts', () => {
-    it('should delegate load products on init', () => {
-      expect(facadeService.loadProducts).toHaveBeenCalledTimes(1);
-    });
   });
 
   describe('#onClick', () => {

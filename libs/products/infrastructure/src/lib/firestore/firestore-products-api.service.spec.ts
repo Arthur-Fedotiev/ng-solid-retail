@@ -9,6 +9,7 @@ import { makeDocStub } from './testing/make-doc-stub';
 export class AngularFirestoreMock {
   collectionGetMock = jest.fn().mockReturnValue(of());
   collectionAddMock = jest.fn().mockReturnValue(of());
+  collectionValueChangesMock = jest.fn().mockReturnValue(of());
   docSetMock = jest.fn().mockReturnValue(of());
   docGetMock = jest.fn().mockReturnValue(of());
   docUpdateMock = jest.fn().mockReturnValue(of());
@@ -20,6 +21,7 @@ export class AngularFirestoreMock {
     add: this.collectionAddMock,
     get: this.collectionGetMock,
     ref: { where: this.whereMock },
+    valueChanges: this.collectionValueChangesMock,
   });
   doc = jest.fn().mockReturnValue({
     get: this.docGetMock,
@@ -63,14 +65,14 @@ describe('FirestoreProductsApiService', () => {
 
     it('should return products', fakeAsync(() => {
       const productsStub = makeProductsStub(3);
-      const collectionStub = makeCollectionStub(productsStub);
 
       service.getProducts().subscribe();
 
-      afsMock.collectionGetMock.mockReturnValueOnce(of(collectionStub)),
-        service.getProducts().subscribe((products) => {
-          expect(products).toEqual(productsStub);
-        });
+      afsMock.collectionValueChangesMock.mockReturnValueOnce(of(productsStub));
+
+      service.getProducts().subscribe((products) => {
+        expect(products).toEqual(productsStub);
+      });
       tick();
     }));
   });
@@ -82,18 +84,28 @@ describe('FirestoreProductsApiService', () => {
       expect(afsMock.collection).toHaveBeenCalledWith('categories');
     });
 
+    it('should invoke valueChanges() on the collection with the correct idField', () => {
+      service.getCategories().subscribe();
+
+      expect(afsMock.collectionValueChangesMock).toHaveBeenCalledWith({
+        idField: 'id',
+      });
+    });
+
     it('should return categories', fakeAsync(() => {
       const categoriesStub = makeProductsStub(3).filter(
         (product) => product.Categories
       );
-      const collectionStub = makeCollectionStub(categoriesStub);
 
       service.getCategories().subscribe();
 
-      afsMock.collectionGetMock.mockReturnValueOnce(of(collectionStub)),
-        service.getCategories().subscribe((categories) => {
-          expect(categories).toEqual(categoriesStub);
-        });
+      afsMock.collectionValueChangesMock.mockReturnValueOnce(
+        of(categoriesStub)
+      );
+
+      service.getCategories().subscribe((categories) => {
+        expect(categories).toEqual(categoriesStub);
+      });
       tick();
     }));
   });
@@ -105,18 +117,24 @@ describe('FirestoreProductsApiService', () => {
       expect(afsMock.collection).toHaveBeenCalledWith('retailers');
     });
 
+    it('should invoke retailer collection valueChanges() on the collection with the correct idField', () => {
+      service.getRetailers().subscribe();
+
+      expect(afsMock.collectionValueChangesMock).toHaveBeenCalledWith({
+        idField: 'id',
+      });
+    });
+
     it('should return retailers', fakeAsync(() => {
       const retailersStub = makeProductsStub(3).filter((product) =>
         product.Prices.map((price) => price.Retailer)
       );
-      const collectionStub = makeCollectionStub(retailersStub);
 
-      service.getRetailers().subscribe();
+      afsMock.collectionValueChangesMock.mockReturnValueOnce(of(retailersStub));
 
-      afsMock.collectionGetMock.mockReturnValueOnce(of(collectionStub)),
-        service.getRetailers().subscribe((retailers) => {
-          expect(retailers).toEqual(retailersStub);
-        });
+      service.getRetailers().subscribe((retailers) => {
+        expect(retailers).toEqual(retailersStub);
+      });
 
       tick();
     }));
@@ -164,21 +182,25 @@ describe('FirestoreProductsApiService', () => {
   });
 
   describe('#updateProductPrice', () => {
-    //should call afs.doc with the correct collection name and id
-    it('should call afs.doc with the correct collection name and id', waitForAsync(() => {
+    it('should call afs.doc with the correct collection name and id', () => {
       const productStub = makeProductsStub(1)[0];
 
-      service.updateProduct(productStub).subscribe(() => {
-        expect(afsMock.doc).toHaveBeenCalledWith(`product/${productStub.id}`);
-      });
-    }));
+      service.updateProduct(productStub).subscribe();
 
-    it('should call afs.doc.update with the correct price', waitForAsync(() => {
+      expect(afsMock.doc).toHaveBeenCalledWith(`products/${productStub.id}`);
+    });
+
+    it('should map to updatedProduct', fakeAsync(() => {
       const productStub = makeProductsStub(1)[0];
+      afsMock.docUpdateMock.mockReturnValue(of(productStub));
 
-      service.updateProduct(productStub).subscribe(() => {
-        expect(afsMock.docUpdateMock).toHaveBeenCalledWith(null);
-      });
+      service
+        .updateProduct(productStub)
+        .subscribe((updatedProduct) =>
+          expect(updatedProduct).toEqual(productStub)
+        );
+
+      tick();
     }));
   });
 

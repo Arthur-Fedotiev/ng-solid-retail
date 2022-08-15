@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Inject,
-  OnInit,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { FormArray, NonNullableFormBuilder, Validators } from '@angular/forms';
 import {
   CreateProductForm,
@@ -19,7 +14,7 @@ import { validateSize } from './util/validate-size';
   styleUrls: ['./create-product.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CreateProductComponent implements OnInit {
+export class CreateProductComponent {
   public readonly categories$ = this.productsFacade.categories$;
   public readonly retailers$ = this.productsFacade.retailers$;
 
@@ -47,11 +42,6 @@ export class CreateProductComponent implements OnInit {
     private readonly fb: NonNullableFormBuilder,
     private readonly productsFacade: ProductsFacadeService
   ) {}
-
-  public ngOnInit(): void {
-    this.productsFacade.loadCategories();
-    this.productsFacade.loadRetailers();
-  }
 
   public addPrice() {
     this.prices.push(this.priceFormGroup);

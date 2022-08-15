@@ -1,12 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import {
-  ProductsApi,
-  Product,
-  Category,
-  Retailer,
-  Price,
-} from '@omnia/products/domain';
+import { ProductsApi, Product } from '@omnia/products/domain';
 import { PRODUCTS_API } from '@omnia/products/infrastructure';
 import {
   BehaviorSubject,
@@ -15,6 +9,7 @@ import {
   map,
   Observable,
   pluck,
+  switchAll,
   take,
   tap,
 } from 'rxjs';
@@ -38,11 +33,16 @@ import { toRetailerViewModel } from './utils/to-retailer-view-model';
   providedIn: 'root',
 })
 export class ProductsFacadeService {
-  private state = new ProductsStateModel();
+  private state = new ProductsStateModel(
+    this.productsChanges$,
+    this.categoriesChanges$,
+    this.retailersChanges$
+  );
 
   public readonly state$ = new BehaviorSubject<ProductsStateModel>(this.state);
   public readonly products$ = this.state$.pipe(
-    pluck('products'),
+    pluck('products$'),
+    switchAll(),
     distinctUntilChanged(),
     filter(Boolean)
   );
@@ -62,16 +62,40 @@ export class ProductsFacadeService {
   );
 
   public readonly categories$ = this.state$.pipe(
-    pluck('categories'),
+    pluck('categories$'),
+    switchAll(),
     distinctUntilChanged(),
     filter(Boolean)
   );
 
   public readonly retailers$ = this.state$.pipe(
-    pluck('retailers'),
+    pluck('retailers$'),
+    switchAll(),
     distinctUntilChanged(),
     filter(Boolean)
   );
+
+  private get productsChanges$(): Observable<ReadonlyArray<ProductViewModel>> {
+    return this.productsApi
+      .getProducts()
+      .pipe(map((products) => products.map(toProductViewModel)));
+  }
+
+  private get categoriesChanges$(): Observable<
+    ReadonlyArray<CategoryViewModel>
+  > {
+    return this.productsApi
+      .getCategories()
+      .pipe(map((categories) => categories.map(toCategoryViewModel)));
+  }
+
+  private get retailersChanges$(): Observable<
+    ReadonlyArray<RetailerViewModel>
+  > {
+    return this.productsApi
+      .getRetailers()
+      .pipe(map((retailers) => retailers.map(toRetailerViewModel)));
+  }
 
   constructor(
     @Inject(PRODUCTS_API)
@@ -81,55 +105,23 @@ export class ProductsFacadeService {
     private readonly router: Router
   ) {}
 
-  public loadProducts(): void {
-    this.productsApi
-      .getProducts()
-      .pipe(tap(this.updateProducts), take(1))
-      .subscribe();
-  }
-
-  public loadCategories(): void {
-    this.productsApi
-      .getCategories()
-      .pipe(tap(this.updateCategories), take(1))
-      .subscribe();
-  }
-
-  public loadRetailers(): void {
-    this.productsApi
-      .getRetailers()
-      .pipe(tap(this.updateRetailers), take(1))
-      .subscribe();
-  }
-
   public createProduct(createProductFormValue: CreateProductForm): void {
     this.productsApi
       .createProduct(this.toProductSaveDto(createProductFormValue))
       .pipe(
-        tap(() => this.navigateToProductDisplayPage(false)),
+        tap(() => this.navigateToProductDisplayPage()),
         take(1)
       )
       .subscribe();
   }
 
-  public deleteSelectedProduct(
-    id: string,
-    { isOptimistically = true } = {}
-  ): void {
-    this.deleteProduct(id, isOptimistically);
-    this.navigateToProductDisplayPage(isOptimistically);
+  public deleteSelectedProduct(id: string): void {
+    this.deleteProduct(id);
+    this.navigateToProductDisplayPage();
   }
 
-  public deleteProduct(id: string, isOptimistically: boolean): void {
-    isOptimistically && this.removeProduct(id);
-
-    this.productsApi
-      .deleteProduct(id)
-      .pipe(
-        tap(() => !isOptimistically && this.removeProduct(id)),
-        take(1)
-      )
-      .subscribe();
+  private deleteProduct(id: string): void {
+    this.productsApi.deleteProduct(id).pipe(take(1)).subscribe();
   }
 
   public productSelected(productId: string) {
@@ -174,26 +166,6 @@ export class ProductsFacadeService {
     );
   }
 
-  private removeProduct(id: string): void {
-    this.state$.next(
-      (this.state = {
-        ...this.state,
-        products: this.state.products
-          ? this.state.products.filter((product) => product.id !== id)
-          : null,
-      })
-    );
-  }
-
-  private updateProducts = (products: ReadonlyArray<Product>): void => {
-    this.state$.next(
-      (this.state = {
-        ...this.state,
-        products: products.map(toProductViewModel),
-      })
-    );
-  };
-
   private updateSelectedProduct = (selectedProduct: Product) => {
     this.state$.next(
       (this.state = {
@@ -203,33 +175,11 @@ export class ProductsFacadeService {
     );
   };
 
-  private updateRetailers = (retailers: ReadonlyArray<Retailer>): void => {
-    this.state$.next(
-      (this.state = {
-        ...this.state,
-        retailers: retailers.map(toRetailerViewModel),
-      })
-    );
-  };
-
-  private readonly updateCategories = (
-    categories: ReadonlyArray<Category>
-  ): void => {
-    this.state$.next(
-      (this.state = {
-        ...this.state,
-        categories: categories.map(toCategoryViewModel),
-      })
-    );
-  };
-
   private navigateToProductPage(productId: string): void {
     this.router.navigate(['/products', productId]);
   }
 
-  private navigateToProductDisplayPage(isHydrated: boolean): void {
-    this.router.navigate(['products', 'display'], {
-      state: { isHydrated },
-    });
+  private navigateToProductDisplayPage(): void {
+    this.router.navigate(['products', 'display']);
   }
 }

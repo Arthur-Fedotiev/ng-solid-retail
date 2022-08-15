@@ -20,8 +20,7 @@ export class FirestoreProductsApiService implements ProductsApi {
   public getProducts(): Observable<ReadonlyArray<Product>> {
     return this.afs
       .collection<Product>(ProductCollectionsEnum.Products)
-      .get()
-      .pipe(map(convertSnaps));
+      .valueChanges();
   }
 
   public getOneProduct(id: string): Observable<Product> {
@@ -39,8 +38,7 @@ export class FirestoreProductsApiService implements ProductsApi {
   public getCategories(): Observable<readonly Category[]> {
     return this.afs
       .collection<Product>(`${ProductCollectionsEnum.Categories}`)
-      .get()
-      .pipe(map(convertSnaps));
+      .valueChanges({ idField: 'id' });
   }
 
   public getCompetitorsForCategory(
@@ -92,8 +90,7 @@ export class FirestoreProductsApiService implements ProductsApi {
   public getRetailers(): Observable<readonly Retailer[]> {
     return this.afs
       .collection<Product>(`${ProductCollectionsEnum.Retailers}`)
-      .get()
-      .pipe(map(convertSnaps));
+      .valueChanges({ idField: 'id' });
   }
 
   public deleteProduct(productId: string): Observable<void> {
