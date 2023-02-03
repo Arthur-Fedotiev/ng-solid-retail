@@ -1,9 +1,7 @@
 {
   "projectType": "library",
   "sourceRoot": "libs/shared/styles/src",
-  "prefix": "omnia",
+  "prefix": "sr",
   "targets": {},
-  "tags": [
-    "scope:shared,type:styles"
-  ]
+  "tags": ["scope:shared,type:styles"]
 }

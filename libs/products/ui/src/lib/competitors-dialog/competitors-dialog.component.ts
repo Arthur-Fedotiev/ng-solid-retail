@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { TRACK_BY_ID_OR_IDX, TrackByIdOrIdx } from '@omnia/shared/util';
+import { TRACK_BY_ID_OR_IDX, TrackByIdOrIdx } from '@sr/shared/util';
 import { Observable } from 'rxjs';
 
 interface CompetitorsDialogData {
@@ -9,7 +9,7 @@ interface CompetitorsDialogData {
 }
 
 @Component({
-  selector: 'omnia-competitors-dialog',
+  selector: 'sr-competitors-dialog',
   templateUrl: './competitors-dialog.component.html',
   styleUrls: ['./competitors-dialog.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

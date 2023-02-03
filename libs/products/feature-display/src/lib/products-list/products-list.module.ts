@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductsListComponent } from './products-list.component';
-import { SharedUiListModule } from '@omnia/shared/ui-list';
-import { ProductsUiModule } from '@omnia/products/ui';
+import { SharedUiListModule } from '@sr/shared/ui-list';
+import { ProductsUiModule } from '@sr/products/ui';
 import { RouterModule } from '@angular/router';
 
 @NgModule({

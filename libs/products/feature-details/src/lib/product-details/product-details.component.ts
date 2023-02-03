@@ -10,16 +10,16 @@ import {
   PriceViewModel,
   ProductsFacadeService,
   ProductViewModel,
-} from '@omnia/products/data-access';
-import { CompetitorsDialogComponent } from '@omnia/products/ui';
+} from '@sr/products/data-access';
+import { CompetitorsDialogComponent } from '@sr/products/ui';
 import {
   toISOStringWithTimezone,
   TrackByIdOrIdx,
   TRACK_BY_ID_OR_IDX,
-} from '@omnia/shared/util';
+} from '@sr/shared/util';
 
 @Component({
-  selector: 'omnia-product-details',
+  selector: 'sr-product-details',
   templateUrl: './product-details.component.html',
   styleUrls: ['./product-details.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

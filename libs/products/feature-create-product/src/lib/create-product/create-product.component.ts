@@ -3,13 +3,13 @@ import { FormArray, NonNullableFormBuilder, Validators } from '@angular/forms';
 import {
   CreateProductForm,
   ProductsFacadeService,
-} from '@omnia/products/data-access';
-import { TrackByIdOrIdx, TRACK_BY_ID_OR_IDX } from '@omnia/shared/util';
+} from '@sr/products/data-access';
+import { TrackByIdOrIdx, TRACK_BY_ID_OR_IDX } from '@sr/shared/util';
 import { PriceFormGroup } from './models/price-form-group.type';
 import { validateSize } from './util/validate-size';
 
 @Component({
-  selector: 'omnia-create-product',
+  selector: 'sr-create-product',
   templateUrl: './create-product.component.html',
   styleUrls: ['./create-product.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

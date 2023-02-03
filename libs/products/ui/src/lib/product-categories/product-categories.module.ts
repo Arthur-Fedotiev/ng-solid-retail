@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SharedUiMaterialModule } from '@omnia/shared/ui-material';
+import { SharedUiMaterialModule } from '@sr/shared/ui-material';
 import { ProductCategoriesComponent } from './product-categories.component';
 
 @NgModule({

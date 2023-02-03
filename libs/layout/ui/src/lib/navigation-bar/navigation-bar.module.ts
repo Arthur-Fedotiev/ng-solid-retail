@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavigationBarComponent } from './navigation-bar.component';
-import { SharedUiMaterialModule } from '@omnia/shared/ui-material';
+import { SharedUiMaterialModule } from '@sr/shared/ui-material';
 
 @NgModule({
   declarations: [NavigationBarComponent],

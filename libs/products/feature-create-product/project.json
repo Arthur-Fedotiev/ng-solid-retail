@@ -1,13 +1,11 @@
 {
   "projectType": "library",
   "sourceRoot": "libs/products/feature-create-product/src",
-  "prefix": "omnia",
+  "prefix": "sr",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": [
-        "coverage/libs/products/feature-create-product"
-      ],
+      "outputs": ["coverage/libs/products/feature-create-product"],
       "options": {
         "jestConfig": "libs/products/feature-create-product/jest.config.ts",
         "passWithNoTests": true
@@ -23,8 +21,5 @@
       }
     }
   },
-  "tags": [
-    "scope:products",
-    "type:feature"
-  ]
+  "tags": ["scope:products", "type:feature"]
 }

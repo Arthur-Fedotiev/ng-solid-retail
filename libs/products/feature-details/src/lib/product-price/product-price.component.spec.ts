@@ -6,7 +6,7 @@ import {
   tick,
 } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { SharedUiMaterialModule } from '@omnia/shared/ui-material';
+import { SharedUiMaterialModule } from '@sr/shared/ui-material';
 import { take, toArray } from 'rxjs';
 
 import { ProductPriceComponent } from './product-price.component';

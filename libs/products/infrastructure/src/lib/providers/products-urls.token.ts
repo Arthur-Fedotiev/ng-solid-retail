@@ -1,6 +1,6 @@
 import { inject, InjectionToken } from '@angular/core';
-import { ProductUrls } from '@omnia/products/domain';
-import { ENVIRONMENT } from '@omnia/shared/environments';
+import { ProductUrls } from '@sr/products/domain';
+import { ENVIRONMENT } from '@sr/shared/environments';
 
 export const PRODUCT_URLS = new InjectionToken<ProductUrls>('ProductUrls', {
   providedIn: 'root',

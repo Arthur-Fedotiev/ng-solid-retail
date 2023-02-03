@@ -1,6 +1,6 @@
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { ActivatedRouteSnapshot } from '@angular/router';
-import { makeProductsStub } from '@omnia/products/infrastructure';
+import { makeProductsStub } from '@sr/products/infrastructure';
 import { BehaviorSubject, of } from 'rxjs';
 import { ProductsFacadeService, ProductViewModel } from '../..';
 

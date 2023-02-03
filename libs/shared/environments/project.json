@@ -1,13 +1,11 @@
 {
   "projectType": "library",
   "sourceRoot": "libs/shared/environments/src",
-  "prefix": "omnia",
+  "prefix": "sr",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": [
-        "coverage/libs/shared/environments"
-      ],
+      "outputs": ["coverage/libs/shared/environments"],
       "options": {
         "jestConfig": "libs/shared/environments/jest.config.ts",
         "passWithNoTests": true
@@ -23,8 +21,5 @@
       }
     }
   },
-  "tags": [
-    "scope:shared",
-    "type:environments"
-  ]
+  "tags": ["scope:shared", "type:environments"]
 }

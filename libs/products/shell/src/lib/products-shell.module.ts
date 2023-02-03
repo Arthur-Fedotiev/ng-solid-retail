@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { ProductDetailsResolver } from '@omnia/products/data-access';
+import { ProductDetailsResolver } from '@sr/products/data-access';
 
 @NgModule({
   imports: [
@@ -11,14 +11,14 @@ import { ProductDetailsResolver } from '@omnia/products/data-access';
       {
         path: 'display',
         loadChildren: () =>
-          import('@omnia/products-feature-display').then(
+          import('@sr/products-feature-display').then(
             (m) => m.ProductsFeatureDisplayModule
           ),
       },
       {
         path: 'create',
         loadChildren: () =>
-          import('@omnia/products/feature-create-product').then(
+          import('@sr/products/feature-create-product').then(
             (m) => m.ProductsFeatureCreateProductModule
           ),
       },
@@ -28,7 +28,7 @@ import { ProductDetailsResolver } from '@omnia/products/data-access';
           product: ProductDetailsResolver,
         },
         loadChildren: () =>
-          import('@omnia/products/feature-create-product').then(
+          import('@sr/products/feature-create-product').then(
             (m) => m.ProductsFeatureCreateProductModule
           ),
       },
@@ -38,7 +38,7 @@ import { ProductDetailsResolver } from '@omnia/products/data-access';
           product: ProductDetailsResolver,
         },
         loadChildren: () =>
-          import('@omnia/products/feature-details').then(
+          import('@sr/products/feature-details').then(
             (m) => m.ProductsFeatureDetailsModule
           ),
       },

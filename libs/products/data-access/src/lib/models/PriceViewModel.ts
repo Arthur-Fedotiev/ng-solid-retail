@@ -1,4 +1,4 @@
-import { Price } from '@omnia/products/domain';
+import { Price } from '@sr/products/domain';
 import { RetailerViewModel } from './RetailerViewModel';
 
 export class PriceViewModel {

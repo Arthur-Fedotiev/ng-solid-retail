@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "npmScope": "omnia",
+  "npmScope": "sr",
   "affected": {
     "defaultBase": "master"
   },
@@ -19,21 +19,14 @@
     "default": {
       "runner": "@nrwl/nx-cloud",
       "options": {
-        "cacheableOperations": [
-          "build",
-          "lint",
-          "test",
-          "e2e"
-        ],
+        "cacheableOperations": ["build", "lint", "test", "e2e"],
         "accessToken": "MmNhNGY5MWUtMzc0ZC00Nzk5LThlNDEtYThhOWRkNDc3MDIyfHJlYWQtd3JpdGU="
       }
     }
   },
   "targetDefaults": {
     "build": {
-      "dependsOn": [
-        "^build"
-      ]
+      "dependsOn": ["^build"]
     }
   },
   "generators": {
@@ -51,5 +44,5 @@
       "style": "scss"
     }
   },
-  "defaultProject": "omnia-retail"
+  "defaultProject": "solid-retail"
 }

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { LayoutFeatureModule } from '@omnia/layout/feature';
+import { LayoutFeatureModule } from '@sr/layout/feature';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -9,7 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
-import { environment } from '@omnia/shared/environments';
+import { environment } from '@sr/shared/environments';
 
 @NgModule({
   declarations: [AppComponent],

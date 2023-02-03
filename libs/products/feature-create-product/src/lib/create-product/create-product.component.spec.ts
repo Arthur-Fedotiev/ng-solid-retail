@@ -7,10 +7,10 @@ import {
   tick,
 } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { SharedUiMaterialModule } from '@omnia/shared/ui-material';
+import { SharedUiMaterialModule } from '@sr/shared/ui-material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { CreateProductComponent } from './create-product.component';
-import { ProductsFacadeService } from '@omnia/products/data-access';
+import { ProductsFacadeService } from '@sr/products/data-access';
 import { Subject } from 'rxjs';
 
 describe('CreateProductComponent', () => {

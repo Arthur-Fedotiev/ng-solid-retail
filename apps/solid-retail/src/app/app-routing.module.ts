@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
-import { LayoutFeatureComponent } from '@omnia/layout/feature';
+import { LayoutFeatureComponent } from '@sr/layout/feature';
 
 const appRoutes: Route[] = [
   {
@@ -10,7 +10,7 @@ const appRoutes: Route[] = [
       {
         path: 'products',
         loadChildren: () =>
-          import('@omnia/products/shell').then((m) => m.ProductsShellModule),
+          import('@sr/products/shell').then((m) => m.ProductsShellModule),
       },
       {
         path: '**',

@@ -1,8 +1,8 @@
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { Router } from '@angular/router';
-import { Product, ProductsApi } from '@omnia/products/domain';
-import { PRODUCTS_API, makeProductsStub } from '@omnia/products/infrastructure';
-import { ID_GENERATOR } from '@omnia/shared/util';
+import { Product, ProductsApi } from '@sr/products/domain';
+import { PRODUCTS_API, makeProductsStub } from '@sr/products/infrastructure';
+import { ID_GENERATOR } from '@sr/shared/util';
 import { asyncScheduler, EMPTY, of, scheduled, Subject } from 'rxjs';
 import { CategoryEnum } from './constants/category.enum';
 import { ProductsStateModel } from './models/products-state.model';

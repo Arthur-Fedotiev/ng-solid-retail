@@ -1,7 +1,7 @@
 {
   "projectType": "library",
   "sourceRoot": "libs/products/feature-details/src",
-  "prefix": "omnia",
+  "prefix": "sr",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",

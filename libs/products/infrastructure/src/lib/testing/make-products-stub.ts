@@ -1,4 +1,4 @@
-import { Product } from '@omnia/products/domain';
+import { Product } from '@sr/products/domain';
 
 export const makeProductsStub = (count: number): ReadonlyArray<Product> =>
   Array(count)

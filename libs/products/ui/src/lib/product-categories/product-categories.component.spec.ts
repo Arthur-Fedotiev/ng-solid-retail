@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { SharedUiMaterialModule } from '@omnia/shared/ui-material';
-import { TRACK_BY_ID_OR_IDX } from '@omnia/shared/util';
+import { SharedUiMaterialModule } from '@sr/shared/ui-material';
+import { TRACK_BY_ID_OR_IDX } from '@sr/shared/util';
 import { ProductCategoriesComponent } from './product-categories.component';
 
 describe('ProductCategoriesComponent', () => {

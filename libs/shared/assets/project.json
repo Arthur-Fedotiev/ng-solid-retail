@@ -1,9 +1,7 @@
 {
   "projectType": "library",
   "sourceRoot": "libs/shared/assets/src",
-  "prefix": "omnia",
+  "prefix": "sr",
   "targets": {},
-  "tags": [
-    "scope:shared,type:assets"
-  ]
+  "tags": ["scope:shared,type:assets"]
 }

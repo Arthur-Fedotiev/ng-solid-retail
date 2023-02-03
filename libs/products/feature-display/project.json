@@ -2,13 +2,11 @@
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/products/feature-display/src",
-  "prefix": "omnia",
+  "prefix": "sr",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": [
-        "coverage/libs/products/feature-display"
-      ],
+      "outputs": ["coverage/libs/products/feature-display"],
       "options": {
         "jestConfig": "libs/products/feature-display/jest.config.ts",
         "passWithNoTests": true
@@ -24,8 +22,5 @@
       }
     }
   },
-  "tags": [
-    "scope:products",
-    "type:feature"
-  ]
+  "tags": ["scope:products", "type:feature"]
 }

@@ -7,7 +7,7 @@ import {
   Category,
   Price,
   Retailer,
-} from '@omnia/products/domain';
+} from '@sr/products/domain';
 import { forkJoin, Observable, of, switchMap } from 'rxjs';
 import { PRODUCT_URLS } from '../providers/products-urls.token';
 

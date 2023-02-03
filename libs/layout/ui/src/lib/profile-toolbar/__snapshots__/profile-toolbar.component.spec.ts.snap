@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ProfileToolbarComponent should render 1`] = `
-<omnia-profile-toolbar
+<sr-profile-toolbar
   __ngContext__={[Function Number]}
 >
   <mat-toolbar
@@ -47,5 +47,5 @@ exports[`ProfileToolbarComponent should render 1`] = `
       </mat-menu>
     </div>
   </mat-toolbar>
-</omnia-profile-toolbar>
+</sr-profile-toolbar>
 `;

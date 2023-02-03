@@ -1,4 +1,4 @@
-import { Product } from '@omnia/products/domain';
+import { Product } from '@sr/products/domain';
 import { CategoryEnum } from '../constants/category.enum';
 import { PriceViewModel } from './PriceViewModel';
 import { CategoryViewModel } from './CategoryViewModel';

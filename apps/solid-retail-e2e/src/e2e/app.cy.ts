@@ -1,6 +1,6 @@
 import { getGreeting } from '../support/app.po';
 
-describe('omnia-retail', () => {
+describe('sr-retail', () => {
   beforeEach(() => cy.visit('/'));
 
   it('should display welcome message', () => {
@@ -8,6 +8,6 @@ describe('omnia-retail', () => {
     cy.login('my-email@something.com', 'myPassword');
 
     // Function helper example, see `../support/app.po.ts` file
-    getGreeting().contains('Welcome omnia-retail');
+    getGreeting().contains('Welcome sr-retail');
   });
 });

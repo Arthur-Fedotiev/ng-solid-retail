@@ -1,8 +1,8 @@
 {
   "hosting": [
     {
-      "target": "omnia-retail",
-      "public": "dist/apps/omnia-retail",
+      "target": "sr-retail",
+      "public": "dist/apps/sr-retail",
       "ignore": ["**/.*"],
       "headers": [
         {

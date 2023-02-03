@@ -6,10 +6,10 @@ import {
   Input,
   TemplateRef,
 } from '@angular/core';
-import { TRACK_BY_ID_OR_IDX, TrackByIdOrIdx } from '@omnia/shared/util';
+import { TRACK_BY_ID_OR_IDX, TrackByIdOrIdx } from '@sr/shared/util';
 
 @Component({
-  selector: 'omnia-list',
+  selector: 'sr-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

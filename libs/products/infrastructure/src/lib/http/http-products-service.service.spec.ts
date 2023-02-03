@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { Product, ProductUrls } from '@omnia/products/domain';
+import { Product, ProductUrls } from '@sr/products/domain';
 import { of } from 'rxjs';
 
 import { HttpProductsService } from './http-products-service.service';

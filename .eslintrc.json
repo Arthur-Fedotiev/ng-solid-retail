@@ -13,7 +13,7 @@
             "allow": [],
             "depConstraints": [
               {
-                "sourceTag": "scope:omnia-retail",
+                "sourceTag": "scope:sr-retail",
                 "onlyDependOnLibsWithTags": [
                   "scope:products",
                   "scope:shared",

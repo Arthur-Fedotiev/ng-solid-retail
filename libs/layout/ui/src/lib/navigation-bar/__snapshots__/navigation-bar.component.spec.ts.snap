@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`NavigationBarComponent should render 1`] = `
-<omnia-navigation-bar
+<sr-navigation-bar
   __ngContext__={[Function Number]}
 >
   <nav
@@ -12,5 +12,5 @@ exports[`NavigationBarComponent should render 1`] = `
       role="navigation"
     />
   </nav>
-</omnia-navigation-bar>
+</sr-navigation-bar>
 `;

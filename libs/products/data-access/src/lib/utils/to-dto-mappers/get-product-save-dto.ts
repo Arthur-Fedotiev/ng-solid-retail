@@ -1,4 +1,4 @@
-import { IdGenerator, toISOStringWithTimezone } from '@omnia/shared/util';
+import { IdGenerator, toISOStringWithTimezone } from '@sr/shared/util';
 import { CreateProductForm } from '../../models/create-product-from.interface';
 import { PriceViewModel } from '../../models/PriceViewModel';
 import { ProductViewModel } from '../../models/ProductViewModel';

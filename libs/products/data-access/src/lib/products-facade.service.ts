@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { ProductsApi, Product } from '@omnia/products/domain';
-import { PRODUCTS_API } from '@omnia/products/infrastructure';
+import { ProductsApi, Product } from '@sr/products/domain';
+import { PRODUCTS_API } from '@sr/products/infrastructure';
 import {
   BehaviorSubject,
   distinctUntilChanged,

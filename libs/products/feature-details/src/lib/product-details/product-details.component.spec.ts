@@ -5,8 +5,8 @@ import {
   makeProductViewModelsStub,
   PriceViewModel,
   ProductsFacadeService,
-} from '@omnia/products/data-access';
-import { CompetitorsDialogComponent } from '@omnia/products/ui';
+} from '@sr/products/data-access';
+import { CompetitorsDialogComponent } from '@sr/products/ui';
 import { of, Subject } from 'rxjs';
 
 import { ProductDetailsComponent } from './product-details.component';

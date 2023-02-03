@@ -1,4 +1,4 @@
-import { makeProductsStub } from '@omnia/products/infrastructure';
+import { makeProductsStub } from '@sr/products/infrastructure';
 import { ProductViewModel } from '../..';
 import { toProductViewModel } from './to-product-view-model';
 

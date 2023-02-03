@@ -1,12 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ProductsFacadeService } from '@omnia/products/data-access';
+import { ProductsFacadeService } from '@sr/products/data-access';
 
-import { SharedUiListModule } from '@omnia/shared/ui-list';
+import { SharedUiListModule } from '@sr/shared/ui-list';
 import { Subject } from 'rxjs';
 
 import { ProductsListComponent } from './products-list.component';
 import { CommonModule } from '@angular/common';
-import { ProductsUiModule } from '@omnia/products/ui';
+import { ProductsUiModule } from '@sr/products/ui';
 import { Router } from '@angular/router';
 
 describe('ProductsListComponent', () => {

@@ -1,12 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import {
-  Category,
-  Product,
-  ProductsApi,
-  Retailer,
-} from '@omnia/products/domain';
-import { convertOneSnap, convertSnaps } from '@omnia/shared/util';
+import { Category, Product, ProductsApi, Retailer } from '@sr/products/domain';
+import { convertOneSnap, convertSnaps } from '@sr/shared/util';
 import firebase from 'firebase/compat/app';
 import { first, from, map, mapTo, Observable, pipe, take } from 'rxjs';
 import { ProductCollectionsEnum } from './product-collections.enum';

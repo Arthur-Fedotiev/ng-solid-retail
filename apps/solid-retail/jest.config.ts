@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'omnia-retail',
+  displayName: 'solid-retail',
   preset: '../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
@@ -9,7 +9,7 @@ export default {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  coverageDirectory: '../../coverage/apps/omnia-retail',
+  coverageDirectory: '../../coverage/apps/solid-retail',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },

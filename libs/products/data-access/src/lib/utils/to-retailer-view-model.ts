@@ -1,4 +1,4 @@
-import { Retailer } from '@omnia/products/domain';
+import { Retailer } from '@sr/products/domain';
 import { RetailerViewModel } from '../models/RetailerViewModel';
 
 export const toRetailerViewModel = (

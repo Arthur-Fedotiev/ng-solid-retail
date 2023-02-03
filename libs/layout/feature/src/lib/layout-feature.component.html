@@ -1,6 +1,6 @@
 <mat-sidenav-container fullscreen>
   <mat-sidenav #sideNav (click)="sideNav.close()">
-    <omnia-navigation-bar class="nav-bar">
+    <sr-navigation-bar class="nav-bar">
       <a class="nav-bar__item" mat-list-item [routerLink]="['products']">
         <mat-icon class="nav-bar__icon">local_grocery_store</mat-icon>
         <span>Products</span>
@@ -12,7 +12,7 @@
       >
         <mat-icon class="nav-bar__icon">library_add</mat-icon>
         <span>Create product</span>
-      </a></omnia-navigation-bar
+      </a></sr-navigation-bar
     >
   </mat-sidenav>
   <mat-drawer-container class="drawer">
@@ -32,7 +32,7 @@
     <mat-drawer-content color="accent">
       <!-- TODO: add user data as an input instead of hard code -->
       <header>
-        <omnia-profile-toolbar>
+        <sr-profile-toolbar>
           <button
             fxHide.gt-md
             class="drawer__trigger"
@@ -45,7 +45,7 @@
               fontIcon="menu"
             ></mat-icon>
           </button>
-        </omnia-profile-toolbar>
+        </sr-profile-toolbar>
       </header>
       <main class="content">
         <router-outlet></router-outlet>

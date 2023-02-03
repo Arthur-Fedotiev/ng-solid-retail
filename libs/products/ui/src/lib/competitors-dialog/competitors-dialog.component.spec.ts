@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { SharedUiMaterialModule } from '@omnia/shared/ui-material';
+import { SharedUiMaterialModule } from '@sr/shared/ui-material';
 import { of } from 'rxjs';
 
 import { CompetitorsDialogComponent } from './competitors-dialog.component';

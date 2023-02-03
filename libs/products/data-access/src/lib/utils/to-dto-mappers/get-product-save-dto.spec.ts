@@ -1,4 +1,4 @@
-import { toISOStringWithTimezone } from '@omnia/shared/util';
+import { toISOStringWithTimezone } from '@sr/shared/util';
 import { CreateProductForm } from '../../models/create-product-from.interface';
 import { ProductViewModel } from '../../models/ProductViewModel';
 import { getSaveProductDto } from './get-product-save-dto';

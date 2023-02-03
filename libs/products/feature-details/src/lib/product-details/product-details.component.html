@@ -30,22 +30,22 @@
       </h3>
     </ng-container>
 
-    <omnia-product-categories
+    <sr-product-categories
       [categories]="product.categories"
       (categorySelected)="openCompetitorsDialog($event)"
-    ></omnia-product-categories>
+    ></sr-product-categories>
 
     <h3 class="mat-title">Prices by retailers</h3>
 
     <div *ngFor="let price of product.prices; trackBy: trackById">
-      <omnia-product-price
+      <sr-product-price
         #productPrice="omniaProductPrice"
         [price]="price"
         (save)="updateProductPrice(product, $event)"
       >
         <button action mat-mini-fab color="primary">
           <mat-icon>edit</mat-icon>
-        </button></omnia-product-price
+        </button></sr-product-price
       >
     </div>
   </mat-card-content>

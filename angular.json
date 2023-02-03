@@ -4,8 +4,6 @@
   "projects": {
     "layout-feature": "libs/layout/feature",
     "layout-ui": "libs/layout/ui",
-    "omnia-retail": "apps/omnia-retail",
-    "omnia-retail-e2e": "apps/omnia-retail-e2e",
     "products-data-access": "libs/products/data-access",
     "products-domain": "libs/products/domain",
     "products-feature-create-product": "libs/products/feature-create-product",
@@ -19,6 +17,8 @@
     "shared-styles": "libs/shared/styles",
     "shared-ui-list": "libs/shared/ui-list",
     "shared-ui-material": "libs/shared/ui-material",
-    "shared-util": "libs/shared/util"
+    "shared-util": "libs/shared/util",
+    "solid-retail": "apps/solid-retail",
+    "solid-retail-e2e": "apps/solid-retail-e2e"
   }
 }

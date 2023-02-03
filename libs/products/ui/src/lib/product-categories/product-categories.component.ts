@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
-import { TrackByIdOrIdx, TRACK_BY_ID_OR_IDX } from '@omnia/shared/util';
+import { TrackByIdOrIdx, TRACK_BY_ID_OR_IDX } from '@sr/shared/util';
 
 @Component({
-  selector: 'omnia-product-categories',
+  selector: 'sr-product-categories',
   templateUrl: './product-categories.component.html',
   styleUrls: ['./product-categories.component.scss'],
 })

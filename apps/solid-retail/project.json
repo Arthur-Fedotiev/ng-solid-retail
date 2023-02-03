@@ -1,17 +1,18 @@
 {
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "sourceRoot": "apps/omnia-retail/src",
-  "prefix": "omnia",
+  "sourceRoot": "apps/solid-retail/src",
+  "prefix": "sr",
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/apps/omnia-retail",
-        "index": "apps/omnia-retail/src/index.html",
-        "main": "apps/omnia-retail/src/main.ts",
-        "polyfills": "apps/omnia-retail/src/polyfills.ts",
-        "tsConfig": "apps/omnia-retail/tsconfig.app.json",
+        "outputPath": "dist/apps/solid-retail",
+        "index": "apps/solid-retail/src/index.html",
+        "main": "apps/solid-retail/src/main.ts",
+        "polyfills": "apps/solid-retail/src/polyfills.ts",
+        "tsConfig": "apps/solid-retail/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
           {
@@ -76,37 +77,37 @@
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
         "production": {
-          "browserTarget": "omnia-retail:build:production"
+          "browserTarget": "solid-retail:build:production"
         },
         "development": {
-          "browserTarget": "omnia-retail:build:development"
+          "browserTarget": "solid-retail:build:development"
         }
       },
       "defaultConfiguration": "development",
       "options": {
-        "proxyConfig": "apps/omnia-retail/proxy.conf.json"
+        "proxyConfig": "apps/solid-retail/proxy.conf.json"
       }
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "browserTarget": "omnia-retail:build"
+        "browserTarget": "solid-retail:build"
       }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
         "lintFilePatterns": [
-          "apps/omnia-retail/**/*.ts",
-          "apps/omnia-retail/**/*.html"
+          "apps/solid-retail/**/*.ts",
+          "apps/solid-retail/**/*.html"
         ]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/omnia-retail"],
+      "outputs": ["coverage/apps/solid-retail"],
       "options": {
-        "jestConfig": "apps/omnia-retail/jest.config.ts",
+        "jestConfig": "apps/solid-retail/jest.config.ts",
         "passWithNoTests": true
       }
     },
@@ -115,12 +116,12 @@
       "options": {
         "prerender": false,
         "ssr": false,
-        "browserTarget": "omnia-retail:build:production",
+        "browserTarget": "solid-retail:build:production",
         "firebaseProject": "omnia-retail-6ad5b",
         "firebaseHostingSite": "omnia-retail-6ad5b"
       }
     }
   },
-  "tags": ["scope:omnia-retail", "type:app"],
+  "tags": ["scope:sr-retail", "type:app"],
   "implicitDependencies": ["shared-styles", "shared-assets"]
 }

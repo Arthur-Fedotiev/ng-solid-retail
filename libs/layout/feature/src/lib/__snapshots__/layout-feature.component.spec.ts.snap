@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`LayoutFeatureComponent should render 1`] = `
-<omnia-layout-feature
+<sr-layout-feature
   __ngContext__={[Function Number]}
 >
   <mat-sidenav-container
@@ -24,7 +24,7 @@ exports[`LayoutFeatureComponent should render 1`] = `
         cdkscrollable=""
         class="mat-drawer-inner-container"
       >
-        <omnia-navigation-bar
+        <sr-navigation-bar
           class="nav-bar"
         >
           <nav
@@ -92,7 +92,7 @@ exports[`LayoutFeatureComponent should render 1`] = `
               </a>
             </mat-nav-list>
           </nav>
-        </omnia-navigation-bar>
+        </sr-navigation-bar>
       </div>
     </mat-sidenav>
     <div
@@ -160,7 +160,7 @@ exports[`LayoutFeatureComponent should render 1`] = `
           color="accent"
         >
           <header>
-            <omnia-profile-toolbar>
+            <sr-profile-toolbar>
               <mat-toolbar
                 class="mat-toolbar toolbar mat-toolbar-single-row"
               >
@@ -230,7 +230,7 @@ exports[`LayoutFeatureComponent should render 1`] = `
                   </mat-menu>
                 </div>
               </mat-toolbar>
-            </omnia-profile-toolbar>
+            </sr-profile-toolbar>
           </header>
           <main
             class="content"
@@ -241,5 +241,5 @@ exports[`LayoutFeatureComponent should render 1`] = `
       </mat-drawer-container>
     </mat-sidenav-content>
   </mat-sidenav-container>
-</omnia-layout-feature>
+</sr-layout-feature>
 `;

@@ -7,12 +7,12 @@ import {
   Output,
 } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { PriceViewModel } from '@omnia/products/data-access';
+import { PriceViewModel } from '@sr/products/data-access';
 import { map, startWith } from 'rxjs';
 
 @Component({
   exportAs: 'omniaProductPrice',
-  selector: 'omnia-product-price',
+  selector: 'sr-product-price',
   templateUrl: './product-price.component.html',
   styleUrls: ['./product-price.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

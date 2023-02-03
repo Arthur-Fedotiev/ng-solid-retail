@@ -4,7 +4,7 @@ import {
   ComponentFixtureAutoDetect,
   TestBed,
 } from '@angular/core/testing';
-import { SharedUiMaterialModule } from '@omnia/shared/ui-material';
+import { SharedUiMaterialModule } from '@sr/shared/ui-material';
 
 import { ProductCardComponent } from './product-card.component';
 

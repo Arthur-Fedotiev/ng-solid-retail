@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { ProductsFacadeService } from '@omnia/products/data-access';
+import { ProductsFacadeService } from '@sr/products/data-access';
 
 @Component({
-  selector: 'omnia-products-list',
+  selector: 'sr-products-list',
   templateUrl: './products-list.component.html',
   styleUrls: ['./products-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
