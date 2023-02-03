@@ -6,13 +6,13 @@ export const environment = {
   production: false,
   api: '/api',
   firebaseConfig: {
-    apiKey: 'AIzaSyBuQPvCif_BKPSY028GWRT6B7k_WxzEnxk',
-    authDomain: 'omnia-retail-6ad5b.firebaseapp.com',
-    projectId: 'omnia-retail-6ad5b',
-    storageBucket: 'omnia-retail-6ad5b.appspot.com',
-    messagingSenderId: '372239190972',
-    appId: '1:372239190972:web:c49fa19429e5d79597f9b9',
-    measurementId: 'G-7WERB05KY9',
+    apiKey: 'AIzaSyBPBP6kDnoWlpqKX275hBOtEqbXxGbEPnQ',
+    authDomain: 'ng-solid-retail.firebaseapp.com',
+    projectId: 'ng-solid-retail',
+    storageBucket: 'ng-solid-retail.appspot.com',
+    messagingSenderId: '649321509722',
+    appId: '1:649321509722:web:bba0179c2190b2e5d5b963',
+    measurementId: 'G-0DYVLMDDZN',
   },
 };
 

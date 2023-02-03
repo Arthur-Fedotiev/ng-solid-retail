@@ -1,14 +1,17 @@
 {
   "projects": {
-    "default": "omnia-retail-6ad5b"
+    "prod": "ng-solid-retail",
+    "default": "ng-solid-retail",
+    "ng-solid-retail": "ng-solid-retail"
   },
   "targets": {
-    "omnia-retail-6ad5b": {
+    "ng-solid-retail": {
       "hosting": {
-        "omnia-retail": [
-          "omnia-retail-6ad5b"
+        "ng-solid-retail": [
+          "ng-solid-retail"
         ]
       }
     }
-  }
+  },
+  "etags": {}
 }

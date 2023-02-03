@@ -27,6 +27,6 @@ jobs:
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_OMNIA_RETAIL_6AD5B }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NG_SOLID_RETAIL }}'
           channelId: live
-          projectId: omnia-retail-6ad5b
+          projectId: ng-solid-retail
