@@ -1,11 +1,12 @@
 {
+  "name": "products-feature-details",
   "projectType": "library",
   "sourceRoot": "libs/products/feature-details/src",
   "prefix": "sr",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/products/feature-details"],
+      "outputs": ["{workspaceRoot}/coverage/libs/products/feature-details"],
       "options": {
         "jestConfig": "libs/products/feature-details/jest.config.ts",
         "passWithNoTests": true

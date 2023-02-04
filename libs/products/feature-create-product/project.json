@@ -1,11 +1,14 @@
 {
+  "name": "products-feature-create-product",
   "projectType": "library",
   "sourceRoot": "libs/products/feature-create-product/src",
   "prefix": "sr",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/products/feature-create-product"],
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/products/feature-create-product"
+      ],
       "options": {
         "jestConfig": "libs/products/feature-create-product/jest.config.ts",
         "passWithNoTests": true

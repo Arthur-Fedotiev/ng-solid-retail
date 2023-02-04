@@ -1,11 +1,12 @@
 {
+  "name": "layout-feature",
   "projectType": "library",
   "sourceRoot": "libs/layout/feature/src",
   "prefix": "sr",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/layout/feature"],
+      "outputs": ["{workspaceRoot}/coverage/libs/layout/feature"],
       "options": {
         "jestConfig": "libs/layout/feature/jest.config.ts",
         "passWithNoTests": true

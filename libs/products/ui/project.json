@@ -1,11 +1,12 @@
 {
+  "name": "products-ui",
   "projectType": "library",
   "sourceRoot": "libs/products/ui/src",
   "prefix": "sr",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/products/ui"],
+      "outputs": ["{workspaceRoot}/coverage/libs/products/ui"],
       "options": {
         "jestConfig": "libs/products/ui/jest.config.ts",
         "passWithNoTests": true

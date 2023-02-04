@@ -1,11 +1,12 @@
 {
+  "name": "products-infrastructure",
   "projectType": "library",
   "sourceRoot": "libs/products/infrastructure/src",
   "prefix": "sr",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/products/infrastructure"],
+      "outputs": ["{workspaceRoot}/coverage/libs/products/infrastructure"],
       "options": {
         "jestConfig": "libs/products/infrastructure/jest.config.ts",
         "passWithNoTests": true

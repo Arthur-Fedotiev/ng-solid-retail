@@ -1,11 +1,12 @@
 {
+  "name": "shared-ui-material",
   "projectType": "library",
   "sourceRoot": "libs/shared/ui-material/src",
   "prefix": "sr",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/shared/ui-material"],
+      "outputs": ["{workspaceRoot}/coverage/libs/shared/ui-material"],
       "options": {
         "jestConfig": "libs/shared/ui-material/jest.config.ts",
         "passWithNoTests": true

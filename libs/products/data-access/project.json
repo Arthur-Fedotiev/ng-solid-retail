@@ -1,11 +1,12 @@
 {
+  "name": "products-data-access",
   "projectType": "library",
   "sourceRoot": "libs/products/data-access/src",
   "prefix": "sr",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/products/data-access"],
+      "outputs": ["{workspaceRoot}/coverage/libs/products/data-access"],
       "options": {
         "jestConfig": "libs/products/data-access/jest.config.ts",
         "passWithNoTests": true

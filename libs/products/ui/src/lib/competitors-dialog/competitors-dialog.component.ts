@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from '@angular/material/legacy-dialog';
 import { TRACK_BY_ID_OR_IDX, TrackByIdOrIdx } from '@sr/shared/util';
 import { Observable } from 'rxjs';
 

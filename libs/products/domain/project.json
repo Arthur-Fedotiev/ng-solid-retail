@@ -1,11 +1,12 @@
 {
+  "name": "products-domain",
   "projectType": "library",
   "sourceRoot": "libs/products/domain/src",
   "prefix": "sr",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/products/domain"],
+      "outputs": ["{workspaceRoot}/coverage/libs/products/domain"],
       "options": {
         "jestConfig": "libs/products/domain/jest.config.ts",
         "passWithNoTests": true

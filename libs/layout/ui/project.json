@@ -1,11 +1,12 @@
 {
+  "name": "layout-ui",
   "projectType": "library",
   "sourceRoot": "libs/layout/ui/src",
   "prefix": "sr",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/layout/ui"],
+      "outputs": ["{workspaceRoot}/coverage/libs/layout/ui"],
       "options": {
         "jestConfig": "libs/layout/ui/jest.config.ts",
         "passWithNoTests": true

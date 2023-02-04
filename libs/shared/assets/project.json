@@ -1,4 +1,5 @@
 {
+  "name": "shared-assets",
   "projectType": "library",
   "sourceRoot": "libs/shared/assets/src",
   "prefix": "sr",

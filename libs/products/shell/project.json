@@ -1,11 +1,12 @@
 {
+  "name": "products-shell",
   "projectType": "library",
   "sourceRoot": "libs/products/shell/src",
   "prefix": "sr",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/products/shell"],
+      "outputs": ["{workspaceRoot}/coverage/libs/products/shell"],
       "options": {
         "jestConfig": "libs/products/shell/jest.config.ts",
         "passWithNoTests": true
