@@ -24,8 +24,11 @@
     }
 
     &__header {
-      margin-bottom: 1rem;
       border-bottom: 2px solid app-color('M300');
+    }
+
+    &__content {
+      padding: 1rem;
     }
 
     &__price-container {
@@ -45,7 +48,7 @@
     &__title {
       @include mixins.multiline-text-overflow(2);
 
-      height: 2.5rem;
+      margin-bottom: 1rem;
       font-size: 1rem;
       text-align: center;
     }
