@@ -3525,6 +3525,13 @@
   dependencies:
     tslib "^2.3.0"
 
+"@ngrx/component@^15.2.1":
+  version "15.2.1"
+  resolved "https://registry.yarnpkg.com/@ngrx/component/-/component-15.2.1.tgz#f0bb667d0a9acec367cb871b6586aa467b06180b"
+  integrity sha512-v8OO+gfYYsGoom/HP+2UkUUfkUNw0sitD+trqWAWjuATAJcXCeZiJGNX2M0K/rScxkQGy4eaDz9ZgOTD6oeMng==
+  dependencies:
+    tslib "^2.0.0"
+
 "@ngtools/webpack@15.1.4":
   version "15.1.4"
   resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-15.1.4.tgz#8535324ef9fdffdee606513b7244b859b6e549c5"

@@ -1,9 +1,10 @@
-import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormArray, NonNullableFormBuilder, Validators } from '@angular/forms';
-import { ProductsFacadeService } from '@sr/products/data-access';
-import { TrackByIdOrIdx, TRACK_BY_ID_OR_IDX } from '@sr/shared/util';
+import { TRACK_BY_ID_OR_IDX } from '@sr/shared/util';
 import { PriceFormGroup } from './models/price-form-group.type';
 import { validateSize } from './util/validate-size';
+import { CREATE_PRODUCT_COMMAND } from './cqrs/commands/create-product.command';
+import { CREATE_PRODUCT_VM_QUERY } from './cqrs/queries/create-product-vm.query';
 
 @Component({
   selector: 'sr-create-product',
@@ -12,9 +13,12 @@ import { validateSize } from './util/validate-size';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateProductComponent {
-  public readonly categories$ = this.productsFacade.categories$;
-  public readonly retailers$ = this.productsFacade.retailers$;
+  private readonly createProductCommand = inject(CREATE_PRODUCT_COMMAND);
+  private readonly fb = inject(NonNullableFormBuilder);
 
+  public readonly vm$ = inject(CREATE_PRODUCT_VM_QUERY).get();
+
+  public readonly trackById = inject(TRACK_BY_ID_OR_IDX);
   public readonly productForm = this.fb.group({
     name: [
       '',
@@ -34,14 +38,8 @@ export class CreateProductComponent {
     return this.productForm.controls['prices'] as FormArray;
   }
 
-  constructor(
-    @Inject(TRACK_BY_ID_OR_IDX) public readonly trackById: TrackByIdOrIdx,
-    private readonly fb: NonNullableFormBuilder,
-    private readonly productsFacade: ProductsFacadeService
-  ) {}
-
   public onSave(): void {
-    this.productsFacade.createProduct(this.productForm.getRawValue());
+    this.createProductCommand.execute(this.productForm.getRawValue());
   }
   public addPrice() {
     this.prices.push(this.priceFormGroup);

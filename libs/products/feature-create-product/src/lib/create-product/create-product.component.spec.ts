@@ -1,5 +1,4 @@
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
 import {
   ComponentFixture,
   fakeAsync,
@@ -10,43 +9,52 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SharedUiMaterialModule } from '@sr/shared/ui-material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { CreateProductComponent } from './create-product.component';
-import { ProductsFacadeService } from '@sr/products/data-access';
-import { Subject, BehaviorSubject } from 'rxjs';
+import { CategoryEnum } from '@sr/products/data-access';
+import { BehaviorSubject } from 'rxjs';
+import {
+  CREATE_PRODUCT_VM_QUERY,
+  CreateProductVM,
+} from './cqrs/queries/create-product-vm.query';
+import { CREATE_PRODUCT_COMMAND } from './cqrs/commands/create-product.command';
+import { LetModule } from '@ngrx/component';
 
-describe('CreateProductComponent', () => {
-  const categoriesSubj = new Subject();
-  const retailersSubj = new BehaviorSubject([]);
+describe(CreateProductComponent.name, () => {
+  const vmMock$ = new BehaviorSubject<CreateProductVM>({
+    retailers: [],
+    categories: [],
+  });
 
   let component: CreateProductComponent;
   let fixture: ComponentFixture<CreateProductComponent>;
-  let productFacadeMock: jest.Mocked<ProductsFacadeService>;
+  let createProduceCommandSpy: jest.Mock;
 
   beforeEach(async () => {
-    const productFacade = {
-      createProduct: jest.fn(),
-      categories$: categoriesSubj,
-      retailers$: retailersSubj,
-    };
+    createProduceCommandSpy = jest.fn();
+
     await TestBed.configureTestingModule({
       imports: [
         CommonModule,
         NoopAnimationsModule,
         SharedUiMaterialModule,
-        HttpClientModule,
         ReactiveFormsModule,
+        LetModule,
       ],
       declarations: [CreateProductComponent],
       providers: [
         {
-          provide: ProductsFacadeService,
-          useValue: productFacade,
+          provide: CREATE_PRODUCT_VM_QUERY,
+          useValue: vmMock$,
+        },
+        {
+          provide: CREATE_PRODUCT_COMMAND,
+          useValue: {
+            execute: createProduceCommandSpy,
+          },
         },
       ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(CreateProductComponent);
-    productFacadeMock =
-      productFacade as unknown as jest.Mocked<ProductsFacadeService>;
     component = fixture.componentInstance;
   });
 
@@ -102,7 +110,6 @@ describe('CreateProductComponent', () => {
 
   describe('onSave', () => {
     it('should delegate to facade to create product', fakeAsync(() => {
-      const createProductSpy = jest.spyOn(productFacadeMock, 'createProduct');
       const expectedProduct = {
         name: '',
         description: '',
@@ -115,23 +122,26 @@ describe('CreateProductComponent', () => {
 
       component.onSave();
 
-      expect(createProductSpy).toHaveBeenCalledWith(expectedProduct);
+      expect(createProduceCommandSpy).toHaveBeenCalledWith(expectedProduct);
     }));
   });
 
   describe('#load', () => {
     it('should get categories', fakeAsync(() => {
       const categoriesStub = [
-        { id: '1', name: 'Category 1' },
-        { id: '2', name: 'Category 2' },
+        { id: '1', name: CategoryEnum.Books },
+        { id: '2', name: CategoryEnum.Brandy },
       ];
 
-      categoriesSubj.next(categoriesStub);
+      vmMock$.next({
+        ...vmMock$.getValue(),
+        categories: categoriesStub,
+      });
 
       tick();
 
-      component.categories$.subscribe((c) => {
-        expect(c).toEqual(categoriesStub);
+      component.vm$.subscribe((result) => {
+        expect(result.categories).toEqual(categoriesStub);
       });
 
       tick();

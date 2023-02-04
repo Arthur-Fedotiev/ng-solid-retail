@@ -1,4 +1,4 @@
-<div fxLayout="row nowrap" fxLayoutAlign="center">
+<div *ngrxLet="vm$ as vm" fxLayout="row nowrap" fxLayoutAlign="center">
   <section
     class="create-product"
     fxFlex="50%"
@@ -35,7 +35,7 @@
           formControlName="categories"
         >
           <mat-option
-            *ngFor="let category of categories$ | async; trackBy: trackById"
+            *ngFor="let category of vm.categories; trackBy: trackById"
             [value]="category"
             >{{ category.name }}</mat-option
           >
@@ -91,7 +91,7 @@
                 placeholder="Product Retailer"
               >
                 <mat-option
-                  *ngFor="let retailer of retailers$ | async"
+                  *ngFor="let retailer of vm.retailers"
                   [value]="retailer"
                   >{{ retailer.name }}</mat-option
                 >
