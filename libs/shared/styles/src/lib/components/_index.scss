@@ -1,5 +1,0 @@
-@use './button/variants' as button-variants;
-
-@mixin theme($theme, $typography-config, $variants) {
-  @include button-variants.color($theme, $variants);
-}

@@ -123,7 +123,7 @@
         mat-raised-button
         class="prices__action prices__action--add"
         type="button"
-        color="success"
+        color="accent"
         (click)="addPrice()"
       >
         ADD PRICE
@@ -131,8 +131,8 @@
       <button
         mat-raised-button
         color="primary"
-        [disabled]="!productForm.valid || !productForm.dirty"
         (click)="onSave()"
+        [disabled]="!productForm.valid || !productForm.dirty"
       >
         SAVE
       </button>

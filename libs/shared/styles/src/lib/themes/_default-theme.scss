@@ -1,6 +1,7 @@
 @use 'sass:map';
 @use '@angular/material' as mat;
-@use '../components' as components;
+
+@include mat.core();
 
 $ft-app-light-primary: mat.define-palette(
   mat.$light-blue-palette,
@@ -23,6 +24,7 @@ $ft-app-light-theme: mat.define-light-theme(
       accent: $ft-app-light-accent,
       warn: $ft-app-light-warn,
     ),
+    density: 0,
   )
 );
 
@@ -36,5 +38,4 @@ $ft-app-light-variants: (
 
 body {
   @include mat.all-component-themes($ft-app-light-theme);
-  @include components.theme($ft-app-light-theme, null, $ft-app-light-variants);
 }
