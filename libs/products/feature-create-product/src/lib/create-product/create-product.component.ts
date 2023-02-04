@@ -1,9 +1,6 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { FormArray, NonNullableFormBuilder, Validators } from '@angular/forms';
-import {
-  CreateProductForm,
-  ProductsFacadeService,
-} from '@sr/products/data-access';
+import { ProductsFacadeService } from '@sr/products/data-access';
 import { TrackByIdOrIdx, TRACK_BY_ID_OR_IDX } from '@sr/shared/util';
 import { PriceFormGroup } from './models/price-form-group.type';
 import { validateSize } from './util/validate-size';
@@ -43,18 +40,15 @@ export class CreateProductComponent {
     private readonly productsFacade: ProductsFacadeService
   ) {}
 
+  public onSave(): void {
+    this.productsFacade.createProduct(this.productForm.getRawValue());
+  }
   public addPrice() {
     this.prices.push(this.priceFormGroup);
   }
 
   public deletePrice(idx: number) {
     this.prices.removeAt(idx);
-  }
-
-  public onSave(): void {
-    this.productsFacade.createProduct(
-      this.productForm.value as CreateProductForm
-    );
   }
 
   private get priceFormGroup(): PriceFormGroup {

@@ -7,39 +7,104 @@ exports[`CompetitorsDialogComponent should render the competitors 1`] = `
   trackById={[Function Function]}
 >
   <h1
-    class="mat-dialog-title"
+    class="mat-mdc-dialog-title mdc-dialog__title"
     mat-dialog-title=""
   >
     Competitors for Category 1
   </h1><div
-    class="mat-dialog-content"
+    class="mat-mdc-dialog-content mdc-dialog__content"
     mat-dialog-content=""
   >
     <mat-progress-spinner
       aria-valuemax="100"
       aria-valuemin="0"
       aria-valuenow="75"
-      class="mat-progress-spinner mat-spinner mat-primary mat-progress-spinner-indeterminate-animation"
+      class="mat-mdc-progress-spinner mdc-circular-progress mat-primary"
       color="primary"
       mode="determinate"
       role="progressbar"
       style="width: 100px; height: 100px;"
       tabindex="-1"
     >
-      <svg
+      <div
         aria-hidden="true"
-        focusable="false"
-        preserveAspectRatio="xMidYMid meet"
-        style="width: 100px; height: 100px;"
-        viewBox="0 0 100 100"
+        class="mdc-circular-progress__determinate-container"
       >
-        <circle
-          cx="50%"
-          cy="50%"
-          r="45"
-          style="stroke-dashoffset: 70.68583470577035px; stroke-dasharray: 282.7433388230814px; stroke-width: 10%; transform-origin: 50% 50%;"
-        />
-      </svg>
+        <svg
+          class="mdc-circular-progress__determinate-circle-graphic"
+          focusable="false"
+          viewBox="0 0 100 100"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <circle
+            class="mdc-circular-progress__determinate-circle"
+            cx="50%"
+            cy="50%"
+            r="45"
+            style="stroke-dasharray: 282.7433388230814px; stroke-dashoffset: 70.68583470577035px; stroke-width: 10%;"
+          />
+        </svg>
+      </div>
+      <div
+        aria-hidden="true"
+        class="mdc-circular-progress__indeterminate-container"
+      >
+        <div
+          class="mdc-circular-progress__spinner-layer"
+        >
+          <div
+            class="mdc-circular-progress__circle-clipper mdc-circular-progress__circle-left"
+          >
+            <svg
+              class="mdc-circular-progress__indeterminate-circle-graphic"
+              focusable="false"
+              viewBox="0 0 100 100"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="50%"
+                cy="50%"
+                r="45"
+                style="stroke-dasharray: 282.7433388230814px; stroke-dashoffset: 141.3716694115407px; stroke-width: 10%;"
+              />
+            </svg>
+          </div>
+          <div
+            class="mdc-circular-progress__gap-patch"
+          >
+            <svg
+              class="mdc-circular-progress__indeterminate-circle-graphic"
+              focusable="false"
+              viewBox="0 0 100 100"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="50%"
+                cy="50%"
+                r="45"
+                style="stroke-dasharray: 282.7433388230814px; stroke-dashoffset: 141.3716694115407px; stroke-width: 10%;"
+              />
+            </svg>
+          </div>
+          <div
+            class="mdc-circular-progress__circle-clipper mdc-circular-progress__circle-right"
+          >
+            <svg
+              class="mdc-circular-progress__indeterminate-circle-graphic"
+              focusable="false"
+              viewBox="0 0 100 100"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="50%"
+                cy="50%"
+                r="45"
+                style="stroke-dasharray: 282.7433388230814px; stroke-dashoffset: 141.3716694115407px; stroke-width: 10%;"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
     </mat-progress-spinner>
   </div>
 </sr-competitors-dialog>

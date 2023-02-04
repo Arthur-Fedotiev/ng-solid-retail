@@ -18,29 +18,32 @@ exports[`ProfileToolbarComponent should render 1`] = `
         John Doe
       </span>
       <button
+        aria-expanded="false"
         aria-haspopup="menu"
         aria-label="Open profile menu"
-        class="mat-focus-indicator mat-menu-trigger mat-icon-button mat-button-base"
+        class="mat-mdc-menu-trigger mdc-icon-button mat-mdc-icon-button mat-unthemed mat-mdc-button-base"
         mat-icon-button=""
       >
         <span
-          class="mat-button-wrapper"
+          class="mat-mdc-button-persistent-ripple mdc-icon-button__ripple"
+        />
+        <mat-icon
+          aria-hidden="true"
+          class="mat-icon notranslate material-icons mat-ligature-font mat-icon-no-color"
+          data-mat-icon-type="font"
+          role="img"
         >
-          <mat-icon
-            aria-hidden="true"
-            class="mat-icon notranslate material-icons mat-ligature-font mat-icon-no-color"
-            data-mat-icon-type="font"
-            role="img"
-          >
-            keyboard_arrow_down
-          </mat-icon>
-        </span>
+          keyboard_arrow_down
+        </mat-icon>
         <span
-          class="mat-ripple mat-button-ripple mat-button-ripple-round"
+          class="mat-mdc-focus-indicator"
+        />
+        <span
+          class="mat-ripple mat-mdc-button-ripple"
           matripple=""
         />
         <span
-          class="mat-button-focus-overlay"
+          class="mat-mdc-button-touch-target"
         />
       </button>
       <mat-menu>

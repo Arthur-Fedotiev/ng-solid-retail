@@ -6,12 +6,12 @@ exports[`ProductCardComponent should render the product  1`] = `
   product={[Function Object]}
 >
   <mat-card
-    class="mat-card mat-focus-indicator card mat-elevation-z3"
+    class="mat-mdc-card mdc-card card mat-elevation-z3"
     tabindex="0"
   >
     <img
       alt="Photo of Product 1"
-      class="mat-card-image card__image"
+      class="mat-mdc-card-image mdc-card__media card__image"
       mat-card-image=""
       src="https://www.example.com"
     />
@@ -25,24 +25,24 @@ exports[`ProductCardComponent should render the product  1`] = `
       </span>
     </p>
     <mat-card-header
-      class="mat-card-header card__header"
+      class="mat-mdc-card-header card__header"
     >
       <div
-        class="mat-card-header-text"
+        class="mat-mdc-card-header-text"
       >
         <mat-card-title
           aria-describedby="cdk-describedby-message-a-7-8"
           cdk-describedby-host="a-7"
-          class="mat-card-title mat-tooltip-trigger card__title"
+          class="mat-mdc-card-title mat-mdc-tooltip-trigger card__title"
         >
           Product 1
         </mat-card-title>
       </div>
     </mat-card-header>
     <mat-card-content
-      class="mat-card-content card__content"
+      class="mat-mdc-card-content card__content"
       fxlayout="row nowrap"
-      fxlayoutalign="start center"
+      fxlayoutalign="space-around center"
       fxlayoutgap="2rem"
     >
       <div>

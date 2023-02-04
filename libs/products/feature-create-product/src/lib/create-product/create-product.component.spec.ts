@@ -11,16 +11,22 @@ import { SharedUiMaterialModule } from '@sr/shared/ui-material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { CreateProductComponent } from './create-product.component';
 import { ProductsFacadeService } from '@sr/products/data-access';
-import { Subject } from 'rxjs';
+import { Subject, BehaviorSubject } from 'rxjs';
 
 describe('CreateProductComponent', () => {
   const categoriesSubj = new Subject();
+  const retailersSubj = new BehaviorSubject([]);
 
   let component: CreateProductComponent;
   let fixture: ComponentFixture<CreateProductComponent>;
   let productFacadeMock: jest.Mocked<ProductsFacadeService>;
 
   beforeEach(async () => {
+    const productFacade = {
+      createProduct: jest.fn(),
+      categories$: categoriesSubj,
+      retailers$: retailersSubj,
+    };
     await TestBed.configureTestingModule({
       imports: [
         CommonModule,
@@ -33,20 +39,14 @@ describe('CreateProductComponent', () => {
       providers: [
         {
           provide: ProductsFacadeService,
-          useValue: {
-            createProduct: jest.fn(),
-            categories$: categoriesSubj,
-          },
+          useValue: productFacade,
         },
       ],
     }).compileComponents();
-  });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(CreateProductComponent);
-    productFacadeMock = TestBed.inject(
-      ProductsFacadeService
-    ) as jest.Mocked<ProductsFacadeService>;
+    productFacadeMock =
+      productFacade as unknown as jest.Mocked<ProductsFacadeService>;
     component = fixture.componentInstance;
   });
 
