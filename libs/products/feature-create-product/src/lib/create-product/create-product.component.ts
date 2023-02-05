@@ -1,15 +1,32 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { FormArray, NonNullableFormBuilder, Validators } from '@angular/forms';
+import {
+  FormArray,
+  NonNullableFormBuilder,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { TRACK_BY_ID_OR_IDX } from '@sr/shared/util';
 import { PriceFormGroup } from './models/price-form-group.type';
 import { validateSize } from './util/validate-size';
 import { CREATE_PRODUCT_COMMAND } from './cqrs/commands/create-product.command';
 import { CREATE_PRODUCT_VM_QUERY } from './cqrs/queries/create-product-vm.query';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { LetModule } from '@ngrx/component';
+import { SharedUiMaterialModule } from '@sr/shared/ui-material';
 
 @Component({
   selector: 'sr-create-product',
   templateUrl: './create-product.component.html',
   styleUrls: ['./create-product.component.scss'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    FlexLayoutModule,
+    SharedUiMaterialModule,
+    ReactiveFormsModule,
+    LetModule,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateProductComponent {

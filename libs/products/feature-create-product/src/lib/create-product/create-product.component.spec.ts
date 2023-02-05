@@ -1,19 +1,15 @@
-import { CommonModule } from '@angular/common';
 import {
   ComponentFixture,
   fakeAsync,
   TestBed,
   tick,
 } from '@angular/core/testing';
-import { ReactiveFormsModule } from '@angular/forms';
-import { SharedUiMaterialModule } from '@sr/shared/ui-material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { CreateProductComponent } from './create-product.component';
 import { CategoryEnum } from '@sr/products/data-access';
 import { BehaviorSubject } from 'rxjs';
 import { CREATE_PRODUCT_VM_QUERY } from './cqrs/queries/create-product-vm.query';
 import { CREATE_PRODUCT_COMMAND } from './cqrs/commands/create-product.command';
-import { LetModule } from '@ngrx/component';
 import { CreateProductVM } from './models/view-model';
 
 describe(CreateProductComponent.name, () => {
@@ -30,14 +26,7 @@ describe(CreateProductComponent.name, () => {
     createProduceCommandSpy = jest.fn();
 
     await TestBed.configureTestingModule({
-      imports: [
-        CommonModule,
-        NoopAnimationsModule,
-        SharedUiMaterialModule,
-        ReactiveFormsModule,
-        LetModule,
-      ],
-      declarations: [CreateProductComponent],
+      imports: [CreateProductComponent, NoopAnimationsModule],
       providers: [
         {
           provide: CREATE_PRODUCT_VM_QUERY,

@@ -1,1 +1,1 @@
-export * from './lib/products-shell.module';
+export * from './lib/product.routes';

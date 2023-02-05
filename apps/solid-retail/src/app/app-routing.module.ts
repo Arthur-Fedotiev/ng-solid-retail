@@ -10,7 +10,7 @@ const appRoutes: Route[] = [
       {
         path: 'products',
         loadChildren: () =>
-          import('@sr/products/shell').then((m) => m.ProductsShellModule),
+          import('@sr/products/shell').then((m) => m.PRODUCT_ROUTES),
       },
       {
         path: '**',

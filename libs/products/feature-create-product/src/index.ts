@@ -1,1 +1,1 @@
-export * from './lib/products-feature-create-product.module';
+export { CreateProductComponent } from './lib/create-product/create-product.component';
