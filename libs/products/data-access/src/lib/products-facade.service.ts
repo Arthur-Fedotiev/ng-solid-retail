@@ -8,7 +8,6 @@ import {
   filter,
   map,
   Observable,
-  pluck,
   switchAll,
   take,
   tap,
@@ -41,14 +40,14 @@ export class ProductsFacadeService {
 
   public readonly state$ = new BehaviorSubject<ProductsStateModel>(this.state);
   public readonly products$ = this.state$.pipe(
-    pluck('products$'),
+    map((state) => state.products$),
     switchAll(),
     distinctUntilChanged(),
     filter(Boolean)
   );
 
   public readonly selectedProduct$ = this.state$.pipe(
-    pluck('selectedProduct'),
+    map((state) => state.selectedProduct),
     distinctUntilChanged(),
     filter(Boolean)
   );
@@ -62,14 +61,14 @@ export class ProductsFacadeService {
   );
 
   public readonly categories$ = this.state$.pipe(
-    pluck('categories$'),
+    map((state) => state.categories$),
     switchAll(),
     distinctUntilChanged(),
     filter(Boolean)
   );
 
   public readonly retailers$ = this.state$.pipe(
-    pluck('retailers$'),
+    map((state) => state.retailers$),
     switchAll(),
     distinctUntilChanged(),
     filter(Boolean)
