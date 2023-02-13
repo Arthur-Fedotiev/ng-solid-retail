@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule } from './app.routes';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {

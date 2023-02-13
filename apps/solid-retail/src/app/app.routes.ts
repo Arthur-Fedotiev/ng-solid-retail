@@ -1,8 +1,7 @@
-import { NgModule } from '@angular/core';
-import { Route, RouterModule } from '@angular/router';
+import { Route } from '@angular/router';
 import { LayoutFeatureComponent } from '@sr/layout/feature';
 
-const appRoutes: Route[] = [
+export const appRoutes: Route[] = [
   {
     path: '',
     component: LayoutFeatureComponent,
@@ -19,13 +18,3 @@ const appRoutes: Route[] = [
     ],
   },
 ];
-
-@NgModule({
-  imports: [
-    RouterModule.forRoot(appRoutes, {
-      enableTracing: false,
-    }),
-  ],
-  exports: [RouterModule],
-})
-export class AppRoutingModule {}
