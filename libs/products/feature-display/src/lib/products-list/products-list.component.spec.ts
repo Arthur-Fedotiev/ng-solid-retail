@@ -1,12 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ProductsFacadeService } from '@sr/products/data-access';
 
-import { SharedUiListModule } from '@sr/shared/ui-list';
 import { Subject } from 'rxjs';
 
 import { ProductsListComponent } from './products-list.component';
-import { CommonModule } from '@angular/common';
-import { ProductsUiModule } from '@sr/products/ui';
 import { Router } from '@angular/router';
 
 describe('ProductsListComponent', () => {
@@ -18,8 +15,7 @@ describe('ProductsListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ProductsListComponent],
-      imports: [SharedUiListModule, CommonModule, ProductsUiModule],
+      imports: [ProductsListComponent],
       providers: [
         {
           provide: ProductsFacadeService,

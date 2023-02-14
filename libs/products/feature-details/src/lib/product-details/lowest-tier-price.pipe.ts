@@ -1,8 +1,8 @@
-import { Pipe, PipeTransform, NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
   name: 'omniaLowestTierPrice',
+  standalone: true,
 })
 export class LowestTierPricePipe implements PipeTransform {
   transform(
@@ -16,10 +16,3 @@ export class LowestTierPricePipe implements PipeTransform {
     return lowestPrice === Infinity ? null : lowestPrice;
   }
 }
-
-@NgModule({
-  imports: [CommonModule],
-  declarations: [LowestTierPricePipe],
-  exports: [LowestTierPricePipe],
-})
-export class LowestTierPricePipeModule {}

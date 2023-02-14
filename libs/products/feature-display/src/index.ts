@@ -1,1 +1,1 @@
-export * from './lib/products-display.module';
+export * from './lib/products-list/products-list.component';

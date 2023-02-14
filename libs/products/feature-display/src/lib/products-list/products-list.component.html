@@ -1,9 +1,0 @@
-<sr-list class="products-list" [items]="products$ | async">
-  <ng-template #omniaListItem let-product>
-    <sr-product-card
-      [product]="product"
-      class="products-list__item"
-      (click)="onClick(product.id)"
-    ></sr-product-card>
-  </ng-template>
-</sr-list>

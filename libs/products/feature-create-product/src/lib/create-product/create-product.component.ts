@@ -10,10 +10,14 @@ import { PriceFormGroup } from './models/price-form-group.type';
 import { validateSize } from './util/validate-size';
 import { CREATE_PRODUCT_COMMAND } from './cqrs/commands/create-product.command';
 import { CREATE_PRODUCT_VM_QUERY } from './cqrs/queries/create-product-vm.query';
-import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { LetModule } from '@ngrx/component';
-import { SharedUiMaterialModule } from '@sr/shared/ui-material';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { NgFor } from '@angular/common';
 
 @Component({
   selector: 'sr-create-product',
@@ -21,11 +25,15 @@ import { SharedUiMaterialModule } from '@sr/shared/ui-material';
   styleUrls: ['./create-product.component.scss'],
   standalone: true,
   imports: [
-    CommonModule,
+    NgFor,
     FlexLayoutModule,
-    SharedUiMaterialModule,
     ReactiveFormsModule,
     LetModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatIconModule,
+    MatButtonModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

@@ -12,7 +12,7 @@ import { CREATE_PRODUCT_VM_QUERY } from './cqrs/queries/create-product-vm.query'
 import { CREATE_PRODUCT_COMMAND } from './cqrs/commands/create-product.command';
 import { CreateProductVM } from './models/view-model';
 
-describe(CreateProductComponent.name, () => {
+describe('CreateProductComponent', () => {
   const vmMock$ = new BehaviorSubject<CreateProductVM>({
     retailers: [],
     categories: [],

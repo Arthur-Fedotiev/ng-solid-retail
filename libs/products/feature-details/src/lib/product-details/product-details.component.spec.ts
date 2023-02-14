@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import {
   CategoryEnum,
   makeProductViewModelsStub,
@@ -20,8 +20,11 @@ describe('ProductDetailsComponent', () => {
   let dialogMock: jest.Mocked<MatDialog>;
 
   beforeEach(async () => {
+    dialogMock = {
+      open: jest.fn(),
+    } as unknown as jest.Mocked<MatDialog>;
     await TestBed.configureTestingModule({
-      declarations: [ProductDetailsComponent],
+      imports: [ProductDetailsComponent],
       providers: [
         {
           provide: ProductsFacadeService,
@@ -32,17 +35,24 @@ describe('ProductDetailsComponent', () => {
             getCompetitorsForCategory$: jest.fn(),
           },
         },
-        {
-          provide: MatDialog,
-          useValue: {
-            open: jest.fn(),
-          },
-        },
       ],
-    }).compileComponents();
+    })
+      .overrideComponent(ProductDetailsComponent, {
+        remove: {
+          imports: [MatDialogModule],
+        },
+        add: {
+          providers: [
+            {
+              provide: MatDialog,
+              useValue: dialogMock,
+            },
+          ],
+        },
+      })
+      .compileComponents();
 
     fixture = TestBed.createComponent(ProductDetailsComponent);
-    dialogMock = TestBed.inject(MatDialog) as jest.Mocked<MatDialog>;
     facadeMock = TestBed.inject(
       ProductsFacadeService
     ) as jest.Mocked<ProductsFacadeService>;
@@ -103,6 +113,8 @@ describe('ProductDetailsComponent', () => {
       const competitorsStub$ = of([{ id: '1', name: '1' }]);
 
       facadeMock.getCompetitorsForCategory$.mockReturnValue(competitorsStub$);
+
+      console.log(dialogMock === component['dialog']);
 
       component.openCompetitorsDialog(categoryStub);
 

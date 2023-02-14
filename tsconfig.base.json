@@ -37,7 +37,6 @@
       "@sr/shared/environments": ["libs/shared/environments/src/index.ts"],
       "@sr/shared/styles": ["libs/shared/styles/src/index.ts"],
       "@sr/shared/ui-list": ["libs/shared/ui-list/src/index.ts"],
-      "@sr/shared/ui-material": ["libs/shared/ui-material/src/index.ts"],
       "@sr/shared/util": ["libs/shared/util/src/index.ts"]
     }
   },

@@ -16,7 +16,6 @@
     "shared-environments": "libs/shared/environments",
     "shared-styles": "libs/shared/styles",
     "shared-ui-list": "libs/shared/ui-list",
-    "shared-ui-material": "libs/shared/ui-material",
     "shared-util": "libs/shared/util",
     "solid-retail": "apps/solid-retail",
     "solid-retail-e2e": "apps/solid-retail-e2e"

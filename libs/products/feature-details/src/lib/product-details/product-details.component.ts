@@ -4,7 +4,7 @@ import {
   Inject,
   OnDestroy,
 } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import {
   CategoryViewModel,
   PriceViewModel,
@@ -12,17 +12,40 @@ import {
   ProductViewModel,
 } from '@sr/products/data-access';
 import { CompetitorsDialogComponent } from '@sr/products/ui';
+import { MatCardModule } from '@angular/material/card';
+import { NgIf, AsyncPipe, NgFor, NgTemplateOutlet } from '@angular/common';
 import {
   toISOStringWithTimezone,
   TrackByIdOrIdx,
   TRACK_BY_ID_OR_IDX,
 } from '@sr/shared/util';
+import { LowestTierPricePipe } from './lowest-tier-price.pipe';
+import { ProductCategoriesComponent } from '@sr/products/ui';
+import { ProductPriceComponent } from '../product-price/product-price.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @Component({
   selector: 'sr-product-details',
   templateUrl: './product-details.component.html',
   styleUrls: ['./product-details.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    MatCardModule,
+    MatIconModule,
+    MatButtonModule,
+    MatDialogModule,
+    FlexLayoutModule,
+    NgTemplateOutlet,
+    NgIf,
+    NgFor,
+    AsyncPipe,
+    LowestTierPricePipe,
+    ProductCategoriesComponent,
+    ProductPriceComponent,
+  ],
 })
 export class ProductDetailsComponent implements OnDestroy {
   public readonly product$ = this.productsFacade.selectedProduct$;

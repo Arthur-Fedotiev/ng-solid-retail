@@ -5,9 +5,9 @@ export const PRODUCT_ROUTES: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'display' },
   {
     path: 'display',
-    loadChildren: () =>
+    loadComponent: () =>
       import('@sr/products-feature-display').then(
-        (m) => m.ProductsFeatureDisplayModule
+        (m) => m.ProductsListComponent
       ),
   },
   {
@@ -32,9 +32,9 @@ export const PRODUCT_ROUTES: Routes = [
     resolve: {
       product: ProductDetailsResolver,
     },
-    loadChildren: () =>
+    loadComponent: () =>
       import('@sr/products/feature-details').then(
-        (m) => m.ProductsFeatureDetailsModule
+        (m) => m.ProductDetailsComponent
       ),
   },
 ];

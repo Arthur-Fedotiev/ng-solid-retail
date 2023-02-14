@@ -6,9 +6,14 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { PriceViewModel } from '@sr/products/data-access';
 import { map, startWith } from 'rxjs';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { DatePipe, NgIf, AsyncPipe, NgTemplateOutlet } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   exportAs: 'omniaProductPrice',
@@ -16,6 +21,18 @@ import { map, startWith } from 'rxjs';
   templateUrl: './product-price.component.html',
   styleUrls: ['./product-price.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    FlexLayoutModule,
+    NgIf,
+    AsyncPipe,
+    MatButtonModule,
+    DatePipe,
+    MatIconModule,
+    NgTemplateOutlet,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+  ],
 })
 export class ProductPriceComponent implements OnInit {
   @Input() public price!: PriceViewModel;

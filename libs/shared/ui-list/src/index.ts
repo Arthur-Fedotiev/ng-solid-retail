@@ -1,1 +1,1 @@
-export * from './lib/shared-ui-list.module';
+export * from './lib/list/list.component';

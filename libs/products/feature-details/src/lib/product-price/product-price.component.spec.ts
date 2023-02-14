@@ -1,12 +1,9 @@
-import { CommonModule } from '@angular/common';
 import {
   ComponentFixture,
   fakeAsync,
   TestBed,
   tick,
 } from '@angular/core/testing';
-import { ReactiveFormsModule } from '@angular/forms';
-import { SharedUiMaterialModule } from '@sr/shared/ui-material';
 import { take, toArray } from 'rxjs';
 
 import { ProductPriceComponent } from './product-price.component';
@@ -23,8 +20,7 @@ describe('ProductPriceComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SharedUiMaterialModule, ReactiveFormsModule, CommonModule],
-      declarations: [ProductPriceComponent],
+      imports: [ProductPriceComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ProductPriceComponent);
