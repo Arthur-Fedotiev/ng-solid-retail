@@ -11,7 +11,7 @@ import { ListComponent } from '@sr/shared/ui-list';
   standalone: true,
   imports: [ListComponent, AsyncPipe, ProductCardComponent],
   template: `<sr-list class="products-list" [items]="products$ | async">
-    <ng-template #omniaListItem let-product>
+    <ng-template #listItem let-product>
       <sr-product-card
         [product]="product"
         class="products-list__item"
