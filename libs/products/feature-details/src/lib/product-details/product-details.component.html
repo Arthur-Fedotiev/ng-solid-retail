@@ -1,5 +1,5 @@
 <mat-card
-  *ngIf="product$ | async as product"
+  *ngrxLet="vm$ as vm"
   fxLayout="column nowrap"
   fxLayoutAlign="start center"
   fxLayoutGap="3rem"
@@ -8,22 +8,24 @@
 >
   <mat-card-header>
     <mat-card-title>
-      <h1 class="mat-headline">{{ product.name }}</h1>
+      <h1 class="mat-headline">{{ vm.product.name }}</h1>
     </mat-card-title>
   </mat-card-header>
   <img
     class="product-card__photo"
     mat-card-image
-    src="{{ product.url }}"
-    alt="Photo of a {{ product.name }}"
+    src="{{ vm.product.url }}"
+    alt="Photo of a {{ vm.product.name }}"
   />
   <mat-card-content class="product-card__content">
     <h3 class="mat-title">Description</h3>
     <p class="product-card__description">
-      {{ product.description }}
+      {{ vm.product.description }}
     </p>
 
-    <ng-container *ngIf="product.prices | omniaLowestTierPrice as lowestPrice">
+    <ng-container
+      *ngIf="vm.product.prices | omniaLowestTierPrice as lowestPrice"
+    >
       <h3 class="mat-title">
         Lowest Tier 1 price:
         <span>{{ lowestPrice ? lowestPrice + '$' : 'N/A' }}</span>
@@ -31,17 +33,17 @@
     </ng-container>
 
     <sr-product-categories
-      [categories]="product.categories"
+      [categories]="vm.product.categories"
       (categorySelected)="openCompetitorsDialog($event)"
     ></sr-product-categories>
 
     <h3 class="mat-title">Prices by retailers</h3>
 
-    <div *ngFor="let price of product.prices; trackBy: trackById">
+    <div *ngFor="let price of vm.product.prices; trackBy: trackById">
       <sr-product-price
         #productPrice="omniaProductPrice"
         [price]="price"
-        (save)="updateProductPrice(product, $event)"
+        (save)="updateProductPrice(vm.product, $event)"
       >
         <button action mat-mini-fab color="primary">
           <mat-icon>edit</mat-icon>
@@ -54,7 +56,7 @@
       class="prices__action"
       mat-raised-button
       color="warn"
-      (click)="deleteProduct(product.id)"
+      (click)="deleteProduct(vm.product.id)"
     >
       DELETE PRODUCT
     </button>

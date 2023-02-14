@@ -7,33 +7,61 @@ import {
   ProductsFacadeService,
 } from '@sr/products/data-access';
 import { CompetitorsDialogComponent } from '@sr/products/ui';
-import { of, Subject } from 'rxjs';
+import { of, Subject, BehaviorSubject } from 'rxjs';
 
 import { ProductDetailsComponent } from './product-details.component';
+import {
+  PRODUCT_DETAILS_COMMANDS_API,
+  ProductDetailsCommandsApi,
+} from './cqrs/product.details-api.commands';
+import { COMPETITORS_QUERY, CompetitorsQuery } from './cqrs/categories.query';
+import {
+  PRODUCT_DETAIL_VM_QUERY,
+  ProductDetailsVM,
+} from './cqrs/product-details-vm.query';
 
 describe('ProductDetailsComponent', () => {
-  const productsSelectorStub$ = new Subject();
+  const productsSelectorStub$ = new BehaviorSubject({
+    product: makeProductViewModelsStub()[0],
+  });
 
   let component: ProductDetailsComponent;
   let fixture: ComponentFixture<ProductDetailsComponent>;
-  let facadeMock: jest.Mocked<ProductsFacadeService>;
   let dialogMock: jest.Mocked<MatDialog>;
+  let productDetailsCommandsAPIStub: jest.Mocked<ProductDetailsCommandsApi>;
+  let competitorsQueryStub: jest.Mocked<CompetitorsQuery>;
+  let productDetailVMQueryStub: jest.Mocked<ProductDetailsVM>;
 
   beforeEach(async () => {
     dialogMock = {
       open: jest.fn(),
     } as unknown as jest.Mocked<MatDialog>;
+    productDetailsCommandsAPIStub = {
+      update: jest.fn(),
+      delete: jest.fn(),
+      releaseResources: jest.fn(),
+    };
+    competitorsQueryStub = {
+      get: jest.fn(),
+    };
+    productDetailVMQueryStub = {
+      get: jest.fn().mockReturnValue(productsSelectorStub$),
+    };
+
     await TestBed.configureTestingModule({
       imports: [ProductDetailsComponent],
       providers: [
         {
-          provide: ProductsFacadeService,
-          useValue: {
-            selectedProduct$: productsSelectorStub$,
-            releaseSelectedProduct: jest.fn(),
-            selectedProductUpdate: jest.fn(),
-            getCompetitorsForCategory$: jest.fn(),
-          },
+          provide: PRODUCT_DETAILS_COMMANDS_API,
+          useValue: productDetailsCommandsAPIStub,
+        },
+        {
+          provide: COMPETITORS_QUERY,
+          useValue: competitorsQueryStub,
+        },
+        {
+          provide: PRODUCT_DETAIL_VM_QUERY,
+          useValue: productDetailVMQueryStub,
         },
       ],
     })
@@ -53,9 +81,6 @@ describe('ProductDetailsComponent', () => {
       .compileComponents();
 
     fixture = TestBed.createComponent(ProductDetailsComponent);
-    facadeMock = TestBed.inject(
-      ProductsFacadeService
-    ) as jest.Mocked<ProductsFacadeService>;
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -68,15 +93,15 @@ describe('ProductDetailsComponent', () => {
 
   describe('#product$', () => {
     it('should use product selector to get the product', () => {
-      expect(component.product$).toBe(facadeMock.selectedProduct$);
+      expect(component.vm$).toBe(productDetailVMQueryStub.get());
     });
   });
 
   describe('#ngOnDestroy', () => {
-    it('should call releaseSelectedProduct', () => {
+    it('should call releaseResources', () => {
       component.ngOnDestroy();
 
-      expect(facadeMock.releaseSelectedProduct).toHaveBeenCalled();
+      expect(productDetailsCommandsAPIStub.releaseResources).toHaveBeenCalled();
     });
   });
 
@@ -97,7 +122,7 @@ describe('ProductDetailsComponent', () => {
         prices: expectedPrices,
       });
 
-      expect(facadeMock.selectedProductUpdate).toHaveBeenNthCalledWith(
+      expect(productDetailsCommandsAPIStub.update).toHaveBeenNthCalledWith(
         1,
         expectedProduct
       );
@@ -112,10 +137,7 @@ describe('ProductDetailsComponent', () => {
       };
       const competitorsStub$ = of([{ id: '1', name: '1' }]);
 
-      facadeMock.getCompetitorsForCategory$.mockReturnValue(competitorsStub$);
-
-      console.log(dialogMock === component['dialog']);
-
+      competitorsQueryStub.get.mockReturnValue(competitorsStub$);
       component.openCompetitorsDialog(categoryStub);
 
       expect(dialogMock.open).toHaveBeenCalledWith(
