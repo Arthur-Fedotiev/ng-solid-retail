@@ -10,10 +10,14 @@ export const COMPETITORS_QUERY = new InjectionToken<CompetitorsQuery>(
   'CATEGORIES_QUERY',
   {
     providedIn: 'root',
-    factory: () => ({
-      get: (category: CategoryViewModel) =>
-        inject(ProductsFacadeService).getCompetitorsForCategory$(category),
-    }),
+    factory: () => {
+      const productsFacadeService = inject(ProductsFacadeService);
+      return {
+        get: productsFacadeService.getCompetitorsForCategory$.bind(
+          productsFacadeService
+        ),
+      };
+    },
   }
 );
 

@@ -1,64 +1,63 @@
 <mat-card
   *ngrxLet="vm$ as vm"
-  fxLayout="column nowrap"
-  fxLayoutAlign="start center"
-  fxLayoutGap="3rem"
-  class="product-card"
+  class="tw-flex tw-flex-row tw-justify-start tw-items-start tw-content-start tw-gap-12 tw-h-full tw-px-4 tw-text-lg"
   role="region"
 >
-  <mat-card-header>
-    <mat-card-title>
-      <h1 class="mat-headline">{{ vm.product.name }}</h1>
-    </mat-card-title>
-  </mat-card-header>
   <img
-    class="product-card__photo"
+    class="tw-rounded-t-lg"
     mat-card-image
     src="{{ vm.product.url }}"
     alt="Photo of a {{ vm.product.name }}"
   />
-  <mat-card-content class="product-card__content">
-    <h3 class="mat-title">Description</h3>
-    <p class="product-card__description">
-      {{ vm.product.description }}
-    </p>
 
-    <ng-container
-      *ngIf="vm.product.prices | omniaLowestTierPrice as lowestPrice"
-    >
-      <h3 class="mat-title">
-        Lowest Tier 1 price:
-        <span>{{ lowestPrice ? lowestPrice + '$' : 'N/A' }}</span>
-      </h3>
-    </ng-container>
+  <div>
+    <mat-card-title>
+      <h1 class="tw-mb-2 tw-text-2xl tw-font-bold tw-tracking-tight">
+        {{ vm.product.name }}
+      </h1>
+    </mat-card-title>
+    <mat-card-content class="tw-p-0">
+      <p class="tw-mb-3 tw-font-normal tw-text-gray-700">
+        {{ vm.product.description }}
+      </p>
 
-    <sr-product-categories
-      [categories]="vm.product.categories"
-      (categorySelected)="openCompetitorsDialog($event)"
-    ></sr-product-categories>
-
-    <h3 class="mat-title">Prices by retailers</h3>
-
-    <div *ngFor="let price of vm.product.prices; trackBy: trackById">
-      <sr-product-price
-        #productPrice="omniaProductPrice"
-        [price]="price"
-        (save)="updateProductPrice(vm.product, $event)"
+      <ng-container
+        *ngIf="vm.product.prices | srLowestTierPrice as lowestPrice"
       >
-        <button action mat-mini-fab color="primary">
-          <mat-icon>edit</mat-icon>
-        </button></sr-product-price
+        <h3 class="tw-text-xl">
+          Lowest Tier 1 price:
+          <span>{{ lowestPrice ? lowestPrice + '$' : 'N/A' }}</span>
+        </h3>
+      </ng-container>
+
+      <sr-product-categories
+        class="tw-mt-4 tw-text-xl"
+        [categories]="vm.product.categories"
+        (categorySelected)="openCompetitorsDialog($event)"
+      ></sr-product-categories>
+
+      <h3 class="tw-text-xl tw-text-center">Prices by retailers</h3>
+
+      <div *ngFor="let price of vm.product.prices; trackBy: trackById">
+        <sr-product-price
+          #productPrice="omniaProductPrice"
+          [price]="price"
+          (save)="updateProductPrice(vm.product, $event)"
+        >
+          <button action mat-mini-fab color="primary">
+            <mat-icon>edit</mat-icon>
+          </button></sr-product-price
+        >
+      </div>
+    </mat-card-content>
+    <mat-card-actions class="tw-mt-12">
+      <button
+        mat-raised-button
+        color="warn"
+        (click)="deleteProduct(vm.product.id)"
       >
-    </div>
-  </mat-card-content>
-  <mat-card-actions>
-    <button
-      class="prices__action"
-      mat-raised-button
-      color="warn"
-      (click)="deleteProduct(vm.product.id)"
-    >
-      DELETE PRODUCT
-    </button>
-  </mat-card-actions>
+        DELETE PRODUCT
+      </button>
+    </mat-card-actions>
+  </div>
 </mat-card>

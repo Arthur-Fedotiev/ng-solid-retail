@@ -14,6 +14,7 @@ import { DatePipe, NgIf, AsyncPipe, NgTemplateOutlet } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   exportAs: 'omniaProductPrice',
@@ -32,6 +33,7 @@ import { MatButtonModule } from '@angular/material/button';
     NgTemplateOutlet,
     ReactiveFormsModule,
     MatFormFieldModule,
+    MatInputModule,
   ],
 })
 export class ProductPriceComponent implements OnInit {

@@ -10,15 +10,15 @@ export const PRODUCT_DETAILS_COMMANDS_API =
     factory: () => {
       const productsFacadeService = inject(ProductsFacadeService);
       return {
-        update: inject(ProductsFacadeService).selectedProductUpdate.bind(
+        update: productsFacadeService.selectedProductUpdate.bind(
           productsFacadeService
         ),
-        delete: inject(ProductsFacadeService).deleteSelectedProduct.bind(
+        delete: productsFacadeService.deleteSelectedProduct.bind(
           productsFacadeService
         ),
-        releaseResources: inject(
-          ProductsFacadeService
-        ).releaseSelectedProduct.bind(productsFacadeService),
+        releaseResources: productsFacadeService.releaseSelectedProduct.bind(
+          productsFacadeService
+        ),
       };
     },
   });
