@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { TRACK_BY_ID_OR_IDX, TrackByIdOrIdx } from '@sr/shared/util';
+import { ListItemDirective } from '../list-item/list-item.directive';
 
 @Component({
   selector: 'sr-list',
@@ -32,16 +33,19 @@ import { TRACK_BY_ID_OR_IDX, TrackByIdOrIdx } from '@sr/shared/util';
       fxFlex.gt-lg="15%"
     >
       <ng-container
-        *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"
+        *ngTemplateOutlet="listItem.template; context: { $implicit: item }"
       ></ng-container>
     </div>
   </div>`,
 })
-export class ListComponent {
-  @Input() items!: ReadonlyArray<unknown> | null;
+export class ListComponent<T = unknown> {
+  @Input() items!: ReadonlyArray<T> | null;
 
   @ContentChild('listItem')
-  itemTemplate!: TemplateRef<unknown>;
+  itemTemplate!: TemplateRef<T>;
+
+  @ContentChild(ListItemDirective)
+  listItem!: ListItemDirective<T>;
 
   constructor(
     @Inject(TRACK_BY_ID_OR_IDX) public readonly trackById: TrackByIdOrIdx

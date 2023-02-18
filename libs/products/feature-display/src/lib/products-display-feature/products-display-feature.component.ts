@@ -2,22 +2,22 @@ import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ProductsFacadeService } from '@sr/products/application';
 import { ProductCardComponent } from '@sr/products/ui';
-import { ListComponent } from '@sr/shared/ui-list';
+import { LetModule } from '@ngrx/component';
+import { LIST_SHELL } from '@sr/shared/ui-list';
 
 @Component({
   selector: 'sr-products-display-feature',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [ListComponent, AsyncPipe, ProductCardComponent],
+  imports: [LIST_SHELL, AsyncPipe, LetModule, ProductCardComponent],
   template: `
-    <sr-list class="products-list" [items]="products$ | async">
-      <ng-template #listItem let-product>
-        <sr-product-card
-          [product]="product"
-          class="tw-cursor-pointer"
-          (click)="onClick(product.id)"
-        ></sr-product-card>
-      </ng-template>
+    <sr-list *ngrxLet="products$ as products" [items]="products">
+      <sr-product-card
+        *srListItem="products; let product"
+        class="tw-cursor-pointer"
+        [product]="product"
+        (click)="onClick(product.id)"
+      ></sr-product-card>
     </sr-list>
   `,
 })
