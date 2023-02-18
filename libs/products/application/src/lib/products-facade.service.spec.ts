@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Product, ProductsApi } from '@sr/products/entities';
 import { PRODUCTS_API, makeProductsStub } from '@sr/products/infrastructure';
 import { ID_GENERATOR } from '@sr/shared/util';
-import { asyncScheduler, EMPTY, of, scheduled, Subject } from 'rxjs';
+import { asyncScheduler, of, scheduled, Subject } from 'rxjs';
 import { CategoryEnum } from './constants/category.enum';
 import { ProductsStateModel } from './models/products-state.model';
 import { ProductViewModel } from './models/ProductViewModel';
@@ -121,6 +121,7 @@ describe('ProductsFacadeService', () => {
         sku: productsViewModelsStub[0].sku,
         url: productsViewModelsStub[0].url,
         retailer: productsViewModelsStub[0].prices[0].retailer.name,
+        toString: expect.any(Function),
       };
 
       service.state$.next(new ProductsStateModel(of(productsViewModelsStub)));

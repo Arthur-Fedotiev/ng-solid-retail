@@ -19,6 +19,7 @@ const testCases = [
       sku: '1',
       price: 1,
       retailer: 'retailer',
+      toString: expect.any(Function),
     },
   },
   {
@@ -39,6 +40,7 @@ const testCases = [
       sku: '2',
       price: 2,
       retailer: 'retailer',
+      toString: expect.any(Function),
     },
   },
 ];
