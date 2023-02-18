@@ -2,7 +2,7 @@ import { InjectionToken, inject } from '@angular/core';
 import {
   CreateProductForm,
   ProductsFacadeService,
-} from '@sr/products/data-access';
+} from '@sr/products/application';
 
 export const CREATE_PRODUCT_COMMAND = new InjectionToken<CreateProductCommand>(
   'CREATE_PRODUCT_COMMAND',

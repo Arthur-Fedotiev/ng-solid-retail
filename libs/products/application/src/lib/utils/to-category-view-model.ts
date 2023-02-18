@@ -1,4 +1,4 @@
-import { Category } from '@sr/products/domain';
+import { Category } from '@sr/products/entities';
 import { CategoryEnum } from '../constants/category.enum';
 import { CategoryViewModel } from '../models/CategoryViewModel';
 

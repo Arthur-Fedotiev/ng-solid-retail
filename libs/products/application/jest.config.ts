@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'products-data-access',
+  displayName: 'products-application',
   preset: '../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
@@ -9,7 +9,7 @@ export default {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  coverageDirectory: '../../../coverage/libs/products/data-access',
+  coverageDirectory: '../../../coverage/libs/products/application',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },

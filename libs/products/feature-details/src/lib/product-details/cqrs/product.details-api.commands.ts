@@ -2,7 +2,7 @@ import { InjectionToken, inject } from '@angular/core';
 import {
   ProductsFacadeService,
   ProductViewModel,
-} from '@sr/products/data-access';
+} from '@sr/products/application';
 
 export const PRODUCT_DETAILS_COMMANDS_API =
   new InjectionToken<ProductDetailsCommandsApi>('PRODUCT_DETAILS_API', {

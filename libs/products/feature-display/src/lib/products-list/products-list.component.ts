@@ -1,6 +1,6 @@
 import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { ProductsFacadeService } from '@sr/products/data-access';
+import { ProductsFacadeService } from '@sr/products/application';
 import { ProductCardComponent } from '@sr/products/ui';
 import { ListComponent } from '@sr/shared/ui-list';
 

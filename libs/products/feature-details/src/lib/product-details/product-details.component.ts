@@ -11,7 +11,7 @@ import {
   PriceViewModel,
   ProductsFacadeService,
   ProductViewModel,
-} from '@sr/products/data-access';
+} from '@sr/products/application';
 import { CompetitorsDialogComponent } from '@sr/products/ui';
 import { MatCardModule } from '@angular/material/card';
 import { NgIf, AsyncPipe, NgFor, NgTemplateOutlet } from '@angular/common';

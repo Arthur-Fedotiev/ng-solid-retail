@@ -1,4 +1,4 @@
-import { Product } from '@sr/products/domain';
+import { Product } from '@sr/products/entities';
 
 export const makeProductsStub = (count: number): ReadonlyArray<Product> =>
   Array(count)

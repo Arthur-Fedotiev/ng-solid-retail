@@ -5,7 +5,7 @@ import {
   makeProductViewModelsStub,
   PriceViewModel,
   ProductsFacadeService,
-} from '@sr/products/data-access';
+} from '@sr/products/application';
 import { CompetitorsDialogComponent } from '@sr/products/ui';
 import { of, Subject, BehaviorSubject } from 'rxjs';
 

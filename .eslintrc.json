@@ -45,11 +45,24 @@
                 ]
               },
               {
-                "sourceTag": "type:shell",
+                "sourceTag": "type:entities",
+                "onlyDependOnLibsWithTags": ["type:entities", "type:util"]
+              },
+              {
+                "sourceTag": "type:infrastructure",
                 "onlyDependOnLibsWithTags": [
-                  "type:feature",
+                  "type:infrastructure",
+                  "type:entities",
+                  "type:util"
+                ]
+              },
+              {
+                "sourceTag": "type:application",
+                "onlyDependOnLibsWithTags": [
                   "type:application",
-                  "type:infrastructure"
+                  "type:infrastructure",
+                  "type:entities",
+                  "type:util"
                 ]
               },
               {
@@ -61,24 +74,20 @@
                 ]
               },
               {
-                "sourceTag": "type:infrastructure",
-                "onlyDependOnLibsWithTags": [
-                  "type:infrastructure",
-                  "type:entities",
-                  "type:util"
-                ]
-              },
-              {
-                "sourceTag": "type:infrastructure",
-                "onlyDependOnLibsWithTags": ["type:application"]
-              },
-              {
                 "sourceTag": "type:ui",
                 "onlyDependOnLibsWithTags": ["type:ui", "type:util"]
               },
               {
                 "sourceTag": "type:util",
                 "onlyDependOnLibsWithTags": ["type:util"]
+              },
+              {
+                "sourceTag": "type:shell",
+                "onlyDependOnLibsWithTags": [
+                  "type:feature",
+                  "type:application",
+                  "type:infrastructure"
+                ]
               }
             ]
           }

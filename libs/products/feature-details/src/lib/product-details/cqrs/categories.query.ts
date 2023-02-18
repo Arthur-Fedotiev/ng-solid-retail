@@ -3,7 +3,7 @@ import {
   CategoryViewModel,
   ProductsFacadeService,
   RetailerViewModel,
-} from '@sr/products/data-access';
+} from '@sr/products/application';
 import { Observable } from 'rxjs';
 
 export const COMPETITORS_QUERY = new InjectionToken<CompetitorsQuery>(

@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ProductsFacadeService } from '@sr/products/data-access';
+import { ProductsFacadeService } from '@sr/products/application';
 
 import { Subject } from 'rxjs';
 

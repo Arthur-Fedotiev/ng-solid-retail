@@ -7,7 +7,7 @@ import {
   Output,
 } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { PriceViewModel } from '@sr/products/data-access';
+import { PriceViewModel } from '@sr/products/application';
 import { map, startWith } from 'rxjs';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { DatePipe, NgIf, AsyncPipe, NgTemplateOutlet } from '@angular/common';

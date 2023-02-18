@@ -2,7 +2,7 @@ import { InjectionToken, inject } from '@angular/core';
 import {
   ProductViewModel,
   ProductsFacadeService,
-} from '@sr/products/data-access';
+} from '@sr/products/application';
 import { Observable, map } from 'rxjs';
 
 export const PRODUCT_DETAIL_VM_QUERY = new InjectionToken<ProductDetailsVM>(

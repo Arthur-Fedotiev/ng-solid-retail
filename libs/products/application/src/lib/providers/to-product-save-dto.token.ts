@@ -1,5 +1,5 @@
 import { inject, InjectionToken } from '@angular/core';
-import { Product } from '@sr/products/domain';
+import { Product } from '@sr/products/entities';
 import { ID_GENERATOR } from '@sr/shared/util';
 import { CreateProductForm } from '../models/create-product-from.interface';
 import { ProductViewModel } from '../models/ProductViewModel';

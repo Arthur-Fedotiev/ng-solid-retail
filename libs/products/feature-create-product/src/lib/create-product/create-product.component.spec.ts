@@ -6,7 +6,7 @@ import {
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { CreateProductComponent } from './create-product.component';
-import { CategoryEnum } from '@sr/products/data-access';
+import { CategoryEnum } from '@sr/products/application';
 import { BehaviorSubject } from 'rxjs';
 import { CREATE_PRODUCT_VM_QUERY } from './cqrs/queries/create-product-vm.query';
 import { CREATE_PRODUCT_COMMAND } from './cqrs/commands/create-product.command';

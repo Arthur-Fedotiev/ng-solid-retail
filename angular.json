@@ -4,8 +4,8 @@
   "projects": {
     "layout-feature": "libs/layout/feature",
     "layout-ui": "libs/layout/ui",
-    "products-data-access": "libs/products/data-access",
-    "products-domain": "libs/products/domain",
+    "products-application": "libs/products/application",
+    "products-entities": "libs/products/entities",
     "products-feature-create-product": "libs/products/feature-create-product",
     "products-feature-details": "libs/products/feature-details",
     "products-feature-display": "libs/products/feature-display",

@@ -1,4 +1,4 @@
-import { Retailer } from '@sr/products/domain';
+import { Retailer } from '@sr/products/entities';
 import { RetailerViewModel } from '../models/RetailerViewModel';
 
 export const toRetailerViewModel = (

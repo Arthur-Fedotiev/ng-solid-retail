@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Category, Product, ProductsApi, Retailer } from '@sr/products/domain';
+import {
+  Category,
+  Product,
+  ProductsApi,
+  Retailer,
+} from '@sr/products/entities';
 import { convertOneSnap, convertSnaps } from '@sr/shared/util';
 import firebase from 'firebase/compat/app';
 import { first, from, map, mapTo, Observable, pipe, take } from 'rxjs';

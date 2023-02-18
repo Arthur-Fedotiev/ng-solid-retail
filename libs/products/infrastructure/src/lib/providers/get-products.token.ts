@@ -1,5 +1,5 @@
 import { inject, InjectionToken } from '@angular/core';
-import { ProductsApi } from '@sr/products/domain';
+import { ProductsApi } from '@sr/products/entities';
 import { ENVIRONMENT } from '@sr/shared/environments';
 import { FirestoreProductsApiService } from '../firestore/firestore-products-api.service';
 

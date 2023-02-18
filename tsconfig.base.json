@@ -20,8 +20,8 @@
       "@sr/products-feature-display": [
         "libs/products/feature-display/src/index.ts"
       ],
-      "@sr/products/data-access": ["libs/products/data-access/src/index.ts"],
-      "@sr/products/domain": ["libs/products/domain/src/index.ts"],
+      "@sr/products/application": ["libs/products/application/src/index.ts"],
+      "@sr/products/entities": ["libs/products/entities/src/index.ts"],
       "@sr/products/feature-create-product": [
         "libs/products/feature-create-product/src/index.ts"
       ],

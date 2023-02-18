@@ -7,7 +7,7 @@ import {
   Category,
   Price,
   Retailer,
-} from '@sr/products/domain';
+} from '@sr/products/entities';
 import { forkJoin, Observable, of, switchMap } from 'rxjs';
 import { PRODUCT_URLS } from '../providers/products-urls.token';
 

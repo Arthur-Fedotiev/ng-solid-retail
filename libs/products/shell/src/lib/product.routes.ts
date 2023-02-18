@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { ProductDetailsResolver } from '@sr/products/data-access';
+import { ProductDetailsResolver } from '@sr/products/application';
 
 export const PRODUCT_ROUTES: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'display' },

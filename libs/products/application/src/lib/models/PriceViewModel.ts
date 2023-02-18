@@ -1,4 +1,4 @@
-import { Price } from '@sr/products/domain';
+import { Price } from '@sr/products/entities';
 import { RetailerViewModel } from './RetailerViewModel';
 
 export class PriceViewModel {

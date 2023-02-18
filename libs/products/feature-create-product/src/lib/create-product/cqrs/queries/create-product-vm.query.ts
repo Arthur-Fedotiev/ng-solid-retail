@@ -1,5 +1,5 @@
 import { InjectionToken, inject } from '@angular/core';
-import { ProductsFacadeService } from '@sr/products/data-access';
+import { ProductsFacadeService } from '@sr/products/application';
 import { Observable, asyncScheduler, combineLatest, observeOn } from 'rxjs';
 import { CreateProductVM } from '../../models/view-model';
 
