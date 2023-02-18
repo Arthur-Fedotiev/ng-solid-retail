@@ -9,3 +9,5 @@ export { ProductDetailsResolver } from './lib/resolvers/product-details.resolver
 export { RetailerViewModel } from './lib/models/RetailerViewModel';
 export { CategoryViewModel } from './lib/models/CategoryViewModel';
 export { CategoryEnum } from './lib/constants/category.enum';
+export * from './lib/resolvers/products-display.resolver';
+export * from './lib/cqrs/select-product.command';

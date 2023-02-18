@@ -1,5 +1,9 @@
 import { Routes } from '@angular/router';
-import { ProductDetailsResolver } from '@sr/products/application';
+import {
+  ProductDetailsResolver,
+  ProductsDisplayResolver,
+} from '@sr/products/application';
+import { RESOLVED_VM } from '@sr/shared/util';
 
 export const PRODUCT_ROUTES: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'display' },
@@ -9,6 +13,9 @@ export const PRODUCT_ROUTES: Routes = [
       import('@sr/products-feature-display').then(
         (m) => m.ProductsDisplayFeatureComponent
       ),
+    resolve: {
+      [RESOLVED_VM]: ProductsDisplayResolver,
+    },
   },
   {
     path: 'create',

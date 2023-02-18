@@ -1,5 +1,8 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { ProductsFacadeService } from '@sr/products/application';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import {
+  SELECT_PRODUCT_COMMAND,
+  useProductsDisplayVm,
+} from '@sr/products/application';
 import { ProductCardComponent } from '@sr/products/ui';
 import { LetModule } from '@ngrx/component';
 import { LIST_SHELL } from '@sr/shared/ui-list';
@@ -10,22 +13,17 @@ import { LIST_SHELL } from '@sr/shared/ui-list';
   standalone: true,
   imports: [LIST_SHELL, LetModule, ProductCardComponent],
   template: `
-    <sr-list *ngrxLet="products$ as products" [items]="products">
+    ><sr-list *ngrxLet="vm$ as vm" [items]="vm.productsShortInfo">
       <sr-product-card
-        *srListItem="products; let product"
+        *srListItem="vm.productsShortInfo; let product"
         class="tw-cursor-pointer"
         [product]="product"
-        (click)="onClick(product.id)"
+        (click)="selectProductCommand.execute(product.id)"
       ></sr-product-card>
     </sr-list>
   `,
 })
 export class ProductsDisplayFeatureComponent {
-  public readonly products$ = this.productsFacade.productsShortInfo$;
-
-  constructor(private readonly productsFacade: ProductsFacadeService) {}
-
-  public onClick(productId: string): void {
-    this.productsFacade.productSelected(productId);
-  }
+  protected readonly vm$ = useProductsDisplayVm();
+  protected readonly selectProductCommand = inject(SELECT_PRODUCT_COMMAND);
 }
