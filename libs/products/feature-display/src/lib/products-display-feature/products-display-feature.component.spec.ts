@@ -6,30 +6,41 @@ import { BehaviorSubject } from 'rxjs';
 import { ProductsDisplayFeatureComponent } from './products-display-feature.component';
 import { ActivatedRoute } from '@angular/router';
 import { By } from '@angular/platform-browser';
-import { ProductCardComponent } from '@sr/products/ui';
+import { ProductCardComponent, ProductCardHarness } from '@sr/products/ui';
 import { RESOLVED_VM } from '@sr/shared/util';
 import { DebugElement } from '@angular/core';
+import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
+
+Object.defineProperty(window, 'matchMedia', {
+  writable: true,
+  value: jest.fn().mockImplementation((query) => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener: jest.fn(), // deprecated
+    removeListener: jest.fn(), // deprecated
+    addEventListener: jest.fn(),
+    removeEventListener: jest.fn(),
+    dispatchEvent: jest.fn(),
+  })),
+});
 
 describe('ProductsDisplayFeatureComponent', () => {
   describe('render', () => {
     it('should render products', async () => {
-      const { renderResult, productsShortInfo } = await setup();
+      const { productsShortInfo, productCardHarness } = await setup();
 
-      const productCards = getProductCards(renderResult.debugElement);
-
-      expect(productCards.length).toEqual(productsShortInfo.length);
+      expect(productCardHarness.length).toEqual(productsShortInfo.length);
     });
   });
+
   describe('when product selected', () => {
     it('should delegate select product on click', async () => {
-      const { renderResult, selectProductCommandSpy, productsShortInfo } =
+      const { selectProductCommandSpy, productsShortInfo, productCardHarness } =
         await setup();
       const productId = productsShortInfo[0].id;
 
-      getFirstProductCard(renderResult.debugElement).triggerEventHandler(
-        'click',
-        { productId }
-      );
+      await productCardHarness[0].click();
 
       expect(selectProductCommandSpy.execute).toHaveBeenNthCalledWith(
         1,
@@ -63,9 +74,13 @@ describe('ProductsDisplayFeatureComponent', () => {
       ],
     });
 
+    const loader = TestbedHarnessEnvironment.loader(renderResult.fixture);
+    const productCardHarness = await loader.getAllHarnesses(ProductCardHarness);
+
     return {
       renderResult,
       productsShortInfo,
+      productCardHarness,
       selectProductCommandSpy: TestBed.inject(SELECT_PRODUCT_COMMAND),
       vm$: TestBed.inject(ActivatedRoute).snapshot.data[RESOLVED_VM],
     };
