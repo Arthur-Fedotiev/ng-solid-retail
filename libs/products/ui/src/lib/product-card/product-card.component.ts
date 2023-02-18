@@ -3,7 +3,6 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { ProductShortInfo } from './product-short-info';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
@@ -12,7 +11,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
 
-  imports: [MatCardModule, MatIconModule, MatTooltipModule, FlexLayoutModule],
+  imports: [MatCardModule, MatIconModule, MatTooltipModule],
 
   template: `<mat-card class="card mat-elevation-z3" tabindex="0">
     <img
@@ -30,10 +29,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
       }}</mat-card-title>
     </mat-card-header>
     <mat-card-content
-      class="card__content"
-      fxLayout="row nowrap"
-      fxLayoutGap="2rem"
-      fxLayoutAlign="space-around center"
+      class="card__content tw-flex tw-flex-nowrap tw-gap-8 tw-justify-around tw-items-center tw-content-center"
     >
       <div>
         <p>Retailer</p>
