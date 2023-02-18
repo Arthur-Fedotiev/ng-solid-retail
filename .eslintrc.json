@@ -37,28 +37,26 @@
                 "sourceTag": "type:app",
                 "onlyDependOnLibsWithTags": [
                   "type:feature",
-                  "type:api",
+                  "type:infrastructure",
                   "type:util",
                   "type:ui",
-                  "type:domain",
-                  "type:shell",
-                  "type:environments"
+                  "type:entities",
+                  "type:shell"
                 ]
               },
               {
                 "sourceTag": "type:shell",
                 "onlyDependOnLibsWithTags": [
                   "type:feature",
-                  "type:data-access",
-                  "type:api"
+                  "type:application",
+                  "type:infrastructure"
                 ]
               },
               {
                 "sourceTag": "type:feature",
                 "onlyDependOnLibsWithTags": [
-                  "type:data-access",
+                  "type:application",
                   "type:util",
-                  "type:api",
                   "type:ui"
                 ]
               },
@@ -66,14 +64,13 @@
                 "sourceTag": "type:infrastructure",
                 "onlyDependOnLibsWithTags": [
                   "type:infrastructure",
-                  "type:domain",
-                  "type:environments",
+                  "type:entities",
                   "type:util"
                 ]
               },
               {
-                "sourceTag": "type:api",
-                "onlyDependOnLibsWithTags": ["type:data-access"]
+                "sourceTag": "type:infrastructure",
+                "onlyDependOnLibsWithTags": ["type:application"]
               },
               {
                 "sourceTag": "type:ui",

@@ -22,5 +22,5 @@
       }
     }
   },
-  "tags": ["scope:products", "type:domain"]
+  "tags": ["scope:products", "type:entities"]
 }
