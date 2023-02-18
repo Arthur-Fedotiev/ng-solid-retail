@@ -5,22 +5,23 @@ import { ProductCardComponent } from '@sr/products/ui';
 import { ListComponent } from '@sr/shared/ui-list';
 
 @Component({
-  selector: 'sr-products-list',
-  styleUrls: ['./products-list.component.scss'],
+  selector: 'sr-products-display-feature',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [ListComponent, AsyncPipe, ProductCardComponent],
-  template: `<sr-list class="products-list" [items]="products$ | async">
-    <ng-template #listItem let-product>
-      <sr-product-card
-        [product]="product"
-        class="products-list__item"
-        (click)="onClick(product.id)"
-      ></sr-product-card>
-    </ng-template>
-  </sr-list> `,
+  template: `
+    <sr-list class="products-list" [items]="products$ | async">
+      <ng-template #listItem let-product>
+        <sr-product-card
+          [product]="product"
+          class="tw-cursor-pointer"
+          (click)="onClick(product.id)"
+        ></sr-product-card>
+      </ng-template>
+    </sr-list>
+  `,
 })
-export class ProductsListComponent {
+export class ProductsDisplayFeatureComponent {
   public readonly products$ = this.productsFacade.productsShortInfo$;
 
   constructor(private readonly productsFacade: ProductsFacadeService) {}

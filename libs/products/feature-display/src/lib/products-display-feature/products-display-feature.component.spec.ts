@@ -3,19 +3,19 @@ import { ProductsFacadeService } from '@sr/products/application';
 
 import { Subject } from 'rxjs';
 
-import { ProductsListComponent } from './products-list.component';
+import { ProductsDisplayFeatureComponent } from './products-display-feature.component';
 import { Router } from '@angular/router';
 
-describe('ProductsListComponent', () => {
+describe('ProductsDisplayFeatureComponent', () => {
   const productsSelectorStub$ = new Subject();
 
-  let component: ProductsListComponent;
-  let fixture: ComponentFixture<ProductsListComponent>;
+  let component: ProductsDisplayFeatureComponent;
+  let fixture: ComponentFixture<ProductsDisplayFeatureComponent>;
   let facadeService: jest.Mocked<ProductsFacadeService>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ProductsListComponent],
+      imports: [ProductsDisplayFeatureComponent],
       providers: [
         {
           provide: ProductsFacadeService,
@@ -31,7 +31,7 @@ describe('ProductsListComponent', () => {
       ],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ProductsListComponent);
+    fixture = TestBed.createComponent(ProductsDisplayFeatureComponent);
     facadeService = TestBed.inject(
       ProductsFacadeService
     ) as jest.Mocked<ProductsFacadeService>;

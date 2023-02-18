@@ -7,7 +7,7 @@ export const PRODUCT_ROUTES: Routes = [
     path: 'display',
     loadComponent: () =>
       import('@sr/products-feature-display').then(
-        (m) => m.ProductsListComponent
+        (m) => m.ProductsDisplayFeatureComponent
       ),
   },
   {
