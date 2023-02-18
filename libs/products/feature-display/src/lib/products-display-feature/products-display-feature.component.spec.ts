@@ -5,10 +5,8 @@ import { BehaviorSubject } from 'rxjs';
 
 import { ProductsDisplayFeatureComponent } from './products-display-feature.component';
 import { ActivatedRoute } from '@angular/router';
-import { By } from '@angular/platform-browser';
-import { ProductCardComponent, ProductCardHarness } from '@sr/products/ui';
+import { ProductCardHarness } from '@sr/products/ui';
 import { RESOLVED_VM } from '@sr/shared/util';
-import { DebugElement } from '@angular/core';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 
 Object.defineProperty(window, 'matchMedia', {
@@ -99,13 +97,5 @@ describe('ProductsDisplayFeatureComponent', () => {
       price: idx,
       retailer: `product-retailer-${idx}`,
     };
-  }
-
-  function getFirstProductCard(debugEl: DebugElement) {
-    return debugEl.query(By.directive(ProductCardComponent));
-  }
-
-  function getProductCards(debugEl: DebugElement) {
-    return debugEl.queryAll(By.directive(ProductCardComponent));
   }
 });
