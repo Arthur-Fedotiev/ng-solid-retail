@@ -1,4 +1,3 @@
-import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ProductsFacadeService } from '@sr/products/application';
 import { ProductCardComponent } from '@sr/products/ui';
@@ -9,7 +8,7 @@ import { LIST_SHELL } from '@sr/shared/ui-list';
   selector: 'sr-products-display-feature',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [LIST_SHELL, AsyncPipe, LetModule, ProductCardComponent],
+  imports: [LIST_SHELL, LetModule, ProductCardComponent],
   template: `
     <sr-list *ngrxLet="products$ as products" [items]="products">
       <sr-product-card

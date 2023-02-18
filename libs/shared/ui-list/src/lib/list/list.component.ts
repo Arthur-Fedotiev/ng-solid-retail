@@ -33,19 +33,26 @@ import { ListItemDirective } from '../list-item/list-item.directive';
       fxFlex.gt-lg="15%"
     >
       <ng-container
-        *ngTemplateOutlet="listItem.template; context: { $implicit: item }"
+        *ngTemplateOutlet="
+          listItem?.template ?? itemTemplate ?? defaultTpl;
+          context: { $implicit: item }
+        "
       ></ng-container>
     </div>
+
+    <ng-template #defaultTpl let-item>
+      {{ item.toString() }}
+    </ng-template>
   </div>`,
 })
 export class ListComponent<T = unknown> {
   @Input() items!: ReadonlyArray<T> | null;
 
   @ContentChild('listItem')
-  itemTemplate!: TemplateRef<T>;
+  itemTemplate: TemplateRef<T> | null = null;
 
   @ContentChild(ListItemDirective)
-  listItem!: ListItemDirective<T>;
+  listItem: ListItemDirective<T> | null = null;
 
   constructor(
     @Inject(TRACK_BY_ID_OR_IDX) public readonly trackById: TrackByIdOrIdx

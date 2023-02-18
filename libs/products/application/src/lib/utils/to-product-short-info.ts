@@ -16,4 +16,5 @@ export const toProductShortInfo = ({
   url,
   price,
   retailer,
+  toString: () => `${name} - ${retailer} - ${price}`,
 });
