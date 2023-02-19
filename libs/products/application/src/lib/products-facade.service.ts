@@ -106,15 +106,12 @@ export class ProductsFacadeService {
       .subscribe(() => this.navigateToProductDisplayPage());
   }
 
-  public deleteSelectedProduct(id: string): void {
-    this.deleteProduct(id);
+  public deleteSelectedProduct(id: string) {
+    this.deleteProduct(id).subscribe(() => this.navigateToProductDisplayPage());
   }
 
-  private deleteProduct(id: string): void {
-    this.productsApi
-      .deleteProduct(id)
-      .pipe(take(1))
-      .subscribe(() => this.navigateToProductDisplayPage());
+  private deleteProduct(id: string) {
+    return this.productsApi.deleteProduct(id).pipe(take(1));
   }
 
   public productSelected(productId: string) {
@@ -128,10 +125,7 @@ export class ProductsFacadeService {
       .subscribe(this.updateSelectedProduct);
   }
 
-  public getCompetitorsForCategory$({
-    id,
-    name,
-  }: CategoryViewModel): Observable<RetailerViewModel[]> {
+  public getCompetitorsForCategory$({ id, name }: CategoryViewModel) {
     return this.productsApi.getCompetitorsForCategory({ id, Name: name }).pipe(
       map((retailers) => [
         ...new Map(

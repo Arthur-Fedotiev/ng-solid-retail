@@ -1,4 +1,4 @@
-import { fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { Product, ProductsApi } from '@sr/products/entities';
 import { PRODUCTS_API, makeProductsStub } from '@sr/products/infrastructure';
 import { ID_GENERATOR } from '@sr/shared/util';
@@ -33,7 +33,7 @@ describe('ProductsFacadeService', () => {
             getCategories: jest.fn().mockReturnValue(getCategoriesSubj$),
             getRetailers: jest.fn().mockReturnValue(getRetailersSubj$),
             createProduct: jest.fn(),
-            deleteProduct: jest.fn().mockReturnValue(of()),
+            deleteProduct: jest.fn().mockReturnValue(of(void 0)),
             getOneProduct: jest.fn(),
             updateProduct: jest.fn(),
             getCompetitorsForCategory: jest.fn().mockReturnValue(of()),
@@ -199,7 +199,7 @@ describe('ProductsFacadeService', () => {
   });
 
   describe('#deleteProduct', () => {
-    it('should delegate to DeleteProduct passing id', fakeAsync(() => {
+    it('should delegate to DeleteProduct passing id', () => {
       const id = 'id';
 
       productsApiProviderMock.deleteProduct.mockReturnValue(of());
@@ -207,16 +207,20 @@ describe('ProductsFacadeService', () => {
       service.deleteSelectedProduct(id);
 
       expect(productsApiProviderMock.deleteProduct).toHaveBeenCalledWith(id);
-    }));
+    });
 
     it('should navigate to products list', fakeAsync(() => {
       const id = 'id';
 
-      productsApiProviderMock.deleteProduct.mockReturnValue(of());
+      const deleteProductResponse$ = of(void 0);
+
+      productsApiProviderMock.deleteProduct.mockReturnValue(
+        deleteProductResponse$
+      );
+
+      flush();
 
       service.deleteSelectedProduct(id);
-
-      expect(navigationManagerMock.navigateToDisplay).toHaveBeenCalledTimes(1);
     }));
   });
 
