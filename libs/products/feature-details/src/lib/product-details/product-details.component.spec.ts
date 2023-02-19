@@ -4,10 +4,9 @@ import {
   CategoryEnum,
   makeProductViewModelsStub,
   PriceViewModel,
-  ProductsFacadeService,
 } from '@sr/products/application';
 import { CompetitorsDialogComponent } from '@sr/products/ui';
-import { of, Subject, BehaviorSubject } from 'rxjs';
+import { of, BehaviorSubject } from 'rxjs';
 
 import { ProductDetailsComponent } from './product-details.component';
 import {

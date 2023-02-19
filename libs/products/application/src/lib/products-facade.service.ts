@@ -1,9 +1,8 @@
-import { Inject, Injectable, inject } from '@angular/core';
-import { Product, ProductsApi } from '@sr/products/entities';
+import { Injectable, inject } from '@angular/core';
+import { Product } from '@sr/products/entities';
 import { PRODUCTS_API } from '@sr/products/infrastructure';
 import {
   BehaviorSubject,
-  defer,
   distinctUntilChanged,
   filter,
   map,
@@ -109,11 +108,13 @@ export class ProductsFacadeService {
 
   public deleteSelectedProduct(id: string): void {
     this.deleteProduct(id);
-    this.navigateToProductDisplayPage();
   }
 
   private deleteProduct(id: string): void {
-    this.productsApi.deleteProduct(id).pipe(take(1)).subscribe();
+    this.productsApi
+      .deleteProduct(id)
+      .pipe(take(1))
+      .subscribe(() => this.navigateToProductDisplayPage());
   }
 
   public productSelected(productId: string) {

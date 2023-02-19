@@ -1,5 +1,4 @@
 import { enableProdMode, importProvidersFrom } from '@angular/core';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { environment } from '@sr/shared/environments';
 import { bootstrapApplication } from '@angular/platform-browser';

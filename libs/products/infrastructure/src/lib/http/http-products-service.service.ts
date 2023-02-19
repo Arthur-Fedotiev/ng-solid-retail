@@ -59,16 +59,14 @@ export class HttpProductsService implements ProductsApi {
     return this.http.post<Price>(this.productUrls.pricesApi, price);
   }
 
-  getOneProduct(id: string): Observable<Product> {
+  getOneProduct(): Observable<Product> {
     throw new Error('Method not implemented.');
   }
-  updateProduct(product: Product): Observable<Product> {
+  updateProduct(): Observable<Product> {
     throw new Error('Method not implemented.');
   }
 
-  getCompetitorsForCategory(
-    category: Category
-  ): Observable<readonly Retailer[]> {
+  getCompetitorsForCategory(): Observable<readonly Retailer[]> {
     throw new Error('Method not implemented.');
   }
 }

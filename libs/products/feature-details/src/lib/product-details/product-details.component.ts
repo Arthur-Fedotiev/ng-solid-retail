@@ -9,7 +9,6 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import {
   CategoryViewModel,
   PriceViewModel,
-  ProductsFacadeService,
   ProductViewModel,
 } from '@sr/products/application';
 import { CompetitorsDialogComponent } from '@sr/products/ui';
