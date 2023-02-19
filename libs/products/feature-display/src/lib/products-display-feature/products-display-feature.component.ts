@@ -1,8 +1,5 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import {
-  SELECT_PRODUCT_COMMAND,
-  useProductsDisplayVm,
-} from '@sr/products/application';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { injectSelectProductCommand, injectVM } from '@sr/products/application';
 import { ProductCardComponent } from '@sr/products/ui';
 import { LetModule } from '@ngrx/component';
 import { LIST_SHELL } from '@sr/shared/ui-list';
@@ -18,12 +15,12 @@ import { LIST_SHELL } from '@sr/shared/ui-list';
         *srListItem="vm.productsShortInfo; let product"
         class="tw-cursor-pointer"
         [product]="product"
-        (click)="selectProductCommand.execute(product.id)"
+        (click)="selectProductCommand(product.id)"
       ></sr-product-card>
     </sr-list>
   `,
 })
 export class ProductsDisplayFeatureComponent {
-  protected readonly vm$ = useProductsDisplayVm();
-  protected readonly selectProductCommand = inject(SELECT_PRODUCT_COMMAND);
+  protected readonly vm$ = injectVM();
+  protected readonly selectProductCommand = injectSelectProductCommand();
 }

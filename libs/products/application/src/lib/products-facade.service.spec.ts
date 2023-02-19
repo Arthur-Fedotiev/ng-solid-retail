@@ -12,6 +12,7 @@ import { ProductsFacadeService } from './products-facade.service';
 import { TO_PRODUCT_SAVE_DTO } from './providers/to-product-save-dto.token';
 import { makeProductViewModelsStub } from './testing/make-product-view-models-stub';
 import { toProductViewModel } from './utils/to-product-view-model';
+import { ProductsNavigationManagerService } from './navigation/products-navigation-manager.service';
 
 describe('ProductsFacadeService', () => {
   const getProductsSubj$ = new Subject();
@@ -21,7 +22,7 @@ describe('ProductsFacadeService', () => {
   let service: ProductsFacadeService;
   let productsApiProviderMock: jest.Mocked<ProductsApi>;
   let toProductSaveDtoMock: jest.Mock;
-  let routerMock: jest.Mocked<Router>;
+  let navigationManagerMock: jest.Mocked<ProductsNavigationManagerService>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -48,11 +49,19 @@ describe('ProductsFacadeService', () => {
           provide: ID_GENERATOR,
           useValue: () => 'id',
         },
-        { provide: Router, useValue: { navigate: jest.fn() } },
+        {
+          provide: ProductsNavigationManagerService,
+          useValue: {
+            navigateToDisplay: jest.fn(),
+            navigateToProduct: jest.fn(),
+          },
+        },
       ],
     });
     service = TestBed.inject(ProductsFacadeService);
-    routerMock = TestBed.inject(Router) as jest.Mocked<Router>;
+    navigationManagerMock = TestBed.inject(
+      ProductsNavigationManagerService
+    ) as jest.Mocked<ProductsNavigationManagerService>;
 
     productsApiProviderMock = TestBed.inject(
       PRODUCTS_API
@@ -208,7 +217,7 @@ describe('ProductsFacadeService', () => {
 
       service.deleteSelectedProduct(id);
 
-      expect(routerMock.navigate).toHaveBeenCalledWith(['products', 'display']);
+      expect(navigationManagerMock.navigateToDisplay).toHaveBeenCalledTimes(1);
     }));
   });
 
@@ -218,10 +227,9 @@ describe('ProductsFacadeService', () => {
 
       service.productSelected(product.id);
 
-      expect(routerMock.navigate).toHaveBeenCalledWith([
-        '/products',
-        product.id,
-      ]);
+      expect(navigationManagerMock.navigateToProduct).toHaveBeenCalledWith(
+        product.id
+      );
     });
   });
 

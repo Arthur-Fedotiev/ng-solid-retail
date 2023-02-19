@@ -8,9 +8,12 @@ export const SELECT_PRODUCT_COMMAND = new InjectionToken<{
   factory: () => {
     const productsFacadeService = inject(ProductsFacadeService);
     return {
-      execute: (productId: string) => {
-        productsFacadeService.productSelected(productId);
-      },
+      execute: productsFacadeService.productSelected.bind(
+        productsFacadeService
+      ),
     };
   },
 });
+
+export const injectSelectProductCommand = () =>
+  inject(SELECT_PRODUCT_COMMAND).execute;

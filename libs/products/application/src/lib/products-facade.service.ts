@@ -1,37 +1,40 @@
-import { Inject, Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { ProductsApi, Product } from '@sr/products/entities';
+import { Inject, Injectable, inject } from '@angular/core';
+import { Product, ProductsApi } from '@sr/products/entities';
 import { PRODUCTS_API } from '@sr/products/infrastructure';
 import {
   BehaviorSubject,
+  defer,
   distinctUntilChanged,
   filter,
   map,
   Observable,
   switchAll,
   take,
-  tap,
 } from 'rxjs';
 import { CategoryViewModel } from './models/CategoryViewModel';
 import { CreateProductForm } from './models/create-product-from.interface';
 import { ProductsStateModel } from './models/products-state.model';
 import { ProductViewModel } from './models/ProductViewModel';
 import { RetailerViewModel } from './models/RetailerViewModel';
-import {
-  TO_PRODUCT_SAVE_DTO,
-  ToProductSaveDto,
-} from './providers/to-product-save-dto.token';
+import { TO_PRODUCT_SAVE_DTO } from './providers/to-product-save-dto.token';
 
 import { toCategoryViewModel } from './utils/to-category-view-model';
 import { toProductShortInfo } from './utils/to-product-short-info';
 import { toProductViewModel } from './utils/to-product-view-model';
 import { toProductsByPrice } from './utils/to-products-by-price';
 import { toRetailerViewModel } from './utils/to-retailer-view-model';
+import { ProductsNavigationManagerService } from './navigation/products-navigation-manager.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductsFacadeService {
+  private readonly productsApi = inject(PRODUCTS_API);
+  private readonly toProductSaveDto = inject(TO_PRODUCT_SAVE_DTO);
+  private readonly productsNavigationManager = inject(
+    ProductsNavigationManagerService
+  );
+
   private state = new ProductsStateModel(
     this.productsChanges$,
     this.categoriesChanges$,
@@ -75,6 +78,7 @@ export class ProductsFacadeService {
   );
 
   private get productsChanges$(): Observable<ReadonlyArray<ProductViewModel>> {
+    // debugger;
     return this.productsApi
       .getProducts()
       .pipe(map((products) => products.map(toProductViewModel)));
@@ -96,22 +100,11 @@ export class ProductsFacadeService {
       .pipe(map((retailers) => retailers.map(toRetailerViewModel)));
   }
 
-  constructor(
-    @Inject(PRODUCTS_API)
-    private readonly productsApi: ProductsApi,
-    @Inject(TO_PRODUCT_SAVE_DTO)
-    private readonly toProductSaveDto: ToProductSaveDto,
-    private readonly router: Router
-  ) {}
-
   public createProduct(createProductFormValue: CreateProductForm): void {
     this.productsApi
       .createProduct(this.toProductSaveDto(createProductFormValue))
-      .pipe(
-        tap(() => this.navigateToProductDisplayPage()),
-        take(1)
-      )
-      .subscribe();
+      .pipe(take(1))
+      .subscribe(() => this.navigateToProductDisplayPage());
   }
 
   public deleteSelectedProduct(id: string): void {
@@ -124,14 +117,14 @@ export class ProductsFacadeService {
   }
 
   public productSelected(productId: string) {
-    this.navigateToProductPage(productId);
+    this.productsNavigationManager.navigateToProduct(productId);
   }
 
   public selectedProductUpdate(product: ProductViewModel) {
     this.productsApi
       .updateProduct(this.toProductSaveDto(product))
-      .pipe(tap(this.updateSelectedProduct), take(1))
-      .subscribe();
+      .pipe(take(1))
+      .subscribe(this.updateSelectedProduct);
   }
 
   public getCompetitorsForCategory$({
@@ -152,8 +145,8 @@ export class ProductsFacadeService {
   public loadProduct(id: string) {
     this.productsApi
       .getOneProduct(id)
-      .pipe(tap(this.updateSelectedProduct), take(1))
-      .subscribe();
+      .pipe(take(1))
+      .subscribe(this.updateSelectedProduct);
   }
 
   public releaseSelectedProduct(): void {
@@ -174,11 +167,7 @@ export class ProductsFacadeService {
     );
   };
 
-  private navigateToProductPage(productId: string): void {
-    this.router.navigate(['/products', productId]);
-  }
-
   private navigateToProductDisplayPage(): void {
-    this.router.navigate(['products', 'display']);
+    this.productsNavigationManager.navigateToDisplay();
   }
 }

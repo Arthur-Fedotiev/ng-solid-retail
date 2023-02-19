@@ -20,7 +20,7 @@ export class ProductsDisplayResolver
   }
 }
 
-export const useProductsDisplayVm = () =>
+export const injectVM = () =>
   inject(ActivatedRoute).snapshot.data[
     RESOLVED_VM
   ] as Observable<ProductsDisplayVm>;
