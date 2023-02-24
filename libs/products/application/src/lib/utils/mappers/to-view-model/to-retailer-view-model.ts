@@ -1,5 +1,5 @@
 import { Retailer } from '@sr/products/entities';
-import { RetailerViewModel } from '../models/retailer.view-model';
+import { RetailerViewModel } from '../../../models';
 
 export const toRetailerViewModel = (
   { id, Name }: Retailer = {} as Retailer

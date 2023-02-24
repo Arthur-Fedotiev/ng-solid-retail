@@ -1,4 +1,4 @@
-import { CategoryEnum } from '../constants/category.enum';
+import { CategoryEnum } from '../../../constants/category.enum';
 import { toCategoryViewModel } from './to-category-view-model';
 
 const testCases = [

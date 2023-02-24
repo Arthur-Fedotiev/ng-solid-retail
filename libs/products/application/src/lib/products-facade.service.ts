@@ -19,7 +19,7 @@ import {
   toProductViewModel,
   toProductsByPrice,
   toRetailerViewModel,
-} from './utils';
+} from './utils/mappers/to-view-model';
 import { ProductsNavigationManagerService } from './navigation/products-navigation-manager.service';
 import {
   CategoryViewModel,
@@ -82,7 +82,6 @@ export class ProductsFacadeService {
   );
 
   private get productsChanges$(): Observable<ReadonlyArray<ProductViewModel>> {
-    // debugger;
     return this.productsApi
       .getProducts()
       .pipe(map((products) => products.map(toProductViewModel)));

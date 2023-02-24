@@ -1,6 +1,5 @@
 import { makeProductsStub } from '@sr/products/infrastructure';
-import { ProductViewModel } from '../..';
-import { toProductViewModel } from '../utils/to-product-view-model';
+import { ProductViewModel, toProductViewModel } from '../..';
 
 export const makeProductViewModelsStub = (
   count: number = 3

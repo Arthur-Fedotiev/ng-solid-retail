@@ -1,4 +1,4 @@
-import { ProductByPrice } from '../models/product-by-price.type';
+import { ProductByPrice } from '../../../models';
 
 export const toProductShortInfo = ({
   id,

@@ -1,6 +1,6 @@
 import { toISOStringWithTimezone } from '@sr/shared/util';
-import { CreateProductForm } from '../../models/create-product-from.interface';
-import { ProductViewModel } from '../../models/product.view-model';
+import { CreateProductForm } from '../../../models/create-product-from.interface';
+import { ProductViewModel } from '../../../models/product.view-model';
 import { getSaveProductDto } from './get-product-save-dto';
 
 describe('getProductPostDto', () => {

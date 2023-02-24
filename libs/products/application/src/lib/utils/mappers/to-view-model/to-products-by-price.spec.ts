@@ -1,4 +1,4 @@
-import { makeProductViewModelsStub } from '../testing/make-product-view-models-stub';
+import { makeProductViewModelsStub } from '../../../testing/make-product-view-models-stub';
 import { toProductsByPrice } from './to-products-by-price';
 
 describe('#toProductsByPrice', () => {

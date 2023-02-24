@@ -1,5 +1,4 @@
-import { ProductByPrice } from '../models/product-by-price.type';
-import { ProductViewModel } from '../models/product.view-model';
+import { ProductByPrice, ProductViewModel } from '../../../models';
 
 export const toProductsByPrice = (
   acc: ReadonlyArray<ProductByPrice>,

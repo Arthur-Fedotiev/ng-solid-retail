@@ -1,7 +1,7 @@
 import { IdGenerator, toISOStringWithTimezone } from '@sr/shared/util';
-import { CreateProductForm } from '../../models/create-product-from.interface';
-import { PriceViewModel } from '../../models/price.view-model';
-import { ProductViewModel } from '../../models/product.view-model';
+import { CreateProductForm } from '../../../models/create-product-from.interface';
+import { PriceViewModel } from '../../../models/price.view-model';
+import { ProductViewModel } from '../../../models/product.view-model';
 
 const isProductViewModel = (
   product: ProductViewModel | CreateProductForm

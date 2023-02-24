@@ -1,13 +1,8 @@
-export { ProductsStateModel } from './lib/models/products-state.model';
-export { ProductViewModel } from './lib/models/product.view-model';
-export { PriceViewModel } from './lib/models/price.view-model';
-export { ProductsFacadeService } from './lib/products-facade.service';
-export { toProductViewModel } from './lib/utils/to-product-view-model';
+export { toProductViewModel } from './lib/utils/mappers/to-view-model/to-product-view-model';
 export { makeProductViewModelsStub } from './lib/testing/make-product-view-models-stub';
-export { CreateProductForm } from './lib/models/create-product-from.interface';
+export { ProductsFacadeService } from './lib/products-facade.service';
 export { ProductDetailsResolver } from './lib/resolvers/product-details.resolver';
-export { RetailerViewModel } from './lib/models/retailer.view-model';
-export { CategoryViewModel } from './lib/models/category.view-model';
 export { CategoryEnum } from './lib/constants/category.enum';
+export * from './lib/models';
 export * from './lib/resolvers/products-display.resolver';
 export * from './lib/cqrs/select-product.command';

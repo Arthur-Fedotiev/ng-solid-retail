@@ -1,9 +1,8 @@
 import { inject, InjectionToken } from '@angular/core';
 import { Product } from '@sr/products/entities';
 import { ID_GENERATOR } from '@sr/shared/util';
-import { CreateProductForm } from '../models/create-product-from.interface';
-import { ProductViewModel } from '../models/product.view-model';
-import { getSaveProductDto } from '../utils/to-dto-mappers/get-product-save-dto';
+import { CreateProductForm, ProductViewModel } from '../models';
+import { getSaveProductDto } from '../utils/mappers/to-dto/get-product-save-dto';
 
 export interface ToProductSaveDto {
   (product: ProductViewModel | CreateProductForm): Product;

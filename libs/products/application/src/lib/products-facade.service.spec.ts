@@ -10,7 +10,7 @@ import { ProductViewModel } from './models/product.view-model';
 import { ProductsFacadeService } from './products-facade.service';
 import { TO_PRODUCT_SAVE_DTO } from './providers/to-product-save-dto.token';
 import { makeProductViewModelsStub } from './testing/make-product-view-models-stub';
-import { toProductViewModel } from './utils/to-product-view-model';
+import { toProductViewModel } from './utils/mappers/to-view-model';
 import { ProductsNavigationManagerService } from './navigation/products-navigation-manager.service';
 
 describe('ProductsFacadeService', () => {

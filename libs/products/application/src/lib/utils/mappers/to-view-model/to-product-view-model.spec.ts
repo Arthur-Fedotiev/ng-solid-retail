@@ -1,6 +1,6 @@
 import { makeProductsStub } from '@sr/products/infrastructure';
-import { ProductViewModel } from '../..';
 import { toProductViewModel } from './to-product-view-model';
+import { ProductViewModel } from '../../../models';
 
 describe('#toProductViewModel', () => {
   it('should return a ProductViewModel', () => {

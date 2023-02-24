@@ -1,4 +1,4 @@
-import { RetailerViewModel } from '../models/retailer.view-model';
+import { RetailerViewModel } from '../../../models';
 import { toRetailerViewModel } from './to-retailer-view-model';
 
 describe('toRetailerViewModel', () => {
