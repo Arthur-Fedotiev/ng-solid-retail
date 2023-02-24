@@ -1,6 +1,6 @@
 import { Category } from '@sr/products/entities';
 import { CategoryEnum } from '../constants/category.enum';
-import { CategoryViewModel } from '../models/CategoryViewModel';
+import { CategoryViewModel } from '../models/category.view-model';
 
 export const toCategoryViewModel = ({
   id,

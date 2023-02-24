@@ -1,5 +1,5 @@
 import { Price } from '@sr/products/entities';
-import { RetailerViewModel } from './RetailerViewModel';
+import { RetailerViewModel } from './retailer.view-model';
 
 export class PriceViewModel {
   constructor(

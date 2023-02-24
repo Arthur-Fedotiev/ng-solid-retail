@@ -1,7 +1,7 @@
 import { Product } from '@sr/products/entities';
 import { CategoryEnum } from '../constants/category.enum';
-import { PriceViewModel } from './PriceViewModel';
-import { CategoryViewModel } from './CategoryViewModel';
+import { PriceViewModel } from './price.view-model';
+import { CategoryViewModel } from './category.view-model';
 
 export class ProductViewModel {
   constructor(

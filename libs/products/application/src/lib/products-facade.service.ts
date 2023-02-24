@@ -10,19 +10,24 @@ import {
   switchAll,
   take,
 } from 'rxjs';
-import { CategoryViewModel } from './models/CategoryViewModel';
-import { CreateProductForm } from './models/create-product-from.interface';
-import { ProductsStateModel } from './models/products-state.model';
-import { ProductViewModel } from './models/ProductViewModel';
-import { RetailerViewModel } from './models/RetailerViewModel';
+
 import { TO_PRODUCT_SAVE_DTO } from './providers/to-product-save-dto.token';
 
-import { toCategoryViewModel } from './utils/to-category-view-model';
-import { toProductShortInfo } from './utils/to-product-short-info';
-import { toProductViewModel } from './utils/to-product-view-model';
-import { toProductsByPrice } from './utils/to-products-by-price';
-import { toRetailerViewModel } from './utils/to-retailer-view-model';
+import {
+  toCategoryViewModel,
+  toProductShortInfo,
+  toProductViewModel,
+  toProductsByPrice,
+  toRetailerViewModel,
+} from './utils';
 import { ProductsNavigationManagerService } from './navigation/products-navigation-manager.service';
+import {
+  CategoryViewModel,
+  CreateProductForm,
+  ProductViewModel,
+  ProductsStateModel,
+  RetailerViewModel,
+} from './models';
 
 @Injectable({
   providedIn: 'root',

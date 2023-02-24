@@ -5,7 +5,7 @@ import { ID_GENERATOR } from '@sr/shared/util';
 import { asyncScheduler, of, scheduled, Subject } from 'rxjs';
 import { CategoryEnum } from './constants/category.enum';
 import { ProductsStateModel } from './models/products-state.model';
-import { ProductViewModel } from './models/ProductViewModel';
+import { ProductViewModel } from './models/product.view-model';
 
 import { ProductsFacadeService } from './products-facade.service';
 import { TO_PRODUCT_SAVE_DTO } from './providers/to-product-save-dto.token';

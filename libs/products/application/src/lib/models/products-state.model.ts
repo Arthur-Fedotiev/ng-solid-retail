@@ -1,7 +1,7 @@
 import { EMPTY, Observable } from 'rxjs';
-import { CategoryViewModel } from './CategoryViewModel';
-import { ProductViewModel } from './ProductViewModel';
-import { RetailerViewModel } from './RetailerViewModel';
+import { CategoryViewModel } from './category.view-model';
+import { ProductViewModel } from './product.view-model';
+import { RetailerViewModel } from './retailer.view-model';
 
 export class ProductsStateModel {
   public readonly selectedProduct: ProductViewModel | null = null;
