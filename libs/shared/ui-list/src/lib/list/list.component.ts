@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { NgFor, NgTemplateOutlet } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -7,30 +7,20 @@ import {
   Input,
   TemplateRef,
 } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { TRACK_BY_ID_OR_IDX, TrackByIdOrIdx } from '@sr/shared/util';
 import { ListItemDirective } from '../list-item/list-item.directive';
 
 @Component({
   selector: 'sr-list',
-  styleUrls: ['./list.component.scss'],
   standalone: true,
-  imports: [CommonModule, FlexLayoutModule],
+  imports: [NgFor, NgTemplateOutlet],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `<div
-    class="list"
-    fxLayout="row wrap"
-    fxLayoutGap.gt-sm="2rem"
-    fxLayoutAlign="center center"
+  template: ` <div
+    class="tw-flex tw-flex-wrap tw-justify-center tw-items-center tw-gap-8 tw-sm:gap-1"
   >
     <div
       *ngFor="let item of items; trackBy: $any(trackById)"
-      class="list__item"
-      fxFlex="90%"
-      fxFlex.gt-xs="75%"
-      fxFlex.gt-sm="30%"
-      fxFlex.gt-md="20%"
-      fxFlex.gt-lg="15%"
+      class="tw-w-11/12 sm:tw-w-3/4 md:tw-w-1/3 xl:tw-w-1/5"
     >
       <ng-container
         *ngTemplateOutlet="
