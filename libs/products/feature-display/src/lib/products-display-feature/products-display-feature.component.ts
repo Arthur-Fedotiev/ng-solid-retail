@@ -10,7 +10,7 @@ import { LIST_SHELL } from '@sr/shared/ui-list';
   standalone: true,
   imports: [LIST_SHELL, LetModule, ProductCardComponent],
   template: `
-    ><sr-list *ngrxLet="vm$ as vm" [items]="vm.productsShortInfo">
+    <sr-list *ngrxLet="vm$ as vm" [items]="vm.productsShortInfo">
       <sr-product-card
         *srListItem="vm.productsShortInfo; let product"
         class="tw-cursor-pointer"
