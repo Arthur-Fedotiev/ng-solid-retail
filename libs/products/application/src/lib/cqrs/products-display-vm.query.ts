@@ -18,7 +18,7 @@ export const PRODUCTS_DISPLAY_VM_QUERY = new InjectionToken<{
 });
 
 export interface ProductsDisplayVm {
-  readonly productsShortInfo: ProductShortInfo[];
+  readonly productsShortInfo: readonly ProductShortInfo[];
 }
 
 export interface ProductShortInfo {

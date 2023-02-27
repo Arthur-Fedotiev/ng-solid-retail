@@ -1,5 +1,5 @@
-import { Category } from './Category';
-import { Price } from './Price';
+import { Category } from './category';
+import { Price } from './price';
 
 export class Product {
   public readonly id: string;

@@ -8,7 +8,7 @@ import {
 } from '@sr/products/entities';
 import { convertOneSnap, convertSnaps } from '@sr/shared/util';
 import firebase from 'firebase/compat/app';
-import { first, from, map, mapTo, Observable, pipe, take } from 'rxjs';
+import { first, from, map, Observable, pipe, take } from 'rxjs';
 import { ProductCollectionsEnum } from './product-collections.enum';
 
 @Injectable({
@@ -62,7 +62,11 @@ export class FirestoreProductsApiService implements ProductsApi {
   public createProduct(product: Product): Observable<Product> {
     const id = product.id;
 
-    const toFirstProduct = () => pipe(first(), mapTo(product));
+    const toFirstProduct = () =>
+      pipe(
+        first(),
+        map(() => product)
+      );
 
     const product$ = id
       ? from(
@@ -84,7 +88,7 @@ export class FirestoreProductsApiService implements ProductsApi {
       this.afs
         .doc<Product>(`${ProductCollectionsEnum.Products}/${product.id}`)
         .update(product)
-    ).pipe(mapTo(product));
+    ).pipe(map(() => product));
   }
 
   public getRetailers(): Observable<readonly Retailer[]> {

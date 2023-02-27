@@ -1,1 +1,3 @@
-export const RESOLVED_VM = 'vm$';
+export enum ResolvedDataKeys {
+  ViewModel = 'vm$',
+}

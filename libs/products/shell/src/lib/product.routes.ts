@@ -3,7 +3,7 @@ import {
   ProductDetailsResolver,
   ProductsDisplayResolver,
 } from '@sr/products/application';
-import { RESOLVED_VM } from '@sr/shared/util';
+import { ResolvedDataKeys } from '@sr/shared/util';
 
 export const PRODUCT_ROUTES: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'display' },
@@ -14,7 +14,7 @@ export const PRODUCT_ROUTES: Routes = [
         (m) => m.ProductsDisplayFeatureComponent
       ),
     resolve: {
-      [RESOLVED_VM]: ProductsDisplayResolver,
+      [ResolvedDataKeys.ViewModel]: ProductsDisplayResolver,
     },
   },
   {

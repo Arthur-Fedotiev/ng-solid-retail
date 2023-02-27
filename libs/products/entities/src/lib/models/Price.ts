@@ -1,4 +1,4 @@
-import { Retailer } from './Retailer';
+import { Retailer } from './retailer';
 
 export interface Price {
   id: string;
