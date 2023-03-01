@@ -3,11 +3,11 @@ import {
   ChangeDetectionStrategy,
   Component,
   ContentChild,
-  Inject,
   Input,
   TemplateRef,
+  inject,
 } from '@angular/core';
-import { TRACK_BY_ID_OR_IDX, TrackByIdOrIdx } from '@sr/shared/util';
+import { TRACK_BY_ID_OR_IDX, WithId } from '@sr/shared/util';
 import { ListItemDirective } from '../list-item/list-item.directive';
 
 @Component({
@@ -15,11 +15,11 @@ import { ListItemDirective } from '../list-item/list-item.directive';
   standalone: true,
   imports: [NgFor, NgTemplateOutlet],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: ` <div
+  template: `<div
     class="tw-flex tw-flex-wrap tw-justify-center tw-items-center tw-gap-8 tw-sm:gap-1"
   >
     <div
-      *ngFor="let item of items; trackBy: $any(trackById)"
+      *ngFor="let item of items; trackBy: trackById"
       class="tw-w-11/12 sm:tw-w-3/4 md:tw-w-1/3 xl:tw-w-1/5"
     >
       <ng-container
@@ -35,16 +35,14 @@ import { ListItemDirective } from '../list-item/list-item.directive';
     </ng-template>
   </div>`,
 })
-export class ListComponent<T = unknown> {
-  @Input() items!: ReadonlyArray<T> | null;
+export class ListComponent<T extends WithId<unknown>> {
+  @Input() items: ReadonlyArray<T> = [];
 
   @ContentChild('listItem')
-  itemTemplate: TemplateRef<T> | null = null;
+  protected readonly itemTemplate: TemplateRef<T> | null = null;
 
   @ContentChild(ListItemDirective)
-  listItem: ListItemDirective<T> | null = null;
+  protected readonly listItem: ListItemDirective<T> | null = null;
 
-  constructor(
-    @Inject(TRACK_BY_ID_OR_IDX) public readonly trackById: TrackByIdOrIdx
-  ) {}
+  protected readonly trackById = inject(TRACK_BY_ID_OR_IDX);
 }
