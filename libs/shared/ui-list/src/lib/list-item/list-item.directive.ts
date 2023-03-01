@@ -5,7 +5,7 @@ import { Directive, Input, TemplateRef, inject } from '@angular/core';
   standalone: true,
 })
 export class ListItemDirective<T = unknown> {
-  @Input() srListItem: T[] | '' = '';
+  @Input() srListItem: readonly T[] | T[] | '' = '';
 
   readonly template = inject(TemplateRef);
 

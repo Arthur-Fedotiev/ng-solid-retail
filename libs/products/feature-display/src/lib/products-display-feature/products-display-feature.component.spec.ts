@@ -6,7 +6,7 @@ import { BehaviorSubject } from 'rxjs';
 import { ProductsDisplayFeatureComponent } from './products-display-feature.component';
 import { ActivatedRoute } from '@angular/router';
 import { ProductCardHarness } from '@sr/products/ui';
-import { RESOLVED_VM } from '@sr/shared/util';
+import { ResolvedDataKeys } from '@sr/shared/util';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 
 Object.defineProperty(window, 'matchMedia', {
@@ -80,7 +80,9 @@ describe('ProductsDisplayFeatureComponent', () => {
       productsShortInfo,
       productCardHarness,
       selectProductCommandSpy: TestBed.inject(SELECT_PRODUCT_COMMAND),
-      vm$: TestBed.inject(ActivatedRoute).snapshot.data[RESOLVED_VM],
+      vm$: TestBed.inject(ActivatedRoute).snapshot.data[
+        ResolvedDataKeys.ViewModel
+      ],
     };
   }
 
