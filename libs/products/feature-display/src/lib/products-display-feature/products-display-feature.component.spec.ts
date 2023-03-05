@@ -87,7 +87,9 @@ describe('ProductsDisplayFeatureComponent', () => {
   }
 
   function createProductsStub() {
-    return Array.from({ length: 3 }, (_, idx) => createProductStub(idx));
+    return Array.from({ length: 3 }, (_: unknown, idx: number) =>
+      createProductStub(idx)
+    );
   }
 
   function createProductStub(idx: number) {

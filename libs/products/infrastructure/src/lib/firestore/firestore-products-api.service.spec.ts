@@ -5,6 +5,7 @@ import { makeProductsStub } from '../testing/make-products-stub';
 import { makeCollectionStub } from './testing/make-collection-stub';
 import { FirestoreProductsApiService } from './firestore-products-api.service';
 import { makeDocStub } from './testing/make-doc-stub';
+import { Price } from '@sr/products/entities';
 
 export class AngularFirestoreMock {
   collectionGetMock = jest.fn().mockReturnValue(of());
@@ -127,7 +128,7 @@ describe('FirestoreProductsApiService', () => {
 
     it('should return retailers', fakeAsync(() => {
       const retailersStub = makeProductsStub(3).filter((product) =>
-        product.Prices.map((price) => price.Retailer)
+        product.Prices.map((price: Price) => price.Retailer)
       );
 
       afsMock.collectionValueChangesMock.mockReturnValueOnce(of(retailersStub));
