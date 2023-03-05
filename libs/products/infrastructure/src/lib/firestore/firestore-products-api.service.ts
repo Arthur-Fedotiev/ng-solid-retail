@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import {
   Category,
+  Price,
   Product,
   ProductsApi,
   Retailer,
@@ -53,7 +54,9 @@ export class FirestoreProductsApiService implements ProductsApi {
       map(convertSnaps),
       map((products) =>
         products
-          .map((product) => product.Prices.map((price) => price.Retailer))
+          .map((product) =>
+            product.Prices.map((price: Price) => price.Retailer)
+          )
           .flat(1)
       )
     );
