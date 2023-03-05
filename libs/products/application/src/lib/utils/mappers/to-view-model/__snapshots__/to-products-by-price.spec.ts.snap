@@ -1,73 +1,73 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`#toProductsByPrice should return a ProductByPrice 1`] = `
-Array [
-  Object {
+[
+  {
     "id": "0",
     "name": "Product 0",
-    "price": Object {
+    "price": {
       "price": 0,
-      "retailer": Object {
+      "retailer": {
         "name": "Retailer 1",
       },
     },
     "sku": "12345",
     "url": "Product 0 url",
   },
-  Object {
+  {
     "id": "0",
     "name": "Product 0",
-    "price": Object {
+    "price": {
       "price": 0,
-      "retailer": Object {
+      "retailer": {
         "name": "Retailer 2",
       },
     },
     "sku": "12345",
     "url": "Product 0 url",
   },
-  Object {
+  {
     "id": "0",
     "name": "Product 0",
-    "price": Object {
+    "price": {
       "price": 0,
-      "retailer": Object {
+      "retailer": {
         "name": "Retailer 3",
       },
     },
     "sku": "12345",
     "url": "Product 0 url",
   },
-  Object {
+  {
     "id": "1",
     "name": "Product 1",
-    "price": Object {
+    "price": {
       "price": 1,
-      "retailer": Object {
+      "retailer": {
         "name": "Retailer 1",
       },
     },
     "sku": "12345",
     "url": "Product 1 url",
   },
-  Object {
+  {
     "id": "1",
     "name": "Product 1",
-    "price": Object {
+    "price": {
       "price": 2,
-      "retailer": Object {
+      "retailer": {
         "name": "Retailer 2",
       },
     },
     "sku": "12345",
     "url": "Product 1 url",
   },
-  Object {
+  {
     "id": "1",
     "name": "Product 1",
-    "price": Object {
+    "price": {
       "price": 3,
-      "retailer": Object {
+      "retailer": {
         "name": "Retailer 3",
       },
     },
