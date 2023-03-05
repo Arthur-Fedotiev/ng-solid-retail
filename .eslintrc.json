@@ -86,6 +86,7 @@
                 "onlyDependOnLibsWithTags": [
                   "type:feature",
                   "type:application",
+                  "type:shell",
                   "type:infrastructure",
                   "type:util"
                 ]
