@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { Category, Product, Retailer } from '../..';
+import { Category, Product, Retailer } from '../models';
 
 export interface ProductsApi {
   getProducts(): Observable<ReadonlyArray<Product>>;
