@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+  inject,
+} from '@angular/core';
 import {
   FormArray,
   NonNullableFormBuilder,
@@ -17,8 +23,19 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
-import { NgFor } from '@angular/common';
+import { JsonPipe, NgFor, NgIf } from '@angular/common';
+import { map, tap } from 'rxjs';
+import { CategoryEnum } from '@sr/products/application';
+import { FormGroup } from '@angular/forms';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import {
+  SHOES_AND_CLOTHING_COLORS,
+  SMARTPHONES_COLORS,
+  FURNITURE_COLORS,
+  Color,
+} from './constants/colors';
 
+@UntilDestroy()
 @Component({
   selector: 'sr-create-product',
   templateUrl: './create-product.component.html',
@@ -26,6 +43,8 @@ import { NgFor } from '@angular/common';
   standalone: true,
   imports: [
     NgFor,
+    NgIf,
+    JsonPipe,
     FlexLayoutModule,
     ReactiveFormsModule,
     LetModule,
@@ -37,10 +56,11 @@ import { NgFor } from '@angular/common';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CreateProductComponent {
+export class CreateProductComponent implements OnInit {
   private readonly createProductCommand = inject(CREATE_PRODUCT_COMMAND);
   private readonly fb = inject(NonNullableFormBuilder);
 
+  protected readonly Categories = CategoryEnum;
   public readonly vm$ = inject(CREATE_PRODUCT_VM_QUERY).get();
 
   public readonly trackById = inject(TRACK_BY_ID_OR_IDX);
@@ -55,12 +75,73 @@ export class CreateProductComponent {
       [Validators.required, Validators.minLength(3), Validators.maxLength(50)],
     ],
     url: ['', [Validators.required, Validators.maxLength(150)]],
-    category: [{ name: '', id: '' }, Validators.required],
+    category: [{ name: '' as CategoryEnum, id: '' }, Validators.required],
+    specifications: this.fb.array<FormGroup<any>>([]),
     prices: this.fb.array([this.priceFormGroup], [validateSize(1)]),
   });
 
+  private readonly specifications$ =
+    this.productForm.controls.category.valueChanges.pipe(
+      map(({ name }) => name),
+      tap((category) => {
+        (this.productForm.controls.specifications as FormArray).clear();
+        switch (category) {
+          case CategoryEnum.Books:
+            this.productForm.controls.specifications.push(
+              this.fb.group({
+                cover: [null, Validators.required],
+              })
+            );
+            break;
+          case CategoryEnum.Shoes:
+          case CategoryEnum.Clothing:
+            this.productForm.controls.specifications.push(
+              this.fb.group({
+                size: [null, Validators.required],
+                color: [null, Validators.required],
+              })
+            );
+            break;
+          case CategoryEnum.Smartphones:
+            this.productForm.controls.specifications.push(
+              this.fb.group({
+                color: [null, Validators.required],
+              })
+            );
+            break;
+          case CategoryEnum.Furniture:
+            this.productForm.controls.specifications.push(
+              this.fb.group({
+                color: [null, Validators.required],
+                material: [null, Validators.required],
+              })
+            );
+            break;
+        }
+      }),
+      untilDestroyed(this)
+    );
+
   get prices(): FormArray {
     return this.productForm.controls['prices'] as FormArray;
+  }
+
+  ngOnInit(): void {
+    this.specifications$.subscribe();
+  }
+
+  public getColors(category: CategoryEnum): readonly Color[] {
+    switch (category) {
+      case CategoryEnum.Shoes:
+      case CategoryEnum.Clothing:
+        return SHOES_AND_CLOTHING_COLORS;
+      case CategoryEnum.Smartphones:
+        return SMARTPHONES_COLORS;
+      case CategoryEnum.Furniture:
+        return FURNITURE_COLORS;
+      default:
+        throw new Error('Invalid category');
+    }
   }
 
   public onSave(): void {
