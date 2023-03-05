@@ -28,11 +28,10 @@
       </mat-form-field>
 
       <mat-form-field appearance="outline">
-        <mat-label>Categories</mat-label>
+        <mat-label>Category</mat-label>
         <mat-select
-          multiple
           placeholder="Select Product Categories"
-          formControlName="categories"
+          formControlName="category"
         >
           <mat-option
             *ngFor="let category of vm.categories; trackBy: trackById"

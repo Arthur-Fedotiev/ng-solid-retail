@@ -3,7 +3,7 @@ export interface CreateProductForm {
   sku: string;
   description: string;
   url: string;
-  categories: ReadonlyArray<{ id: string; name: string }>;
+  category: { id: string; name: string };
   prices: ReadonlyArray<{
     price: number;
     tier: number;

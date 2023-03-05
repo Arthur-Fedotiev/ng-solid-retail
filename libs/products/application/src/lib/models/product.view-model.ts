@@ -1,4 +1,4 @@
-import { Category, Price, Product } from '@sr/products/entities';
+import { Price, Product } from '@sr/products/entities';
 import { CategoryEnum } from '../constants/category.enum';
 import { PriceViewModel } from './price.view-model';
 import { CategoryViewModel } from './category.view-model';
@@ -11,9 +11,9 @@ export class ProductViewModel {
     public readonly description: string = dto.Description,
     public readonly sku: string = dto.SKU,
     public readonly url: string = dto.Url,
-    public readonly categories: ReadonlyArray<CategoryViewModel> = dto.Categories.map(
-      ({ id, Name }: Category) =>
-        new CategoryViewModel(id as string, Name as CategoryEnum)
+    public readonly category: CategoryViewModel = new CategoryViewModel(
+      dto.Category.id as string,
+      dto.Category.Name as CategoryEnum
     ),
     public readonly prices: ReadonlyArray<PriceViewModel> = dto.Prices.map(
       (price: Price) => new PriceViewModel(price)

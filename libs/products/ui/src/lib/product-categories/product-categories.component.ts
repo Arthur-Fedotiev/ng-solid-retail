@@ -17,15 +17,9 @@ import { NgFor } from '@angular/common';
   standalone: true,
   imports: [MatChipsModule, NgFor],
   template: `
-    <h3 class="mat-title">Categories</h3>
+    <h3 class="mat-title">Category</h3>
     <mat-chip-set aria-label="Book categories">
       <mat-chip
-        *ngFor="
-          let category of categories;
-          even as even;
-          index as i;
-          trackBy: trackById
-        "
         class="product-card__category subheading-2"
         matTooltip="Show competitors for category"
         aria-label="Show competitors for category"
@@ -38,16 +32,16 @@ import { NgFor } from '@angular/common';
   `,
 })
 export class ProductCategoriesComponent<
-  T extends readonly { id: string; name: string }[]
+  T extends { id: string; name: string }
 > {
-  @Input() categories!: T;
-  @Output() categorySelected = new EventEmitter<T[number]>();
+  @Input() category!: T;
+  @Output() categorySelected = new EventEmitter<T>();
 
   constructor(
     @Inject(TRACK_BY_ID_OR_IDX) public readonly trackById: TrackByIdOrIdx
   ) {}
 
-  public onCategorySelected(category: T[number]): void {
+  public onCategorySelected(category: T): void {
     this.categorySelected.emit(category);
   }
 }

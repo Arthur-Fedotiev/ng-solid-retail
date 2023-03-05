@@ -60,7 +60,7 @@ describe('CreateProductComponent', () => {
         description: '',
         sku: '',
         url: '',
-        categories: [{ name: '', id: '' }],
+        category: { name: '', id: '' },
         prices: [{ tier: 1, price: 0, retailer: [null] }],
       };
 
@@ -102,7 +102,7 @@ describe('CreateProductComponent', () => {
         description: '',
         sku: '',
         url: '',
-        categories: [{ name: '', id: '' }],
+        category: { name: '', id: '' },
         prices: [{ tier: 1, price: 0, retailer: { name: '', id: '' } }],
       };
       component.productForm.setValue(expectedProduct);

@@ -55,7 +55,7 @@ export class CreateProductComponent {
       [Validators.required, Validators.minLength(3), Validators.maxLength(50)],
     ],
     url: ['', [Validators.required, Validators.maxLength(150)]],
-    categories: [[{ name: '', id: '' }], Validators.required],
+    category: [{ name: '', id: '' }, Validators.required],
     prices: this.fb.array([this.priceFormGroup], [validateSize(1)]),
   });
 

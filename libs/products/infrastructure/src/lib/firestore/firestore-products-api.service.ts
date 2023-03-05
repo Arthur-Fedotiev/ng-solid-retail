@@ -48,7 +48,7 @@ export class FirestoreProductsApiService implements ProductsApi {
     return from(
       this.afs
         .collection<Product>(`${ProductCollectionsEnum.Products}`)
-        .ref.where('Categories', 'array-contains', category)
+        .ref.where('Category.id', '==', category.id)
         .get()
     ).pipe(
       map(convertSnaps),

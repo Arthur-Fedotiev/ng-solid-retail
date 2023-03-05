@@ -10,7 +10,7 @@ describe('getProductPostDto', () => {
       name: 'Product 1',
       sku: 'skU',
       description: 'Description 1',
-      categories: [{ id: '1', name: 'Category 1' }],
+      category: { id: '1', name: 'Category 1' },
       prices: [{ price: 100, tier: 1, retailer: { Name: 'Retailer 1' } }],
     } as unknown as CreateProductForm;
 
@@ -21,10 +21,10 @@ describe('getProductPostDto', () => {
       Name: product.name,
       SKU: product.sku.toUpperCase(),
       Description: product.description,
-      Categories: product.categories.map((category) => ({
-        id: category.id,
-        Name: category.name,
-      })),
+      Category: {
+        id: product.category.id,
+        Name: product.category.name,
+      },
       Prices: product.prices.map((price) => ({
         id: expectedId,
         productId: expectedId,
@@ -46,7 +46,7 @@ describe('getProductPostDto', () => {
       sku: 'skU',
       description: 'Description 1',
       url: 'http://example.com',
-      categories: [{ id: '1', name: 'Category 1' }],
+      category: { id: '1', name: 'Category 1' },
       prices: [
         {
           updateTime: '2020-01-01T00:00:00.000Z',
@@ -65,10 +65,10 @@ describe('getProductPostDto', () => {
       Name: product.name,
       SKU: product.sku.toUpperCase(),
       Description: product.description,
-      Categories: product.categories.map((category) => ({
-        id: category.id,
-        Name: category.name,
-      })),
+      Category: {
+        id: product.category.id,
+        Name: product.category.name,
+      },
       Url: product.url,
       Prices: product.prices.map((price) => ({
         id: price.id,

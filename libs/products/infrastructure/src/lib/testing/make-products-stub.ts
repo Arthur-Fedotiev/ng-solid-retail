@@ -35,9 +35,6 @@ export const makeProductsStub = (count: number): ReadonlyArray<Product> =>
           UpdateTime: '2020-01-03',
         },
       ],
-      Categories: [
-        { id: '1', Name: 'Gin' },
-        { id: '2', Name: 'Vodka' },
-      ],
+      Category: { id: '1', Name: 'Gin' },
       SKU: '12345',
     }));

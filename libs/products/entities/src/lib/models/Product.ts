@@ -6,7 +6,7 @@ export class Product {
   public readonly Name: string;
   public readonly Description: string;
   public readonly SKU: string;
-  public readonly Categories: Category[];
+  public readonly Category: Category;
   public readonly Prices: Price[];
   public readonly Url: string;
 
@@ -15,7 +15,7 @@ export class Product {
     this.Name = product.Name;
     this.Description = product.Description;
     this.SKU = product.SKU;
-    this.Categories = product.Categories;
+    this.Category = product.Category;
     this.Prices = product.Prices;
     this.Url = product.Url;
   }

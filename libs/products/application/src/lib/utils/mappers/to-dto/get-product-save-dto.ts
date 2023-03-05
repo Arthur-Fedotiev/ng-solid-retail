@@ -22,10 +22,10 @@ export const getSaveProductDto =
       SKU: product.sku.toUpperCase(),
       Description: product.description,
       Url: product.url,
-      Categories: product.categories.map((category) => ({
-        id: category.id,
-        Name: category.name,
-      })),
+      Category: {
+        id: product.category.id,
+        Name: product.category.name,
+      },
       Prices: product.prices.map((price) => {
         const { id, UpdateTime } = isPriceViewModel(price)
           ? { id: price.id, UpdateTime: price.updateTime }
