@@ -1,9 +1,9 @@
-import { Retailer } from './retailer';
+import { RetailerDTO } from './retailer';
 
-export interface Price {
+export interface PriceDTO {
   id: string;
   productId: string;
-  Retailer: Retailer;
+  Retailer: RetailerDTO;
   Price: number | string;
   Tier: number;
   UpdateTime: string;

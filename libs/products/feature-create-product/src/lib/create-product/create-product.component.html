@@ -46,11 +46,9 @@
               placeholder="Select Product Color"
               formControlName="cover"
             >
-              <mat-option
-                *ngFor="let cover of ['SOFT', 'HARD']"
-                [value]="cover"
-                >{{ cover }}</mat-option
-              >
+              <mat-option *ngFor="let cover of bookCovers" [value]="cover">{{
+                cover
+              }}</mat-option>
             </mat-select>
           </mat-form-field>
         </ng-container>
@@ -70,12 +68,10 @@
             </mat-select>
           </mat-form-field>
           <mat-form-field appearance="outline">
-            <mat-label>Color</mat-label>
-            <mat-select placeholder="Select Shoes size" formControlName="color">
+            <mat-label>Size</mat-label>
+            <mat-select placeholder="Select Shoes size" formControlName="size">
               <mat-option
-                *ngFor="
-                  let size of ['35', '36', '37', '38', '39', '40', '41', '42']
-                "
+                *ngFor="let size of Categories.Shoes | srProductSize"
                 [value]="size"
                 >{{ size }}</mat-option
               >

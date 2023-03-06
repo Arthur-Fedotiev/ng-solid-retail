@@ -1,17 +1,17 @@
-import { Category } from './category';
-import { Price } from './price';
+import { CategoryDTO } from './category';
+import { PriceDTO } from './price';
 
-export class Product {
+export class ProductDTO {
   public readonly id: string;
   public readonly Name: string;
   public readonly Description: string;
   public readonly SKU: string;
-  public readonly Category: Category;
-  public readonly Prices: Price[];
+  public readonly Category: CategoryDTO;
+  public readonly Prices: PriceDTO[];
   public readonly Url: string;
   public readonly Specifications: Record<string, any>;
 
-  constructor(product: Product) {
+  constructor(product: ProductDTO) {
     this.id = product.id;
     this.Name = product.Name;
     this.Description = product.Description;

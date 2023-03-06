@@ -2,7 +2,7 @@ import {
   FurnitureColor,
   ShoesAndClothingColor,
   SmartphonesColor,
-} from '../constants/colors';
+} from '@sr/products/application';
 import { Cover } from '../constants/covers';
 
 export type SpecificationFormGroup<T extends object> = {

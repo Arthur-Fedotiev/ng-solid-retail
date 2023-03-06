@@ -1,3 +1,5 @@
+export const COVERS = ['Hardcover', 'Paperback', 'Kindle'] as const;
+
 export const SHOES_AND_CLOTHING_COLORS = [
   'Black',
   'White',
@@ -36,11 +38,3 @@ export const FURNITURE_COLORS = [
   'Cedar',
   'Rosewood',
 ] as const;
-
-export type ShoesAndClothingColor = typeof SHOES_AND_CLOTHING_COLORS[number];
-export type SmartphonesColor = typeof SMARTPHONES_COLORS[number];
-export type FurnitureColor = typeof FURNITURE_COLORS[number];
-export type Color =
-  | typeof SHOES_AND_CLOTHING_COLORS[number]
-  | typeof SMARTPHONES_COLORS[number]
-  | typeof FURNITURE_COLORS[number];

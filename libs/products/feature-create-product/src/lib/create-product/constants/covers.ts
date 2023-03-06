@@ -1,18 +1,28 @@
-export enum CoverType {
-  Hard = 'Hard',
-  Soft = 'Soft',
-}
+import { CoverType } from "@sr/products/application";
 
 export const HardCover = {
-  type: CoverType.Hard,
+  type: "Hardcover",
   label: 'Hard',
-} as const;
+} satisfies {
+  type: CoverType,
+  label: string,
+};
 
 export const SoftCover = {
-  type: CoverType.Soft,
+  type: "Paperback",
   label: 'Soft',
-} as const;
+} satisfies {
+  type: CoverType,
+  label: string,
+};
+
+export const Kindle = {
+  type: "Kindle",
+  label: 'Kindle',
+} satisfies {
+  type: CoverType,
+  label: string,
+};
 
 export const Covers = [HardCover, SoftCover] as const;
-
 export type Cover = typeof Covers[number];

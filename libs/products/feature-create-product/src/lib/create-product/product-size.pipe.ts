@@ -5,13 +5,13 @@ import {
 } from '@sr/products/application';
 
 @Pipe({
-  name: 'srProductColor',
+  name: 'srProductSize',
   standalone: true,
 })
-export class ProductColorPipe implements PipeTransform {
+export class ProductSizePipe implements PipeTransform {
   private readonly specificationsService = inject(SpecificationsDataService);
 
   transform(category: CategoryEnum) {
-    return this.specificationsService.getColors(category);
+    return this.specificationsService.getSizes(category);
   }
 }

@@ -18,16 +18,22 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { NgFor, NgIf } from '@angular/common';
-import { CategoryEnum } from '@sr/products/application';
+import {
+  CategoryEnum,
+  SpecificationsDataService,
+} from '@sr/products/application';
 import { SpecificationsStrategyFactory } from './specifications-factory/specifications-strategy.factroy';
 import { ProductColorPipe } from './product-color.pipe';
 import { STRATEGY_PROVIDERS } from './specifications-form-group-strategy/strategies';
+import { ProductSizePipe } from './product-size.pipe';
 
 @Component({
   selector: 'sr-create-product',
   templateUrl: './create-product.component.html',
   styleUrls: ['./create-product.component.scss'],
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [STRATEGY_PROVIDERS, SpecificationsStrategyFactory],
   imports: [
     NgFor,
     NgIf,
@@ -40,9 +46,8 @@ import { STRATEGY_PROVIDERS } from './specifications-form-group-strategy/strateg
     MatSelectModule,
     MatIconModule,
     MatButtonModule,
+    ProductSizePipe,
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [STRATEGY_PROVIDERS, SpecificationsStrategyFactory],
 })
 export class CreateProductComponent {
   private readonly specificationStrategyFactory = inject(
@@ -52,8 +57,10 @@ export class CreateProductComponent {
   private readonly fb = inject(FormBuilder);
 
   protected readonly Categories = CategoryEnum;
+  protected readonly bookCovers = inject(
+    SpecificationsDataService
+  ).getCoverTypes();
   public readonly vm$ = inject(CREATE_PRODUCT_VM_QUERY).get();
-
   public readonly trackById = inject(TRACK_BY_ID_OR_IDX);
   public readonly productForm = this.fb.nonNullable.group({
     name: [
