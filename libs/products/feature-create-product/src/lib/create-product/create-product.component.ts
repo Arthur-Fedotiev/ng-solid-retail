@@ -17,7 +17,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
-import { NgFor, NgIf } from '@angular/common';
+import { NgFor, NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
 import {
   CategoryEnum,
   SpecificationsDataService,
@@ -37,6 +37,8 @@ import { ProductSizePipe } from './product-size.pipe';
   imports: [
     NgFor,
     NgIf,
+    NgSwitch,
+    NgSwitchCase,
     ProductColorPipe,
     FlexLayoutModule,
     ReactiveFormsModule,
