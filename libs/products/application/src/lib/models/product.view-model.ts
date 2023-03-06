@@ -17,7 +17,8 @@ export class ProductViewModel {
     ),
     public readonly prices: ReadonlyArray<PriceViewModel> = dto.Prices.map(
       (price: Price) => new PriceViewModel(price)
-    )
+    ),
+    public readonly specifications: Record<string, any> = dto.Specifications
   ) {}
 
   public clone(dto: Partial<ProductViewModel> = {}): ProductViewModel {

@@ -1,18 +1,13 @@
 <div *ngrxLet="vm$ as vm" fxLayout="row nowrap" fxLayoutAlign="center">
   <section
-    class="create-product"
+    class="tw-mt-5"
     fxFlex="50%"
     fxFlex.xs="90%"
     fxFlex.sm="60%"
     fxFlex.md="75"
   >
     <h3>Create New Product</h3>
-
-    <form
-      fxLayout="column nowrap"
-      [formGroup]="productForm"
-      class="create-product__form"
-    >
+    <form [formGroup]="productForm" class="tw-flex tw-flex-col tw-flex-nowrap">
       <mat-form-field appearance="outline">
         <mat-label>Name</mat-label>
         <input placeholder="Product name" matInput formControlName="name" />
@@ -33,6 +28,7 @@
           #category="matSelect"
           placeholder="Select Product Categories"
           formControlName="category"
+          (valueChange)="updateSpecifications($event.name)"
         >
           <mat-option
             *ngFor="let category of vm.categories; trackBy: trackById"
@@ -42,80 +38,94 @@
         </mat-select>
       </mat-form-field>
 
-      {{ category.value | json }}
+      <ng-container formGroupName="specifications">
+        <ng-container *ngIf="category.value.name === Categories.Books">
+          <mat-form-field appearance="outline">
+            <mat-label>Cover</mat-label>
+            <mat-select
+              placeholder="Select Product Color"
+              formControlName="cover"
+            >
+              <mat-option
+                *ngFor="let cover of ['SOFT', 'HARD']"
+                [value]="cover"
+                >{{ cover }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+        </ng-container>
 
-      <ng-container *ngIf="category.value.name === Categories.Books">
-        <mat-form-field appearance="outline">
-          <mat-label>Cover</mat-label>
-          <mat-select
-            placeholder="Select Product Color"
-            formControlName="cover"
-          >
-            <mat-option
-              *ngFor="let cover of ['SOFT', 'HARD']"
-              [value]="cover"
-              >{{ cover }}</mat-option
+        <ng-container *ngIf="category.value.name === Categories.Shoes">
+          <mat-form-field appearance="outline">
+            <mat-label>Color</mat-label>
+            <mat-select
+              placeholder="Select Shoes Color"
+              formControlName="color"
             >
-          </mat-select>
-        </mat-form-field>
-      </ng-container>
+              <mat-option
+                *ngFor="let color of Categories.Shoes | srProductColor"
+                [value]="color"
+                >{{ color }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Color</mat-label>
+            <mat-select placeholder="Select Shoes size" formControlName="color">
+              <mat-option
+                *ngFor="
+                  let size of ['35', '36', '37', '38', '39', '40', '41', '42']
+                "
+                [value]="size"
+                >{{ size }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field></ng-container
+        >
 
-      <ng-container *ngIf="category.value.name === Categories.Shoes">
-        <mat-form-field appearance="outline">
-          <mat-label>Color</mat-label>
-          <mat-select
-            placeholder="Select Product Color"
-            formControlName="color"
-          >
-            <mat-option
-              *ngFor="let color of ['RED', 'GREEN', 'yellow']"
-              [value]="color"
-              >{{ color }}</mat-option
+        <ng-container *ngIf="category.value.name === Categories.Furniture">
+          <mat-form-field appearance="outline">
+            <mat-label>Color</mat-label>
+            <mat-select
+              placeholder="Select Product Color"
+              formControlName="color"
             >
-          </mat-select>
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Color</mat-label>
-          <mat-select
-            placeholder="Select Product Color"
-            formControlName="color"
-          >
-            <mat-option
-              *ngFor="let color of getColors(Categories.Shoes)"
-              [value]="color"
-              >{{ color }}</mat-option
+              <mat-option
+                *ngFor="let color of Categories.Furniture | srProductColor"
+                [value]="color"
+                >{{ color }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Material</mat-label>
+            <mat-select
+              placeholder="Select Product Color"
+              formControlName="color"
             >
-          </mat-select>
-        </mat-form-field></ng-container
-      >
-
-      <ng-container *ngIf="category.value.name === Categories.Furniture">
-        <mat-form-field appearance="outline">
-          <mat-label>Color</mat-label>
-          <mat-select
-            placeholder="Select Product Color"
-            formControlName="color"
-          >
-            <mat-option
-              *ngFor="let color of getColors(Categories.Furniture)"
-              [value]="color"
-              >{{ color }}</mat-option
+              <mat-option
+                *ngFor="let color of ['Wood', 'Plastic']"
+                [value]="color"
+                >{{ color }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field></ng-container
+        >
+        <ng-container *ngIf="category.value.name === Categories.Smartphones">
+          <mat-form-field appearance="outline">
+            <mat-label>Color</mat-label>
+            <mat-select
+              placeholder="Select Smartphone Color"
+              formControlName="color"
             >
-          </mat-select>
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Material</mat-label>
-          <mat-select
-            placeholder="Select Product Color"
-            formControlName="color"
-          >
-            <mat-option
-              *ngFor="let color of ['Wood', 'Plastic']"
-              [value]="color"
-              >{{ color }}</mat-option
-            >
-          </mat-select>
-        </mat-form-field></ng-container
+              <mat-option
+                *ngFor="let color of Categories.Smartphones | srProductColor"
+                [value]="color"
+                >{{ color }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field></ng-container
+        ></ng-container
       >
 
       <mat-form-field appearance="outline">

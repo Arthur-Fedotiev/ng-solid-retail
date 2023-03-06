@@ -26,6 +26,7 @@ export const getSaveProductDto =
         id: product.category.id,
         Name: product.category.name,
       },
+      Specifications: product.specifications,
       Prices: product.prices.map((price) => {
         const { id, UpdateTime } = isPriceViewModel(price)
           ? { id: price.id, UpdateTime: price.updateTime }

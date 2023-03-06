@@ -9,6 +9,7 @@ export class Product {
   public readonly Category: Category;
   public readonly Prices: Price[];
   public readonly Url: string;
+  public readonly Specifications: Record<string, any>;
 
   constructor(product: Product) {
     this.id = product.id;
@@ -18,5 +19,6 @@ export class Product {
     this.Category = product.Category;
     this.Prices = product.Prices;
     this.Url = product.Url;
+    this.Specifications = product.Specifications;
   }
 }

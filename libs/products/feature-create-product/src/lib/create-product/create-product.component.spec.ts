@@ -104,8 +104,9 @@ describe('CreateProductComponent', () => {
         url: '',
         category: { name: '', id: '' },
         prices: [{ tier: 1, price: 0, retailer: { name: '', id: '' } }],
+        specifications: {},
       };
-      component.productForm.setValue(expectedProduct);
+      component.productForm.setValue(expectedProduct as any);
 
       component.onSave();
 

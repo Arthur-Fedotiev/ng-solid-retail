@@ -9,4 +9,5 @@ export interface CreateProductForm {
     tier: number;
     retailer: { id: string; name: string };
   }>;
+  specifications: Record<string, any>;
 }

@@ -1,13 +1,7 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  OnDestroy,
-  OnInit,
-  inject,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import {
   FormArray,
-  NonNullableFormBuilder,
+  FormBuilder,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
@@ -23,19 +17,11 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
-import { JsonPipe, NgFor, NgIf } from '@angular/common';
-import { map, tap } from 'rxjs';
+import { NgFor, NgIf } from '@angular/common';
 import { CategoryEnum } from '@sr/products/application';
-import { FormGroup } from '@angular/forms';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import {
-  SHOES_AND_CLOTHING_COLORS,
-  SMARTPHONES_COLORS,
-  FURNITURE_COLORS,
-  Color,
-} from './constants/colors';
+import { SpecificationsStrategyFactory } from './specifications-factory/specifications-strategy.factroy';
+import { ProductColorPipe } from './product-color.pipe';
 
-@UntilDestroy()
 @Component({
   selector: 'sr-create-product',
   templateUrl: './create-product.component.html',
@@ -44,7 +30,7 @@ import {
   imports: [
     NgFor,
     NgIf,
-    JsonPipe,
+    ProductColorPipe,
     FlexLayoutModule,
     ReactiveFormsModule,
     LetModule,
@@ -56,15 +42,18 @@ import {
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CreateProductComponent implements OnInit {
+export class CreateProductComponent {
+  private readonly specificationStrategyFactory = inject(
+    SpecificationsStrategyFactory
+  );
   private readonly createProductCommand = inject(CREATE_PRODUCT_COMMAND);
-  private readonly fb = inject(NonNullableFormBuilder);
+  private readonly fb = inject(FormBuilder);
 
   protected readonly Categories = CategoryEnum;
   public readonly vm$ = inject(CREATE_PRODUCT_VM_QUERY).get();
 
   public readonly trackById = inject(TRACK_BY_ID_OR_IDX);
-  public readonly productForm = this.fb.group({
+  public readonly productForm = this.fb.nonNullable.group({
     name: [
       '',
       [Validators.required, Validators.minLength(3), Validators.maxLength(150)],
@@ -76,72 +65,19 @@ export class CreateProductComponent implements OnInit {
     ],
     url: ['', [Validators.required, Validators.maxLength(150)]],
     category: [{ name: '' as CategoryEnum, id: '' }, Validators.required],
-    specifications: this.fb.array<FormGroup<any>>([]),
+    specifications: this.fb.group({}),
     prices: this.fb.array([this.priceFormGroup], [validateSize(1)]),
   });
-
-  private readonly specifications$ =
-    this.productForm.controls.category.valueChanges.pipe(
-      map(({ name }) => name),
-      tap((category) => {
-        (this.productForm.controls.specifications as FormArray).clear();
-        switch (category) {
-          case CategoryEnum.Books:
-            this.productForm.controls.specifications.push(
-              this.fb.group({
-                cover: [null, Validators.required],
-              })
-            );
-            break;
-          case CategoryEnum.Shoes:
-          case CategoryEnum.Clothing:
-            this.productForm.controls.specifications.push(
-              this.fb.group({
-                size: [null, Validators.required],
-                color: [null, Validators.required],
-              })
-            );
-            break;
-          case CategoryEnum.Smartphones:
-            this.productForm.controls.specifications.push(
-              this.fb.group({
-                color: [null, Validators.required],
-              })
-            );
-            break;
-          case CategoryEnum.Furniture:
-            this.productForm.controls.specifications.push(
-              this.fb.group({
-                color: [null, Validators.required],
-                material: [null, Validators.required],
-              })
-            );
-            break;
-        }
-      }),
-      untilDestroyed(this)
-    );
 
   get prices(): FormArray {
     return this.productForm.controls['prices'] as FormArray;
   }
 
-  ngOnInit(): void {
-    this.specifications$.subscribe();
-  }
-
-  public getColors(category: CategoryEnum): readonly Color[] {
-    switch (category) {
-      case CategoryEnum.Shoes:
-      case CategoryEnum.Clothing:
-        return SHOES_AND_CLOTHING_COLORS;
-      case CategoryEnum.Smartphones:
-        return SMARTPHONES_COLORS;
-      case CategoryEnum.Furniture:
-        return FURNITURE_COLORS;
-      default:
-        throw new Error('Invalid category');
-    }
+  public updateSpecifications(category: CategoryEnum) {
+    this.productForm.setControl(
+      'specifications',
+      this.specificationStrategyFactory.create(category).buildFormGroup(this.fb)
+    );
   }
 
   public onSave(): void {
@@ -155,8 +91,8 @@ export class CreateProductComponent implements OnInit {
     this.prices.removeAt(idx);
   }
 
-  private get priceFormGroup(): PriceFormGroup {
-    return this.fb.group({
+  private get priceFormGroup() {
+    return this.fb.nonNullable.group({
       tier: [1, [Validators.required, Validators.min(1), Validators.max(3)]],
       retailer: [
         null as unknown as PriceFormGroup['controls']['retailer']['value'],
