@@ -21,6 +21,7 @@ import { NgFor, NgIf } from '@angular/common';
 import { CategoryEnum } from '@sr/products/application';
 import { SpecificationsStrategyFactory } from './specifications-factory/specifications-strategy.factroy';
 import { ProductColorPipe } from './product-color.pipe';
+import { STRATEGY_PROVIDERS } from './specifications-form-group-strategy/strategies';
 
 @Component({
   selector: 'sr-create-product',
@@ -41,6 +42,7 @@ import { ProductColorPipe } from './product-color.pipe';
     MatButtonModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [STRATEGY_PROVIDERS, SpecificationsStrategyFactory],
 })
 export class CreateProductComponent {
   private readonly specificationStrategyFactory = inject(

@@ -28,4 +28,6 @@ export enum CategoryEnum {
   Clothing = 'Clothing',
   Shoes = 'Shoes',
   Accessories = 'Accessories',
+
+  Null = 'Null',
 }
