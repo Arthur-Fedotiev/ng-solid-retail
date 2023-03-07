@@ -46,6 +46,7 @@ import { Observable, map } from 'rxjs';
 import { SpecificationControlDirective } from './specification-control.directive';
 import {
   BooksSpecificationControlComponent,
+  FurnitureSpecificationControlComponent,
   SpecificationSelectComponent,
 } from '@sr/products/ui';
 
@@ -77,6 +78,7 @@ import {
     SpecificationControlDirective,
 
     SpecificationSelectComponent,
+    FurnitureSpecificationControlComponent,
     BooksSpecificationControlComponent,
   ],
 })

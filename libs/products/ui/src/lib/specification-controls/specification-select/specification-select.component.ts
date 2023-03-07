@@ -76,3 +76,10 @@ export class SpecificationSelectComponent implements ControlValueAccessor {
     this.formControlDirective?.valueAccessor?.setDisabledState?.(isDisabled);
   }
 }
+
+export interface SpecificationSelector {
+  label: string;
+  options: readonly string[];
+  formControl?: FormControl;
+  formControlName?: string;
+}

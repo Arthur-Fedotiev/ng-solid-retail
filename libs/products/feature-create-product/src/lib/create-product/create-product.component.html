@@ -65,24 +65,15 @@
         </ng-template>
 
         <ng-template [srSpecificationControlFor]="Categories.Furniture">
-          <sr-specification-select
-            formControlName="color"
-            label="Furniture Color"
-            [options]="Categories.Furniture | srProductColor"
-          ></sr-specification-select>
-          <sr-specification-select
-            formControlName="material"
-            label="Furniture Material"
-            [options]="Categories.Furniture | srProductColor"
-          ></sr-specification-select>
+          <sr-furniture-specification-control [colors]="Categories.Furniture | srProductColor" [sizes]="Categories.Furniture | srProductColor"/>
+
         </ng-template>
         <ng-template [srSpecificationControlFor]="Categories.Smartphones">
           <sr-specification-select
             formControlName="color"
             label="Smartphone Color"
-            [options]="Categories.Smartphones | srProductColor"
-          ></sr-specification-select
-        ></ng-template>
+            [options]="Categories.Smartphones | srProductColor" />
+        </ng-template>
       </ng-container>
 
       <mat-form-field appearance="outline">
