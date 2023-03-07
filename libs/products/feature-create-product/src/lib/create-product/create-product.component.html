@@ -39,94 +39,130 @@
       </mat-form-field>
 
       <ng-container formGroupName="specifications">
-        <ng-container [ngSwitch]="category.value.name">
-          <ng-container *ngSwitchCase="Categories.Books">
-            <mat-form-field appearance="outline">
-              <mat-label>Cover</mat-label>
-              <mat-select
-                placeholder="Select Product Color"
-                formControlName="cover"
-              >
-                <mat-option *ngFor="let cover of bookCovers" [value]="cover">{{
-                  cover
-                }}</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </ng-container>
+        <ng-template
+          *ngTemplateOutlet="specificationTemplate$ | async"
+        ></ng-template>
 
-          <ng-container *ngSwitchCase="Categories.Shoes">
-            <mat-form-field appearance="outline">
-              <mat-label>Color</mat-label>
-              <mat-select
-                placeholder="Select Shoes Color"
-                formControlName="color"
+        <ng-template [srSpecificationControlFor]="Categories.Books">
+          <mat-form-field appearance="outline">
+            <mat-label>Cover</mat-label>
+            <mat-select
+              placeholder="Select Product Color"
+              formControlName="cover"
+            >
+              <mat-option *ngFor="let cover of bookCovers" [value]="cover">{{
+                cover
+              }}</mat-option>
+            </mat-select>
+          </mat-form-field></ng-template
+        >
+        <ng-template [srSpecificationControlFor]="Categories.Shoes">
+          <mat-form-field appearance="outline">
+            <mat-label>Color</mat-label>
+            <mat-select
+              placeholder="Select Shoes Color"
+              formControlName="color"
+            >
+              <mat-option
+                *ngFor="let color of Categories.Shoes | srProductColor"
+                [value]="color"
+                >{{ color }}</mat-option
               >
-                <mat-option
-                  *ngFor="let color of Categories.Shoes | srProductColor"
-                  [value]="color"
-                  >{{ color }}</mat-option
-                >
-              </mat-select>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-              <mat-label>Size</mat-label>
-              <mat-select
-                placeholder="Select Shoes size"
-                formControlName="size"
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Size</mat-label>
+            <mat-select placeholder="Select Shoes size" formControlName="size">
+              <mat-option
+                *ngFor="let size of Categories.Shoes | srProductSize"
+                [value]="size"
+                >{{ size }}</mat-option
               >
-                <mat-option
-                  *ngFor="let size of Categories.Shoes | srProductSize"
-                  [value]="size"
-                  >{{ size }}</mat-option
-                >
-              </mat-select>
-            </mat-form-field></ng-container
-          >
+            </mat-select>
+          </mat-form-field></ng-template
+        >
+        <ng-template [srSpecificationControlFor]="Categories.Books">
+          <mat-form-field appearance="outline">
+            <mat-label>Cover</mat-label>
+            <mat-select
+              placeholder="Select Product Color"
+              formControlName="cover"
+            >
+              <mat-option *ngFor="let cover of bookCovers" [value]="cover">{{
+                cover
+              }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </ng-template>
 
-          <ng-container *ngSwitchCase="Categories.Furniture">
-            <mat-form-field appearance="outline">
-              <mat-label>Color</mat-label>
-              <mat-select
-                placeholder="Select Product Color"
-                formControlName="color"
+        <ng-template [srSpecificationControlFor]="Categories.Shoes">
+          <mat-form-field appearance="outline">
+            <mat-label>Color</mat-label>
+            <mat-select
+              placeholder="Select Shoes Color"
+              formControlName="color"
+            >
+              <mat-option
+                *ngFor="let color of Categories.Shoes | srProductColor"
+                [value]="color"
+                >{{ color }}</mat-option
               >
-                <mat-option
-                  *ngFor="let color of Categories.Furniture | srProductColor"
-                  [value]="color"
-                  >{{ color }}</mat-option
-                >
-              </mat-select>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-              <mat-label>Material</mat-label>
-              <mat-select
-                placeholder="Select Product Color"
-                formControlName="color"
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Size</mat-label>
+            <mat-select placeholder="Select Shoes size" formControlName="size">
+              <mat-option
+                *ngFor="let size of Categories.Shoes | srProductSize"
+                [value]="size"
+                >{{ size }}</mat-option
               >
-                <mat-option
-                  *ngFor="let color of ['Wood', 'Plastic']"
-                  [value]="color"
-                  >{{ color }}</mat-option
-                >
-              </mat-select>
-            </mat-form-field></ng-container
-          >
-          <ng-container *ngSwitchCase="Categories.Smartphones">
-            <mat-form-field appearance="outline">
-              <mat-label>Color</mat-label>
-              <mat-select
-                placeholder="Select Smartphone Color"
-                formControlName="color"
+            </mat-select>
+          </mat-form-field></ng-template
+        >
+        <ng-template [srSpecificationControlFor]="Categories.Furniture">
+          <mat-form-field appearance="outline">
+            <mat-label>Color</mat-label>
+            <mat-select
+              placeholder="Select Product Color"
+              formControlName="color"
+            >
+              <mat-option
+                *ngFor="let color of Categories.Furniture | srProductColor"
+                [value]="color"
+                >{{ color }}</mat-option
               >
-                <mat-option
-                  *ngFor="let color of Categories.Smartphones | srProductColor"
-                  [value]="color"
-                  >{{ color }}</mat-option
-                >
-              </mat-select>
-            </mat-form-field></ng-container
-          >
-        </ng-container>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Material</mat-label>
+            <mat-select
+              placeholder="Select Product Color"
+              formControlName="color"
+            >
+              <mat-option
+                *ngFor="let color of Categories.Furniture | srProductColor"
+                [value]="color"
+                >{{ color }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field></ng-template
+        >
+        <ng-template [srSpecificationControlFor]="Categories.Smartphones">
+          <mat-form-field appearance="outline">
+            <mat-label>Color</mat-label>
+            <mat-select
+              placeholder="Select Smartphone Color"
+              formControlName="color"
+            >
+              <mat-option
+                *ngFor="let color of Categories.Smartphones | srProductColor"
+                [value]="color"
+                >{{ color }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field></ng-template
+        >
       </ng-container>
 
       <mat-form-field appearance="outline">

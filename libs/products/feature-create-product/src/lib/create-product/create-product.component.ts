@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  QueryList,
+  TemplateRef,
+  ViewChildren,
+} from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -17,7 +25,14 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
-import { NgFor, NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
+import {
+  AsyncPipe,
+  NgFor,
+  NgIf,
+  NgSwitch,
+  NgSwitchCase,
+  NgTemplateOutlet,
+} from '@angular/common';
 import {
   CategoryEnum,
   SpecificationsDataService,
@@ -26,6 +41,8 @@ import { SpecificationsStrategyFactory } from './specifications-factory/specific
 import { ProductColorPipe } from './product-color.pipe';
 import { STRATEGY_PROVIDERS } from './specifications-form-group-strategy/strategies';
 import { ProductSizePipe } from './product-size.pipe';
+import { Observable, map } from 'rxjs';
+import { SpecificationControlDirective } from './specification-control.directive';
 
 @Component({
   selector: 'sr-create-product',
@@ -39,6 +56,8 @@ import { ProductSizePipe } from './product-size.pipe';
     NgIf,
     NgSwitch,
     NgSwitchCase,
+    NgTemplateOutlet,
+    AsyncPipe,
     ProductColorPipe,
     FlexLayoutModule,
     ReactiveFormsModule,
@@ -49,9 +68,13 @@ import { ProductSizePipe } from './product-size.pipe';
     MatIconModule,
     MatButtonModule,
     ProductSizePipe,
+    SpecificationControlDirective,
   ],
 })
-export class CreateProductComponent {
+export class CreateProductComponent implements AfterViewInit {
+  @ViewChildren(SpecificationControlDirective)
+  specificationControls: QueryList<SpecificationControlDirective> = new QueryList();
+
   private readonly specificationStrategyFactory = inject(
     SpecificationsStrategyFactory
   );
@@ -62,6 +85,9 @@ export class CreateProductComponent {
   protected readonly bookCovers = inject(
     SpecificationsDataService
   ).getCoverTypes();
+
+  protected specificationTemplate$: Observable<TemplateRef<void>> | null = null;
+
   public readonly vm$ = inject(CREATE_PRODUCT_VM_QUERY).get();
   public readonly trackById = inject(TRACK_BY_ID_OR_IDX);
   public readonly productForm = this.fb.nonNullable.group({
@@ -82,6 +108,18 @@ export class CreateProductComponent {
 
   get prices(): FormArray {
     return this.productForm.controls['prices'] as FormArray;
+  }
+
+  ngAfterViewInit(): void {
+    this.specificationTemplate$ =
+      this.productForm.controls.category.valueChanges.pipe(
+        map(
+          (category) =>
+            this.specificationControls.find(
+              (specification) => specification.id === category.name
+            )?.templateRef as TemplateRef<void>
+        )
+      );
   }
 
   public updateSpecifications(category: CategoryEnum) {
