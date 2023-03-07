@@ -14,7 +14,7 @@ import { SpecificationSelectComponent } from '../specification-select/specificat
     <sr-specification-select
       formControlName="material"
       label="Furniture Material"
-      [options]="sizes"
+      [options]="materials"
     ></sr-specification-select>
   `,
   styleUrls: ['./furniture-specification-control.component.scss'],
@@ -22,5 +22,5 @@ import { SpecificationSelectComponent } from '../specification-select/specificat
 })
 export class FurnitureSpecificationControlComponent {
   @Input() colors: readonly string[] = [];
-  @Input() sizes: readonly string[] = [];
+  @Input() materials: readonly string[] = [];
 }

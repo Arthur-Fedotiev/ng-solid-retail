@@ -3,7 +3,7 @@ import { CategoryEnum } from '@sr/products/application';
 import {
   SpecificationsFormGroupStrategy,
   NullSpecificationsFormGroupStrategy,
-} from '../specifications-form-group-strategy/strategies';
+} from './strategies';
 
 @Injectable()
 export class SpecificationsStrategyFactory {

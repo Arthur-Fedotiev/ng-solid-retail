@@ -40,40 +40,7 @@
       </mat-form-field>
 
       <ng-container formGroupName="specifications">
-        <ng-template
-          *ngTemplateOutlet="specificationTemplate$ | async"
-        ></ng-template>
-
-        <ng-template [srSpecificationControlFor]="Categories.Books">
-          <sr-specification-select
-            formControlName="cover"
-            label="Book Cover"
-            [options]="bookCovers"
-          ></sr-specification-select>
-        </ng-template>
-        <ng-template [srSpecificationControlFor]="Categories.Shoes">
-          <sr-specification-select
-            formControlName="color"
-            label="Shoes Color"
-            [options]="Categories.Shoes | srProductColor"
-          ></sr-specification-select>
-          <sr-specification-select
-            formControlName="size"
-            label="Shoes Size"
-            [options]="Categories.Shoes | srProductColor"
-          ></sr-specification-select>
-        </ng-template>
-
-        <ng-template [srSpecificationControlFor]="Categories.Furniture">
-          <sr-furniture-specification-control [colors]="Categories.Furniture | srProductColor" [sizes]="Categories.Furniture | srProductColor"/>
-
-        </ng-template>
-        <ng-template [srSpecificationControlFor]="Categories.Smartphones">
-          <sr-specification-select
-            formControlName="color"
-            label="Smartphone Color"
-            [options]="Categories.Smartphones | srProductColor" />
-        </ng-template>
+        <ng-template #specificationContainerView></ng-template>
       </ng-container>
 
       <mat-form-field appearance="outline">

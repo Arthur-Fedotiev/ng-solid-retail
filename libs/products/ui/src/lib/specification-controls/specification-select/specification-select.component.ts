@@ -47,7 +47,7 @@ export class SpecificationSelectComponent implements ControlValueAccessor {
   formControlDirective!: FormControlDirective;
 
   @Input() label = '';
-  @Input() options: readonly string[] = [];
+  @Input() options: readonly (string | number)[] = [];
   @Input() formControl!: FormControl;
   @Input() formControlName!: string;
 

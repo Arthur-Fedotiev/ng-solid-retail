@@ -1,11 +1,9 @@
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   inject,
-  QueryList,
-  TemplateRef,
-  ViewChildren,
+  ViewChild,
+  ViewContainerRef,
 } from '@angular/core';
 import {
   FormArray,
@@ -38,18 +36,23 @@ import {
   CategoryEnum,
   SpecificationsDataService,
 } from '@sr/products/application';
-import { SpecificationsStrategyFactory } from './specifications-factory/specifications-strategy.factroy';
-import { ProductColorPipe } from './product-color.pipe';
-import { STRATEGY_PROVIDERS } from './specifications-form-group-strategy/strategies';
 import { ProductSizePipe } from './product-size.pipe';
-import { Observable, map } from 'rxjs';
 import { SpecificationControlDirective } from './specification-control.directive';
+import { CommonModule } from '@angular/common';
 import {
   BooksSpecificationControlComponent,
   FurnitureSpecificationControlComponent,
   SpecificationSelectComponent,
+  ShoesSpecificationControlComponent,
 } from '@sr/products/ui';
+import { UntilDestroy } from '@ngneat/until-destroy';
 
+import { ProductColorPipe } from './product-color.pipe';
+import { SpecificationsStrategyFactory } from './specifications/specifications-strategy.factory.service';
+import { DynamicComponentConfig } from './specifications/strategies';
+import { STRATEGY_PROVIDERS } from './specifications/strategy.provider';
+
+@UntilDestroy()
 @Component({
   selector: 'sr-create-product',
   templateUrl: './create-product.component.html',
@@ -63,6 +66,7 @@ import {
     NgIf,
     NgSwitch,
     NgSwitchCase,
+    CommonModule,
     NgTemplateOutlet,
     AsyncPipe,
     ProductColorPipe,
@@ -78,13 +82,14 @@ import {
     SpecificationControlDirective,
 
     SpecificationSelectComponent,
+    ShoesSpecificationControlComponent,
     FurnitureSpecificationControlComponent,
     BooksSpecificationControlComponent,
   ],
 })
-export class CreateProductComponent implements AfterViewInit {
-  @ViewChildren(SpecificationControlDirective)
-  specificationControls: QueryList<SpecificationControlDirective> = new QueryList();
+export class CreateProductComponent {
+  @ViewChild('specificationContainerView', { read: ViewContainerRef })
+  cmpRef!: ViewContainerRef;
 
   private readonly specificationStrategyFactory = inject(
     SpecificationsStrategyFactory
@@ -96,8 +101,6 @@ export class CreateProductComponent implements AfterViewInit {
   protected readonly bookCovers = inject(
     SpecificationsDataService
   ).getCoverTypes();
-
-  protected specificationTemplate$: Observable<TemplateRef<void>> | null = null;
 
   public readonly vm$ = inject(CREATE_PRODUCT_VM_QUERY).get();
   public readonly trackById = inject(TRACK_BY_ID_OR_IDX);
@@ -121,22 +124,17 @@ export class CreateProductComponent implements AfterViewInit {
     return this.productForm.controls['prices'] as FormArray;
   }
 
-  ngAfterViewInit(): void {
-    this.specificationTemplate$ =
-      this.productForm.controls.category.valueChanges.pipe(
-        map(
-          (category) =>
-            this.specificationControls.find(
-              (specification) => specification.id === category.name
-            )?.templateRef as TemplateRef<void>
-        )
-      );
-  }
-
   public updateSpecifications(category: CategoryEnum) {
+    const specificationStrategy =
+      this.specificationStrategyFactory.create(category);
+
     this.productForm.setControl(
       'specifications',
-      this.specificationStrategyFactory.create(category).buildFormGroup(this.fb)
+      specificationStrategy.buildFormGroup(this.fb)
+    );
+
+    this.createSpecificationComponent(
+      specificationStrategy.getDynamicComponentConfig()
     );
   }
 
@@ -159,6 +157,19 @@ export class CreateProductComponent implements AfterViewInit {
         Validators.required,
       ],
       price: [0, [Validators.required, Validators.min(1)]],
+    });
+  }
+
+  private createSpecificationComponent({
+    component,
+    inputs,
+  }: DynamicComponentConfig) {
+    this.cmpRef.clear();
+
+    const componentRef = this.cmpRef.createComponent(component);
+
+    Object.entries(inputs).forEach(([key, value]) => {
+      Object.assign(componentRef.instance, { [key]: value });
     });
   }
 }
