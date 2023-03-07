@@ -15,11 +15,11 @@ const testCases = [
   {
     input: {
       id: '2',
-      Name: 'Brandy',
+      Name: 'Food',
     },
     expected: {
       id: '2',
-      name: CategoryEnum.Brandy,
+      name: CategoryEnum.Food,
     },
   },
   {

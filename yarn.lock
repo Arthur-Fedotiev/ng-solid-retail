@@ -3665,10 +3665,10 @@
     "@material/theme" "15.0.0-canary.684e33d25.0"
     tslib "^2.1.0"
 
-"@ngneat/until-destroy@^9.2.1":
-  version "9.2.1"
-  resolved "https://registry.yarnpkg.com/@ngneat/until-destroy/-/until-destroy-9.2.1.tgz#3cd22ee3306bbc1e4b2eeac8528bb07d4a676e03"
-  integrity sha512-St3lj5unUmcDe9YeWJl0fr292q6p7ReKH9lWJQ60Q2SdXWDUWDDff+81+5JZAfXFTEirNgRSgQ2iO4YpylBAAg==
+"@ngneat/until-destroy@^9.2.3":
+  version "9.2.3"
+  resolved "https://registry.yarnpkg.com/@ngneat/until-destroy/-/until-destroy-9.2.3.tgz#c435b686b6c714c9004e82b23a341595a49ba5b5"
+  integrity sha512-ryX0vqDOdmYo53f7v5Ivbj1jcqOEX+vM1iiV9NYepWDha4VJp9lWrDFK9tRt2evAMzF/9u67JLzs4Xjcoh+Taw==
   dependencies:
     tslib "^2.3.0"
 

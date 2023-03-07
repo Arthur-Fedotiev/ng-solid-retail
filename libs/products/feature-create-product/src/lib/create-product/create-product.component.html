@@ -1,18 +1,14 @@
 <div *ngrxLet="vm$ as vm" fxLayout="row nowrap" fxLayoutAlign="center">
   <section
-    class="create-product"
+    class="tw-mt-5"
     fxFlex="50%"
     fxFlex.xs="90%"
     fxFlex.sm="60%"
     fxFlex.md="75"
   >
     <h3>Create New Product</h3>
-
-    <form
-      fxLayout="column nowrap"
-      [formGroup]="productForm"
-      class="create-product__form"
-    >
+    <pre>{{ productForm.value.specifications | json }}</pre>
+    <form [formGroup]="productForm" class="tw-flex tw-flex-col tw-flex-nowrap">
       <mat-form-field appearance="outline">
         <mat-label>Name</mat-label>
         <input placeholder="Product name" matInput formControlName="name" />
@@ -30,8 +26,10 @@
       <mat-form-field appearance="outline">
         <mat-label>Category</mat-label>
         <mat-select
+          #category="matSelect"
           placeholder="Select Product Categories"
           formControlName="category"
+          (valueChange)="updateSpecifications($event.name)"
         >
           <mat-option
             *ngFor="let category of vm.categories; trackBy: trackById"
@@ -40,6 +38,10 @@
           >
         </mat-select>
       </mat-form-field>
+
+      <ng-container formGroupName="specifications">
+        <ng-template #specificationContainerView></ng-template>
+      </ng-container>
 
       <mat-form-field appearance="outline">
         <mat-label>SKU</mat-label>

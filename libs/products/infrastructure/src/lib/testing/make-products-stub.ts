@@ -36,5 +36,6 @@ export const makeProductsStub = (count: number): ReadonlyArray<Product> =>
         },
       ],
       Category: { id: '1', Name: 'Gin' },
+      Specifications: { cover: 'hard' },
       SKU: '12345',
     }));

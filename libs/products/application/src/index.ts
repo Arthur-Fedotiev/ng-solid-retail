@@ -6,3 +6,5 @@ export { CategoryEnum } from './lib/constants/category.enum';
 export * from './lib/models';
 export * from './lib/resolvers/products-display.resolver';
 export * from './lib/cqrs/select-product.command';
+export { SpecificationsDataService } from './lib/specifications/specifications.service';
+export * from './lib/specifications/specifications.models';
