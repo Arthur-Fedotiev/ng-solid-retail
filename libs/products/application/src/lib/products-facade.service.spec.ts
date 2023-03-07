@@ -287,8 +287,8 @@ describe('ProductsFacadeService', () => {
 
   describe('#getCompetitorsForCategory$', () => {
     it('should delegate to GetCompetitorsForCategory passing Category', fakeAsync(() => {
-      const categoryStub = { id: '1', name: CategoryEnum.Wine };
-      const expected = { id: '1', Name: CategoryEnum.Wine };
+      const categoryStub = { id: '1', name: CategoryEnum.AlcoholDrinks };
+      const expected = { id: '1', Name: CategoryEnum.AlcoholDrinks };
 
       service.getCompetitorsForCategory$(categoryStub);
       tick();
@@ -299,7 +299,7 @@ describe('ProductsFacadeService', () => {
     }));
 
     it('should return retailers mapped to view models', fakeAsync(() => {
-      const categoryStub = { id: '1', name: CategoryEnum.Wine };
+      const categoryStub = { id: '1', name: CategoryEnum.AlcoholDrinks };
       const expected = [{ id: '1', name: 'Competitor 1' }];
 
       productsApiProviderMock.getCompetitorsForCategory.mockReturnValue(

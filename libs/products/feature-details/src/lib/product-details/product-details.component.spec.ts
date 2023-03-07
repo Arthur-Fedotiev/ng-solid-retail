@@ -132,7 +132,7 @@ describe('ProductDetailsComponent', () => {
     it('should open the competitors dialog', () => {
       const categoryStub = {
         id: '1',
-        name: CategoryEnum.Wine,
+        name: CategoryEnum.AlcoholDrinks,
       };
       const competitorsStub$ = of([{ id: '1', name: '1' }]);
 
