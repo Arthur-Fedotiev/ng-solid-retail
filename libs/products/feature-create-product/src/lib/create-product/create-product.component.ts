@@ -27,6 +27,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import {
   AsyncPipe,
+  JsonPipe,
   NgFor,
   NgIf,
   NgSwitch,
@@ -43,6 +44,10 @@ import { STRATEGY_PROVIDERS } from './specifications-form-group-strategy/strateg
 import { ProductSizePipe } from './product-size.pipe';
 import { Observable, map } from 'rxjs';
 import { SpecificationControlDirective } from './specification-control.directive';
+import {
+  BooksSpecificationControlComponent,
+  SpecificationSelectComponent,
+} from '@sr/products/ui';
 
 @Component({
   selector: 'sr-create-product',
@@ -52,6 +57,7 @@ import { SpecificationControlDirective } from './specification-control.directive
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [STRATEGY_PROVIDERS, SpecificationsStrategyFactory],
   imports: [
+    JsonPipe,
     NgFor,
     NgIf,
     NgSwitch,
@@ -69,6 +75,9 @@ import { SpecificationControlDirective } from './specification-control.directive
     MatButtonModule,
     ProductSizePipe,
     SpecificationControlDirective,
+
+    SpecificationSelectComponent,
+    BooksSpecificationControlComponent,
   ],
 })
 export class CreateProductComponent implements AfterViewInit {

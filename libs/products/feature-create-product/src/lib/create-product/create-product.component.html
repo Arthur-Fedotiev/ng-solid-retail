@@ -7,6 +7,7 @@
     fxFlex.md="75"
   >
     <h3>Create New Product</h3>
+    <pre>{{ productForm.value.specifications | json }}</pre>
     <form [formGroup]="productForm" class="tw-flex tw-flex-col tw-flex-nowrap">
       <mat-form-field appearance="outline">
         <mat-label>Name</mat-label>
@@ -44,125 +45,44 @@
         ></ng-template>
 
         <ng-template [srSpecificationControlFor]="Categories.Books">
-          <mat-form-field appearance="outline">
-            <mat-label>Cover</mat-label>
-            <mat-select
-              placeholder="Select Product Color"
-              formControlName="cover"
-            >
-              <mat-option *ngFor="let cover of bookCovers" [value]="cover">{{
-                cover
-              }}</mat-option>
-            </mat-select>
-          </mat-form-field></ng-template
-        >
+          <sr-specification-select
+            formControlName="cover"
+            label="Book Cover"
+            [options]="bookCovers"
+          ></sr-specification-select>
+        </ng-template>
         <ng-template [srSpecificationControlFor]="Categories.Shoes">
-          <mat-form-field appearance="outline">
-            <mat-label>Color</mat-label>
-            <mat-select
-              placeholder="Select Shoes Color"
-              formControlName="color"
-            >
-              <mat-option
-                *ngFor="let color of Categories.Shoes | srProductColor"
-                [value]="color"
-                >{{ color }}</mat-option
-              >
-            </mat-select>
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>Size</mat-label>
-            <mat-select placeholder="Select Shoes size" formControlName="size">
-              <mat-option
-                *ngFor="let size of Categories.Shoes | srProductSize"
-                [value]="size"
-                >{{ size }}</mat-option
-              >
-            </mat-select>
-          </mat-form-field></ng-template
-        >
-        <ng-template [srSpecificationControlFor]="Categories.Books">
-          <mat-form-field appearance="outline">
-            <mat-label>Cover</mat-label>
-            <mat-select
-              placeholder="Select Product Color"
-              formControlName="cover"
-            >
-              <mat-option *ngFor="let cover of bookCovers" [value]="cover">{{
-                cover
-              }}</mat-option>
-            </mat-select>
-          </mat-form-field>
+          <sr-specification-select
+            formControlName="color"
+            label="Shoes Color"
+            [options]="Categories.Shoes | srProductColor"
+          ></sr-specification-select>
+          <sr-specification-select
+            formControlName="size"
+            label="Shoes Size"
+            [options]="Categories.Shoes | srProductColor"
+          ></sr-specification-select>
         </ng-template>
 
-        <ng-template [srSpecificationControlFor]="Categories.Shoes">
-          <mat-form-field appearance="outline">
-            <mat-label>Color</mat-label>
-            <mat-select
-              placeholder="Select Shoes Color"
-              formControlName="color"
-            >
-              <mat-option
-                *ngFor="let color of Categories.Shoes | srProductColor"
-                [value]="color"
-                >{{ color }}</mat-option
-              >
-            </mat-select>
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>Size</mat-label>
-            <mat-select placeholder="Select Shoes size" formControlName="size">
-              <mat-option
-                *ngFor="let size of Categories.Shoes | srProductSize"
-                [value]="size"
-                >{{ size }}</mat-option
-              >
-            </mat-select>
-          </mat-form-field></ng-template
-        >
         <ng-template [srSpecificationControlFor]="Categories.Furniture">
-          <mat-form-field appearance="outline">
-            <mat-label>Color</mat-label>
-            <mat-select
-              placeholder="Select Product Color"
-              formControlName="color"
-            >
-              <mat-option
-                *ngFor="let color of Categories.Furniture | srProductColor"
-                [value]="color"
-                >{{ color }}</mat-option
-              >
-            </mat-select>
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>Material</mat-label>
-            <mat-select
-              placeholder="Select Product Color"
-              formControlName="color"
-            >
-              <mat-option
-                *ngFor="let color of Categories.Furniture | srProductColor"
-                [value]="color"
-                >{{ color }}</mat-option
-              >
-            </mat-select>
-          </mat-form-field></ng-template
-        >
+          <sr-specification-select
+            formControlName="color"
+            label="Furniture Color"
+            [options]="Categories.Furniture | srProductColor"
+          ></sr-specification-select>
+          <sr-specification-select
+            formControlName="material"
+            label="Furniture Material"
+            [options]="Categories.Furniture | srProductColor"
+          ></sr-specification-select>
+        </ng-template>
         <ng-template [srSpecificationControlFor]="Categories.Smartphones">
-          <mat-form-field appearance="outline">
-            <mat-label>Color</mat-label>
-            <mat-select
-              placeholder="Select Smartphone Color"
-              formControlName="color"
-            >
-              <mat-option
-                *ngFor="let color of Categories.Smartphones | srProductColor"
-                [value]="color"
-                >{{ color }}</mat-option
-              >
-            </mat-select>
-          </mat-form-field></ng-template
-        >
+          <sr-specification-select
+            formControlName="color"
+            label="Smartphone Color"
+            [options]="Categories.Smartphones | srProductColor"
+          ></sr-specification-select
+        ></ng-template>
       </ng-container>
 
       <mat-form-field appearance="outline">
