@@ -111,7 +111,11 @@ export class CreateProductComponent {
     url: ['', [Validators.required, Validators.maxLength(150)]],
     category: [{ name: '' as CategoryEnum, id: '' }, Validators.required],
     specifications: this.fb.group({}),
-    prices: this.fb.array([], [validateSize(1)]),
+    prices: this.fb.nonNullable.array<{
+      price: number;
+      tier: number;
+      retailer: { id: string; name: string };
+    }>([], [validateSize(1)]),
   });
 
   public updateSpecifications(category: CategoryEnum) {
@@ -129,7 +133,7 @@ export class CreateProductComponent {
   }
 
   public onSave(): void {
-    this.createProductCommand.execute(this.productForm.getRawValue() as any);
+    this.createProductCommand.execute(this.productForm.getRawValue());
   }
 
   private createSpecificationComponent({
