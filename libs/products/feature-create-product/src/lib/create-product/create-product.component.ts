@@ -5,18 +5,11 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
-import {
-  FormArray,
-  FormBuilder,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TRACK_BY_ID_OR_IDX } from '@sr/shared/util';
-import { PriceFormGroup } from './models/price-form-group.type';
 import { validateSize } from './util/validate-size';
 import { CREATE_PRODUCT_COMMAND } from './cqrs/commands/create-product.command';
 import { CREATE_PRODUCT_VM_QUERY } from './cqrs/queries/create-product-vm.query';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { LetModule } from '@ngrx/component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
@@ -44,6 +37,7 @@ import {
   FurnitureSpecificationControlComponent,
   SpecificationSelectComponent,
   ShoesSpecificationControlComponent,
+  PricesFormComponent,
 } from '@sr/products/ui';
 import { UntilDestroy } from '@ngneat/until-destroy';
 
@@ -70,7 +64,6 @@ import { STRATEGY_PROVIDERS } from './specifications/strategy.provider';
     NgTemplateOutlet,
     AsyncPipe,
     ProductColorPipe,
-    FlexLayoutModule,
     ReactiveFormsModule,
     LetModule,
     MatFormFieldModule,
@@ -85,6 +78,7 @@ import { STRATEGY_PROVIDERS } from './specifications/strategy.provider';
     ShoesSpecificationControlComponent,
     FurnitureSpecificationControlComponent,
     BooksSpecificationControlComponent,
+    PricesFormComponent,
   ],
 })
 export class CreateProductComponent {
@@ -117,12 +111,8 @@ export class CreateProductComponent {
     url: ['', [Validators.required, Validators.maxLength(150)]],
     category: [{ name: '' as CategoryEnum, id: '' }, Validators.required],
     specifications: this.fb.group({}),
-    prices: this.fb.array([this.priceFormGroup], [validateSize(1)]),
+    prices: this.fb.array([], [validateSize(1)]),
   });
-
-  get prices(): FormArray {
-    return this.productForm.controls['prices'] as FormArray;
-  }
 
   public updateSpecifications(category: CategoryEnum) {
     const specificationStrategy =
@@ -139,25 +129,7 @@ export class CreateProductComponent {
   }
 
   public onSave(): void {
-    this.createProductCommand.execute(this.productForm.getRawValue());
-  }
-  public addPrice() {
-    this.prices.push(this.priceFormGroup);
-  }
-
-  public deletePrice(idx: number) {
-    this.prices.removeAt(idx);
-  }
-
-  private get priceFormGroup() {
-    return this.fb.nonNullable.group({
-      tier: [1, [Validators.required, Validators.min(1), Validators.max(3)]],
-      retailer: [
-        null as unknown as PriceFormGroup['controls']['retailer']['value'],
-        Validators.required,
-      ],
-      price: [0, [Validators.required, Validators.min(1)]],
-    });
+    this.createProductCommand.execute(this.productForm.getRawValue() as any);
   }
 
   private createSpecificationComponent({

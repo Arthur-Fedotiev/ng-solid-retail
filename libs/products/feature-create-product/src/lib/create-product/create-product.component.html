@@ -1,13 +1,6 @@
-<div *ngrxLet="vm$ as vm" fxLayout="row nowrap" fxLayoutAlign="center">
-  <section
-    class="tw-mt-5"
-    fxFlex="50%"
-    fxFlex.xs="90%"
-    fxFlex.sm="60%"
-    fxFlex.md="75"
-  >
-    <h3>Create New Product</h3>
-    <pre>{{ productForm.value.specifications | json }}</pre>
+<div *ngrxLet="vm$ as vm" class="tw-flex tw-flex-nowrap tw-justify-center">
+  <section class="tw-w-11/12 sm:tw-w-3/5 md:tw-w-3/4 lg:tw-w-1/2">
+    <h3 class="tw-text-2xl tw-mb-4">Create New Product</h3>
     <form [formGroup]="productForm" class="tw-flex tw-flex-col tw-flex-nowrap">
       <mat-form-field appearance="outline">
         <mat-label>Name</mat-label>
@@ -57,86 +50,12 @@
           formControlName="url"
         />
       </mat-form-field>
-
-      <ng-container formArrayName="prices">
-        <ng-container *ngFor="let _ of prices.controls; index as i">
-          <div
-            fxLayout.lt-md="column nowrap"
-            fxLayout.gt-sm="row nowrap"
-            fxLayoutGap.gt-sm="1rem"
-            fxLayoutAlign.gt-sm="space-between center"
-            class="prices"
-            [formGroupName]="i"
-          >
-            <mat-form-field appearance="outline">
-              <mat-label>Price</mat-label>
-              <input
-                matInput
-                type="number"
-                formControlName="price"
-                placeholder="Product Price"
-              />
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-              <mat-label>Tier</mat-label>
-              <input
-                matInput
-                formControlName="tier"
-                placeholder="Product Tier"
-              />
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-              <mat-label>Retailer</mat-label>
-              <mat-select
-                formControlName="retailer"
-                placeholder="Product Retailer"
-              >
-                <mat-option
-                  *ngFor="let retailer of vm.retailers"
-                  [value]="retailer"
-                  >{{ retailer.name }}</mat-option
-                >
-              </mat-select>
-            </mat-form-field>
-            <button
-              class="prices__action"
-              fxHide.gt-sm
-              mat-raised-button
-              color="warn"
-              (click)="deletePrice(i)"
-            >
-              DELETE PRICE
-            </button>
-            <button
-              class="prices__action"
-              fxHide.lt-md
-              color="warn"
-              mat-mini-fab
-              (click)="deletePrice(i)"
-            >
-              <mat-icon class="delete-btn">delete_forever</mat-icon>
-            </button>
-          </div>
-        </ng-container>
-      </ng-container>
-
-      <button
-        mat-raised-button
-        class="prices__action prices__action--add"
-        type="button"
-        color="accent"
-        (click)="addPrice()"
-      >
-        ADD PRICE
-      </button>
-      <button
-        mat-raised-button
-        color="primary"
-        (click)="onSave()"
-        [disabled]="!productForm.valid || !productForm.dirty"
-      >
-        SAVE
-      </button>
+      <sr-prices-form
+        name="prices"
+        [vm]="{
+          retailers: vm.retailers
+        }"
+      ></sr-prices-form>
     </form>
   </section>
 </div>

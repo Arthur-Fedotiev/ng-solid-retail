@@ -76,23 +76,6 @@ describe('CreateProductComponent', () => {
         })
       );
     });
-
-    it('should add price', () => {
-      component.addPrice();
-      component.addPrice();
-
-      expect(component.prices.length).toBe(3);
-    });
-
-    it('should delete price', () => {
-      component.addPrice();
-      component.addPrice();
-      component.addPrice();
-
-      component.deletePrice(1);
-
-      expect(component.prices.length).toBe(3);
-    });
   });
 
   describe('onSave', () => {

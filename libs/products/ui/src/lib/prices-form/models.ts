@@ -8,3 +8,7 @@ export type PriceFormGroup = FormGroup<{
   }>;
   price: FormControl<number>;
 }>;
+
+export interface PricesFormVM {
+  readonly retailers: readonly { readonly name: string }[];
+}
