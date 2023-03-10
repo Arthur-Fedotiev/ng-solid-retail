@@ -27,6 +27,7 @@ import {
 } from '@angular/common';
 import {
   CategoryEnum,
+  Price,
   SpecificationsDataService,
 } from '@sr/products/application';
 import { ProductSizePipe } from './product-size.pipe';
@@ -45,7 +46,6 @@ import { ProductColorPipe } from './product-color.pipe';
 import { SpecificationsStrategyFactory } from './specifications/specifications-strategy.factory.service';
 import { DynamicComponentConfig } from './specifications/strategies';
 import { STRATEGY_PROVIDERS } from './specifications/strategy.provider';
-import { CreateProductForm, Price } from '@sr/products/application';
 
 @UntilDestroy()
 @Component({
