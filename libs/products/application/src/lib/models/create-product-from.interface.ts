@@ -4,10 +4,12 @@ export interface CreateProductForm {
   description: string;
   url: string;
   category: { id: string; name: string };
-  prices: ReadonlyArray<{
-    price: number;
-    tier: number;
-    retailer: { id: string; name: string };
-  }>;
+  prices: ReadonlyArray<Price>;
   specifications: Record<string, any>;
+}
+
+export interface Price {
+  price: number;
+  tier: number;
+  retailer: { id: string; name: string };
 }

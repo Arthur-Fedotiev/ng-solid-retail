@@ -45,6 +45,7 @@ import { ProductColorPipe } from './product-color.pipe';
 import { SpecificationsStrategyFactory } from './specifications/specifications-strategy.factory.service';
 import { DynamicComponentConfig } from './specifications/strategies';
 import { STRATEGY_PROVIDERS } from './specifications/strategy.provider';
+import { CreateProductForm, Price } from '@sr/products/application';
 
 @UntilDestroy()
 @Component({
@@ -111,11 +112,7 @@ export class CreateProductComponent {
     url: ['', [Validators.required, Validators.maxLength(150)]],
     category: [{ name: '' as CategoryEnum, id: '' }, Validators.required],
     specifications: this.fb.group({}),
-    prices: this.fb.nonNullable.array<{
-      price: number;
-      tier: number;
-      retailer: { id: string; name: string };
-    }>([], [validateSize(1)]),
+    prices: this.fb.nonNullable.array<Price>([], [validateSize(1)]),
   });
 
   public updateSpecifications(category: CategoryEnum) {
