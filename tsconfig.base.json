@@ -15,6 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@sr/generated/solid-retail-api-types": [
+        "libs/generated/solid-retail-api-types/src/index.ts"
+      ],
       "@sr/layout/feature": ["libs/layout/feature/src/index.ts"],
       "@sr/layout/ui": ["libs/layout/ui/src/index.ts"],
       "@sr/products-feature-display": [
