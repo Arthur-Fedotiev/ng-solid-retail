@@ -12,7 +12,8 @@
     "test:affected": "nx affected:test",
     "lint": "nx run-many --target=lint",
     "lint:affected": "nx affected:lint",
-    "graph": "nx graph"
+    "graph": "nx graph",
+    "prepare": "nx g @nx-dotnet/core:restore"
   },
   "private": true,
   "dependencies": {
@@ -53,6 +54,7 @@
     "@nrwl/cypress": "15.8.5",
     "@nrwl/eslint-plugin-nx": "15.8.5",
     "@nrwl/jest": "15.8.5",
+    "@nrwl/js": "15.8.5",
     "@nrwl/linter": "15.8.5",
     "@nrwl/nx-cloud": "15.1.1",
     "@nrwl/workspace": "15.8.5",
