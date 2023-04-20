@@ -10,5 +10,6 @@
       },
       "dependsOn": ["build"]
     }
-  }
+  },
+  "tags": ["scope:solid-retail-api", "type:be-presentation"]
 }

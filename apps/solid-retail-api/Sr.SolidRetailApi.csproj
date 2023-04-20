@@ -13,6 +13,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\libs\api\products-catalogue\Contracts\Sr.Api.ProductsCatalogue.Contracts.csproj" />
+    <ProjectReference Include="..\..\libs\api\products-catalogue\Infrastructure\Sr.Api.ProductsCatalogue.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\libs\api\products-catalogue\Application\Sr.Api.ProductsCatalogue.Application.csproj" />
   </ItemGroup>
 
 </Project>

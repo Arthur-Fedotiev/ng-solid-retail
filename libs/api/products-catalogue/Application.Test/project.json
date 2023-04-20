@@ -28,5 +28,5 @@
       "executor": "@nx-dotnet/core:format"
     }
   },
-  "tags": ["scope:be-products-catalogue", "type:application"]
+  "tags": ["scope:products-catalogue", "type:be-application"]
 }
