@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  api: '/api',
+  api: 'http://localhost:3000',
   firebaseConfig: {
     apiKey: 'AIzaSyBPBP6kDnoWlpqKX275hBOtEqbXxGbEPnQ',
     authDomain: 'ng-solid-retail.firebaseapp.com',
