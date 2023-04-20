@@ -95,7 +95,8 @@
                 "sourceTag": "scope:solid-retail-api",
                 "onlyDependOnLibsWithTags": [
                   "scope:solid-retail-api",
-                  "scope:be-products-catalogue"
+                  "scope:be-products-catalogue",
+                  "scope:be-shared"
                 ]
               },
               {
