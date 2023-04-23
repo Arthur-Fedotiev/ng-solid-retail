@@ -1,3 +1,5 @@
+using Sr.Api.ProductsCatalogue.Contracts.Common;
+
 namespace Sr.Api.ProductsCatalogue.Contracts.CreateProduct;
 
 public record CreateProductResponse(
@@ -6,7 +8,7 @@ public record CreateProductResponse(
   string Description,
   string SKU,
   string Url,
-  string Category,
+  Category Category,
   List<PriceResponse> Prices,
   object Specifications
 );
