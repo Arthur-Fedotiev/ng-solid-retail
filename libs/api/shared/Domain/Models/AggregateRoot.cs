@@ -1,8 +1,9 @@
-namespace Sr.Api.Shared.Domain.Models;
-
-public abstract class AggregateRoot<TId> : Entity<TId> where TId : notnull
+namespace Sr.Api.Shared.Domain.Models
 {
-  protected AggregateRoot(TId id) : base(id)
+  public abstract class AggregateRoot<TId> : Entity<TId> where TId : notnull
   {
+    protected AggregateRoot(TId id) : base(id)
+    {
+    }
   }
 }

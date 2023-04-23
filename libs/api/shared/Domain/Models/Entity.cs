@@ -2,15 +2,11 @@ namespace Sr.Api.Shared.Domain.Models;
 
 public abstract class Entity<TId> : IEquatable<Entity<TId>> where TId : notnull
 {
-  public Guid Id { get; protected set; }
+  public TId Id { get; protected set; }
 
-  protected Entity(Guid id)
+  protected Entity(TId id)
   {
     Id = id;
-  }
-
-  protected Entity() : this(Guid.NewGuid())
-  {
   }
 
   public override bool Equals(object? obj)
