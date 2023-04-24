@@ -1,0 +1,393 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "SOLID Retail API",
+    "version": "v1"
+  },
+  "paths": {
+    "/api/v1/catalogue": {
+      "post": {
+        "tags": [
+          "ProductsCatalogue"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/CreateShoesRequest"
+                  },
+                  {
+                    "$ref": "#/components/schemas/CreateClothingRequest"
+                  },
+                  {
+                    "$ref": "#/components/schemas/CreateBookRequest"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/CreateShoesRequest"
+                  },
+                  {
+                    "$ref": "#/components/schemas/CreateClothingRequest"
+                  },
+                  {
+                    "$ref": "#/components/schemas/CreateBookRequest"
+                  }
+                ]
+              }
+            },
+            "text/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/CreateShoesRequest"
+                  },
+                  {
+                    "$ref": "#/components/schemas/CreateClothingRequest"
+                  },
+                  {
+                    "$ref": "#/components/schemas/CreateBookRequest"
+                  }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/CreateShoesRequest"
+                  },
+                  {
+                    "$ref": "#/components/schemas/CreateClothingRequest"
+                  },
+                  {
+                    "$ref": "#/components/schemas/CreateBookRequest"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/CreateShoesResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CreateClothingResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CreateBookResponse"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "BookSpecification": {
+        "type": "object",
+        "properties": {
+          "Cover": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Category": {
+        "enum": [
+          "AlcoholDrinks",
+          "NonAlcoholDrinks",
+          "Food",
+          "Electronics",
+          "Computers",
+          "Tablets",
+          "Smartphones",
+          "Laptops",
+          "OtherElectronics",
+          "Books",
+          "Movies",
+          "Magazine",
+          "Furniture",
+          "OtherFurniture",
+          "Other",
+          "Appliances",
+          "Medicine",
+          "Clothing",
+          "Shoes",
+          "Accessories"
+        ],
+        "type": "string"
+      },
+      "ClothingSpecification": {
+        "type": "object",
+        "properties": {
+          "Size": {
+            "type": "string",
+            "nullable": true
+          },
+          "Color": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateBookRequest": {
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CreateProductRequest"
+          }
+        ],
+        "properties": {
+          "Specifications": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/BookSpecification"
+              }
+            ],
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateBookResponse": {
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CreateProductResponse"
+          }
+        ],
+        "properties": {
+          "Specifications": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/BookSpecification"
+              }
+            ],
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateClothingRequest": {
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CreateProductRequest"
+          }
+        ],
+        "properties": {
+          "Specifications": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ClothingSpecification"
+              }
+            ],
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateClothingResponse": {
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CreateProductResponse"
+          }
+        ],
+        "properties": {
+          "Specifications": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ClothingSpecification"
+              }
+            ],
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateProductRequest": {
+        "required": [
+          "Category"
+        ],
+        "type": "object",
+        "properties": {
+          "Category": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Category"
+              }
+            ]
+          },
+          "Name": {
+            "type": "string",
+            "nullable": true
+          },
+          "Description": {
+            "type": "string",
+            "nullable": true
+          },
+          "SKU": {
+            "type": "string",
+            "nullable": true
+          },
+          "Url": {
+            "type": "string",
+            "nullable": true
+          },
+          "Prices": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Price"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "discriminator": {
+          "propertyName": "Category"
+        }
+      },
+      "CreateProductResponse": {
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "Name": {
+            "type": "string",
+            "nullable": true
+          },
+          "Description": {
+            "type": "string",
+            "nullable": true
+          },
+          "SKU": {
+            "type": "string",
+            "nullable": true
+          },
+          "Url": {
+            "type": "string",
+            "nullable": true
+          },
+          "Category": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Category"
+              }
+            ]
+          },
+          "Prices": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PriceResponse"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateShoesRequest": {
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CreateProductRequest"
+          }
+        ],
+        "properties": {
+          "Specifications": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ShoesSpecification"
+              }
+            ],
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateShoesResponse": {
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CreateProductResponse"
+          }
+        ],
+        "properties": {
+          "Specifications": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ShoesSpecification"
+              }
+            ],
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Price": {
+        "type": "object",
+        "properties": {
+          "Value": {
+            "type": "number",
+            "format": "double"
+          },
+          "Currency": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PriceResponse": {
+        "type": "object",
+        "properties": {
+          "Value": {
+            "type": "number",
+            "format": "double"
+          },
+          "Currency": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ShoesSpecification": {
+        "type": "object",
+        "properties": {
+          "Size": {
+            "type": "string",
+            "nullable": true
+          },
+          "Color": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}
