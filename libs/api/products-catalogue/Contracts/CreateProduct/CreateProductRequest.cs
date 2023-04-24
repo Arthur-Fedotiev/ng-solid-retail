@@ -2,15 +2,91 @@ using Sr.Api.ProductsCatalogue.Contracts.Common;
 
 namespace Sr.Api.ProductsCatalogue.Contracts.CreateProduct
 {
-  public record CreateProductRequest(
-    string Name,
-    string Description,
-    string SKU,
-    string Url,
-    Category Category,
-    List<Price> Prices,
-    object Specifications
-  );
+  public abstract class CreateProductRequest
+  {
+    public string Name { get; init; } = null!;
+    public string Description { get; init; } = null!;
+    public string SKU { get; init; } = null!;
+    public string Url { get; init; } = null!;
+    public Category Category { get; init; }
+    public List<Price> Prices { get; init; } = null!;
+
+    protected CreateProductRequest(
+      string name,
+      string description,
+      string sku,
+      string url,
+      Category category,
+      List<Price> prices
+    )
+    {
+      Name = name;
+      Description = description;
+      SKU = sku;
+      Url = url;
+      Category = category;
+      Prices = prices;
+    }
+  }
+
+  public sealed class CreateShoesRequest : CreateProductRequest
+  {
+    public ShoesSpecification Specifications { get; init; }
+
+    public CreateShoesRequest(
+      string name,
+      string description,
+      string sku,
+      string url,
+      List<Price> prices,
+      ShoesSpecification specifications
+    ) : base(name, description, sku, url, Category.Shoes, prices)
+    {
+      Specifications = new ShoesSpecification(
+        specifications.Size,
+        specifications.Color
+      );
+    }
+  }
+
+  public sealed class CreateClothingRequest : CreateProductRequest
+  {
+    public ClothingSpecification Specifications { get; init; }
+
+    public CreateClothingRequest(
+      string name,
+      string description,
+      string sku,
+      string url,
+      List<Price> prices,
+      ClothingSpecification specifications
+    ) : base(name, description, sku, url, Category.Clothing, prices)
+    {
+      Specifications = new ClothingSpecification(
+        specifications.Size,
+        specifications.Color
+      );
+    }
+  }
+
+  public sealed class CreateBookRequest : CreateProductRequest
+  {
+    public BookSpecification Specifications { get; init; }
+
+    public CreateBookRequest(
+      string name,
+      string description,
+      string sku,
+      string url,
+      List<Price> prices,
+      BookSpecification specifications
+    ) : base(name, description, sku, url, Category.Books, prices)
+    {
+      Specifications = new BookSpecification(
+        specifications.Cover
+      );
+    }
+  }
 
   public record Price(
     decimal Value,

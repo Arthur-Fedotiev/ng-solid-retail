@@ -1,19 +1,12 @@
-using System.Text.Json.Serialization;
+using Sr.SolidRetailApi.Common;
 
-WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args);
 
-builder.Services
-  .AddControllers()
-  .AddJsonOptions(options =>
-  {
-    options.JsonSerializerOptions.PropertyNamingPolicy = null;
-    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-  });
-
+builder.Services.AddCOntrollersConfiguration();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGenConfiguration();
 
-WebApplication app = builder.Build();
+var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
@@ -25,8 +18,7 @@ if (app.Environment.IsDevelopment())
   });
 }
 
-app.UseSwagger();
-app.UseSwaggerUI();
+app.UseSwaggerConfiguration();
 app.UseHttpsRedirection();
 app.UseAuthorization();
 

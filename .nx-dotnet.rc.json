@@ -1,3 +1,9 @@
 {
-  "nugetPackages": {}
+  "nugetPackages": {
+    "OneOf": "3.0.243",
+    "Swashbuckle.AspNetCore.SwaggerUI": "6.5.0",
+    "JsonSubTypes": "2.0.1",
+    "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "7.0.5",
+    "Newtonsoft.Json": "13.0.3"
+  }
 }
