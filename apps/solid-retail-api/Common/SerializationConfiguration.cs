@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 using JsonSubTypes;
-using Sr.Api.ProductsCatalogue.Contracts.Common;
+using Sr.Api.ProductsCatalogue.Common;
 using Sr.Api.ProductsCatalogue.Contracts.CreateProduct;
 
 namespace Sr.SolidRetailApi.Common
@@ -15,9 +15,9 @@ namespace Sr.SolidRetailApi.Common
               .Converters
               .Add(JsonSubtypesConverterBuilder
                   .Of(typeof(CreateProductRequest), nameof(CreateProductRequest.Category))
-                  .RegisterSubtype(typeof(CreateBookRequest), Category.Books)
-                  .RegisterSubtype(typeof(CreateShoesRequest), Category.Shoes)
-                  .RegisterSubtype(typeof(CreateClothingRequest), Category.Clothing)
+                  .RegisterSubtype(typeof(CreateBookRequest), ProductCategory.Books)
+                  .RegisterSubtype(typeof(CreateShoesRequest), ProductCategory.Shoes)
+                  .RegisterSubtype(typeof(CreateClothingRequest), ProductCategory.Clothing)
                   .SerializeDiscriminatorProperty()
                   .Build()))
           .AddJsonOptions(options =>

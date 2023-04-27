@@ -2,6 +2,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Domain\Sr.Api.ProductsCatalogue.Domain.csproj" />
+    <ProjectReference Include="..\Common\Sr.Api.ProductsCatalogue.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.1.0" />
+    <PackageReference Include="OneOf" Version="3.0.243" />
   </ItemGroup>
 
   <PropertyGroup>

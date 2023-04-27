@@ -1,0 +1,28 @@
+{
+  "name": "ApiProductsCatalogue.Common",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/api/products-catalogue/Common",
+  "targets": {
+    "build": {
+      "executor": "@nx-dotnet/core:build",
+      "outputs": [
+        "{workspaceRoot}/dist/libs/api/products-catalogue/Common",
+        "{workspaceRoot}/dist/intermediates/libs/api/products-catalogue/Common"
+      ],
+      "options": {
+        "configuration": "Debug",
+        "noDependencies": true
+      },
+      "configurations": {
+        "production": {
+          "configuration": "Release"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx-dotnet/core:format"
+    }
+  },
+  "tags": ["scope:be-products-catalogue", "type:be-util"]
+}

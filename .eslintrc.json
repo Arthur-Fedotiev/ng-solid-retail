@@ -104,26 +104,33 @@
                 "onlyDependOnLibsWithTags": [
                   "type:be-presentation",
                   "type:be-application",
-                  "type:be-infrastructure"
+                  "type:be-infrastructure",
+                  "type:be-util"
                 ]
               },
               {
                 "sourceTag": "type:be-infrastructure",
                 "onlyDependOnLibsWithTags": [
                   "type:be-infrastructure",
-                  "type:be-application"
+                  "type:be-application",
+                  "type:be-util"
                 ]
               },
               {
                 "sourceTag": "type:be-application",
                 "onlyDependOnLibsWithTags": [
                   "type:be-application",
-                  "type:be-domain"
+                  "type:be-domain",
+                  "type:be-util"
                 ]
               },
               {
                 "sourceTag": "type:be-domain",
-                "onlyDependOnLibsWithTags": ["type:be-domain"]
+                "onlyDependOnLibsWithTags": ["type:be-domain", "type:be-util"]
+              },
+              {
+                "sourceTag": "type:be-util",
+                "onlyDependOnLibsWithTags": ["type:be-util"]
               }
             ]
           }

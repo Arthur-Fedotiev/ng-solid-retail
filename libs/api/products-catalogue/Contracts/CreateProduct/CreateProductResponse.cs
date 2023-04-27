@@ -1,15 +1,17 @@
+using Sr.Api.ProductsCatalogue.Common;
 using Sr.Api.ProductsCatalogue.Contracts.Common;
 
 namespace Sr.Api.ProductsCatalogue.Contracts.CreateProduct
 {
   public abstract class CreateProductResponse
   {
+    public abstract ProductCategory Category { get; }
+
     public Guid Id { get; init; }
     public string Name { get; init; } = null!;
     public string Description { get; init; } = null!;
     public string SKU { get; init; } = null!;
     public string Url { get; init; } = null!;
-    public Category Category { get; init; }
     public List<PriceResponse> Prices { get; init; } = null!;
 
     protected CreateProductResponse(
@@ -18,7 +20,6 @@ namespace Sr.Api.ProductsCatalogue.Contracts.CreateProduct
       string description,
       string sku,
       string url,
-      Category category,
       List<PriceResponse> prices
     )
     {
@@ -27,7 +28,6 @@ namespace Sr.Api.ProductsCatalogue.Contracts.CreateProduct
       Description = description;
       SKU = sku;
       Url = url;
-      Category = category;
       Prices = prices;
     }
   }
@@ -39,6 +39,7 @@ namespace Sr.Api.ProductsCatalogue.Contracts.CreateProduct
 
   public class CreateShoesResponse : CreateProductResponse
   {
+    public override ProductCategory Category => ProductCategory.Shoes;
     public ShoesSpecification Specifications { get; init; }
 
     public CreateShoesResponse(
@@ -47,10 +48,9 @@ namespace Sr.Api.ProductsCatalogue.Contracts.CreateProduct
       string description,
       string sku,
       string url,
-      Category category,
       List<PriceResponse> prices,
       ShoesSpecification specifications
-    ) : base(id, name, description, sku, url, category, prices)
+    ) : base(id, name, description, sku, url, prices)
     {
       Specifications = new ShoesSpecification(
         specifications.Size,
@@ -61,6 +61,7 @@ namespace Sr.Api.ProductsCatalogue.Contracts.CreateProduct
 
   public class CreateClothingResponse : CreateProductResponse
   {
+    public override ProductCategory Category => ProductCategory.Clothing;
     public ClothingSpecification Specifications { get; init; }
 
     public CreateClothingResponse(
@@ -69,10 +70,9 @@ namespace Sr.Api.ProductsCatalogue.Contracts.CreateProduct
       string description,
       string sku,
       string url,
-      Category category,
       List<PriceResponse> prices,
       ClothingSpecification specifications
-    ) : base(id, name, description, sku, url, category, prices)
+    ) : base(id, name, description, sku, url, prices)
     {
       Specifications = new ClothingSpecification(
         specifications.Size,
@@ -83,6 +83,7 @@ namespace Sr.Api.ProductsCatalogue.Contracts.CreateProduct
 
   public class CreateBookResponse : CreateProductResponse
   {
+    public override ProductCategory Category => ProductCategory.Books;
     public BookSpecification Specifications { get; init; }
 
     public CreateBookResponse(
@@ -91,10 +92,9 @@ namespace Sr.Api.ProductsCatalogue.Contracts.CreateProduct
       string description,
       string sku,
       string url,
-      Category category,
       List<PriceResponse> prices,
       BookSpecification specifications
-    ) : base(id, name, description, sku, url, category, prices)
+    ) : base(id, name, description, sku, url, prices)
     {
       Specifications = new BookSpecification(
         specifications.Cover

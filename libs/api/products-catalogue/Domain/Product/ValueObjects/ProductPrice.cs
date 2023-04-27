@@ -2,7 +2,7 @@ using Sr.Api.ProductsCatalogue.Domain.Common.Models;
 using Sr.Api.ProductsCatalogue.Domain.Product.ValueObjects;
 
 
-namespace Sr.Api.ProductsCatalogue.Domain.Product.Entities;
+namespace Sr.Api.ProductsCatalogue.Domain.Product.ValueObjects;
 
 public sealed class ProductPrice : ValueObject
 {

@@ -1,3 +1,4 @@
+using Sr.Api.ProductsCatalogue.Common;
 using Sr.Api.ProductsCatalogue.Contracts.Common;
 
 namespace Sr.Api.ProductsCatalogue.Contracts.CreateProduct
@@ -8,7 +9,7 @@ namespace Sr.Api.ProductsCatalogue.Contracts.CreateProduct
     public string Description { get; init; } = null!;
     public string SKU { get; init; } = null!;
     public string Url { get; init; } = null!;
-    public Category Category { get; init; }
+    public ProductCategory Category { get; init; }
     public List<Price> Prices { get; init; } = null!;
 
     protected CreateProductRequest(
@@ -16,7 +17,7 @@ namespace Sr.Api.ProductsCatalogue.Contracts.CreateProduct
       string description,
       string sku,
       string url,
-      Category category,
+      ProductCategory category,
       List<Price> prices
     )
     {
@@ -40,7 +41,7 @@ namespace Sr.Api.ProductsCatalogue.Contracts.CreateProduct
       string url,
       List<Price> prices,
       ShoesSpecification specifications
-    ) : base(name, description, sku, url, Category.Shoes, prices)
+    ) : base(name, description, sku, url, ProductCategory.Shoes, prices)
     {
       Specifications = new ShoesSpecification(
         specifications.Size,
@@ -60,7 +61,7 @@ namespace Sr.Api.ProductsCatalogue.Contracts.CreateProduct
       string url,
       List<Price> prices,
       ClothingSpecification specifications
-    ) : base(name, description, sku, url, Category.Clothing, prices)
+    ) : base(name, description, sku, url, ProductCategory.Clothing, prices)
     {
       Specifications = new ClothingSpecification(
         specifications.Size,
@@ -80,7 +81,7 @@ namespace Sr.Api.ProductsCatalogue.Contracts.CreateProduct
       string url,
       List<Price> prices,
       BookSpecification specifications
-    ) : base(name, description, sku, url, Category.Books, prices)
+    ) : base(name, description, sku, url, ProductCategory.Books, prices)
     {
       Specifications = new BookSpecification(
         specifications.Cover

@@ -10,4 +10,8 @@
     <PackageReference Include="OneOf" Version="3.0.243" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Sr.Api.ProductsCatalogue.Common.csproj" />
+  </ItemGroup>
+
 </Project>

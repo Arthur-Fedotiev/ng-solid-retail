@@ -1,7 +1,7 @@
 namespace Sr.Api.ProductsCatalogue.Contracts.Common
 {
   public record ShoesSpecification(
-    string Size,
+    float Size,
     string Color
   );
 

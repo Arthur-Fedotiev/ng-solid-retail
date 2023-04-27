@@ -1,50 +1,37 @@
-using Sr.Api.ProductsCatalogue.Domain.Product.Entities;
+using Sr.Api.ProductsCatalogue.Common;
+using Sr.Api.ProductsCatalogue.Domain.Product.ValueObjects;
 using Sr.Api.ProductsCatalogue.Domain.ValueObjects;
 using Sr.Api.Shared.Domain.Models;
 
 namespace Sr.Api.ProductsCatalogue.Domain.Product.AggregateRoot
 {
-  public sealed class Product : AggregateRoot<ProductId>
+  public abstract class Product : AggregateRoot<ProductId>
   {
+    protected readonly List<ProductPrice> _prices = new();
+
+    public abstract ProductCategory Category { get; }
     public string Name { get; }
     public string Description { get; }
     public string SKU { get; }
-    public ProductCategory Category { get; }
-    public List<ProductPrice> Prices { get; } = new();
     public string Url { get; }
-    public List<object> Specifications { get; } = new();
 
-    private Product(
+    public IReadOnlyList<ProductPrice> Prices => _prices.AsReadOnly();
+
+    protected Product(
       ProductId id,
       string name,
       string description,
       string sku,
-      ProductCategory category,
       List<ProductPrice> prices,
-      string url,
-      List<object> specifications) : base(id)
+      string url) : base(id)
     {
       {
         Name = name;
         Description = description;
         SKU = sku;
-        Category = category;
-        Prices = prices;
         Url = url;
-        Specifications = specifications;
+        _prices = prices;
       }
-    }
-
-    public static Product Create(
-      string name,
-      string description,
-      string sku,
-      ProductCategory category,
-      List<ProductPrice> prices,
-      string url,
-      List<object> specifications)
-    {
-      return new(ProductId.CreateUnique(), name, description, sku, category, prices, url, specifications);
     }
   }
 }
