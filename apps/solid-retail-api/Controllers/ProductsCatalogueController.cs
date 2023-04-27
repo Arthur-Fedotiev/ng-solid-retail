@@ -25,25 +25,9 @@ namespace Sr.SolidRetailApi.Controllers
     [ProducesResponseType(typeof(CreateProductResponse), StatusCodes.Status201Created)]
     public async Task<IActionResult> CreateProduct(CreateProductRequest request)
     {
-      var createProductResult = await _mediator.Send(
-        request switch
-        {
-          CreateShoesRequest createShoesRequest => _mapper.Map<CreateProductCommand>(createShoesRequest),
-          CreateClothingRequest createClothingRequest => _mapper.Map<CreateProductCommand>(createClothingRequest),
-          CreateBookRequest createBookRequest => _mapper.Map<CreateProductCommand>(createBookRequest),
-          _ => throw new NotImplementedException()
-        }
-      );
+      var createProductResult = await _mediator.Send(_mapper.Map<CreateProductCommand>(request));
 
-      CreateProductResponse response = createProductResult switch
-      {
-        Shoes shoes => _mapper.Map<CreateShoesResponse>(shoes),
-        Clothing clothing => _mapper.Map<CreateClothingResponse>(clothing),
-        Book book => _mapper.Map<CreateBookResponse>(book),
-        _ => throw new NotImplementedException()
-      };
-
-      return Ok(response);
+      return Ok(_mapper.Map<Product, CreateProductResponse>(createProductResult));
     }
   }
 }
