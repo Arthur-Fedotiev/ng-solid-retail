@@ -42,9 +42,7 @@ namespace Sr.SolidRetailApi.Common.Mapping
             .Include<Book, CreateBookResponse>()
             .Map(dest => dest.Id, src => src.Id.Value);
 
-
-
-      _ = config.ForType<Shoes, CreateShoesResponse>()
+      _ = config.ForType<Shoes, CreateProductResponse>()
       .ConstructUsing((src) => new CreateShoesResponse(
         src.Id.Value,
         src.Name,

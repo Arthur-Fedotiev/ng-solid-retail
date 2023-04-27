@@ -1,6 +1,8 @@
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Sr.Api.ProductsCatalogue.Application;
 using Sr.Api.ProductsCatalogue.Infrastructure;
 using Sr.SolidRetailApi;
+using Sr.SolidRetailApi.Common.Errors;
 using Sr.SolidRetailApi.Common.Swagger;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +10,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddPresentation()
   .AddProductsCatalogueApplication()
   .AddProductsCatalogueInfrastructure();
+
+
+builder.Services.AddSingleton<ProblemDetailsFactory, SolidRetailProblemDetailsFactory>();
 
 var app = builder.Build();
 
@@ -21,6 +26,7 @@ if (app.Environment.IsDevelopment())
   });
 }
 
+app.UseExceptionHandler("/error");
 app.UseSwaggerConfiguration();
 app.UseHttpsRedirection();
 app.UseAuthorization();
