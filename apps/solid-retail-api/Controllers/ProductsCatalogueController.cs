@@ -1,10 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Sr.Api.ProductsCatalogue.Contracts.CreateProduct;
-using MediatR;
-using Price = Sr.Api.ProductsCatalogue.Application.CreateProduct.Price;
-using CommonContracts = Sr.Api.ProductsCatalogue.Contracts.Common;
-
 using Sr.Api.ProductsCatalogue.Application.CreateProduct;
+using MediatR;
+using MapsterMapper;
 using Sr.Api.ProductsCatalogue.Domain.Product.AggregateRoot;
 
 namespace Sr.SolidRetailApi.Controllers
@@ -15,70 +13,37 @@ namespace Sr.SolidRetailApi.Controllers
   public class ProductsCatalogueController : ControllerBase
   {
     private readonly IMediator _mediator;
+    private readonly IMapper _mapper;
 
-    public ProductsCatalogueController(IMediator mediator)
+    public ProductsCatalogueController(IMediator mediator, IMapper mapper)
     {
       _mediator = mediator;
+      _mapper = mapper;
     }
 
     [HttpPost]
     [ProducesResponseType(typeof(CreateProductResponse), StatusCodes.Status201Created)]
     public async Task<IActionResult> CreateProduct(CreateProductRequest request)
     {
-      var createdProduct = await _mediator.Send(new CreateProductCommand(
-        request.Category,
-        request.Name,
-        request.Description,
-        request.SKU,
-        request.Url,
-        request.Prices.ConvertAll(price => new Price(price.Value, price.Currency)),
+      var createProductResult = await _mediator.Send(
         request switch
         {
-          CreateShoesRequest shoesRequest => new ShoesSpecification(shoesRequest.Specifications.Size, shoesRequest.Specifications.Color),
-          CreateClothingRequest clothingRequest => new ClothingSpecification(clothingRequest.Specifications.Size, clothingRequest.Specifications.Color),
-          CreateBookRequest bookRequest => new BookSpecification(bookRequest.Specifications.Cover),
-          _ => throw new ArgumentOutOfRangeException(nameof(request.Category))
+          CreateShoesRequest createShoesRequest => _mapper.Map<CreateProductCommand>(createShoesRequest),
+          CreateClothingRequest createClothingRequest => _mapper.Map<CreateProductCommand>(createClothingRequest),
+          CreateBookRequest createBookRequest => _mapper.Map<CreateProductCommand>(createBookRequest),
+          _ => throw new NotImplementedException()
         }
-      ));
+      );
 
-
-
-      CreateProductResponse result = createdProduct switch
+      CreateProductResponse response = createProductResult switch
       {
-        Shoes => new CreateShoesResponse(
-          createdProduct.Id.Value,
-          createdProduct.Name,
-          createdProduct.Description,
-          createdProduct.SKU,
-          createdProduct.Url,
-          createdProduct.Prices.ToList().ConvertAll(price => new PriceResponse(price.Amount, price.Currency.Code)),
-          new CommonContracts.ShoesSpecification(
-            ((Shoes)createdProduct).ShoesSize,
-            ((Shoes)createdProduct).Color)),
-        Clothing => new CreateClothingResponse(
-          createdProduct.Id.Value,
-          createdProduct.Name,
-          createdProduct.Description,
-          createdProduct.SKU,
-          createdProduct.Url,
-          createdProduct.Prices.ToList().ConvertAll(price => new PriceResponse(price.Amount, price.Currency.Code)),
-          new CommonContracts.ClothingSpecification(
-            ((Clothing)createdProduct).ClothingSize,
-            ((Clothing)createdProduct).Color)),
-        Book => new CreateBookResponse(
-          createdProduct.Id.Value,
-          createdProduct.Name,
-          createdProduct.Description,
-          createdProduct.SKU,
-          createdProduct.Url,
-          createdProduct.Prices.ToList().ConvertAll(price => new PriceResponse(price.Amount, price.Currency.Code)),
-          new CommonContracts.BookSpecification(
-            ((Book)createdProduct).Cover)),
-
-        _ => throw new ArgumentOutOfRangeException(nameof(request.Category))
+        Shoes shoes => _mapper.Map<CreateShoesResponse>(shoes),
+        Clothing clothing => _mapper.Map<CreateClothingResponse>(clothing),
+        Book book => _mapper.Map<CreateBookResponse>(book),
+        _ => throw new NotImplementedException()
       };
 
-      return CreatedAtAction(nameof(CreateProduct), result);
+      return Ok(response);
     }
   }
 }

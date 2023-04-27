@@ -1,15 +1,13 @@
 using Sr.Api.ProductsCatalogue.Application;
 using Sr.Api.ProductsCatalogue.Infrastructure;
-using Sr.SolidRetailApi.Common;
+using Sr.SolidRetailApi;
+using Sr.SolidRetailApi.Common.Swagger;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddCOntrollersConfiguration();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGenConfiguration();
-
-builder.Services.AddApplication();
-builder.Services.AddProductsCatalogueInfrastructure();
+builder.Services.AddPresentation()
+  .AddProductsCatalogueApplication()
+  .AddProductsCatalogueInfrastructure();
 
 var app = builder.Build();
 

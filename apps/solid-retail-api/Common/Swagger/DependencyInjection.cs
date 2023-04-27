@@ -1,9 +1,9 @@
 using Microsoft.OpenApi.Models;
 using Sr.Api.ProductsCatalogue.Contracts.CreateProduct;
 
-namespace Sr.SolidRetailApi.Common
+namespace Sr.SolidRetailApi.Common.Swagger
 {
-  public static class SwaggerConfiguration
+  public static class DependencyInjection
   {
     public static IServiceCollection AddSwaggerGenConfiguration(this IServiceCollection services)
     {

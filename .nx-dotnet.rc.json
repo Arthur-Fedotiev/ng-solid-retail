@@ -5,6 +5,8 @@
     "JsonSubTypes": "2.0.1",
     "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "7.0.5",
     "Newtonsoft.Json": "13.0.3",
-    "MediatR.Extensions.Microsoft.DependencyInjection": "11.1.0"
+    "MediatR.Extensions.Microsoft.DependencyInjection": "11.1.0",
+    "Mapster": "7.3.0",
+    "Mapster.DependencyInjection": "1.0.0"
   }
 }

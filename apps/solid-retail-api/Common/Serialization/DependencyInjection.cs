@@ -3,11 +3,11 @@ using JsonSubTypes;
 using Sr.Api.ProductsCatalogue.Common;
 using Sr.Api.ProductsCatalogue.Contracts.CreateProduct;
 
-namespace Sr.SolidRetailApi.Common
+namespace Sr.SolidRetailApi.Common.Serialization
 {
   public static class ControllersConfiguration
   {
-    public static IServiceCollection AddCOntrollersConfiguration(this IServiceCollection services)
+    public static IServiceCollection AddControllersConfiguration(this IServiceCollection services)
     {
       _ = services.AddControllers()
           .AddNewtonsoftJson(options => options

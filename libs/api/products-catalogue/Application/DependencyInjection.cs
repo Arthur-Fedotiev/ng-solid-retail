@@ -1,14 +1,15 @@
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Sr.Api.ProductsCatalogue.Application;
-
-public static class DependencyInjection
+namespace Sr.Api.ProductsCatalogue.Application
 {
-  public static IServiceCollection AddApplication(this IServiceCollection services)
+  public static class DependencyInjection
   {
-    services.AddMediatR(typeof(MediatREntrypoint).Assembly);
+    public static IServiceCollection AddProductsCatalogueApplication(this IServiceCollection services)
+    {
+      _ = services.AddMediatR(typeof(MediatREntrypoint).Assembly);
 
-    return services;
+      return services;
+    }
   }
 }
