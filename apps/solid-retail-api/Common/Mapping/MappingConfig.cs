@@ -1,10 +1,10 @@
 using Mapster;
 using Sr.Api.ProductsCatalogue.Contracts.CreateProduct;
-using Price = Sr.Api.ProductsCatalogue.Application.CreateProduct.Price;
 using CommonContracts = Sr.Api.ProductsCatalogue.Contracts.Common;
-using Sr.Api.ProductsCatalogue.Application.CreateProduct;
+using Sr.Api.ProductsCatalogue.Application.CreateProduct.Commands;
 using Sr.Api.ProductsCatalogue.Domain.Product.AggregateRoot;
 using Sr.Api.ProductsCatalogue.Domain.Product.ValueObjects;
+using Price = Sr.Api.ProductsCatalogue.Application.CreateProduct.Commands.Price;
 
 namespace Sr.SolidRetailApi.Common.Mapping
 {
@@ -42,7 +42,7 @@ namespace Sr.SolidRetailApi.Common.Mapping
             .Include<Book, CreateBookResponse>()
             .Map(dest => dest.Id, src => src.Id.Value);
 
-      _ = config.ForType<Shoes, CreateProductResponse>()
+      _ = config.ForType<Shoes, CreateShoesResponse>()
       .ConstructUsing((src) => new CreateShoesResponse(
         src.Id.Value,
         src.Name,

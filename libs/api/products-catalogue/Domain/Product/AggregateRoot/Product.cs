@@ -1,4 +1,6 @@
+using FluentResults;
 using Sr.Api.ProductsCatalogue.Common;
+using Sr.Api.ProductsCatalogue.Domain.Product.Errors;
 using Sr.Api.ProductsCatalogue.Domain.Product.ValueObjects;
 using Sr.Api.ProductsCatalogue.Domain.ValueObjects;
 using Sr.Api.Shared.Domain.Models;
@@ -32,6 +34,28 @@ namespace Sr.Api.ProductsCatalogue.Domain.Product.AggregateRoot
         Url = url;
         _prices = prices;
       }
+    }
+
+    public Result<ProductPrice> AddPrice(ProductPrice price)
+    {
+      if (_prices.Any(p => p.Tier == price.Tier))
+      {
+        return Result.Fail(DomainErrors.Product.ProductPriceAlreadyExistsForTierException);
+      }
+
+      if (_prices.Any(p => p.Tier > price.Tier && p.Amount < price.Amount))
+      {
+        return Result.Fail(DomainErrors.Product.ProductPriceLowerTierHigherThanForHigherTier);
+      }
+
+      if (_prices.Any(p => p.Tier < price.Tier && p.Amount > price.Amount))
+      {
+        return Result.Fail(DomainErrors.Product.ProductPriceHigherTierLowerThanForLowerTier);
+      }
+
+      _prices.Add(price);
+
+      return price;
     }
   }
 }

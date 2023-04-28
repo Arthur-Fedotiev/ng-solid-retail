@@ -11,9 +11,8 @@ namespace Sr.SolidRetailApi.Common.Serialization
     {
       _ = services.AddControllers()
           .AddNewtonsoftJson(options => options
-              .SerializerSettings
-              .Converters
-              .Add(JsonSubtypesConverterBuilder
+              .SerializerSettings.Converters
+                .Add(JsonSubtypesConverterBuilder
                   .Of(typeof(CreateProductRequest), nameof(CreateProductRequest.Category))
                   .RegisterSubtype(typeof(CreateBookRequest), ProductCategory.Books)
                   .RegisterSubtype(typeof(CreateShoesRequest), ProductCategory.Shoes)

@@ -8,17 +8,17 @@ namespace Sr.SolidRetailApi.Common.Swagger
     public static IServiceCollection AddSwaggerGenConfiguration(this IServiceCollection services)
     {
       _ = services.AddSwaggerGen(c =>
-  {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "SOLID Retail API", Version = "v1" });
-    c.UseAllOfToExtendReferenceSchemas();
-    c.UseAllOfForInheritance();
-    c.UseOneOfForPolymorphism();
-    c.SelectDiscriminatorNameUsing(type => type.Name switch
         {
-          nameof(CreateProductRequest) => nameof(CreateProductRequest.Category),
-          _ => null
+          c.SwaggerDoc("v1", new OpenApiInfo { Title = "SOLID Retail API", Version = "v1" });
+          c.UseAllOfToExtendReferenceSchemas();
+          c.UseAllOfForInheritance();
+          c.UseOneOfForPolymorphism();
+          c.SelectDiscriminatorNameUsing(type => type.Name switch
+              {
+                nameof(CreateProductRequest) => nameof(CreateProductRequest.Category),
+                _ => null
+              });
         });
-  });
 
       return services;
     }

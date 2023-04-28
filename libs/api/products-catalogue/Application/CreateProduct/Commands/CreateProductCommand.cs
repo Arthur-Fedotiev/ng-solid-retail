@@ -1,9 +1,10 @@
+using FluentResults;
 using MediatR;
 using OneOf;
 using Sr.Api.ProductsCatalogue.Common;
 using Sr.Api.ProductsCatalogue.Domain.Product.AggregateRoot;
 
-namespace Sr.Api.ProductsCatalogue.Application.CreateProduct
+namespace Sr.Api.ProductsCatalogue.Application.CreateProduct.Commands
 {
   public record CreateProductCommand(
     ProductCategory Category,
@@ -12,7 +13,7 @@ namespace Sr.Api.ProductsCatalogue.Application.CreateProduct
     string SKU,
     string Url,
     List<Price> Prices,
-    OneOf<ShoesSpecification, ClothingSpecification, BookSpecification> Specifications) : IRequest<Product>;
+    OneOf<ShoesSpecification, ClothingSpecification, BookSpecification> Specifications) : IRequest<Result<Product>>;
 
   public record Price(decimal Value, string Currency);
 
