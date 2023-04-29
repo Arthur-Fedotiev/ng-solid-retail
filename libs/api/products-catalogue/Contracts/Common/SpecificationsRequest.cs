@@ -1,16 +1,16 @@
 namespace Sr.Api.ProductsCatalogue.Contracts.Common
 {
-  public record ShoesSpecification(
+  public record ShoesSpecificationRequest(
     float Size,
     string Color
   );
 
-  public record ClothingSpecification(
+  public record ClothingSpecificationRequest(
     string Size,
     string Color
   );
 
-  public record BookSpecification(
+  public record BookSpecificationRequest(
     string Cover
   );
 }

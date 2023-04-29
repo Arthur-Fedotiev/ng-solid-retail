@@ -32,7 +32,7 @@ namespace Sr.Api.ProductsCatalogue.Contracts.CreateProduct
 
   public sealed class CreateShoesRequest : CreateProductRequest
   {
-    public ShoesSpecification Specifications { get; init; }
+    public ShoesSpecificationRequest Specifications { get; init; }
 
     public CreateShoesRequest(
       string name,
@@ -40,10 +40,10 @@ namespace Sr.Api.ProductsCatalogue.Contracts.CreateProduct
       string sku,
       string url,
       List<Price> prices,
-      ShoesSpecification specifications
+      ShoesSpecificationRequest specifications
     ) : base(name, description, sku, url, ProductCategory.Shoes, prices)
     {
-      Specifications = new ShoesSpecification(
+      Specifications = new ShoesSpecificationRequest(
         specifications.Size,
         specifications.Color
       );
@@ -52,7 +52,7 @@ namespace Sr.Api.ProductsCatalogue.Contracts.CreateProduct
 
   public sealed class CreateClothingRequest : CreateProductRequest
   {
-    public ClothingSpecification Specifications { get; init; }
+    public ClothingSpecificationRequest Specifications { get; init; }
 
     public CreateClothingRequest(
       string name,
@@ -60,10 +60,10 @@ namespace Sr.Api.ProductsCatalogue.Contracts.CreateProduct
       string sku,
       string url,
       List<Price> prices,
-      ClothingSpecification specifications
+      ClothingSpecificationRequest specifications
     ) : base(name, description, sku, url, ProductCategory.Clothing, prices)
     {
-      Specifications = new ClothingSpecification(
+      Specifications = new ClothingSpecificationRequest(
         specifications.Size,
         specifications.Color
       );
@@ -72,7 +72,7 @@ namespace Sr.Api.ProductsCatalogue.Contracts.CreateProduct
 
   public sealed class CreateBookRequest : CreateProductRequest
   {
-    public BookSpecification Specifications { get; init; }
+    public BookSpecificationRequest Specifications { get; init; }
 
     public CreateBookRequest(
       string name,
@@ -80,10 +80,10 @@ namespace Sr.Api.ProductsCatalogue.Contracts.CreateProduct
       string sku,
       string url,
       List<Price> prices,
-      BookSpecification specifications
+      BookSpecificationRequest specifications
     ) : base(name, description, sku, url, ProductCategory.Books, prices)
     {
-      Specifications = new BookSpecification(
+      Specifications = new BookSpecificationRequest(
         specifications.Cover
       );
     }

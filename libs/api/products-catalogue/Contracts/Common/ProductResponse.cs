@@ -1,9 +1,8 @@
 using Sr.Api.ProductsCatalogue.Common;
-using Sr.Api.ProductsCatalogue.Contracts.Common;
 
-namespace Sr.Api.ProductsCatalogue.Contracts.CreateProduct
+namespace Sr.Api.ProductsCatalogue.Contracts.Common
 {
-  public abstract class CreateProductResponse
+  public abstract class ProductResponse
   {
     public abstract ProductCategory Category { get; }
 
@@ -14,7 +13,7 @@ namespace Sr.Api.ProductsCatalogue.Contracts.CreateProduct
     public string Url { get; init; } = null!;
     public List<PriceResponse> Prices { get; init; } = null!;
 
-    protected CreateProductResponse(
+    protected ProductResponse(
       Guid id,
       string name,
       string description,
@@ -38,66 +37,66 @@ namespace Sr.Api.ProductsCatalogue.Contracts.CreateProduct
     CurrencyCode Currency
   );
 
-  public class CreateShoesResponse : CreateProductResponse
+  public class ShoesResponse : ProductResponse
   {
     public override ProductCategory Category => ProductCategory.Shoes;
-    public ShoesSpecification Specifications { get; init; }
+    public ShoesSpecificationResponse Specifications { get; init; }
 
-    public CreateShoesResponse(
+    public ShoesResponse(
       Guid id,
       string name,
       string description,
       string sku,
       string url,
       List<PriceResponse> prices,
-      ShoesSpecification specifications
+      ShoesSpecificationResponse specifications
     ) : base(id, name, description, sku, url, prices)
     {
-      Specifications = new ShoesSpecification(
+      Specifications = new ShoesSpecificationResponse(
         specifications.Size,
         specifications.Color
       );
     }
   }
 
-  public class CreateClothingResponse : CreateProductResponse
+  public class ClothingResponse : ProductResponse
   {
     public override ProductCategory Category => ProductCategory.Clothing;
-    public ClothingSpecification Specifications { get; init; }
+    public ClothingSpecificationResponse Specifications { get; init; }
 
-    public CreateClothingResponse(
+    public ClothingResponse(
       Guid id,
       string name,
       string description,
       string sku,
       string url,
       List<PriceResponse> prices,
-      ClothingSpecification specifications
+      ClothingSpecificationResponse specifications
     ) : base(id, name, description, sku, url, prices)
     {
-      Specifications = new ClothingSpecification(
+      Specifications = new ClothingSpecificationResponse(
         specifications.Size,
         specifications.Color
       );
     }
   }
 
-  public class CreateBookResponse : CreateProductResponse
+  public class BookResponse : ProductResponse
   {
     public override ProductCategory Category => ProductCategory.Books;
-    public BookSpecification Specifications { get; init; }
+    public BookSpecificationResponse Specifications { get; init; }
 
-    public CreateBookResponse(
+    public BookResponse(
       Guid id,
       string name,
       string description,
       string sku,
       string url,
       List<PriceResponse> prices,
-      BookSpecification specifications
+      BookSpecificationResponse specifications
     ) : base(id, name, description, sku, url, prices)
     {
-      Specifications = new BookSpecification(
+      Specifications = new BookSpecificationResponse(
         specifications.Cover
       );
     }

@@ -12,7 +12,7 @@ namespace Sr.Api.ProductsCatalogue.Infrastructure
   public class InMemoryProductsCatalogueRepository : IProductsCatalogueRepository
   {
     private static readonly List<Product> _products = new();
-    public Task<Result<Product>> CreateProductAsync(CreateProductCommand product)
+    public async Task<Result<Product>> CreateProductAsync(CreateProductCommand product)
     {
       var newProduct = product.Category switch
       {
@@ -53,7 +53,15 @@ namespace Sr.Api.ProductsCatalogue.Infrastructure
         _products.Add(newProduct.Value);
       }
 
-      return Task.FromResult(newProduct);
+      await Task.CompletedTask;
+
+      return newProduct;
+    }
+
+    public async Task<Result<List<Product>>> GetProductsAsync()
+    {
+      await Task.CompletedTask;
+      return _products;
     }
   }
 }

@@ -1,10 +1,10 @@
 using Mapster;
 using Sr.Api.ProductsCatalogue.Contracts.CreateProduct;
-using CommonContracts = Sr.Api.ProductsCatalogue.Contracts.Common;
-using Sr.Api.ProductsCatalogue.Application.CreateProduct.Commands;
 using Sr.Api.ProductsCatalogue.Domain.Product.AggregateRoot;
 using Sr.Api.ProductsCatalogue.Domain.Product.ValueObjects;
 using Price = Sr.Api.ProductsCatalogue.Application.CreateProduct.Commands.Price;
+using Sr.Api.ProductsCatalogue.Contracts.Common;
+using Sr.Api.ProductsCatalogue.Application.CreateProduct.Commands;
 
 namespace Sr.SolidRetailApi.Common.Mapping
 {
@@ -37,42 +37,42 @@ namespace Sr.SolidRetailApi.Common.Mapping
 
     private static void configureCreateProductResponseMapping(TypeAdapterConfig config)
     {
-      _ = config.NewConfig<Product, CreateProductResponse>()
-            .Include<Shoes, CreateShoesResponse>()
-            .Include<Clothing, CreateClothingResponse>()
-            .Include<Book, CreateBookResponse>()
+      _ = config.NewConfig<Product, ProductResponse>()
+            .Include<Shoes, ShoesResponse>()
+            .Include<Clothing, ClothingResponse>()
+            .Include<Book, BookResponse>()
             .Map(dest => dest.Id, src => src.Id.Value);
 
-      _ = config.ForType<Shoes, CreateShoesResponse>()
-      .ConstructUsing((src) => new CreateShoesResponse(
+      _ = config.ForType<Shoes, ShoesResponse>()
+      .ConstructUsing((src) => new ShoesResponse(
         src.Id.Value,
         src.Name,
         src.Description,
         src.Sku,
         src.Url,
         src.Prices.ToList().ConvertAll(price => new PriceResponse(price.Amount, price.Tier, price.Currency.Code)),
-        new CommonContracts.ShoesSpecification(src.ShoesSize, src.Color)));
+        new ShoesSpecificationResponse(src.ShoesSize, src.Color)));
 
-      _ = config.ForType<Clothing, CreateClothingResponse>()
-      .ConstructUsing((src) => new CreateClothingResponse(
+      _ = config.ForType<Clothing, ClothingResponse>()
+      .ConstructUsing((src) => new ClothingResponse(
         src.Id.Value,
         src.Name,
         src.Description,
         src.Sku,
         src.Url,
         src.Prices.ToList().ConvertAll(price => new PriceResponse(price.Amount, price.Tier, price.Currency.Code)),
-        new CommonContracts.ClothingSpecification(src.ClothingSize, src.Color)));
+        new ClothingSpecificationResponse(src.ClothingSize, src.Color)));
 
 
-      _ = config.ForType<Book, CreateBookResponse>()
-      .ConstructUsing((src) => new CreateBookResponse(
+      _ = config.ForType<Book, BookResponse>()
+      .ConstructUsing((src) => new BookResponse(
         src.Id.Value,
         src.Name,
         src.Description,
         src.Sku,
         src.Url,
         src.Prices.ToList().ConvertAll(price => new PriceResponse(price.Amount, price.Tier, price.Currency.Code)),
-        new CommonContracts.BookSpecification(src.Cover)));
+        new BookSpecificationResponse(src.Cover)));
 
       _ = config.NewConfig<ProductPrice, PriceResponse>()
              .Map(dest => dest.Value, src => src.Amount)
