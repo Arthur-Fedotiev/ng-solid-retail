@@ -8,6 +8,8 @@
     "MediatR.Extensions.Microsoft.DependencyInjection": "11.1.0",
     "Mapster": "7.3.0",
     "Mapster.DependencyInjection": "1.0.0",
-    "FluentResults": "3.15.2"
+    "FluentResults": "3.15.2",
+    "FluentValidation": "11.5.2",
+    "FluentValidation.AspNetCore": "11.3.0"
   }
 }

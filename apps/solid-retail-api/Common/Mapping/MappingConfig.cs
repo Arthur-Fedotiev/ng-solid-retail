@@ -22,7 +22,8 @@ namespace Sr.SolidRetailApi.Common.Mapping
             .Include<CreateShoesRequest, CreateProductCommand>()
             .Include<CreateClothingRequest, CreateProductCommand>()
             .Include<CreateBookRequest, CreateProductCommand>()
-            .Map(dest => dest.Prices, src => src.Prices.ConvertAll(price => new Price(price.Value, price.Currency)));
+            .Map(dest => dest.Sku, src => src.SKU)
+            .Map(dest => dest.Prices, src => src.Prices.ConvertAll(price => new Price(price.Value, price.Tier, price.Currency)));
 
       _ = config.ForType<CreateShoesRequest, CreateProductCommand>()
             .Map(dest => dest.Specifications, src => new ShoesSpecification(src.Specifications.Size, src.Specifications.Color));
@@ -47,9 +48,9 @@ namespace Sr.SolidRetailApi.Common.Mapping
         src.Id.Value,
         src.Name,
         src.Description,
-        src.SKU,
+        src.Sku,
         src.Url,
-        src.Prices.ToList().ConvertAll(price => new PriceResponse(price.Amount, price.Currency.Code)),
+        src.Prices.ToList().ConvertAll(price => new PriceResponse(price.Amount, price.Tier, price.Currency.Code)),
         new CommonContracts.ShoesSpecification(src.ShoesSize, src.Color)));
 
       _ = config.ForType<Clothing, CreateClothingResponse>()
@@ -57,9 +58,9 @@ namespace Sr.SolidRetailApi.Common.Mapping
         src.Id.Value,
         src.Name,
         src.Description,
-        src.SKU,
+        src.Sku,
         src.Url,
-        src.Prices.ToList().ConvertAll(price => new PriceResponse(price.Amount, price.Currency.Code)),
+        src.Prices.ToList().ConvertAll(price => new PriceResponse(price.Amount, price.Tier, price.Currency.Code)),
         new CommonContracts.ClothingSpecification(src.ClothingSize, src.Color)));
 
 
@@ -68,9 +69,9 @@ namespace Sr.SolidRetailApi.Common.Mapping
         src.Id.Value,
         src.Name,
         src.Description,
-        src.SKU,
+        src.Sku,
         src.Url,
-        src.Prices.ToList().ConvertAll(price => new PriceResponse(price.Amount, price.Currency.Code)),
+        src.Prices.ToList().ConvertAll(price => new PriceResponse(price.Amount, price.Tier, price.Currency.Code)),
         new CommonContracts.BookSpecification(src.Cover)));
 
       _ = config.NewConfig<ProductPrice, PriceResponse>()

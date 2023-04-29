@@ -10,12 +10,12 @@ namespace Sr.Api.ProductsCatalogue.Application.CreateProduct.Commands
     ProductCategory Category,
     string Name,
     string Description,
-    string SKU,
+    string Sku,
     string Url,
     List<Price> Prices,
     OneOf<ShoesSpecification, ClothingSpecification, BookSpecification> Specifications) : IRequest<Result<Product>>;
 
-  public record Price(decimal Value, string Currency);
+  public record Price(decimal Value, ProductTier Tier, CurrencyCode CurrencyCode);
 
   public record ShoesSpecification(float Size, string Color);
 

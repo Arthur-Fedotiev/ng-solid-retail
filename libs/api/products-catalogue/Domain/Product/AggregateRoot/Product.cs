@@ -14,7 +14,7 @@ namespace Sr.Api.ProductsCatalogue.Domain.Product.AggregateRoot
     public abstract ProductCategory Category { get; }
     public string Name { get; }
     public string Description { get; }
-    public string SKU { get; }
+    public string Sku { get; }
     public string Url { get; }
 
     public IReadOnlyList<ProductPrice> Prices => _prices.AsReadOnly();
@@ -30,7 +30,7 @@ namespace Sr.Api.ProductsCatalogue.Domain.Product.AggregateRoot
       {
         Name = name;
         Description = description;
-        SKU = sku;
+        Sku = sku;
         Url = url;
         _prices = prices;
       }

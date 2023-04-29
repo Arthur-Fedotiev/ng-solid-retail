@@ -1,5 +1,6 @@
 using System.Text.Json.Serialization;
 using JsonSubTypes;
+using Newtonsoft.Json.Converters;
 using Sr.Api.ProductsCatalogue.Common;
 using Sr.Api.ProductsCatalogue.Contracts.CreateProduct;
 
@@ -10,7 +11,10 @@ namespace Sr.SolidRetailApi.Common.Serialization
     public static IServiceCollection AddControllersConfiguration(this IServiceCollection services)
     {
       _ = services.AddControllers()
-          .AddNewtonsoftJson(options => options
+          .AddNewtonsoftJson(options =>
+          {
+            options.SerializerSettings.Converters.Add(new StringEnumConverter());
+            options
               .SerializerSettings.Converters
                 .Add(JsonSubtypesConverterBuilder
                   .Of(typeof(CreateProductRequest), nameof(CreateProductRequest.Category))
@@ -18,7 +22,8 @@ namespace Sr.SolidRetailApi.Common.Serialization
                   .RegisterSubtype(typeof(CreateShoesRequest), ProductCategory.Shoes)
                   .RegisterSubtype(typeof(CreateClothingRequest), ProductCategory.Clothing)
                   .SerializeDiscriminatorProperty()
-                  .Build()))
+                  .Build());
+          })
           .AddJsonOptions(options =>
           {
             options.JsonSerializerOptions.PropertyNamingPolicy = null;

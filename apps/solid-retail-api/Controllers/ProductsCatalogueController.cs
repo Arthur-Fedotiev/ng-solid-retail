@@ -24,7 +24,9 @@ namespace Sr.SolidRetailApi.Controllers
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> CreateProduct(CreateProductRequest request)
     {
-      var createProductResult = await _mediator.Send(_mapper.Map<CreateProductCommand>(request));
+      var createProductCommand = _mapper.Map<CreateProductRequest, CreateProductCommand>(request);
+
+      var createProductResult = await _mediator.Send(createProductCommand);
 
       return createProductResult.IsSuccess
         ? Ok(_mapper.Map<Product, CreateProductResponse>(createProductResult.Value))

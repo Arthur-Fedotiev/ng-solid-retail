@@ -91,6 +91,7 @@ namespace Sr.Api.ProductsCatalogue.Contracts.CreateProduct
 
   public record Price(
     decimal Value,
-    string Currency
+    ProductTier Tier,
+    CurrencyCode Currency
   );
 }

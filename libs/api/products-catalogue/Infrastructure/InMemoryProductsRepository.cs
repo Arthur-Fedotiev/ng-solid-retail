@@ -2,7 +2,6 @@ using FluentResults;
 using Sr.Api.ProductsCatalogue.Application.CreateProduct.Commands;
 using Sr.Api.ProductsCatalogue.Application.Persistance;
 using Sr.Api.ProductsCatalogue.Common;
-using Sr.Api.ProductsCatalogue.Domain.Product;
 using Sr.Api.ProductsCatalogue.Domain.Product.AggregateRoot;
 using Sr.Api.ProductsCatalogue.Domain.Product.Errors;
 using Sr.Api.ProductsCatalogue.Domain.Product.ValueObjects;
@@ -21,8 +20,8 @@ namespace Sr.Api.ProductsCatalogue.Infrastructure
           ProductId.CreateUnique(),
           product.Name,
           product.Description,
-          product.SKU,
-          product.Prices.ConvertAll(price => ProductPrice.Create(price.Value, ProductTier.Tier1, Currency.USDollar)),
+          product.Sku,
+          product.Prices.ConvertAll(price => ProductPrice.Create(price.Value, ProductTier.FirstTier, Currency.USDollar)),
           product.Url,
           product.Specifications.AsT2.Cover
           ),
@@ -30,8 +29,8 @@ namespace Sr.Api.ProductsCatalogue.Infrastructure
           ProductId.CreateUnique(),
           product.Name,
           product.Description,
-          product.SKU,
-          product.Prices.ConvertAll(price => ProductPrice.Create(price.Value, ProductTier.Tier1, Currency.USDollar)),
+          product.Sku,
+          product.Prices.ConvertAll(price => ProductPrice.Create(price.Value, ProductTier.FirstTier, Currency.USDollar)),
           product.Url,
           product.Specifications.AsT1.Size,
           product.Specifications.AsT1.Color
@@ -40,8 +39,8 @@ namespace Sr.Api.ProductsCatalogue.Infrastructure
           ProductId.CreateUnique(),
           product.Name,
           product.Description,
-          product.SKU,
-          product.Prices.ConvertAll(price => ProductPrice.Create(price.Value, ProductTier.Tier1, Currency.USDollar)),
+          product.Sku,
+          product.Prices.ConvertAll(price => ProductPrice.Create(price.Value, ProductTier.FirstTier, Currency.USDollar)),
           product.Url,
           product.Specifications.AsT0.Size,
           product.Specifications.AsT0.Color

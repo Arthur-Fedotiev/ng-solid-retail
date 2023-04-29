@@ -1,28 +1,23 @@
-﻿using Sr.Api.ProductsCatalogue.Domain.Common.Models;
+﻿using Sr.Api.ProductsCatalogue.Common;
+using Sr.Api.ProductsCatalogue.Domain.Common.Models;
 
 namespace Sr.Api.ProductsCatalogue.Domain.Product.ValueObjects
 {
   public sealed class Currency : ValueObject
   {
-    public string Code { get; }
+    public CurrencyCode Code { get; }
     public string Symbol { get; }
-    public static Currency USDollar => new("USD", "$");
-    public static Currency CanadianDollar => new("CAD", "CDN$");
-    public static Currency Euro => new("EUR", "€");
+    public static Currency USDollar => new(CurrencyCode.USD, "$");
+    public static Currency CanadianDollar => new(CurrencyCode.CAD, "CDN$");
+    public static Currency Euro => new(CurrencyCode.EUR, "€");
 
-    public static Currency OfCode(string code)
+    public static Currency OfCode(CurrencyCode code)
     {
-      if (string.IsNullOrWhiteSpace(code))
-      {
-        // TODO: Use a custom exception type
-        throw new Exception("Code cannot be null or whitespace.");
-      }
-
       return code switch
       {
-        "USD" => new Currency(USDollar.Code, USDollar.Symbol),
-        "CAD" => new Currency(CanadianDollar.Code, CanadianDollar.Symbol),
-        "EUR" => new Currency(Euro.Code, Euro.Symbol),
+        CurrencyCode.USD => new Currency(USDollar.Code, USDollar.Symbol),
+        CurrencyCode.CAD => new Currency(CanadianDollar.Code, CanadianDollar.Symbol),
+        CurrencyCode.EUR => new Currency(Euro.Code, Euro.Symbol),
         _ => throw new Exception($"Invalid code {code}")
       };
     }
@@ -33,7 +28,7 @@ namespace Sr.Api.ProductsCatalogue.Domain.Product.ValueObjects
       yield return Symbol;
     }
 
-    private Currency(string code, string symbol)
+    private Currency(CurrencyCode code, string symbol)
     {
       if (string.IsNullOrWhiteSpace(symbol))
       {

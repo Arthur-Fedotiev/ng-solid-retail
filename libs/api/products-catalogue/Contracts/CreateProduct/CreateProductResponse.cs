@@ -34,7 +34,8 @@ namespace Sr.Api.ProductsCatalogue.Contracts.CreateProduct
 
   public record PriceResponse(
     decimal Value,
-    string Currency
+    ProductTier Tier,
+    CurrencyCode Currency
   );
 
   public class CreateShoesResponse : CreateProductResponse
