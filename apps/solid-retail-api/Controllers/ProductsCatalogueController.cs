@@ -7,6 +7,7 @@ using Sr.Api.ProductsCatalogue.Domain.Product.AggregateRoot;
 using Sr.Api.ProductsCatalogue.Contracts.Common;
 using Sr.Api.ProductsCatalogue.Application.GetProducts.Queries;
 using FluentResults;
+using Sr.Api.ProductsCatalogue.Application.Common;
 
 namespace Sr.SolidRetailApi.Controllers
 {
@@ -23,13 +24,14 @@ namespace Sr.SolidRetailApi.Controllers
     }
 
     [HttpGet]
-    [ProducesResponseType(typeof(List<ProductResponse>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(PaginatedItemsResponse<ProductResponse>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> GetProducts()
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> GetProducts(int? pageSize, int? pageIndex, string? ids)
     {
-      var result = await _mediator.Send(new GetProductsQuery());
+      var result = await _mediator.Send(new GetProductsQuery(pageSize, pageIndex, ids));
 
-      return ResponseFor<List<Product>, List<ProductResponse>>(result);
+      return ResponseFor<PaginatedItemsResponse<Product>, PaginatedItemsResponse<ProductResponse>>(result);
     }
 
     [HttpPost]
@@ -38,7 +40,6 @@ namespace Sr.SolidRetailApi.Controllers
     public async Task<IActionResult> CreateProduct(CreateProductRequest request)
     {
       var createProductCommand = _mapper.Map<CreateProductRequest, CreateProductCommand>(request);
-
       var createProductResult = await _mediator.Send(createProductCommand);
 
       return ResponseFor<Product, ProductResponse>(createProductResult);

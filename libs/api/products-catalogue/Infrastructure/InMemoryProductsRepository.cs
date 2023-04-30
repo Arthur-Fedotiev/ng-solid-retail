@@ -1,5 +1,6 @@
 using FluentResults;
 using Sr.Api.ProductsCatalogue.Application.CreateProduct.Commands;
+using Sr.Api.ProductsCatalogue.Application.GetProducts.Queries;
 using Sr.Api.ProductsCatalogue.Application.Persistance;
 using Sr.Api.ProductsCatalogue.Common;
 using Sr.Api.ProductsCatalogue.Domain.Product.AggregateRoot;
@@ -58,10 +59,31 @@ namespace Sr.Api.ProductsCatalogue.Infrastructure
       return newProduct;
     }
 
-    public async Task<Result<List<Product>>> GetProductsAsync()
+    public async Task<(IReadOnlyList<Product> products, int Count)> GetProductsAsync(GetProductsQuery query)
     {
+      var products = _products.AsQueryable();
+
+      if (!string.IsNullOrEmpty(query.Ids))
+      {
+        var ids = query.Ids.Split(',').Select(Guid.Parse);
+
+        products = products.Where(product => ids.Contains(product.Id.Value));
+      }
+
+      var total = products.Count();
+
+      if (query.PageSize is not null && query.PageIndex is not null)
+      {
+        products = products
+          .Skip(query.PageSize.Value * query.PageIndex.Value)
+          .Take(query.PageSize.Value);
+      }
+
+      var result = products.ToList().AsReadOnly<Product>();
+
       await Task.CompletedTask;
-      return _products;
+
+      return (result, total);
     }
   }
 }
