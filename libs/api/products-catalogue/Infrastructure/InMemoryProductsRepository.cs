@@ -1,5 +1,6 @@
 using FluentResults;
 using Sr.Api.ProductsCatalogue.Application.Commands.CreateProduct;
+using Sr.Api.ProductsCatalogue.Application.Commands.UpdateProduct;
 using Sr.Api.ProductsCatalogue.Application.GetProducts.Queries;
 using Sr.Api.ProductsCatalogue.Application.Persistance;
 using Sr.Api.ProductsCatalogue.Common;
@@ -13,7 +14,7 @@ namespace Sr.Api.ProductsCatalogue.Infrastructure
   {
     private static readonly List<Product> _products = new(){
         Shoes.Create(
-        new ProductId(Guid.Parse("38062be0-d2ab-4571-9401-e2d37ff9498b")),
+         ProductId.Create(Guid.Parse("38062be0-d2ab-4571-9401-e2d37ff9498b")),
           "Nike Air Max 90",
         "The Nike Air Max 90 stays true to its OG running roots with the iconic Waffle sole, stitched overlays and classic TPU accents. Fresh colours give a modern look while Max Air cushioning adds comfort to your journey.",
         "CZ1929-100",
@@ -30,39 +31,7 @@ namespace Sr.Api.ProductsCatalogue.Infrastructure
     };
     public async Task<Result<Product>> CreateProductAsync(CreateProductCommand product)
     {
-      var newProduct = product.Category switch
-      {
-        ProductCategory.Books => Book.Create(
-          ProductId.CreateUnique(),
-          product.Name,
-          product.Description,
-          product.Sku,
-          product.Prices.ConvertAll(price => ProductPrice.Create(price.Value, ProductTier.FirstTier, Currency.USDollar)),
-          product.Url,
-          product.Specifications.AsT2.Cover
-          ),
-        ProductCategory.Clothing => Clothing.Create(
-          ProductId.CreateUnique(),
-          product.Name,
-          product.Description,
-          product.Sku,
-          product.Prices.ConvertAll(price => ProductPrice.Create(price.Value, ProductTier.FirstTier, Currency.USDollar)),
-          product.Url,
-          product.Specifications.AsT1.Size,
-          product.Specifications.AsT1.Color
-          ),
-        ProductCategory.Shoes => Shoes.Create(
-          ProductId.CreateUnique(),
-          product.Name,
-          product.Description,
-          product.Sku,
-          product.Prices.ConvertAll(price => ProductPrice.Create(price.Value, ProductTier.FirstTier, Currency.USDollar)),
-          product.Url,
-          product.Specifications.AsT0.Size,
-          product.Specifications.AsT0.Color
-          ),
-        _ => Result.Fail<Product>(DomainErrors.Product.CategoryNotSupported)
-      };
+      var newProduct = CreateProduct(product);
 
       if (newProduct.IsSuccess)
       {
@@ -113,6 +82,100 @@ namespace Sr.Api.ProductsCatalogue.Infrastructure
       await Task.CompletedTask;
 
       return (result, total);
+    }
+
+    public async Task<Result<Product>> UpdateProductAsync(UpdateProductCommand request)
+    {
+      await Task.CompletedTask;
+
+      var product = _products.FirstOrDefault(product => product.Id.Value == request.Id);
+
+      if (product is null)
+      {
+        return Result.Fail<Product>(DomainErrors.Product.ProductNotFound);
+      }
+
+      var updatedProduct = CreateProduct(request);
+
+      _ = _products.Remove(product);
+      _products.Add(updatedProduct.Value);
+
+      return updatedProduct;
+    }
+
+    private static Result<Product> CreateProduct(CreateProductCommand request)
+    {
+      return request.Category switch
+      {
+        ProductCategory.Books => Book.Create(
+          ProductId.CreateUnique(),
+          request.Name,
+          request.Description,
+          request.Sku,
+          request.Prices.ConvertAll(price => ProductPrice.Create(price.Value, ProductTier.FirstTier, Currency.USDollar)),
+          request.Url,
+          request.Specifications.AsT2.Cover
+          ),
+        ProductCategory.Clothing => Clothing.Create(
+          ProductId.CreateUnique(),
+          request.Name,
+          request.Description,
+          request.Sku,
+          request.Prices.ConvertAll(price => ProductPrice.Create(price.Value, ProductTier.FirstTier, Currency.USDollar)),
+          request.Url,
+          request.Specifications.AsT1.Size,
+          request.Specifications.AsT1.Color
+          ),
+        ProductCategory.Shoes => Shoes.Create(
+          ProductId.CreateUnique(),
+          request.Name,
+          request.Description,
+          request.Sku,
+          request.Prices.ConvertAll(price => ProductPrice.Create(price.Value, ProductTier.FirstTier, Currency.USDollar)),
+          request.Url,
+          request.Specifications.AsT0.Size,
+          request.Specifications.AsT0.Color
+          ),
+        _ => Result.Fail<Product>(DomainErrors.Product.CategoryNotSupported)
+      };
+    }
+
+    private static Result<Product> CreateProduct(UpdateProductCommand request)
+    {
+      var id = ProductId.Create(request.Id);
+      return request.Category switch
+      {
+        ProductCategory.Books => Book.Create(
+          id,
+          request.Name,
+          request.Description,
+          request.Sku,
+          request.Prices.ConvertAll(price => ProductPrice.Create(price.Value, ProductTier.FirstTier, Currency.USDollar)),
+          request.Url,
+          request.Specifications.AsT2.Cover
+          ),
+        ProductCategory.Clothing => Clothing.Create(
+          id,
+          request.Name,
+          request.Description,
+          request.Sku,
+          request.Prices.ConvertAll(price => ProductPrice.Create(price.Value, ProductTier.FirstTier, Currency.USDollar)),
+          request.Url,
+          request.Specifications.AsT1.Size,
+          request.Specifications.AsT1.Color
+          ),
+        ProductCategory.Shoes => Shoes.Create(
+          id,
+          request.Name,
+          request.Description,
+          request.Sku,
+          request.Prices.ConvertAll(price => ProductPrice.Create(price.Value, ProductTier.FirstTier, Currency.USDollar)),
+          request.Url,
+          request.Specifications.AsT0.Size,
+          request.Specifications.AsT0.Color
+          ),
+        _ => Result.Fail<Product>(DomainErrors.Product.CategoryNotSupported)
+      };
     }
   }
 }

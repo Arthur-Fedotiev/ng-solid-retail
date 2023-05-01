@@ -5,6 +5,10 @@ using Sr.Api.ProductsCatalogue.Domain.Product.ValueObjects;
 using Price = Sr.Api.ProductsCatalogue.Application.Commands.CreateProduct.Price;
 using Sr.Api.ProductsCatalogue.Contracts.Common;
 using Sr.Api.ProductsCatalogue.Application.Commands.CreateProduct;
+using Sr.Api.ProductsCatalogue.Contracts.UpdateProduct;
+using UpdateProduct = Sr.Api.ProductsCatalogue.Application.Commands.UpdateProduct;
+using CreateProduct = Sr.Api.ProductsCatalogue.Application.Commands.CreateProduct;
+using Sr.Api.ProductsCatalogue.Application.Commands.UpdateProduct;
 
 namespace Sr.SolidRetailApi.Common.Mapping
 {
@@ -14,6 +18,7 @@ namespace Sr.SolidRetailApi.Common.Mapping
     {
       configureCreateProductCommandMapping(config);
       configureCreateProductResponseMapping(config);
+      configureUpdateProductMapping(config);
     }
 
     private static void configureCreateProductCommandMapping(TypeAdapterConfig config)
@@ -26,13 +31,32 @@ namespace Sr.SolidRetailApi.Common.Mapping
             .Map(dest => dest.Prices, src => src.Prices.ConvertAll(price => new Price(price.Value, price.Tier, price.Currency)));
 
       _ = config.ForType<CreateShoesRequest, CreateProductCommand>()
-            .Map(dest => dest.Specifications, src => new ShoesSpecification(src.Specifications.Size, src.Specifications.Color));
+            .Map(dest => dest.Specifications, src => new CreateProduct.ShoesSpecification(src.Specifications.Size, src.Specifications.Color));
 
       _ = config.ForType<CreateClothingRequest, CreateProductCommand>()
-            .Map(dest => dest.Specifications, src => new ClothingSpecification(src.Specifications.Size, src.Specifications.Color));
+            .Map(dest => dest.Specifications, src => new CreateProduct.ClothingSpecification(src.Specifications.Size, src.Specifications.Color));
 
       _ = config.ForType<CreateBookRequest, CreateProductCommand>()
-            .Map(dest => dest.Specifications, src => new BookSpecification(src.Specifications.Cover));
+            .Map(dest => dest.Specifications, src => new CreateProduct.BookSpecification(src.Specifications.Cover));
+    }
+
+    private static void configureUpdateProductMapping(TypeAdapterConfig config)
+    {
+      _ = config.NewConfig<UpdateProductRequest, UpdateProductCommand>()
+            .Include<UpdateShoesRequest, UpdateProductCommand>()
+            .Include<UpdateClothingRequest, UpdateProductCommand>()
+            .Include<UpdateBookRequest, UpdateProductCommand>()
+            .Map(dest => dest.Sku, src => src.SKU)
+            .Map(dest => dest.Prices, src => src.Prices.ConvertAll(price => new Price(price.Value, price.Tier, price.Currency)));
+
+      _ = config.ForType<UpdateShoesRequest, UpdateProductCommand>()
+            .Map(dest => dest.Specifications, src => new UpdateProduct.ShoesSpecification(src.Specifications.Size, src.Specifications.Color));
+
+      _ = config.ForType<UpdateClothingRequest, UpdateProductCommand>()
+            .Map(dest => dest.Specifications, src => new UpdateProduct.ClothingSpecification(src.Specifications.Size, src.Specifications.Color));
+
+      _ = config.ForType<UpdateBookRequest, UpdateProductCommand>()
+            .Map(dest => dest.Specifications, src => new UpdateProduct.BookSpecification(src.Specifications.Cover));
     }
 
     private static void configureCreateProductResponseMapping(TypeAdapterConfig config)

@@ -9,6 +9,8 @@ using FluentResults;
 using Sr.Api.ProductsCatalogue.Application.Common;
 using Sr.Api.ProductsCatalogue.Application.Commands.CreateProduct;
 using Sr.Api.ProductsCatalogue.Application.Commands.DeleteProduct;
+using Sr.Api.ProductsCatalogue.Contracts.UpdateProduct;
+using Sr.Api.ProductsCatalogue.Application.Commands.UpdateProduct;
 
 namespace Sr.SolidRetailApi.Controllers
 {
@@ -44,6 +46,18 @@ namespace Sr.SolidRetailApi.Controllers
       var createProductResult = await _mediator.Send(createProductCommand);
 
       return ResponseFor<Product, ProductResponse>(createProductResult);
+    }
+
+    [HttpPut]
+    [ProducesResponseType(typeof(ProductResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> UpdateProduct(UpdateProductRequest request)
+    {
+      var updateProductCommand = _mapper.Map<UpdateProductRequest, UpdateProductCommand>(request);
+
+      var updateProductResult = await _mediator.Send(updateProductCommand);
+
+      return ResponseFor<Product, ProductResponse>(updateProductResult);
     }
 
     [HttpDelete("{id}")]

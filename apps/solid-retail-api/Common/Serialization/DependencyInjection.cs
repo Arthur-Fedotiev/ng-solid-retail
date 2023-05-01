@@ -3,6 +3,7 @@ using JsonSubTypes;
 using Newtonsoft.Json.Converters;
 using Sr.Api.ProductsCatalogue.Common;
 using Sr.Api.ProductsCatalogue.Contracts.CreateProduct;
+using Sr.Api.ProductsCatalogue.Contracts.UpdateProduct;
 
 namespace Sr.SolidRetailApi.Common.Serialization
 {
@@ -16,11 +17,17 @@ namespace Sr.SolidRetailApi.Common.Serialization
             options.SerializerSettings.Converters.Add(new StringEnumConverter());
             options
               .SerializerSettings.Converters
-                .Add(JsonSubtypesConverterBuilder
-                  .Of(typeof(CreateProductRequest), nameof(CreateProductRequest.Category))
+                .Add(JsonSubtypesConverterBuilder.Of(typeof(CreateProductRequest), nameof(CreateProductRequest.Category))
                   .RegisterSubtype(typeof(CreateBookRequest), ProductCategory.Books)
                   .RegisterSubtype(typeof(CreateShoesRequest), ProductCategory.Shoes)
                   .RegisterSubtype(typeof(CreateClothingRequest), ProductCategory.Clothing)
+                  .SerializeDiscriminatorProperty()
+                  .Build());
+            options.SerializerSettings.Converters
+                .Add(JsonSubtypesConverterBuilder.Of(typeof(UpdateProductRequest), nameof(UpdateProductRequest.Category))
+                  .RegisterSubtype(typeof(UpdateBookRequest), ProductCategory.Books)
+                  .RegisterSubtype(typeof(UpdateShoesRequest), ProductCategory.Shoes)
+                  .RegisterSubtype(typeof(UpdateClothingRequest), ProductCategory.Clothing)
                   .SerializeDiscriminatorProperty()
                   .Build());
           })

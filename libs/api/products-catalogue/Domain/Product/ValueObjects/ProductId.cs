@@ -9,9 +9,14 @@ namespace Sr.Api.ProductsCatalogue.Domain.Product.ValueObjects
       return new(Guid.NewGuid());
     }
 
+    public static ProductId Create(Guid value)
+    {
+      return new(value);
+    }
+
     public Guid Value { get; } = Guid.NewGuid();
 
-    public ProductId(Guid value)
+    private ProductId(Guid value)
     {
       Value = value;
     }
