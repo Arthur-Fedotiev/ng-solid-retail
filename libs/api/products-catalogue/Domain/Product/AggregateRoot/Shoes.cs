@@ -1,6 +1,5 @@
 using Sr.Api.ProductsCatalogue.Common;
 using Sr.Api.ProductsCatalogue.Domain.Product.ValueObjects;
-using Sr.Api.ProductsCatalogue.Domain.ValueObjects;
 
 namespace Sr.Api.ProductsCatalogue.Domain.Product.AggregateRoot
 {

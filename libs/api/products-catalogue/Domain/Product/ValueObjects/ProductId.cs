@@ -1,21 +1,25 @@
 using Sr.Api.ProductsCatalogue.Domain.Common.Models;
 
-namespace Sr.Api.ProductsCatalogue.Domain.ValueObjects;
-
-public sealed class ProductId : ValueObject
+namespace Sr.Api.ProductsCatalogue.Domain.Product.ValueObjects
 {
-  public static ProductId CreateUnique() => new(Guid.NewGuid());
-
-  public Guid Value { get; } = Guid.NewGuid();
-
-  private ProductId(Guid value)
+  public sealed class ProductId : ValueObject
   {
-    Value = value;
-  }
+    public static ProductId CreateUnique()
+    {
+      return new(Guid.NewGuid());
+    }
+
+    public Guid Value { get; } = Guid.NewGuid();
+
+    public ProductId(Guid value)
+    {
+      Value = value;
+    }
 
 
-  protected override IEnumerable<object> GetEqualityComponents()
-  {
-    yield return Value;
+    protected override IEnumerable<object> GetEqualityComponents()
+    {
+      yield return Value;
+    }
   }
 }

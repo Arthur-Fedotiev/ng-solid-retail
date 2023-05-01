@@ -1,36 +1,37 @@
-namespace Sr.Api.Shared.Domain.Models;
-
-public abstract class Entity<TId> : IEquatable<Entity<TId>> where TId : notnull
+namespace Sr.Api.Shared.Domain.Models
 {
-  public TId Id { get; protected set; }
-
-  protected Entity(TId id)
+  public abstract class Entity<TId> : IEquatable<Entity<TId>> where TId : notnull
   {
-    Id = id;
-  }
+    public TId Id { get; protected set; }
 
-  public override bool Equals(object? obj)
-  {
-    return obj is Entity<TId> otherEntity && Equals(otherEntity);
-  }
+    protected Entity(TId id)
+    {
+      Id = id;
+    }
 
-  public static bool operator ==(Entity<TId> left, Entity<TId> right)
-  {
-    return Equals(left, right);
-  }
+    public override bool Equals(object? obj)
+    {
+      return obj is Entity<TId> otherEntity && Equals(otherEntity);
+    }
 
-  public static bool operator !=(Entity<TId> left, Entity<TId> right)
-  {
-    return !Equals(left, right);
-  }
+    public static bool operator ==(Entity<TId> left, Entity<TId> right)
+    {
+      return Equals(left, right);
+    }
 
-  public override int GetHashCode()
-  {
-    return Id.GetHashCode();
-  }
+    public static bool operator !=(Entity<TId> left, Entity<TId> right)
+    {
+      return !Equals(left, right);
+    }
 
-  public bool Equals(Entity<TId>? otherEntity)
-  {
-    return Equals((object?)otherEntity);
+    public override int GetHashCode()
+    {
+      return Id.GetHashCode();
+    }
+
+    public bool Equals(Entity<TId>? other)
+    {
+      return other is not null && Id.Equals(other.Id);
+    }
   }
 }

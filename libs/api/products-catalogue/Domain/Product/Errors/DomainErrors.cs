@@ -11,6 +11,7 @@ namespace Sr.Api.ProductsCatalogue.Domain.Product.Errors
       public static readonly IError ProductPriceLowerTierHigherThanForHigherTier = new Error("Product price lower tier higher than for higher tier").WithMetadata("StatusCode", 400);
       public static readonly IError ProductPriceHigherTierLowerThanForLowerTier = new Error("Product price higher tier lower than for lower tier").WithMetadata("StatusCode", 400);
       public static readonly IError CategoryNotSupported = new Error("Category not supported").WithMetadata("StatusCode", 400);
+      public static readonly IError ProductNotFound = new Error("Product not found").WithMetadata("StatusCode", 404);
       public static IError ValidationError(string message)
       {
         return new Error(message).WithMetadata("StatusCode", 400).WithMetadata("Title", "Validation error");

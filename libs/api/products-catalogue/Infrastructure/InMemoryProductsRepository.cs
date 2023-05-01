@@ -1,18 +1,33 @@
 using FluentResults;
-using Sr.Api.ProductsCatalogue.Application.CreateProduct.Commands;
+using Sr.Api.ProductsCatalogue.Application.Commands.CreateProduct;
 using Sr.Api.ProductsCatalogue.Application.GetProducts.Queries;
 using Sr.Api.ProductsCatalogue.Application.Persistance;
 using Sr.Api.ProductsCatalogue.Common;
 using Sr.Api.ProductsCatalogue.Domain.Product.AggregateRoot;
 using Sr.Api.ProductsCatalogue.Domain.Product.Errors;
 using Sr.Api.ProductsCatalogue.Domain.Product.ValueObjects;
-using Sr.Api.ProductsCatalogue.Domain.ValueObjects;
 
 namespace Sr.Api.ProductsCatalogue.Infrastructure
 {
   public class InMemoryProductsCatalogueRepository : IProductsCatalogueRepository
   {
-    private static readonly List<Product> _products = new();
+    private static readonly List<Product> _products = new(){
+        Shoes.Create(
+        new ProductId(Guid.Parse("38062be0-d2ab-4571-9401-e2d37ff9498b")),
+          "Nike Air Max 90",
+        "The Nike Air Max 90 stays true to its OG running roots with the iconic Waffle sole, stitched overlays and classic TPU accents. Fresh colours give a modern look while Max Air cushioning adds comfort to your journey.",
+        "CZ1929-100",
+        new List<ProductPrice>
+        {
+          ProductPrice.Create(149.99m, ProductTier.FirstTier, Currency.USDollar),
+          ProductPrice.Create(129.99m, ProductTier.SecondTier, Currency.USDollar),
+          ProductPrice.Create(99.99m, ProductTier.ThirdTier, Currency.USDollar)
+        },
+        "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/1d4d1b1e-1b1a-4b1a-8b1a-9b1a9b1a9b1a/air-max-90-shoe-9JXzXK.jpg",
+        42.5f,
+        "White"
+        )
+    };
     public async Task<Result<Product>> CreateProductAsync(CreateProductCommand product)
     {
       var newProduct = product.Category switch
@@ -57,6 +72,20 @@ namespace Sr.Api.ProductsCatalogue.Infrastructure
       await Task.CompletedTask;
 
       return newProduct;
+    }
+
+    public async Task<Product?> DeleteProductAsync(Guid id)
+    {
+      var product = _products.FirstOrDefault(product => product.Id.Value == id);
+
+      if (product is not null)
+      {
+        _ = _products.Remove(product);
+      }
+
+      await Task.CompletedTask;
+
+      return product;
     }
 
     public async Task<(IReadOnlyList<Product> products, int Count)> GetProductsAsync(GetProductsQuery query)

@@ -4,7 +4,7 @@ using OneOf;
 using Sr.Api.ProductsCatalogue.Common;
 using Sr.Api.ProductsCatalogue.Domain.Product.AggregateRoot;
 
-namespace Sr.Api.ProductsCatalogue.Application.CreateProduct.Commands
+namespace Sr.Api.ProductsCatalogue.Application.Commands.CreateProduct
 {
   public record CreateProductCommand(
     ProductCategory Category,

@@ -3,7 +3,7 @@ using MediatR;
 using Sr.Api.ProductsCatalogue.Application.Persistance;
 using Sr.Api.ProductsCatalogue.Domain.Product.AggregateRoot;
 
-namespace Sr.Api.ProductsCatalogue.Application.CreateProduct.Commands
+namespace Sr.Api.ProductsCatalogue.Application.Commands.CreateProduct
 {
   public record CreateProductCommandHandler : IRequestHandler<CreateProductCommand, Result<Product>>
   {

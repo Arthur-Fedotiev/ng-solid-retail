@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using Sr.Api.ProductsCatalogue.Contracts.CreateProduct;
-using Sr.Api.ProductsCatalogue.Application.CreateProduct.Commands;
 using MediatR;
 using MapsterMapper;
 using Sr.Api.ProductsCatalogue.Domain.Product.AggregateRoot;
@@ -8,6 +7,8 @@ using Sr.Api.ProductsCatalogue.Contracts.Common;
 using Sr.Api.ProductsCatalogue.Application.GetProducts.Queries;
 using FluentResults;
 using Sr.Api.ProductsCatalogue.Application.Common;
+using Sr.Api.ProductsCatalogue.Application.Commands.CreateProduct;
+using Sr.Api.ProductsCatalogue.Application.Commands.DeleteProduct;
 
 namespace Sr.SolidRetailApi.Controllers
 {
@@ -45,12 +46,21 @@ namespace Sr.SolidRetailApi.Controllers
       return ResponseFor<Product, ProductResponse>(createProductResult);
     }
 
+    [HttpDelete("{id}")]
+    [ProducesResponseType(typeof(Guid), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> DeleteProduct(Guid id)
+    {
+      var deleteProductResult = await _mediator.Send(new DeleteProductCommand(id));
+
+      return ResponseFor<Guid, Guid>(deleteProductResult);
+    }
+
     private IActionResult ResponseFor<TFrom, TTo>(Result<TFrom> result)
     {
       return result.IsSuccess
         ? Ok(_mapper.Map<TFrom, TTo>(result.Value))
         : Problem(result.Errors);
     }
-
   }
 }

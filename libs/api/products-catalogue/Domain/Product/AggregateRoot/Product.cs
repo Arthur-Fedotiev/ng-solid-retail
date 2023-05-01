@@ -2,7 +2,6 @@ using FluentResults;
 using Sr.Api.ProductsCatalogue.Common;
 using Sr.Api.ProductsCatalogue.Domain.Product.Errors;
 using Sr.Api.ProductsCatalogue.Domain.Product.ValueObjects;
-using Sr.Api.ProductsCatalogue.Domain.ValueObjects;
 using Sr.Api.Shared.Domain.Models;
 
 namespace Sr.Api.ProductsCatalogue.Domain.Product.AggregateRoot

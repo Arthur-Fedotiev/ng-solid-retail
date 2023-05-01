@@ -1,7 +1,7 @@
 using FluentValidation;
 using OneOf;
 
-namespace Sr.Api.ProductsCatalogue.Application.CreateProduct.Commands
+namespace Sr.Api.ProductsCatalogue.Application.Commands.CreateProduct
 {
   public class CreateProductCommandValidator : AbstractValidator<CreateProductCommand>
   {
