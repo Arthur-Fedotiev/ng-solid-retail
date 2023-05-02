@@ -65,7 +65,8 @@ namespace Sr.SolidRetailApi.Common.Mapping
             .Include<Shoes, ShoesResponse>()
             .Include<Clothing, ClothingResponse>()
             .Include<Book, BookResponse>()
-            .Map(dest => dest.Id, src => src.Id.Value);
+            .Map(dest => dest.Id, src => src.Id.Value)
+            .Map(dest => dest.RetailerId, src => src.RetailerId.Value);
 
       _ = config.ForType<Shoes, ShoesResponse>()
       .ConstructUsing((src) => new ShoesResponse(
@@ -73,6 +74,7 @@ namespace Sr.SolidRetailApi.Common.Mapping
         src.Name,
         src.Description,
         src.Sku,
+        src.RetailerId.Value,
         src.Url,
         src.Prices.ToList().ConvertAll(price => new PriceResponse(price.Amount, price.Tier, price.Currency.Code)),
         new ShoesSpecificationResponse(src.ShoesSize, src.Color)));
@@ -83,6 +85,7 @@ namespace Sr.SolidRetailApi.Common.Mapping
         src.Name,
         src.Description,
         src.Sku,
+        src.RetailerId.Value,
         src.Url,
         src.Prices.ToList().ConvertAll(price => new PriceResponse(price.Amount, price.Tier, price.Currency.Code)),
         new ClothingSpecificationResponse(src.ClothingSize, src.Color)));
@@ -94,6 +97,7 @@ namespace Sr.SolidRetailApi.Common.Mapping
         src.Name,
         src.Description,
         src.Sku,
+        src.RetailerId.Value,
         src.Url,
         src.Prices.ToList().ConvertAll(price => new PriceResponse(price.Amount, price.Tier, price.Currency.Code)),
         new BookSpecificationResponse(src.Cover)));

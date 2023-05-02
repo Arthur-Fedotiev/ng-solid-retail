@@ -15,6 +15,7 @@ namespace Sr.Api.ProductsCatalogue.Domain.Product.AggregateRoot
     public string Description { get; }
     public string Sku { get; }
     public string Url { get; }
+    public ProductRetailerId RetailerId { get; }
 
     public IReadOnlyList<ProductPrice> Prices => _prices.AsReadOnly();
 
@@ -24,6 +25,7 @@ namespace Sr.Api.ProductsCatalogue.Domain.Product.AggregateRoot
       string description,
       string sku,
       List<ProductPrice> prices,
+      ProductRetailerId retailerId,
       string url) : base(id)
     {
       {
@@ -31,6 +33,7 @@ namespace Sr.Api.ProductsCatalogue.Domain.Product.AggregateRoot
         Description = description;
         Sku = sku;
         Url = url;
+        RetailerId = retailerId;
         _prices = prices;
       }
     }

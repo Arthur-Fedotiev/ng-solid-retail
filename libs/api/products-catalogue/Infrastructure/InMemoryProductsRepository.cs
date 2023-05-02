@@ -24,6 +24,7 @@ namespace Sr.Api.ProductsCatalogue.Infrastructure
           ProductPrice.Create(129.99m, ProductTier.SecondTier, Currency.USDollar),
           ProductPrice.Create(99.99m, ProductTier.ThirdTier, Currency.USDollar)
         },
+        ProductRetailerId.Create(Guid.Parse("38062be0-d2ab-4571-9401-e2d37ff9498b")),
         "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/1d4d1b1e-1b1a-4b1a-8b1a-9b1a9b1a9b1a/air-max-90-shoe-9JXzXK.jpg",
         42.5f,
         "White"
@@ -113,6 +114,7 @@ namespace Sr.Api.ProductsCatalogue.Infrastructure
           request.Description,
           request.Sku,
           request.Prices.ConvertAll(price => ProductPrice.Create(price.Value, ProductTier.FirstTier, Currency.USDollar)),
+          ProductRetailerId.Create(request.RetailerId),
           request.Url,
           request.Specifications.AsT2.Cover
           ),
@@ -122,6 +124,7 @@ namespace Sr.Api.ProductsCatalogue.Infrastructure
           request.Description,
           request.Sku,
           request.Prices.ConvertAll(price => ProductPrice.Create(price.Value, ProductTier.FirstTier, Currency.USDollar)),
+          ProductRetailerId.Create(request.RetailerId),
           request.Url,
           request.Specifications.AsT1.Size,
           request.Specifications.AsT1.Color
@@ -132,6 +135,7 @@ namespace Sr.Api.ProductsCatalogue.Infrastructure
           request.Description,
           request.Sku,
           request.Prices.ConvertAll(price => ProductPrice.Create(price.Value, ProductTier.FirstTier, Currency.USDollar)),
+          ProductRetailerId.Create(request.RetailerId),
           request.Url,
           request.Specifications.AsT0.Size,
           request.Specifications.AsT0.Color
@@ -151,7 +155,9 @@ namespace Sr.Api.ProductsCatalogue.Infrastructure
           request.Description,
           request.Sku,
           request.Prices.ConvertAll(price => ProductPrice.Create(price.Value, ProductTier.FirstTier, Currency.USDollar)),
+                    ProductRetailerId.Create(request.RetailerId),
           request.Url,
+
           request.Specifications.AsT2.Cover
           ),
         ProductCategory.Clothing => Clothing.Create(
@@ -160,6 +166,7 @@ namespace Sr.Api.ProductsCatalogue.Infrastructure
           request.Description,
           request.Sku,
           request.Prices.ConvertAll(price => ProductPrice.Create(price.Value, ProductTier.FirstTier, Currency.USDollar)),
+          ProductRetailerId.Create(request.RetailerId),
           request.Url,
           request.Specifications.AsT1.Size,
           request.Specifications.AsT1.Color
@@ -170,6 +177,7 @@ namespace Sr.Api.ProductsCatalogue.Infrastructure
           request.Description,
           request.Sku,
           request.Prices.ConvertAll(price => ProductPrice.Create(price.Value, ProductTier.FirstTier, Currency.USDollar)),
+          ProductRetailerId.Create(request.RetailerId),
           request.Url,
           request.Specifications.AsT0.Size,
           request.Specifications.AsT0.Color

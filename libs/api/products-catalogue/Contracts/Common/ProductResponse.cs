@@ -10,6 +10,7 @@ namespace Sr.Api.ProductsCatalogue.Contracts.Common
     public string Name { get; init; } = null!;
     public string Description { get; init; } = null!;
     public string SKU { get; init; } = null!;
+    public Guid RetailerId { get; init; }
     public string Url { get; init; } = null!;
     public List<PriceResponse> Prices { get; init; } = null!;
 
@@ -18,6 +19,7 @@ namespace Sr.Api.ProductsCatalogue.Contracts.Common
       string name,
       string description,
       string sku,
+      Guid retailerId,
       string url,
       List<PriceResponse> prices
     )
@@ -26,6 +28,7 @@ namespace Sr.Api.ProductsCatalogue.Contracts.Common
       Name = name;
       Description = description;
       SKU = sku;
+      RetailerId = retailerId;
       Url = url;
       Prices = prices;
     }
@@ -47,10 +50,11 @@ namespace Sr.Api.ProductsCatalogue.Contracts.Common
       string name,
       string description,
       string sku,
+      Guid retailerId,
       string url,
       List<PriceResponse> prices,
       ShoesSpecificationResponse specifications
-    ) : base(id, name, description, sku, url, prices)
+    ) : base(id, name, description, sku, retailerId, url, prices)
     {
       Specifications = new ShoesSpecificationResponse(
         specifications.Size,
@@ -69,10 +73,11 @@ namespace Sr.Api.ProductsCatalogue.Contracts.Common
       string name,
       string description,
       string sku,
+      Guid retailerId,
       string url,
       List<PriceResponse> prices,
       ClothingSpecificationResponse specifications
-    ) : base(id, name, description, sku, url, prices)
+    ) : base(id, name, description, sku, retailerId, url, prices)
     {
       Specifications = new ClothingSpecificationResponse(
         specifications.Size,
@@ -91,10 +96,10 @@ namespace Sr.Api.ProductsCatalogue.Contracts.Common
       string name,
       string description,
       string sku,
-      string url,
+      Guid retailerId, string url,
       List<PriceResponse> prices,
       BookSpecificationResponse specifications
-    ) : base(id, name, description, sku, url, prices)
+    ) : base(id, name, description, sku, retailerId, url, prices)
     {
       Specifications = new BookSpecificationResponse(
         specifications.Cover

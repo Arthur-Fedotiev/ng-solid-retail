@@ -9,6 +9,7 @@ namespace Sr.Api.ProductsCatalogue.Contracts.UpdateProduct
     public string Name { get; init; } = null!;
     public string Description { get; init; } = null!;
     public string SKU { get; init; } = null!;
+    public Guid RetailerId { get; init; }
     public string Url { get; init; } = null!;
     public ProductCategory Category { get; init; }
     public List<Price> Prices { get; init; } = null!;
@@ -18,6 +19,7 @@ namespace Sr.Api.ProductsCatalogue.Contracts.UpdateProduct
       string name,
       string description,
       string sku,
+      Guid retailerId,
       string url,
       ProductCategory category,
       List<Price> prices
@@ -27,6 +29,7 @@ namespace Sr.Api.ProductsCatalogue.Contracts.UpdateProduct
       Name = name;
       Description = description;
       SKU = sku;
+      RetailerId = retailerId;
       Url = url;
       Category = category;
       Prices = prices;
@@ -38,14 +41,15 @@ namespace Sr.Api.ProductsCatalogue.Contracts.UpdateProduct
     public ShoesSpecificationRequest Specifications { get; init; }
 
     public UpdateShoesRequest(
-            Guid id,
+      Guid id,
       string name,
       string description,
       string sku,
+      Guid retailerId,
       string url,
       List<Price> prices,
       ShoesSpecificationRequest specifications
-    ) : base(id, name, description, sku, url, ProductCategory.Shoes, prices)
+    ) : base(id, name, description, sku, retailerId, url, ProductCategory.Shoes, prices)
     {
       Specifications = new ShoesSpecificationRequest(
         specifications.Size,
@@ -63,10 +67,11 @@ namespace Sr.Api.ProductsCatalogue.Contracts.UpdateProduct
       string name,
       string description,
       string sku,
+      Guid retailerId,
       string url,
       List<Price> prices,
       ClothingSpecificationRequest specifications
-    ) : base(id, name, description, sku, url, ProductCategory.Clothing, prices)
+    ) : base(id, name, description, sku, retailerId, url, ProductCategory.Clothing, prices)
     {
       Specifications = new ClothingSpecificationRequest(
         specifications.Size,
@@ -84,10 +89,11 @@ namespace Sr.Api.ProductsCatalogue.Contracts.UpdateProduct
       string name,
       string description,
       string sku,
+      Guid retailerId,
       string url,
       List<Price> prices,
       BookSpecificationRequest specifications
-    ) : base(id, name, description, sku, url, ProductCategory.Books, prices)
+    ) : base(id, name, description, sku, retailerId, url, ProductCategory.Books, prices)
     {
       Specifications = new BookSpecificationRequest(
         specifications.Cover

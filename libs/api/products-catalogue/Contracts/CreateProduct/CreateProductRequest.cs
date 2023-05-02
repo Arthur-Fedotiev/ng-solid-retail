@@ -11,6 +11,7 @@ namespace Sr.Api.ProductsCatalogue.Contracts.CreateProduct
     public string Url { get; init; } = null!;
     public ProductCategory Category { get; init; }
     public List<Price> Prices { get; init; } = null!;
+    public Guid RetailerId { get; init; }
 
     protected CreateProductRequest(
       string name,
@@ -18,6 +19,7 @@ namespace Sr.Api.ProductsCatalogue.Contracts.CreateProduct
       string sku,
       string url,
       ProductCategory category,
+      Guid retailerId,
       List<Price> prices
     )
     {
@@ -27,6 +29,7 @@ namespace Sr.Api.ProductsCatalogue.Contracts.CreateProduct
       Url = url;
       Category = category;
       Prices = prices;
+      RetailerId = retailerId;
     }
   }
 
@@ -39,9 +42,10 @@ namespace Sr.Api.ProductsCatalogue.Contracts.CreateProduct
       string description,
       string sku,
       string url,
+      Guid retailerId,
       List<Price> prices,
       ShoesSpecificationRequest specifications
-    ) : base(name, description, sku, url, ProductCategory.Shoes, prices)
+    ) : base(name, description, sku, url, ProductCategory.Shoes, retailerId, prices)
     {
       Specifications = new ShoesSpecificationRequest(
         specifications.Size,
@@ -59,9 +63,10 @@ namespace Sr.Api.ProductsCatalogue.Contracts.CreateProduct
       string description,
       string sku,
       string url,
+      Guid retailerId,
       List<Price> prices,
       ClothingSpecificationRequest specifications
-    ) : base(name, description, sku, url, ProductCategory.Clothing, prices)
+    ) : base(name, description, sku, url, ProductCategory.Clothing, retailerId, prices)
     {
       Specifications = new ClothingSpecificationRequest(
         specifications.Size,
@@ -79,9 +84,10 @@ namespace Sr.Api.ProductsCatalogue.Contracts.CreateProduct
       string description,
       string sku,
       string url,
+      Guid retailerId,
       List<Price> prices,
       BookSpecificationRequest specifications
-    ) : base(name, description, sku, url, ProductCategory.Books, prices)
+    ) : base(name, description, sku, url, ProductCategory.Books, retailerId, prices)
     {
       Specifications = new BookSpecificationRequest(
         specifications.Cover

@@ -17,10 +17,11 @@ namespace Sr.Api.ProductsCatalogue.Domain.Product.AggregateRoot
         string description,
         string sku,
         List<ProductPrice> prices,
+        ProductRetailerId retailerId,
         string url,
         string clothSize,
         string color
-        ) : base(id, name, description, sku, prices, url)
+        ) : base(id, name, description, sku, prices, retailerId, url)
     {
       ClothingSize = clothSize;
       Color = color;
@@ -32,11 +33,12 @@ namespace Sr.Api.ProductsCatalogue.Domain.Product.AggregateRoot
          string description,
          string sku,
          List<ProductPrice> prices,
+         ProductRetailerId retailerId,
          string url,
          string clothSize,
          string color)
     {
-      return new(id, name, description, sku, prices, url, clothSize, color);
+      return new(id, name, description, sku, prices, retailerId, url, clothSize, color);
     }
   }
 }
