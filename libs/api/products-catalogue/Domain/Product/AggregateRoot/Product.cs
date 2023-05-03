@@ -10,12 +10,12 @@ namespace Sr.Api.ProductsCatalogue.Domain.Product.AggregateRoot
   {
     protected readonly List<ProductPrice> _prices = new();
 
-    public abstract ProductCategory Category { get; }
-    public string Name { get; }
-    public string Description { get; }
-    public string Sku { get; }
-    public string Url { get; }
-    public ProductRetailerId RetailerId { get; }
+    public abstract ProductCategory Category { get; } //
+    public string Name { get; } //
+    public string Description { get; } //
+    public string Sku { get; }//
+    public string Url { get; }//
+    public ProductRetailerId RetailerId { get; } // ?: relationship with Retailer
 
     public IReadOnlyList<ProductPrice> Prices => _prices.AsReadOnly();
 

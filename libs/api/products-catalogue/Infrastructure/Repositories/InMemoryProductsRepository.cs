@@ -8,7 +8,7 @@ using Sr.Api.ProductsCatalogue.Domain.Product.AggregateRoot;
 using Sr.Api.ProductsCatalogue.Domain.Product.Errors;
 using Sr.Api.ProductsCatalogue.Domain.Product.ValueObjects;
 
-namespace Sr.Api.ProductsCatalogue.Infrastructure
+namespace Sr.Api.ProductsCatalogue.Infrastructure.Repositories
 {
   public class InMemoryProductsCatalogueRepository : IProductsCatalogueRepository
   {
