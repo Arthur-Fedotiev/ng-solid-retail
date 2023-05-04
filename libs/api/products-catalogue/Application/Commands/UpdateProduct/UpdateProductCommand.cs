@@ -14,7 +14,7 @@ namespace Sr.Api.ProductsCatalogue.Application.Commands.UpdateProduct
     string Sku,
     string Url,
     List<Price> Prices,
-    Guid RetailerId,
+    ProductRetailer Retailer,
     OneOf<ShoesSpecification, ClothingSpecification, BookSpecification> Specifications) : IRequest<Result<Product>>;
 
   public record Price(decimal Value, ProductTier Tier, CurrencyCode CurrencyCode);

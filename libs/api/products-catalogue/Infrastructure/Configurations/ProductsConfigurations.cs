@@ -26,9 +26,7 @@ namespace Sr.Api.ProductsCatalogue.Infrastructure.Configurations
 
       _ = builder.HasKey(product => product.Id);
       _ = builder.Property(product => product.Id)
-        .ValueGeneratedNever()
         .HasConversion(id => id.Value, id => ProductId.Create(id));
-
 
       _ = builder.Property(product => product.Name).HasMaxLength(150).IsRequired();
       _ = builder.Property(product => product.Description).HasMaxLength(5000).IsRequired();
@@ -36,11 +34,17 @@ namespace Sr.Api.ProductsCatalogue.Infrastructure.Configurations
       _ = builder.Property(product => product.Url).IsRequired();
       _ = builder.Property(product => product.Category).IsRequired();
 
-      _ = builder.Property(product => product.RetailerId)
-        .HasConversion(id => id.Value, id => ProductRetailerId.Create(id))
-        .IsRequired();
+      _ = builder.Property(product => product.Retailer).IsRequired();
 
-      _ = builder.OwnsMany(product => product.Prices);
+      _ = builder.OwnsMany(product => product.Prices, pb =>
+      {
+
+        _ = pb.OwnsOne(price => price.Currency, cb =>
+        {
+          _ = cb.Property(currency => currency.Code).IsRequired();
+          _ = cb.Property(currency => currency.Symbol).IsRequired();
+        });
+      });
 
 
     }

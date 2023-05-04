@@ -10,12 +10,12 @@ namespace Sr.Api.ProductsCatalogue.Domain.Product.AggregateRoot
   {
     protected readonly List<ProductPrice> _prices = new();
 
-    public abstract ProductCategory Category { get; } //
-    public string Name { get; } //
-    public string Description { get; } //
-    public string Sku { get; }//
-    public string Url { get; }//
-    public ProductRetailerId RetailerId { get; } // ?: relationship with Retailer
+    public abstract ProductCategory Category { get; protected set; }
+    public string Name { get; protected set; }
+    public string Description { get; protected set; }
+    public string Sku { get; protected set; }
+    public string Url { get; protected set; }
+    public ProductRetailer Retailer { get; protected set; }
 
     public IReadOnlyList<ProductPrice> Prices => _prices.AsReadOnly();
 
@@ -25,7 +25,7 @@ namespace Sr.Api.ProductsCatalogue.Domain.Product.AggregateRoot
       string description,
       string sku,
       List<ProductPrice> prices,
-      ProductRetailerId retailerId,
+      ProductRetailer retailer,
       string url) : base(id)
     {
       {
@@ -33,10 +33,16 @@ namespace Sr.Api.ProductsCatalogue.Domain.Product.AggregateRoot
         Description = description;
         Sku = sku;
         Url = url;
-        RetailerId = retailerId;
+        Retailer = retailer;
         _prices = prices;
       }
     }
+
+#pragma warning disable CS8618
+    protected Product()
+    {
+    }
+#pragma warning restore CS8618
 
     public Result<ProductPrice> AddPrice(ProductPrice price)
     {

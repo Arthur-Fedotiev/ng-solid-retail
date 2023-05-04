@@ -5,8 +5,8 @@ namespace Sr.Api.ProductsCatalogue.Domain.Product.AggregateRoot
 {
   public sealed class Book : Product
   {
-    public override ProductCategory Category => ProductCategory.Books;
-    public string Cover { get; }
+    public override ProductCategory Category { get; protected set; } = ProductCategory.Books;
+    public string Cover { get; private set; }
 
     private Book(
         ProductId id,
@@ -14,12 +14,18 @@ namespace Sr.Api.ProductsCatalogue.Domain.Product.AggregateRoot
         string description,
         string sku,
         List<ProductPrice> prices,
-        ProductRetailerId retailerId,
+        ProductRetailer retailer,
         string url,
-        string cover) : base(id, name, description, sku, prices, retailerId, url)
+        string cover) : base(id, name, description, sku, prices, retailer, url)
     {
       Cover = cover;
     }
+
+#pragma warning disable CS8618
+    private Book()
+    {
+    }
+#pragma warning restore CS8618
 
     public static Book Create(
         ProductId id,
@@ -27,11 +33,11 @@ namespace Sr.Api.ProductsCatalogue.Domain.Product.AggregateRoot
         string description,
         string sku,
         List<ProductPrice> prices,
-        ProductRetailerId retailerId,
+        ProductRetailer retailer,
         string url,
         string cover)
     {
-      return new(id, name, description, sku, prices, retailerId, url, cover);
+      return new(id, name, description, sku, prices, retailer, url, cover);
     }
   }
 }

@@ -5,7 +5,7 @@ namespace Sr.Api.ProductsCatalogue.Domain.Product.AggregateRoot
 {
   public sealed class Shoes : Product
   {
-    public override ProductCategory Category => ProductCategory.Shoes;
+    public override ProductCategory Category { get; protected set; } = ProductCategory.Shoes;
 
     public float ShoesSize { get; }
 
@@ -17,15 +17,21 @@ namespace Sr.Api.ProductsCatalogue.Domain.Product.AggregateRoot
         string description,
         string sku,
         List<ProductPrice> prices,
-        ProductRetailerId retailerId,
+        ProductRetailer retailer,
         string url,
         float shoesSize,
         string color
-        ) : base(id, name, description, sku, prices, retailerId, url)
+        ) : base(id, name, description, sku, prices, retailer, url)
     {
       ShoesSize = shoesSize;
       Color = color;
     }
+
+#pragma warning disable CS8618
+    private Shoes()
+    {
+    }
+#pragma warning restore CS8618
 
     public static Shoes Create(
          ProductId id,
@@ -33,12 +39,12 @@ namespace Sr.Api.ProductsCatalogue.Domain.Product.AggregateRoot
          string description,
          string sku,
          List<ProductPrice> prices,
-         ProductRetailerId retailerId,
+         ProductRetailer retailer,
          string url,
          float shoesSize,
          string color)
     {
-      return new(id, name, description, sku, prices, retailerId, url, shoesSize, color);
+      return new(id, name, description, sku, prices, retailer, url, shoesSize, color);
     }
 
   }

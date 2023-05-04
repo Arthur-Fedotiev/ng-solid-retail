@@ -14,12 +14,18 @@ namespace Sr.Api.ProductsCatalogue.Domain.Product.ValueObjects
       return new(value);
     }
 
-    public Guid Value { get; } = Guid.NewGuid();
+    public Guid Value { get; private set; } = Guid.NewGuid();
 
     private ProductId(Guid value)
     {
       Value = value;
     }
+
+#pragma warning disable CS8618
+    private ProductId()
+    {
+    }
+#pragma warning restore CS8618
 
 
     protected override IEnumerable<object> GetEqualityComponents()

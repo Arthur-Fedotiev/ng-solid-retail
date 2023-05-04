@@ -6,9 +6,9 @@ namespace Sr.Api.ProductsCatalogue.Domain.Product.ValueObjects
 {
   public sealed class ProductPrice : ValueObject
   {
-    public decimal Amount { get; }
-    public Currency Currency { get; }
-    public ProductTier Tier { get; }
+    public decimal Amount { get; private set; }
+    public Currency Currency { get; private set; }
+    public ProductTier Tier { get; private set; }
 
     private ProductPrice(decimal amount, ProductTier tier, Currency currency)
     {
@@ -16,6 +16,12 @@ namespace Sr.Api.ProductsCatalogue.Domain.Product.ValueObjects
       Currency = currency;
       Tier = tier;
     }
+
+#pragma warning disable CS8618
+    private ProductPrice()
+    {
+    }
+#pragma warning restore CS8618
 
     public static ProductPrice Create(
       decimal amount,

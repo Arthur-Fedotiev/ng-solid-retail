@@ -59,6 +59,7 @@ namespace Sr.Api.ProductsCatalogue.Infrastructure.Repositories
       // }
 
       // return Result.Ok(product);
+      await Task.CompletedTask;
       throw new NotImplementedException();
 
     }
@@ -90,7 +91,7 @@ namespace Sr.Api.ProductsCatalogue.Infrastructure.Repositories
           request.Description,
           request.Sku,
           request.Prices.ConvertAll(price => ProductPrice.Create(price.Value, ProductTier.FirstTier, Currency.USDollar)),
-          ProductRetailerId.Create(request.RetailerId),
+          request.Retailer,
           request.Url,
           request.Specifications.AsT2.Cover
           ),
@@ -100,7 +101,7 @@ namespace Sr.Api.ProductsCatalogue.Infrastructure.Repositories
           request.Description,
           request.Sku,
           request.Prices.ConvertAll(price => ProductPrice.Create(price.Value, ProductTier.FirstTier, Currency.USDollar)),
-          ProductRetailerId.Create(request.RetailerId),
+          request.Retailer,
           request.Url,
           request.Specifications.AsT1.Size,
           request.Specifications.AsT1.Color
@@ -111,7 +112,7 @@ namespace Sr.Api.ProductsCatalogue.Infrastructure.Repositories
           request.Description,
           request.Sku,
           request.Prices.ConvertAll(price => ProductPrice.Create(price.Value, ProductTier.FirstTier, Currency.USDollar)),
-          ProductRetailerId.Create(request.RetailerId),
+          request.Retailer,
           request.Url,
           request.Specifications.AsT0.Size,
           request.Specifications.AsT0.Color
@@ -131,7 +132,7 @@ namespace Sr.Api.ProductsCatalogue.Infrastructure.Repositories
           request.Description,
           request.Sku,
           request.Prices.ConvertAll(price => ProductPrice.Create(price.Value, ProductTier.FirstTier, Currency.USDollar)),
-                    ProductRetailerId.Create(request.RetailerId),
+          request.Retailer,
           request.Url,
 
           request.Specifications.AsT2.Cover
@@ -142,7 +143,7 @@ namespace Sr.Api.ProductsCatalogue.Infrastructure.Repositories
           request.Description,
           request.Sku,
           request.Prices.ConvertAll(price => ProductPrice.Create(price.Value, ProductTier.FirstTier, Currency.USDollar)),
-          ProductRetailerId.Create(request.RetailerId),
+          request.Retailer,
           request.Url,
           request.Specifications.AsT1.Size,
           request.Specifications.AsT1.Color
@@ -153,7 +154,7 @@ namespace Sr.Api.ProductsCatalogue.Infrastructure.Repositories
           request.Description,
           request.Sku,
           request.Prices.ConvertAll(price => ProductPrice.Create(price.Value, ProductTier.FirstTier, Currency.USDollar)),
-          ProductRetailerId.Create(request.RetailerId),
+          request.Retailer,
           request.Url,
           request.Specifications.AsT0.Size,
           request.Specifications.AsT0.Color

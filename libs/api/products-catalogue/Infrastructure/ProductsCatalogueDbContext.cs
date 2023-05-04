@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Sr.Api.ProductsCatalogue.Domain.Product.AggregateRoot;
 
 namespace Sr.Api.ProductsCatalogue.Infrastructure
@@ -17,6 +18,11 @@ namespace Sr.Api.ProductsCatalogue.Infrastructure
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
       _ = modelBuilder.ApplyConfigurationsFromAssembly(typeof(ProductsCatalogueDbContext).Assembly);
+
+      modelBuilder.Model.GetEntityTypes()
+          .SelectMany(e => e.GetProperties())
+          .ToList()
+          .ForEach(e => e.ValueGenerated = ValueGenerated.Never);
 
       base.OnModelCreating(modelBuilder);
     }

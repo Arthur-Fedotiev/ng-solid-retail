@@ -5,8 +5,8 @@ namespace Sr.Api.ProductsCatalogue.Domain.Product.ValueObjects
 {
   public sealed class Currency : ValueObject
   {
-    public CurrencyCode Code { get; }
-    public string Symbol { get; }
+    public CurrencyCode Code { get; private set; }
+    public string Symbol { get; private set; }
     public static Currency USDollar => new(CurrencyCode.USD, "$");
     public static Currency CanadianDollar => new(CurrencyCode.CAD, "CDN$");
     public static Currency Euro => new(CurrencyCode.EUR, "€");
@@ -21,6 +21,12 @@ namespace Sr.Api.ProductsCatalogue.Domain.Product.ValueObjects
         _ => throw new Exception($"Invalid code {code}")
       };
     }
+
+#pragma warning disable CS8618
+    private Currency()
+    {
+    }
+#pragma warning restore CS8618
 
     protected override IEnumerable<object> GetEqualityComponents()
     {

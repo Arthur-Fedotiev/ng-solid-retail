@@ -11,7 +11,7 @@ namespace Sr.Api.ProductsCatalogue.Contracts.CreateProduct
     public string Url { get; init; } = null!;
     public ProductCategory Category { get; init; }
     public List<Price> Prices { get; init; } = null!;
-    public Guid RetailerId { get; init; }
+    public ProductRetailer Retailer { get; init; }
 
     protected CreateProductRequest(
       string name,
@@ -19,7 +19,7 @@ namespace Sr.Api.ProductsCatalogue.Contracts.CreateProduct
       string sku,
       string url,
       ProductCategory category,
-      Guid retailerId,
+      ProductRetailer retailer,
       List<Price> prices
     )
     {
@@ -29,7 +29,7 @@ namespace Sr.Api.ProductsCatalogue.Contracts.CreateProduct
       Url = url;
       Category = category;
       Prices = prices;
-      RetailerId = retailerId;
+      Retailer = retailer;
     }
   }
 
@@ -42,10 +42,10 @@ namespace Sr.Api.ProductsCatalogue.Contracts.CreateProduct
       string description,
       string sku,
       string url,
-      Guid retailerId,
+      ProductRetailer retailer,
       List<Price> prices,
       ShoesSpecificationRequest specifications
-    ) : base(name, description, sku, url, ProductCategory.Shoes, retailerId, prices)
+    ) : base(name, description, sku, url, ProductCategory.Shoes, retailer, prices)
     {
       Specifications = new ShoesSpecificationRequest(
         specifications.Size,
@@ -63,10 +63,10 @@ namespace Sr.Api.ProductsCatalogue.Contracts.CreateProduct
       string description,
       string sku,
       string url,
-      Guid retailerId,
+      ProductRetailer retailer,
       List<Price> prices,
       ClothingSpecificationRequest specifications
-    ) : base(name, description, sku, url, ProductCategory.Clothing, retailerId, prices)
+    ) : base(name, description, sku, url, ProductCategory.Clothing, retailer, prices)
     {
       Specifications = new ClothingSpecificationRequest(
         specifications.Size,
@@ -84,10 +84,10 @@ namespace Sr.Api.ProductsCatalogue.Contracts.CreateProduct
       string description,
       string sku,
       string url,
-      Guid retailerId,
+      ProductRetailer retailer,
       List<Price> prices,
       BookSpecificationRequest specifications
-    ) : base(name, description, sku, url, ProductCategory.Books, retailerId, prices)
+    ) : base(name, description, sku, url, ProductCategory.Books, retailer, prices)
     {
       Specifications = new BookSpecificationRequest(
         specifications.Cover

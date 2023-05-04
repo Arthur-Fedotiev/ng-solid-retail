@@ -49,3 +49,7 @@ Thumbs.db
 *-debug.log
 .runtimeconfig.json
 emulated-*
+
+# c# files
+bin
+obj
