@@ -44,18 +44,20 @@ namespace Sr.Api.ProductsCatalogue.Infrastructure.Repositories
       return newProduct;
     }
 
-    public async Task<Product?> DeleteProductAsync(Guid id)
+    public static async Task<Result> DeleteProductAsync(Guid id)
     {
       var product = _products.FirstOrDefault(product => product.Id.Value == id);
+      await Task.CompletedTask;
 
       if (product is not null)
       {
         _ = _products.Remove(product);
+
+        return Result.Ok();
       }
 
-      await Task.CompletedTask;
 
-      return product;
+      return Result.Fail(DomainErrors.Product.ProductNotFound);
     }
 
     public async Task<(IReadOnlyList<Product> products, int Count)> GetProductsAsync(GetProductsQuery query)
@@ -184,6 +186,11 @@ namespace Sr.Api.ProductsCatalogue.Infrastructure.Repositories
           ),
         _ => Result.Fail<Product>(DomainErrors.Product.CategoryNotSupported)
       };
+    }
+
+    Task<Result> IProductsCatalogueRepository.DeleteProductAsync(Guid id)
+    {
+      throw new NotImplementedException();
     }
   }
 }

@@ -15,14 +15,12 @@ namespace Sr.Api.ProductsCatalogue.Infrastructure.Configurations
 
     private static void ConfigureProductTable(EntityTypeBuilder<Product> builder)
     {
-      _ = builder.ToTable("Products");
-
       _ = builder.UseTphMappingStrategy();
 
       _ = builder.HasDiscriminator(product => product.Category)
         .HasValue<Shoes>(ProductCategory.Shoes)
-        .HasValue<Clothing>(ProductCategory.Clothing)
-        .HasValue<Book>(ProductCategory.Books);
+        .HasValue<Book>(ProductCategory.Books)
+        .HasValue<Clothing>(ProductCategory.Clothing);
 
       _ = builder.HasKey(product => product.Id);
       _ = builder.Property(product => product.Id)
@@ -38,7 +36,7 @@ namespace Sr.Api.ProductsCatalogue.Infrastructure.Configurations
 
       _ = builder.OwnsMany(product => product.Prices, pb =>
       {
-
+        _ = pb.Property(price => price.Amount).HasColumnType("decimal(18,2)").IsRequired();
         _ = pb.OwnsOne(price => price.Currency, cb =>
         {
           _ = cb.Property(currency => currency.Code).IsRequired();

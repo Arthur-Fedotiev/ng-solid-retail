@@ -7,9 +7,9 @@ namespace Sr.Api.ProductsCatalogue.Domain.Product.AggregateRoot
   {
     public override ProductCategory Category { get; protected set; } = ProductCategory.Clothing;
 
-    public string ClothingSize { get; }
+    public string ClothingSize { get; private set; }
 
-    public string Color { get; }
+    public string Color { get; private set; }
 
     private Clothing(
         ProductId id,

@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddPresentation()
   .AddProductsCatalogueApplication()
-  .AddProductsCatalogueInfrastructure();
+  .AddProductsCatalogueInfrastructure(builder.Configuration);
 
 
 builder.Services.AddSingleton<ProblemDetailsFactory, SolidRetailProblemDetailsFactory>();

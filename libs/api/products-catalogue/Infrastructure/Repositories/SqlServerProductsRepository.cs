@@ -1,4 +1,6 @@
+using System.Linq;
 using FluentResults;
+using Microsoft.EntityFrameworkCore;
 using Sr.Api.ProductsCatalogue.Application.Commands.CreateProduct;
 using Sr.Api.ProductsCatalogue.Application.Commands.UpdateProduct;
 using Sr.Api.ProductsCatalogue.Application.GetProducts.Queries;
@@ -35,50 +37,80 @@ namespace Sr.Api.ProductsCatalogue.Infrastructure.Repositories
       return Result.Ok(productEntity.Value);
     }
 
-    public Task<Product?> DeleteProductAsync(Guid id)
+    public async Task<Result> DeleteProductAsync(Guid id)
     {
-      // var product = await _dbContext.Products.FirstOrDefaultAsync(product => product.Id.Value == id);
+      var product = await _dbContext.Products
+          .FirstOrDefaultAsync(p => p.Id == ProductId.Create(id));
 
-      // if (product is not null)
-      // {
-      //   _ = _dbContext.Products.Remove(product);
-      //   await _dbContext.SaveChangesAsync();
-      // }
 
-      // return product;
-      throw new NotImplementedException();
+      if (product is null)
+      {
+        return Result.Fail(DomainErrors.Product.ProductNotFound);
+      }
+
+      _ = _dbContext.Products.Remove(product);
+      await _dbContext.SaveChangesAsync();
+
+      return Result.Ok();
     }
 
     public async Task<Result<Product>> GetProductAsync(Guid id)
     {
-      // var product = await _dbContext.Products.FirstOrDefaultAsync(product => product.Id.Value == id);
+      var product = await _dbContext.Products
+        .FirstOrDefaultAsync(p => p.Id == ProductId.Create(id));
 
-      // if (product is null)
-      // {
-      //   return Result.Fail<Product>(new ProductNotFound());
-      // }
+      if (product is null)
+      {
+        return Result.Fail<Product>(DomainErrors.Product.ProductNotFound);
+      }
 
-      // return Result.Ok(product);
-      await Task.CompletedTask;
-      throw new NotImplementedException();
+      return Result.Ok(product);
 
     }
 
     public async Task<(IReadOnlyList<Product> products, int Count)> GetProductsAsync(GetProductsQuery query)
     {
-      // var products = await _dbContext.Products
-      //   .Skip(query.PageNumber * query.PageSize)
-      //   .Take(query.PageSize)
-      //   .ToListAsync();
+      if (query.PageSize is null || query.PageIndex is null)
+      {
+        return (await _dbContext.Products.ToListAsync(), _dbContext.Products.Count());
+      }
 
-      // return Result.Ok(products);
-      throw new NotImplementedException();
+      var from = query.PageSize.Value * query.PageIndex.Value;
+      var to = query.PageSize.Value * (query.PageIndex.Value + 1);
 
+      var products = await _dbContext.Products
+        .Skip(from)
+        .Take(to)
+        .ToListAsync();
+
+      var count = _dbContext.Products.Count();
+
+      return (products, count);
     }
 
     public async Task<Result<Product>> UpdateProductAsync(UpdateProductCommand product)
     {
-      throw new NotImplementedException();
+      var productEntity = await _dbContext.Products
+        .FirstOrDefaultAsync(p => p.Id == ProductId.Create(product.Id));
+
+      if (productEntity is null)
+      {
+        return Result.Fail<Product>(DomainErrors.Product.ProductNotFound);
+      }
+
+      var updatedProduct = CreateProduct(product);
+
+      if (updatedProduct.IsFailed)
+      {
+        return Result.Fail<Product>(updatedProduct.Errors);
+      }
+
+      _ = _dbContext.Products.Remove(productEntity);
+      _dbContext.Products.Add(updatedProduct.Value);
+
+      await _dbContext.SaveChangesAsync();
+
+      return Result.Ok(updatedProduct.Value);
 
     }
     private static Result<Product> CreateProduct(CreateProductCommand request)

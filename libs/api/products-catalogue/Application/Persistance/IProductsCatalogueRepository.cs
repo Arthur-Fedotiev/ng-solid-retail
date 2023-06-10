@@ -10,7 +10,7 @@ namespace Sr.Api.ProductsCatalogue.Application.Persistance
   {
     Task<Result<Product>> CreateProductAsync(CreateProductCommand product);
     Task<(IReadOnlyList<Product> products, int Count)> GetProductsAsync(GetProductsQuery query);
-    Task<Product?> DeleteProductAsync(Guid id);
+    Task<Result> DeleteProductAsync(Guid id);
     Task<Result<Product>> UpdateProductAsync(UpdateProductCommand request);
   }
 }
