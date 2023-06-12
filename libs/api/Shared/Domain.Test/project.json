@@ -1,14 +1,14 @@
 {
-  "name": "ApiShared.Domain",
+  "name": "ApiShared.Domain.Test",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
-  "sourceRoot": "libs/api/shared/Domain",
+  "sourceRoot": "libs/api/shared/Domain.Test",
   "targets": {
     "build": {
       "executor": "@nx-dotnet/core:build",
       "outputs": [
-        "{workspaceRoot}/dist/libs/api/shared/Domain",
-        "{workspaceRoot}/dist/intermediates/libs/api/shared/Domain"
+        "{workspaceRoot}/dist/libs/api/shared/Domain.Test",
+        "{workspaceRoot}/dist/intermediates/libs/api/shared/Domain.Test"
       ],
       "options": {
         "configuration": "Debug",
@@ -19,6 +19,10 @@
           "configuration": "Release"
         }
       }
+    },
+    "test": {
+      "executor": "@nx-dotnet/core:test",
+      "options": {}
     },
     "lint": {
       "executor": "@nx-dotnet/core:format"
