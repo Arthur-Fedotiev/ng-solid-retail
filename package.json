@@ -8,7 +8,7 @@
     "api": "json-server api/db.json --routes api/routes.json --no-cors=true --watch=true",
     "start": "nx serve",
     "build": "nx build",
-    "build:api": "nx run solid-retail-api:build --configuration=production",
+    "build:api": "nx run solid-retail-api:build:production",
     "test": "nx run-many --target=test",
     "test:affected": "nx affected:test",
     "lint": "nx run-many --target=lint",

@@ -7,8 +7,8 @@
     "build": {
       "executor": "@nx-dotnet/core:build",
       "outputs": [
-        "{workspaceRoot}/dist/libs/api/shared/Domain",
-        "{workspaceRoot}/dist/intermediates/libs/api/shared/Domain"
+        "{workspaceRoot}/dist/libs/api/Shared/Domain",
+        "{workspaceRoot}/dist/intermediates/libs/api/Shared/Domain"
       ],
       "options": {
         "configuration": "Debug",
