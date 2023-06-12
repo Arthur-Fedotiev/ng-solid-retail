@@ -1,5 +1,4 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <ItemGroup>
     <ProjectReference Include="..\..\Shared\Domain\Sr.Api.Shared.Domain.csproj" />
     <ProjectReference Include="..\Common\Sr.Api.ProductsCatalogue.Common.csproj" />
