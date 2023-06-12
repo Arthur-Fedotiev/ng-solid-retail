@@ -7,7 +7,8 @@ using Sr.SolidRetailApi.Common.Swagger;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddPresentation()
+builder.Services
+  .AddPresentation()
   .AddProductsCatalogueApplication()
   .AddProductsCatalogueInfrastructure(builder.Configuration);
 

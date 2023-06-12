@@ -48,7 +48,7 @@ namespace Sr.Api.ProductsCatalogue.Infrastructure.Repositories
         return Result.Fail(DomainErrors.Product.ProductNotFound);
       }
 
-      _ = _dbContext.Products.Remove(product);
+      _dbContext.Products.Remove(product);
       await _dbContext.SaveChangesAsync();
 
       return Result.Ok();
@@ -105,7 +105,7 @@ namespace Sr.Api.ProductsCatalogue.Infrastructure.Repositories
         return Result.Fail<Product>(updatedProduct.Errors);
       }
 
-      _ = _dbContext.Products.Remove(productEntity);
+      _dbContext.Products.Remove(productEntity);
       _dbContext.Products.Add(updatedProduct.Value);
 
       await _dbContext.SaveChangesAsync();

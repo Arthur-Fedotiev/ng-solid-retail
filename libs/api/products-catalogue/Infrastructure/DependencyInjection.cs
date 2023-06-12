@@ -11,18 +11,13 @@ namespace Sr.Api.ProductsCatalogue.Infrastructure
   {
     public static void AddProductsCatalogueInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-      var connectionString = configuration.GetConnectionString("AZURE_SQL_CONNECTIONSTRING");
-
       _ = services.AddDbContext<ProductsCatalogueDbContext>(
           options => options
             .EnableSensitiveDataLogging()
-            .UseSqlServer(connectionString)
+            .UseSqlServer(configuration.GetConnectionString("AzureSql"))
             .LogTo(Console.WriteLine, new[] { DbLoggerCategory.Database.Command.Name }, LogLevel.Information));
 
       _ = services.AddScoped<IProductsCatalogueRepository, SqlServerProductsRepository>();
-      // _ = services.AddScoped<IProductsCatalogueRepository, InMemoryProductsCatalogueRepository>();
-
-
     }
   }
 }

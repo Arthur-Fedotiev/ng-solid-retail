@@ -13,6 +13,7 @@
     "FluentValidation.AspNetCore": "11.3.0",
     "Microsoft.EntityFrameworkCore": "7.0.5",
     "Microsoft.EntityFrameworkCore.SqlServer": "7.0.5",
-    "Microsoft.EntityFrameworkCore.Design": "7.0.5"
+    "Microsoft.EntityFrameworkCore.Design": "7.0.5",
+    "Microsoft.Extensions.Configuration.UserSecrets": "7.0.0"
   }
 }
