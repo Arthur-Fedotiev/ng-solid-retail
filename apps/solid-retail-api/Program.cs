@@ -31,7 +31,6 @@ app.UseExceptionHandler("/error");
 app.UseSwaggerConfiguration();
 app.UseHttpsRedirection();
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();
