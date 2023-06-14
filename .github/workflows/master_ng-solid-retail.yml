@@ -44,19 +44,22 @@ jobs:
         with:
           cache: 'yarn'
 
-      - name: Set up Nx
-        uses: nrwl/nx-set-shas@v2
-        with:
-          main-branch-name: 'master'
+      # - name: Set up Nx
+      #   uses: nrwl/nx-set-shas@v2
+      #   with:
+      #     main-branch-name: 'master'
 
       - name: Install Nx dependencies
         run: yarn install --frozen-lockfile
 
       - name: Lint affected
-        run: nx affected --target=lint --parallel=3
+        run: nx run-many --target=lint --parallel=3
+
+      - name: Test affected
+        run: nx run-many --target=test --parallel=3
 
       - name: Build affected
-        run: npx nx affected --target=build --parallel=3
+        run: nx run-many --target=build --parallel=3
 
       # - name: dotnet publish
       #   run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp

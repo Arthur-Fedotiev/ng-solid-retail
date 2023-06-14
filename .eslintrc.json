@@ -45,6 +45,16 @@
                 ]
               },
               {
+                "sourceTag": "type:be-test",
+                "onlyDependOnLibsWithTags": [
+                  "type:be-test",
+                  "type:be-presentation",
+                  "type:be-application",
+                  "type:be-infrastructure",
+                  "type:be-util"
+                ]
+              },
+              {
                 "sourceTag": "type:entities",
                 "onlyDependOnLibsWithTags": ["type:entities", "type:util"]
               },

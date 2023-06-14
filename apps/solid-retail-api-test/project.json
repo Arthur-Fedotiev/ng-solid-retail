@@ -28,5 +28,5 @@
       "executor": "@nx-dotnet/core:format"
     }
   },
-  "tags": ["type:app", "scope:solid-retail-api"]
+  "tags": ["type:be-test", "scope:solid-retail-api"]
 }
