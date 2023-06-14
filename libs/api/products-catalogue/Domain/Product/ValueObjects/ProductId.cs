@@ -1,4 +1,4 @@
-using Sr.Api.ProductsCatalogue.Domain.Common.Models;
+﻿using Sr.Api.ProductsCatalogue.Domain.Common.Models;
 
 namespace Sr.Api.ProductsCatalogue.Domain.Product.ValueObjects
 {

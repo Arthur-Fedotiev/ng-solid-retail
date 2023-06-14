@@ -1,14 +1,14 @@
-using Mapster;
+﻿using Mapster;
+using Sr.Api.ProductsCatalogue.Application.Commands.CreateProduct;
+using Sr.Api.ProductsCatalogue.Application.Commands.UpdateProduct;
+using Sr.Api.ProductsCatalogue.Contracts.Common;
 using Sr.Api.ProductsCatalogue.Contracts.CreateProduct;
+using Sr.Api.ProductsCatalogue.Contracts.UpdateProduct;
 using Sr.Api.ProductsCatalogue.Domain.Product.AggregateRoot;
 using Sr.Api.ProductsCatalogue.Domain.Product.ValueObjects;
-using Price = Sr.Api.ProductsCatalogue.Application.Commands.CreateProduct.Price;
-using Sr.Api.ProductsCatalogue.Contracts.Common;
-using Sr.Api.ProductsCatalogue.Application.Commands.CreateProduct;
-using Sr.Api.ProductsCatalogue.Contracts.UpdateProduct;
-using UpdateProduct = Sr.Api.ProductsCatalogue.Application.Commands.UpdateProduct;
 using CreateProduct = Sr.Api.ProductsCatalogue.Application.Commands.CreateProduct;
-using Sr.Api.ProductsCatalogue.Application.Commands.UpdateProduct;
+using Price = Sr.Api.ProductsCatalogue.Application.Commands.CreateProduct.Price;
+using UpdateProduct = Sr.Api.ProductsCatalogue.Application.Commands.UpdateProduct;
 
 namespace Sr.SolidRetailApi.Common.Mapping
 {

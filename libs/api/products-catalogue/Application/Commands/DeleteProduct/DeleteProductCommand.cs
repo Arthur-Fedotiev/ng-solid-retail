@@ -1,4 +1,4 @@
-using FluentResults;
+﻿using FluentResults;
 using MediatR;
 
 namespace Sr.Api.ProductsCatalogue.Application.Commands.DeleteProduct

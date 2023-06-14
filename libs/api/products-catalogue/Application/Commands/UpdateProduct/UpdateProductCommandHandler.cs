@@ -1,4 +1,4 @@
-using FluentResults;
+﻿using FluentResults;
 using MediatR;
 using Sr.Api.ProductsCatalogue.Application.Persistance;
 using Sr.Api.ProductsCatalogue.Domain.Product.AggregateRoot;

@@ -1,4 +1,4 @@
-using FluentResults;
+﻿using FluentResults;
 using Sr.Api.ProductsCatalogue.Common;
 using Sr.Api.ProductsCatalogue.Domain.Product.Errors;
 using Sr.Api.ProductsCatalogue.Domain.Product.ValueObjects;

@@ -1,4 +1,4 @@
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace Sr.Api.ProductsCatalogue.Application.Commands.DeleteProduct
 {

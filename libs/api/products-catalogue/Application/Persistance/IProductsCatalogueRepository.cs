@@ -1,4 +1,4 @@
-using FluentResults;
+﻿using FluentResults;
 using Sr.Api.ProductsCatalogue.Application.Commands.CreateProduct;
 using Sr.Api.ProductsCatalogue.Application.Commands.UpdateProduct;
 using Sr.Api.ProductsCatalogue.Application.GetProducts.Queries;

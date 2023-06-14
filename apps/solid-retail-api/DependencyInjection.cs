@@ -1,4 +1,4 @@
-using Sr.SolidRetailApi.Common.Mapping;
+﻿using Sr.SolidRetailApi.Common.Mapping;
 using Sr.SolidRetailApi.Common.Serialization;
 using Sr.SolidRetailApi.Common.Swagger;
 

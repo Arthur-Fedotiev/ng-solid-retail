@@ -1,4 +1,4 @@
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 using JsonSubTypes;
 using Newtonsoft.Json.Converters;
 using Sr.Api.ProductsCatalogue.Common;

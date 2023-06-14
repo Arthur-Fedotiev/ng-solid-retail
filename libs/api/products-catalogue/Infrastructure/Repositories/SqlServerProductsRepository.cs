@@ -1,4 +1,4 @@
-using System.Linq;
+﻿using System.Linq;
 using FluentResults;
 using Microsoft.EntityFrameworkCore;
 using Sr.Api.ProductsCatalogue.Application.Commands.CreateProduct;

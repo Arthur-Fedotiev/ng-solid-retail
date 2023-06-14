@@ -1,4 +1,4 @@
-namespace Sr.Api.Shared.Domain.Models
+﻿namespace Sr.Api.Shared.Domain.Models
 {
   public abstract class AggregateRoot<TId> : Entity<TId> where TId : notnull
   {

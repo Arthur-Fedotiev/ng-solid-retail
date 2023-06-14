@@ -1,4 +1,4 @@
-namespace Sr.Api.ProductsCatalogue.Contracts.Common
+﻿namespace Sr.Api.ProductsCatalogue.Contracts.Common
 {
   public record ShoesSpecificationRequest(
     float Size,

@@ -1,4 +1,4 @@
-using Microsoft.OpenApi.Models;
+﻿using Microsoft.OpenApi.Models;
 using Sr.Api.ProductsCatalogue.Contracts.CreateProduct;
 
 namespace Sr.SolidRetailApi.Common.Swagger

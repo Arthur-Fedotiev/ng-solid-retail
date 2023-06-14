@@ -1,4 +1,4 @@
-using FluentResults;
+﻿using FluentResults;
 using MediatR;
 using Sr.Api.ProductsCatalogue.Application.Common;
 using Sr.Api.ProductsCatalogue.Application.Persistance;

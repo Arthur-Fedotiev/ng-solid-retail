@@ -1,4 +1,4 @@
-namespace Sr.Api.ProductsCatalogue.Domain.Common.Models
+﻿namespace Sr.Api.ProductsCatalogue.Domain.Common.Models
 {
   public abstract class ValueObject : IEquatable<ValueObject>
   {

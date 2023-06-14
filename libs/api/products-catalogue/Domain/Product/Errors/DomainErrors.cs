@@ -1,4 +1,4 @@
-
+﻿
 using FluentResults;
 
 namespace Sr.Api.ProductsCatalogue.Domain.Product.Errors

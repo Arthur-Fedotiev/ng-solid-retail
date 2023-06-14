@@ -1,4 +1,4 @@
-namespace Sr.Api.ProductsCatalogue.Application.Common;
+﻿namespace Sr.Api.ProductsCatalogue.Application.Common;
 
 public class PaginatedItemsResponse<TEntity> where TEntity : class
 {

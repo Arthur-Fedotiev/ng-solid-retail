@@ -1,4 +1,4 @@
-using Sr.Api.ProductsCatalogue.Common;
+﻿using Sr.Api.ProductsCatalogue.Common;
 using Sr.Api.ProductsCatalogue.Contracts.Common;
 
 namespace Sr.Api.ProductsCatalogue.Contracts.UpdateProduct

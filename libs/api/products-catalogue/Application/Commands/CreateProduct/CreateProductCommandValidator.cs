@@ -1,4 +1,4 @@
-using FluentValidation;
+﻿using FluentValidation;
 using OneOf;
 
 namespace Sr.Api.ProductsCatalogue.Application.Commands.CreateProduct

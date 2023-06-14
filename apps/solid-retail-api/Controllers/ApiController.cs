@@ -1,4 +1,4 @@
-using FluentResults;
+﻿using FluentResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Sr.SolidRetailApi.Controllers

@@ -1,16 +1,16 @@
-using Microsoft.AspNetCore.Mvc;
-using Sr.Api.ProductsCatalogue.Contracts.CreateProduct;
-using MediatR;
+﻿using FluentResults;
 using MapsterMapper;
-using Sr.Api.ProductsCatalogue.Domain.Product.AggregateRoot;
-using Sr.Api.ProductsCatalogue.Contracts.Common;
-using Sr.Api.ProductsCatalogue.Application.GetProducts.Queries;
-using FluentResults;
-using Sr.Api.ProductsCatalogue.Application.Common;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using Sr.Api.ProductsCatalogue.Application.Commands.CreateProduct;
 using Sr.Api.ProductsCatalogue.Application.Commands.DeleteProduct;
-using Sr.Api.ProductsCatalogue.Contracts.UpdateProduct;
 using Sr.Api.ProductsCatalogue.Application.Commands.UpdateProduct;
+using Sr.Api.ProductsCatalogue.Application.Common;
+using Sr.Api.ProductsCatalogue.Application.GetProducts.Queries;
+using Sr.Api.ProductsCatalogue.Contracts.Common;
+using Sr.Api.ProductsCatalogue.Contracts.CreateProduct;
+using Sr.Api.ProductsCatalogue.Contracts.UpdateProduct;
+using Sr.Api.ProductsCatalogue.Domain.Product.AggregateRoot;
 
 namespace Sr.SolidRetailApi.Controllers
 {

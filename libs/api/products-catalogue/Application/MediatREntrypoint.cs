@@ -1,4 +1,4 @@
-namespace Sr.Api.ProductsCatalogue.Application;
+﻿namespace Sr.Api.ProductsCatalogue.Application;
 
 public class MediatREntrypoint
 {

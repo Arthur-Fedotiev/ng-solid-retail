@@ -1,4 +1,4 @@
-namespace Sr.Api.ProductsCatalogue.Common
+﻿namespace Sr.Api.ProductsCatalogue.Common
 {
   public enum ProductRetailer
   {
@@ -69,4 +69,4 @@ namespace Sr.Api.ProductsCatalogue.Common
     FoodBasics = 65,
     FoodEmp = 66,
   }
-}
+};

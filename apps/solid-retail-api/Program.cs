@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc.Infrastructure;
+﻿using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Sr.Api.ProductsCatalogue.Application;
 using Sr.Api.ProductsCatalogue.Infrastructure;
 using Sr.SolidRetailApi;
