@@ -46,10 +46,10 @@ jobs:
         with:
           cache: 'yarn'
 
-      # - name: Set up Nx
-      #   uses: nrwl/nx-set-shas@v2
-      #   with:
-      #     main-branch-name: 'master'
+      - name: Set up Nx
+        uses: nrwl/nx-set-shas@v2
+        with:
+          main-branch-name: 'master'
 
       - name: Install Nx dependencies
         run: yarn install --frozen-lockfile
