@@ -66,81 +66,72 @@ jobs:
       - name: Build affected
         run: npx nx run-many --target=build --parallel=3
 
-      - name: nx publish
-        run: dotnet publish apps/solid-retail-api -c Release -o ${{env.DOTNET_ROOT}}/solid-retail-api
+      # - name: nx publish
+      #   run: dotnet publish apps/solid-retail-api -c Release -o ${{env.DOTNET_ROOT}}/solid-retail-api
 
-      - name: Upload be artifacts for deployment job
-        uses: actions/upload-artifact@v2
-        with:
-          name: .net-app
-          path: ${{env.DOTNET_ROOT}}/solid-retail-api
-
-      # - name: Deploy web-app
-      #   uses: FirebaseExtended/action-hosting-deploy@v0
-      #   with:
-      #     repoToken: '${{ secrets.GITHUB_TOKEN }}'
-      #     firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NG_SOLID_RETAIL }}'
-      #     channelId: live
-      #     projectId: ng-solid-retail
-
-      # - name: Upload fe artifacts for deployment job
+      # - name: Upload be artifacts for deployment job
       #   uses: actions/upload-artifact@v2
       #   with:
-      #     name: web-app
-      #     path: dist
+      #     name: .net-app
+      #     path: ${{env.DOTNET_ROOT}}/solid-retail-api
 
-      - name: Sign in to Azure
-        uses: azure/login@v1
+      - name: Upload fe artifacts (build and firebase related) for deployment job
+        uses: actions/upload-artifact@v2
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          name: web-app
+          path: .
 
-      - name: Update config
-        uses: Azure/appservice-settings@v1
-        with:
-          app-name: 'ng-solid-retail'
-          slot-name: 'Production'
-          app-settings-json: |
-            [
-              {
-                "name": "ConnectionStrings__AzureSql",
-                "value": "${{ secrets.AZURE_SQL_CONNECTION_STRING }}",
-                "slotSetting": true
-              }
-            ]
+      # - name: Sign in to Azure
+      #   uses: azure/login@v1
+      #   with:
+      #     creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-  deploy_be:
-    runs-on: ubuntu-latest
-    needs: lint_test_build_affected
-    environment:
-      name: 'Production'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+      # - name: Update config
+      #   uses: Azure/appservice-settings@v1
+      #   with:
+      #     app-name: 'ng-solid-retail'
+      #     slot-name: 'Production'
+      #     app-settings-json: |
+      #       [
+      #         {
+      #           "name": "ConnectionStrings__AzureSql",
+      #           "value": "${{ secrets.AZURE_SQL_CONNECTION_STRING }}",
+      #           "slotSetting": true
+      #         }
+      #       ]
 
-    steps:
-      - name: Download artifact from build job
-        uses: actions/download-artifact@v2
-        with:
-          name: .net-app
+  # deploy_be:
+  #   runs-on: ubuntu-latest
+  #   needs: lint_test_build_affected
+  #   environment:
+  #     name: 'Production'
+  #     url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
-      - name: Deploy to Azure Web App
-        id: deploy-to-webapp
-        uses: azure/webapps-deploy@v2
-        with:
-          app-name: 'ng-solid-retail'
-          slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_D2DEC78A705D457DA8FB4839719C5FE3 }}
-          package: .
+  #   steps:
+  #     - name: Download artifact from build job
+  #       uses: actions/download-artifact@v2
+  #       with:
+  #         name: .net-app
+
+  #     - name: Deploy to Azure Web App
+  #       id: deploy-to-webapp
+  #       uses: azure/webapps-deploy@v2
+  #       with:
+  #         app-name: 'ng-solid-retail'
+  #         slot-name: 'Production'
+  #         publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_D2DEC78A705D457DA8FB4839719C5FE3 }}
+  #         package: .
 
   deploy_fe:
     runs-on: ubuntu-latest
     needs: lint_test_build_affected
     steps:
-      # - name: Download artifact from build job
-      #   uses: actions/download-artifact@v2
-      #   with:
-      #     name: .web-app
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v2
+        with:
+          name: .web-app
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          entrypoint: .
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NG_SOLID_RETAIL }}'
           channelId: live
