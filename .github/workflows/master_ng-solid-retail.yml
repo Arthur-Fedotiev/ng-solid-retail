@@ -20,6 +20,7 @@ on:
       - '**/*.gitattributes'
 env:
   ConnectionStrings__AzureSql: ${{ secrets.AZURE_SQL_CONNECTION_STRING }}
+  ACTIONS_RUNNER_DEBUG: true
 
 jobs:
   lint_test_build_affected:
@@ -63,7 +64,7 @@ jobs:
         run: npx nx affected --target=test --parallel=3
 
       - name: Build affected
-        run: npx nx affected --target=build --parallel=3
+        run: npx nx run-many --target=build --parallel=3
 
       - name: nx publish
         run: dotnet publish apps/solid-retail-api -c Release -o ${{env.DOTNET_ROOT}}/solid-retail-api
