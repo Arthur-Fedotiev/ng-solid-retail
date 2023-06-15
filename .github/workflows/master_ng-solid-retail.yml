@@ -66,20 +66,13 @@ jobs:
       - name: Build affected
         run: npx nx run-many --target=build --parallel=3
 
-      # - name: nx publish
-      #   run: dotnet publish apps/solid-retail-api -c Release -o ${{env.DOTNET_ROOT}}/solid-retail-api
-
-      # - name: Upload be artifacts for deployment job
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     name: .net-app
-      #     path: ${{env.DOTNET_ROOT}}/solid-retail-api
-
-      - name: Upload fe artifacts (build and firebase related) for deployment job
-        uses: actions/upload-artifact@v2
+      - name: Deploy to Firebase Hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          name: web-app
-          path: .
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NG_SOLID_RETAIL }}'
+          channelId: live
+          projectId: ng-solid-retail
 
       # - name: Sign in to Azure
       #   uses: azure/login@v1
@@ -121,18 +114,3 @@ jobs:
   #         slot-name: 'Production'
   #         publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_D2DEC78A705D457DA8FB4839719C5FE3 }}
   #         package: .
-
-  deploy_fe:
-    runs-on: ubuntu-latest
-    needs: lint_test_build_affected
-    steps:
-      - name: Download artifact from build job
-        uses: actions/download-artifact@v2
-        with:
-          name: .web-app
-      - uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NG_SOLID_RETAIL }}'
-          channelId: live
-          projectId: ng-solid-retail
