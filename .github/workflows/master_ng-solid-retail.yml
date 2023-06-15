@@ -75,19 +75,19 @@ jobs:
           name: .net-app
           path: ${{env.DOTNET_ROOT}}/solid-retail-api
 
-      - name: Deploy web-app
-        uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NG_SOLID_RETAIL }}'
-          channelId: live
-          projectId: ng-solid-retail
+      # - name: Deploy web-app
+      #   uses: FirebaseExtended/action-hosting-deploy@v0
+      #   with:
+      #     repoToken: '${{ secrets.GITHUB_TOKEN }}'
+      #     firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NG_SOLID_RETAIL }}'
+      #     channelId: live
+      #     projectId: ng-solid-retail
 
-      - name: Upload fe artifacts for deployment job
-        uses: actions/upload-artifact@v2
-        with:
-          name: web-app
-          path: dist
+      # - name: Upload fe artifacts for deployment job
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: web-app
+      #     path: dist
 
       - name: Sign in to Azure
         uses: azure/login@v1
@@ -130,17 +130,18 @@ jobs:
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_D2DEC78A705D457DA8FB4839719C5FE3 }}
           package: .
 
-  # deploy_fe:
-  #   runs-on: ubuntu-latest
-  #   needs: lint_test_build_affected
-  #   steps:
-  #     - name: Download artifact from build job
-  #       uses: actions/download-artifact@v2
-  #       with:
-  #         name: .web-app
-  #     - uses: FirebaseExtended/action-hosting-deploy@v0
-  #       with:
-  #         repoToken: '${{ secrets.GITHUB_TOKEN }}'
-  #         firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NG_SOLID_RETAIL }}'
-  #         channelId: live
-  #         projectId: ng-solid-retail
+  deploy_fe:
+    runs-on: ubuntu-latest
+    needs: lint_test_build_affected
+    steps:
+      # - name: Download artifact from build job
+      #   uses: actions/download-artifact@v2
+      #   with:
+      #     name: .web-app
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          entrypoint: .
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NG_SOLID_RETAIL }}'
+          channelId: live
+          projectId: ng-solid-retail
