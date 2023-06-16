@@ -15,14 +15,15 @@ namespace Sr.Api.ProductsCatalogue.Application.GetProducts.Queries
     }
     public async Task<Result<PaginatedItemsResponse<Product>>> Handle(GetProductsQuery request, CancellationToken cancellationToken)
     {
-      (var result, var count) = await _productsCatalogueRepository.GetProductsAsync(request);
+      var result = await _productsCatalogueRepository.GetProductsAsync(request);
 
-      return new PaginatedItemsResponse<Product>(
-        request.PageIndex.GetValueOrDefault(),
-        request.PageSize.GetValueOrDefault(),
-        count,
-        result
-      );
+
+      return result.IsSuccess ?
+        new PaginatedItemsResponse<Product>(
+          request.PageIndex.GetValueOrDefault(),
+          request.PageSize.GetValueOrDefault(),
+          result.Value.count,
+          result.Value.products) : Result.Fail<PaginatedItemsResponse<Product>>(result.Errors);
     }
   }
 }

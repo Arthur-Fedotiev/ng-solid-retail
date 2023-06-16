@@ -9,7 +9,7 @@ namespace Sr.Api.ProductsCatalogue.Application.Persistance
   public interface IProductsCatalogueRepository
   {
     Task<Result<Product>> CreateProductAsync(CreateProductCommand product);
-    Task<(IReadOnlyList<Product> products, int Count)> GetProductsAsync(GetProductsQuery query);
+    Task<Result<(IReadOnlyList<Product> products, int count)>> GetProductsAsync(GetProductsQuery query);
     Task<Result> DeleteProductAsync(Guid id);
     Task<Result<Product>> UpdateProductAsync(UpdateProductCommand request);
   }

@@ -30,9 +30,9 @@ namespace Sr.SolidRetailApi.Controllers
     [ProducesResponseType(typeof(PaginatedItemsResponse<ProductResponse>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> GetProducts(int? pageSize, int? pageIndex, string? ids)
+    public async Task<IActionResult> GetProducts(int? pageSize, int? pageIndex, string? ids, string? categories)
     {
-      var result = await _mediator.Send(new GetProductsQuery(pageSize, pageIndex, ids));
+      var result = await _mediator.Send(new GetProductsQuery(pageSize, pageIndex, ids, categories));
 
       return ResponseFor<PaginatedItemsResponse<Product>, PaginatedItemsResponse<ProductResponse>>(result);
     }

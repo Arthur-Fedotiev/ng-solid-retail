@@ -2,7 +2,6 @@
 using Sr.Api.ProductsCatalogue.Application.Commands.CreateProduct;
 using Sr.Api.ProductsCatalogue.Application.Commands.UpdateProduct;
 using Sr.Api.ProductsCatalogue.Application.GetProducts.Queries;
-using Sr.Api.ProductsCatalogue.Application.Persistance;
 using Sr.Api.ProductsCatalogue.Common;
 using Sr.Api.ProductsCatalogue.Domain.Product.AggregateRoot;
 using Sr.Api.ProductsCatalogue.Domain.Product.Errors;
@@ -10,7 +9,7 @@ using Sr.Api.ProductsCatalogue.Domain.Product.ValueObjects;
 
 namespace Sr.Api.ProductsCatalogue.Infrastructure.Repositories
 {
-  public class InMemoryProductsCatalogueRepository : IProductsCatalogueRepository
+  public class InMemoryProductsCatalogueRepository
   {
     private static readonly List<Product> _products = new(){
         Shoes.Create(
@@ -30,7 +29,7 @@ namespace Sr.Api.ProductsCatalogue.Infrastructure.Repositories
         "White"
         )
     };
-    public async Task<Result<Product>> CreateProductAsync(CreateProductCommand product)
+    public static async Task<Result<Product>> CreateProductAsync(CreateProductCommand product)
     {
       var newProduct = CreateProduct(product);
 
@@ -60,7 +59,7 @@ namespace Sr.Api.ProductsCatalogue.Infrastructure.Repositories
       return Result.Fail(DomainErrors.Product.ProductNotFound);
     }
 
-    public async Task<(IReadOnlyList<Product> products, int Count)> GetProductsAsync(GetProductsQuery query)
+    public static async Task<(IReadOnlyList<Product> products, int Count)> GetProductsAsync(GetProductsQuery query)
     {
       var products = _products.AsQueryable();
 
@@ -87,7 +86,7 @@ namespace Sr.Api.ProductsCatalogue.Infrastructure.Repositories
       return (result, total);
     }
 
-    public async Task<Result<Product>> UpdateProductAsync(UpdateProductCommand request)
+    public static async Task<Result<Product>> UpdateProductAsync(UpdateProductCommand request)
     {
       await Task.CompletedTask;
 
@@ -186,11 +185,6 @@ namespace Sr.Api.ProductsCatalogue.Infrastructure.Repositories
           ),
         _ => Result.Fail<Product>(DomainErrors.Product.CategoryNotSupported)
       };
-    }
-
-    Task<Result> IProductsCatalogueRepository.DeleteProductAsync(Guid id)
-    {
-      throw new NotImplementedException();
     }
   }
 }

@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using FluentResults;
+﻿using FluentResults;
 using Microsoft.EntityFrameworkCore;
 using Sr.Api.ProductsCatalogue.Application.Commands.CreateProduct;
 using Sr.Api.ProductsCatalogue.Application.Commands.UpdateProduct;
@@ -30,16 +29,16 @@ namespace Sr.Api.ProductsCatalogue.Infrastructure.Repositories
         return Result.Fail<Product>(productEntity.Errors);
       }
 
-      _dbContext.Products.Add(productEntity.Value);
+      _ = _dbContext.Products.Add(productEntity.Value);
 
-      await _dbContext.SaveChangesAsync();
+      _ = await _dbContext.SaveChangesAsync();
 
       return Result.Ok(productEntity.Value);
     }
 
     public async Task<Result> DeleteProductAsync(Guid id)
     {
-      var product = await _dbContext.Products
+      var product = await _dbContext.Book
           .FirstOrDefaultAsync(p => p.Id == ProductId.Create(id));
 
 
@@ -48,69 +47,72 @@ namespace Sr.Api.ProductsCatalogue.Infrastructure.Repositories
         return Result.Fail(DomainErrors.Product.ProductNotFound);
       }
 
-      _dbContext.Products.Remove(product);
-      await _dbContext.SaveChangesAsync();
+      _ = _dbContext.Products.Remove(product);
+      _ = await _dbContext.SaveChangesAsync();
 
       return Result.Ok();
     }
 
     public async Task<Result<Product>> GetProductAsync(Guid id)
     {
-      var product = await _dbContext.Products
+      var product = await _dbContext.Book
         .FirstOrDefaultAsync(p => p.Id == ProductId.Create(id));
 
-      if (product is null)
+      return product is null ? Result.Fail<Product>(DomainErrors.Product.ProductNotFound) : Result.Ok(product as Product);
+    }
+
+    public async Task<Result<(IReadOnlyList<Product> products, int count)>> GetProductsAsync(GetProductsQuery query)
+    {
+      IQueryable<Product> productsQuery = _dbContext.Products.OrderBy(p => p.Name);
+      int? count = null;
+
+      if (query.categories is not null)
       {
-        return Result.Fail<Product>(DomainErrors.Product.ProductNotFound);
+        var serializedCategories = query.categories.Split(',');
+
+        if (serializedCategories.Any(c => !Enum.TryParse<ProductCategory>(c, out _)))
+        {
+          return Result.Fail(DomainErrors.Product.CategoryNotSupported);
+        }
+
+        var categories = serializedCategories.Select(Enum.Parse<ProductCategory>);
+
+        productsQuery = productsQuery.Where(p => categories.Contains(p.Category));
       }
+
+      if (query.Ids is not null)
+      {
+        var ids = query.Ids.Split(',').Select(id => ProductId.Create(Guid.Parse(id)));
+
+        productsQuery = productsQuery.Where(p => ids.Contains(p.Id));
+      }
+
+      if (query.PageSize.HasValue || query.PageIndex.HasValue)
+      {
+        productsQuery = productsQuery
+          .Skip(query.PageSize.Value * query.PageIndex.Value)
+          .Take(query.PageSize.Value * (query.PageIndex.Value + 1));
+
+        count = await _dbContext.Products.CountAsync();
+      }
+
+      var products = await productsQuery.ToListAsync();
+
+      count ??= products.Count;
+
+      return (products, (int)count);
+    }
+
+    public async Task<Result<Product>> UpdateProductAsync(UpdateProductCommand request)
+    {
+      var isNewlyCreated = !await _dbContext.Products.AnyAsync(p => p.Id == ProductId.Create(request.Id));
+      var product = CreateProduct(request).Value;
+
+      _ = isNewlyCreated ? _dbContext.Products.Add(product) : _dbContext.Products.Update(product);
+
+      _ = await _dbContext.SaveChangesAsync();
 
       return Result.Ok(product);
-
-    }
-
-    public async Task<(IReadOnlyList<Product> products, int Count)> GetProductsAsync(GetProductsQuery query)
-    {
-      if (query.PageSize is null || query.PageIndex is null)
-      {
-        return (await _dbContext.Products.ToListAsync(), _dbContext.Products.Count());
-      }
-
-      var from = query.PageSize.Value * query.PageIndex.Value;
-      var to = query.PageSize.Value * (query.PageIndex.Value + 1);
-
-      var products = await _dbContext.Products
-        .Skip(from)
-        .Take(to)
-        .ToListAsync();
-
-      var count = _dbContext.Products.Count();
-
-      return (products, count);
-    }
-
-    public async Task<Result<Product>> UpdateProductAsync(UpdateProductCommand product)
-    {
-      var productEntity = await _dbContext.Products
-        .FirstOrDefaultAsync(p => p.Id == ProductId.Create(product.Id));
-
-      if (productEntity is null)
-      {
-        return Result.Fail<Product>(DomainErrors.Product.ProductNotFound);
-      }
-
-      var updatedProduct = CreateProduct(product);
-
-      if (updatedProduct.IsFailed)
-      {
-        return Result.Fail<Product>(updatedProduct.Errors);
-      }
-
-      _dbContext.Products.Remove(productEntity);
-      _dbContext.Products.Add(updatedProduct.Value);
-
-      await _dbContext.SaveChangesAsync();
-
-      return Result.Ok(updatedProduct.Value);
 
     }
     private static Result<Product> CreateProduct(CreateProductCommand request)
@@ -195,5 +197,4 @@ namespace Sr.Api.ProductsCatalogue.Infrastructure.Repositories
       };
     }
   }
-
 }
