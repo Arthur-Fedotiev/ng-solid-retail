@@ -19,7 +19,6 @@ on:
       - '**/*.gitignore'
       - '**/*.gitattributes'
 env:
-  ConnectionStrings__AzureSql: ${{ secrets.AZURE_SQL_CONNECTION_STRING }}
   ACTIONS_RUNNER_DEBUG: true
 
 jobs:
@@ -66,6 +65,37 @@ jobs:
       - name: Build affected
         run: npx nx run-many --target=build --parallel=3
 
+      - name: Archive web-app build artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: angular-app
+          path: |
+            dist/               # Include the Angular app build output directory
+            functions/lib          # Include the Firebase Cloud Functions build output directory
+            firebase.json        # Include the Firebase configuration file
+            .firebaserc          # Include the Firebase configuration file
+            firestore.indexes.json # Include the Firestore indexes configuration file
+            firestore.rules     # Include the Firestore rules configuration file
+
+      - name: Publish web api
+        run: dotnet publish apps/solid-retail-api -c Release -o ${{env.DOTNET_ROOT}}/solid-retail-api
+
+      - name: Upload be artifacts for deployment job
+        uses: actions/upload-artifact@v2
+        with:
+          name: .net-app
+          path: ${{env.DOTNET_ROOT}}/solid-retail-api
+
+  deploy_firebase:
+    needs: lint_test_build_affected
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v2
+        with:
+          name: angular-app
+
       - name: Deploy to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
@@ -73,25 +103,6 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NG_SOLID_RETAIL }}'
           channelId: live
           projectId: ng-solid-retail
-
-      - name: Sign in to Azure
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-      - name: Update config
-        uses: Azure/appservice-settings@v1
-        with:
-          app-name: 'ng-solid-retail'
-          slot-name: 'Production'
-          app-settings-json: |
-            [
-              {
-                "name": "ConnectionStrings__AzureSql",
-                "value": "${{ secrets.AZURE_SQL_CONNECTION_STRING }}",
-                "slotSetting": true
-              }
-            ]
 
   deploy_be:
     runs-on: ubuntu-latest
