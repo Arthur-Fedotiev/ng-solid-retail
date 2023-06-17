@@ -56,9 +56,6 @@ jobs:
       - name: Install Nx dependencies
         run: yarn install --frozen-lockfile
 
-      - name: Remove bin and obj directories
-        run: find . -iname "bin" -o -iname "obj" | xargs rm -rf
-
       - name: Lint affected
         run: npx nx run-many --target=lint --parallel=3
 
