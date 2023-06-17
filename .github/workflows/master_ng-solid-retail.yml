@@ -56,6 +56,9 @@ jobs:
       - name: Install Nx dependencies
         run: yarn install --frozen-lockfile
 
+      - name: Remove bin and obj directories
+        run: find . -iname "bin" -o -iname "obj" | xargs rm -rf
+
       - name: Lint affected
         run: npx nx run-many --target=lint --parallel=3
 
@@ -63,7 +66,7 @@ jobs:
         run: npx nx run-many --target=test --parallel=3
 
       - name: Build affected
-        run: npx nx run-many --target=build --parallel=3
+        run: npx nx run-many --target=build --parallel=3 --skip-nx-cache
 
       - name: Archive web-app build artifacts
         uses: actions/upload-artifact@v2
