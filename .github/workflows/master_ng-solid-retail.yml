@@ -56,21 +56,21 @@ jobs:
       - name: Install Nx dependencies
         run: yarn install --frozen-lockfile
 
-      - name: Lint affected
+      - name: Lint all
         run: npx nx run-many --target=lint --parallel=3
 
-      - name: Test affected
+      - name: Test all
         run: npx nx run-many --target=test --parallel=3
 
-      - name: Build affected
-        run: npx nx run-many --target=build --parallel=3 --skip-nx-cache
+      - name: Build all
+        run: npx nx run-many --target=build --parallel=3
 
       - name: Archive web-app build artifacts
         uses: actions/upload-artifact@v2
         with:
           name: angular-app
           path: |
-            dist/               # Include the Angular app build output directory
+            dist               # Include the Angular app build output directory
             functions/lib          # Include the Firebase Cloud Functions build output directory
             firebase.json        # Include the Firebase configuration file
             .firebaserc          # Include the Firebase configuration file
