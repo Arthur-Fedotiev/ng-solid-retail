@@ -53,6 +53,9 @@ jobs:
         with:
           main-branch-name: 'master'
 
+      - name: remove bin and obj folders
+        run: find . -iname "bin" -o -iname "obj" | xargs rm -rf
+
       - name: Install Nx dependencies
         run: yarn install --frozen-lockfile
 
@@ -63,19 +66,15 @@ jobs:
         run: npx nx run-many --target=test --parallel=3
 
       - name: Build all
-        run: npx nx run-many --target=build --parallel=1
+        run: npx nx run-many --target=build --parallel=3
 
-      - name: Archive web-app build artifacts
-        uses: actions/
+      - name: Deploy angular app to firebase
+        uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          name: angular-app
-          path: |
-            dist               # Include the Angular app build output directory
-            functions/lib          # Include the Firebase Cloud Functions build output directory
-            firebase.json        # Include the Firebase configuration file
-            .firebaserc          # Include the Firebase configuration file
-            firestore.indexes.json # Include the Firestore indexes configuration file
-            firestore.rules     # Include the Firestore rules configuration file
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NG_SOLID_RETAIL }}'
+          channelId: live
+          projectId: ng-solid-retail
 
       - name: Publish web api
         run: dotnet publish apps/solid-retail-api -c Release -o ${{env.DOTNET_ROOT}}/solid-retail-api
@@ -85,24 +84,6 @@ jobs:
         with:
           name: .net-app
           path: ${{env.DOTNET_ROOT}}/solid-retail-api
-
-  deploy_firebase:
-    needs: lint_test_build_affected
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Download artifact from build job
-        uses: actions/download-artifact@v2
-        with:
-          name: angular-app
-
-      - name: Deploy to Firebase Hosting
-        uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NG_SOLID_RETAIL }}'
-          channelId: live
-          projectId: ng-solid-retail
 
   deploy_be:
     runs-on: ubuntu-latest
