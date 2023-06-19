@@ -53,9 +53,6 @@ jobs:
         with:
           main-branch-name: 'master'
 
-      - name: remove bin and obj folders
-        run: find . -iname "bin" -o -iname "obj" | xargs rm -rf
-
       - name: Install Nx dependencies
         run: yarn install --frozen-lockfile
 
