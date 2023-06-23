@@ -72,7 +72,7 @@ jobs:
         run: npx nx run-many --target=test --parallel=3
 
       - name: Build all
-        run: npx nx run-many --target=build --parallel=3
+        run: npx nx run-many --target=build --configuration=production --parallel=3
 
       - name: Deploy angular app to firebase
         uses: FirebaseExtended/action-hosting-deploy@v0
