@@ -62,9 +62,6 @@ jobs:
       - name: Install Nx dependencies
         run: yarn install --frozen-lockfile
 
-      - name: reset
-        run: npx nx reset
-
       - name: Lint all
         run: npx nx run-many --target=lint --parallel=3
 
@@ -72,7 +69,7 @@ jobs:
         run: npx nx run-many --target=test --parallel=3
 
       - name: Build all
-        run: npx nx run-many --target=build --configuration=production --projects=solid-retail-api,solid-retail --parallel=3
+        run: npx nx run-many --target=build --configuration=production --no-dependencies=false --parallel=3
 
       - name: Deploy angular app to firebase
         uses: FirebaseExtended/action-hosting-deploy@v0
