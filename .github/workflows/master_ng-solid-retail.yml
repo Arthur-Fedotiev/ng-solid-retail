@@ -62,6 +62,9 @@ jobs:
       - name: Install Nx dependencies
         run: yarn install --frozen-lockfile
 
+      - name: reset
+        run: nx reset
+
       - name: Lint all
         run: npx nx run-many --target=lint --parallel=3
 
