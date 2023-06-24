@@ -17,7 +17,7 @@
       "configurations": {
         "production": {
           "configuration": "Release",
-          "noDependencies": false
+          "noDependencies": true
         }
       }
     },
