@@ -13,33 +13,33 @@
  */
 
 import {
-    CreateBookRequest,
-    instanceOfCreateBookRequest,
-    CreateBookRequestFromJSON,
-    CreateBookRequestFromJSONTyped,
-    CreateBookRequestToJSON,
-} from './CreateBookRequest';
+    SrApiProductsCatalogueContractsCreateProductCreateBookRequest,
+    instanceOfSrApiProductsCatalogueContractsCreateProductCreateBookRequest,
+    SrApiProductsCatalogueContractsCreateProductCreateBookRequestFromJSON,
+    SrApiProductsCatalogueContractsCreateProductCreateBookRequestFromJSONTyped,
+    SrApiProductsCatalogueContractsCreateProductCreateBookRequestToJSON,
+} from './SrApiProductsCatalogueContractsCreateProductCreateBookRequest';
 import {
-    CreateClothingRequest,
-    instanceOfCreateClothingRequest,
-    CreateClothingRequestFromJSON,
-    CreateClothingRequestFromJSONTyped,
-    CreateClothingRequestToJSON,
-} from './CreateClothingRequest';
+    SrApiProductsCatalogueContractsCreateProductCreateClothingRequest,
+    instanceOfSrApiProductsCatalogueContractsCreateProductCreateClothingRequest,
+    SrApiProductsCatalogueContractsCreateProductCreateClothingRequestFromJSON,
+    SrApiProductsCatalogueContractsCreateProductCreateClothingRequestFromJSONTyped,
+    SrApiProductsCatalogueContractsCreateProductCreateClothingRequestToJSON,
+} from './SrApiProductsCatalogueContractsCreateProductCreateClothingRequest';
 import {
-    CreateShoesRequest,
-    instanceOfCreateShoesRequest,
-    CreateShoesRequestFromJSON,
-    CreateShoesRequestFromJSONTyped,
-    CreateShoesRequestToJSON,
-} from './CreateShoesRequest';
+    SrApiProductsCatalogueContractsCreateProductCreateShoesRequest,
+    instanceOfSrApiProductsCatalogueContractsCreateProductCreateShoesRequest,
+    SrApiProductsCatalogueContractsCreateProductCreateShoesRequestFromJSON,
+    SrApiProductsCatalogueContractsCreateProductCreateShoesRequestFromJSONTyped,
+    SrApiProductsCatalogueContractsCreateProductCreateShoesRequestToJSON,
+} from './SrApiProductsCatalogueContractsCreateProductCreateShoesRequest';
 
 /**
  * @type ApiV1CataloguePostRequest
  * 
  * @export
  */
-export type ApiV1CataloguePostRequest = CreateBookRequest | CreateClothingRequest | CreateShoesRequest;
+export type ApiV1CataloguePostRequest = SrApiProductsCatalogueContractsCreateProductCreateBookRequest | SrApiProductsCatalogueContractsCreateProductCreateClothingRequest | SrApiProductsCatalogueContractsCreateProductCreateShoesRequest;
 
 export function ApiV1CataloguePostRequestFromJSON(json: any): ApiV1CataloguePostRequest {
     return ApiV1CataloguePostRequestFromJSONTyped(json, false);
@@ -49,7 +49,7 @@ export function ApiV1CataloguePostRequestFromJSONTyped(json: any, ignoreDiscrimi
     if ((json === undefined) || (json === null)) {
         return json;
     }
-    return { ...CreateBookRequestFromJSONTyped(json, true), ...CreateClothingRequestFromJSONTyped(json, true), ...CreateShoesRequestFromJSONTyped(json, true) };
+    return { ...SrApiProductsCatalogueContractsCreateProductCreateBookRequestFromJSONTyped(json, true), ...SrApiProductsCatalogueContractsCreateProductCreateClothingRequestFromJSONTyped(json, true), ...SrApiProductsCatalogueContractsCreateProductCreateShoesRequestFromJSONTyped(json, true) };
 }
 
 export function ApiV1CataloguePostRequestToJSON(value?: ApiV1CataloguePostRequest | null): any {
@@ -60,14 +60,14 @@ export function ApiV1CataloguePostRequestToJSON(value?: ApiV1CataloguePostReques
         return null;
     }
 
-    if (instanceOfCreateBookRequest(value)) {
-        return CreateBookRequestToJSON(value as CreateBookRequest);
+    if (instanceOfSrApiProductsCatalogueContractsCreateProductCreateBookRequest(value)) {
+        return SrApiProductsCatalogueContractsCreateProductCreateBookRequestToJSON(value as SrApiProductsCatalogueContractsCreateProductCreateBookRequest);
     }
-    if (instanceOfCreateClothingRequest(value)) {
-        return CreateClothingRequestToJSON(value as CreateClothingRequest);
+    if (instanceOfSrApiProductsCatalogueContractsCreateProductCreateClothingRequest(value)) {
+        return SrApiProductsCatalogueContractsCreateProductCreateClothingRequestToJSON(value as SrApiProductsCatalogueContractsCreateProductCreateClothingRequest);
     }
-    if (instanceOfCreateShoesRequest(value)) {
-        return CreateShoesRequestToJSON(value as CreateShoesRequest);
+    if (instanceOfSrApiProductsCatalogueContractsCreateProductCreateShoesRequest(value)) {
+        return SrApiProductsCatalogueContractsCreateProductCreateShoesRequestToJSON(value as SrApiProductsCatalogueContractsCreateProductCreateShoesRequest);
     }
 
     return {};

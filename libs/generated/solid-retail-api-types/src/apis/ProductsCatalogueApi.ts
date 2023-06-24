@@ -15,18 +15,42 @@
 
 import * as runtime from '../runtime';
 import type {
-  ApiV1CataloguePost201Response,
+  ApiV1CatalogueGet500Response,
   ApiV1CataloguePostRequest,
+  ApiV1CataloguePut200Response,
+  ApiV1CataloguePutRequest,
+  SrApiProductsCatalogueApplicationCommonPaginatedItemsResponse1SrApiProductsCatalogueContractsCommonProductResponse,
 } from '../models';
 import {
-    ApiV1CataloguePost201ResponseFromJSON,
-    ApiV1CataloguePost201ResponseToJSON,
+    ApiV1CatalogueGet500ResponseFromJSON,
+    ApiV1CatalogueGet500ResponseToJSON,
     ApiV1CataloguePostRequestFromJSON,
     ApiV1CataloguePostRequestToJSON,
+    ApiV1CataloguePut200ResponseFromJSON,
+    ApiV1CataloguePut200ResponseToJSON,
+    ApiV1CataloguePutRequestFromJSON,
+    ApiV1CataloguePutRequestToJSON,
+    SrApiProductsCatalogueApplicationCommonPaginatedItemsResponse1SrApiProductsCatalogueContractsCommonProductResponseFromJSON,
+    SrApiProductsCatalogueApplicationCommonPaginatedItemsResponse1SrApiProductsCatalogueContractsCommonProductResponseToJSON,
 } from '../models';
+
+export interface ApiV1CatalogueGetRequest {
+    pageSize?: number;
+    pageIndex?: number;
+    ids?: string;
+    categories?: string;
+}
+
+export interface ApiV1CatalogueIdDeleteRequest {
+    id: string;
+}
 
 export interface ApiV1CataloguePostOperationRequest {
     apiV1CataloguePostRequest?: ApiV1CataloguePostRequest;
+}
+
+export interface ApiV1CataloguePutOperationRequest {
+    apiV1CataloguePutRequest?: ApiV1CataloguePutRequest;
 }
 
 /**
@@ -36,7 +60,79 @@ export class ProductsCatalogueApi extends runtime.BaseAPI {
 
     /**
      */
-    async apiV1CataloguePostRaw(requestParameters: ApiV1CataloguePostOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiV1CataloguePost201Response>> {
+    async apiV1CatalogueGetRaw(requestParameters: ApiV1CatalogueGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SrApiProductsCatalogueApplicationCommonPaginatedItemsResponse1SrApiProductsCatalogueContractsCommonProductResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.pageSize !== undefined) {
+            queryParameters['pageSize'] = requestParameters.pageSize;
+        }
+
+        if (requestParameters.pageIndex !== undefined) {
+            queryParameters['pageIndex'] = requestParameters.pageIndex;
+        }
+
+        if (requestParameters.ids !== undefined) {
+            queryParameters['ids'] = requestParameters.ids;
+        }
+
+        if (requestParameters.categories !== undefined) {
+            queryParameters['categories'] = requestParameters.categories;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/api/v1/catalogue`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => SrApiProductsCatalogueApplicationCommonPaginatedItemsResponse1SrApiProductsCatalogueContractsCommonProductResponseFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async apiV1CatalogueGet(requestParameters: ApiV1CatalogueGetRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SrApiProductsCatalogueApplicationCommonPaginatedItemsResponse1SrApiProductsCatalogueContractsCommonProductResponse> {
+        const response = await this.apiV1CatalogueGetRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async apiV1CatalogueIdDeleteRaw(requestParameters: ApiV1CatalogueIdDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling apiV1CatalogueIdDelete.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/api/v1/catalogue/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        if (this.isJsonMime(response.headers.get('content-type'))) {
+            return new runtime.JSONApiResponse<string>(response);
+        } else {
+            return new runtime.TextApiResponse(response) as any;
+        }
+    }
+
+    /**
+     */
+    async apiV1CatalogueIdDelete(requestParameters: ApiV1CatalogueIdDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<string> {
+        const response = await this.apiV1CatalogueIdDeleteRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async apiV1CataloguePostRaw(requestParameters: ApiV1CataloguePostOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiV1CataloguePut200Response>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -51,13 +147,40 @@ export class ProductsCatalogueApi extends runtime.BaseAPI {
             body: ApiV1CataloguePostRequestToJSON(requestParameters.apiV1CataloguePostRequest),
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ApiV1CataloguePost201ResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiV1CataloguePut200ResponseFromJSON(jsonValue));
     }
 
     /**
      */
-    async apiV1CataloguePost(requestParameters: ApiV1CataloguePostOperationRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiV1CataloguePost201Response> {
+    async apiV1CataloguePost(requestParameters: ApiV1CataloguePostOperationRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiV1CataloguePut200Response> {
         const response = await this.apiV1CataloguePostRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async apiV1CataloguePutRaw(requestParameters: ApiV1CataloguePutOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiV1CataloguePut200Response>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json-patch+json';
+
+        const response = await this.request({
+            path: `/api/v1/catalogue`,
+            method: 'PUT',
+            headers: headerParameters,
+            query: queryParameters,
+            body: ApiV1CataloguePutRequestToJSON(requestParameters.apiV1CataloguePutRequest),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiV1CataloguePut200ResponseFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async apiV1CataloguePut(requestParameters: ApiV1CataloguePutOperationRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiV1CataloguePut200Response> {
+        const response = await this.apiV1CataloguePutRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

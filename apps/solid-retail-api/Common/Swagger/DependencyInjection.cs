@@ -1,15 +1,21 @@
-﻿using Microsoft.OpenApi.Models;
+﻿using System.Text.RegularExpressions;
+using Microsoft.OpenApi.Models;
 using Sr.Api.ProductsCatalogue.Contracts.CreateProduct;
 
 namespace Sr.SolidRetailApi.Common.Swagger
 {
-  public static class DependencyInjection
+  public static partial class DependencyInjection
   {
     public static IServiceCollection AddSwaggerGenConfiguration(this IServiceCollection services)
     {
       _ = services.AddSwaggerGen(options =>
         {
-          options.CustomSchemaIds(type => type.ToString());
+          // adhere to ^[a-zA-Z0-9\.\-_]+$ pattern (could be `, [, [])
+          options.CustomSchemaIds(type =>
+          {
+            var regex = MyRegex();
+            return regex.Replace(type.ToString(), "_");
+          });
           options.SwaggerDoc("v1", new OpenApiInfo { Title = "SOLID Retail API", Version = "v1" });
           options.UseAllOfToExtendReferenceSchemas();
           options.UseAllOfForInheritance();
@@ -31,5 +37,8 @@ namespace Sr.SolidRetailApi.Common.Swagger
 
       return app;
     }
+
+    [GeneratedRegex("[^a-zA-Z0-9\\.\\-_]+")]
+    private static partial Regex MyRegex();
   }
 }
