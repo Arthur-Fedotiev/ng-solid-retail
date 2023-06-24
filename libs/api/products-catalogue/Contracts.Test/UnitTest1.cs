@@ -1,10 +1,11 @@
-﻿namespace Sr.Api.ProductsCatalogue.Contracts.Test;
-
-public class UnitTest1
+﻿namespace Sr.Api.ProductsCatalogue.Contracts.Test
 {
-  [Fact]
-  public void Test1()
+  public class UnitTest1
   {
+    [Fact]
+    public void Test1()
+    {
 
+    }
   }
 }
