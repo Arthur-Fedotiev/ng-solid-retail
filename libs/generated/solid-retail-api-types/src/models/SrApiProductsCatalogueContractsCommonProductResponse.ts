@@ -43,49 +43,49 @@ export interface SrApiProductsCatalogueContractsCommonProductResponse {
      * @type {SrApiProductsCatalogueCommonProductCategory}
      * @memberof SrApiProductsCatalogueContractsCommonProductResponse
      */
-    readonly category?: SrApiProductsCatalogueCommonProductCategory;
+    readonly category: SrApiProductsCatalogueCommonProductCategory;
     /**
      * 
      * @type {string}
      * @memberof SrApiProductsCatalogueContractsCommonProductResponse
      */
-    id?: string;
+    id: string;
     /**
      * 
      * @type {string}
      * @memberof SrApiProductsCatalogueContractsCommonProductResponse
      */
-    name?: string | null;
+    name: string;
     /**
      * 
      * @type {string}
      * @memberof SrApiProductsCatalogueContractsCommonProductResponse
      */
-    description?: string | null;
+    description: string;
     /**
      * 
      * @type {string}
      * @memberof SrApiProductsCatalogueContractsCommonProductResponse
      */
-    sKU?: string | null;
+    sKU: string;
     /**
      * 
      * @type {SrApiProductsCatalogueCommonProductRetailer}
      * @memberof SrApiProductsCatalogueContractsCommonProductResponse
      */
-    retailer?: SrApiProductsCatalogueCommonProductRetailer;
+    retailer: SrApiProductsCatalogueCommonProductRetailer;
     /**
      * 
      * @type {string}
      * @memberof SrApiProductsCatalogueContractsCommonProductResponse
      */
-    url?: string | null;
+    url: string;
     /**
      * 
      * @type {Array<SrApiProductsCatalogueContractsCommonPriceResponse>}
      * @memberof SrApiProductsCatalogueContractsCommonProductResponse
      */
-    prices?: Array<SrApiProductsCatalogueContractsCommonPriceResponse> | null;
+    prices: Array<SrApiProductsCatalogueContractsCommonPriceResponse>;
 }
 
 /**
@@ -93,6 +93,14 @@ export interface SrApiProductsCatalogueContractsCommonProductResponse {
  */
 export function instanceOfSrApiProductsCatalogueContractsCommonProductResponse(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "category" in value;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "description" in value;
+    isInstance = isInstance && "sKU" in value;
+    isInstance = isInstance && "retailer" in value;
+    isInstance = isInstance && "url" in value;
+    isInstance = isInstance && "prices" in value;
 
     return isInstance;
 }
@@ -107,14 +115,14 @@ export function SrApiProductsCatalogueContractsCommonProductResponseFromJSONType
     }
     return {
         
-        'category': !exists(json, 'Category') ? undefined : SrApiProductsCatalogueCommonProductCategoryFromJSON(json['Category']),
-        'id': !exists(json, 'Id') ? undefined : json['Id'],
-        'name': !exists(json, 'Name') ? undefined : json['Name'],
-        'description': !exists(json, 'Description') ? undefined : json['Description'],
-        'sKU': !exists(json, 'SKU') ? undefined : json['SKU'],
-        'retailer': !exists(json, 'Retailer') ? undefined : SrApiProductsCatalogueCommonProductRetailerFromJSON(json['Retailer']),
-        'url': !exists(json, 'Url') ? undefined : json['Url'],
-        'prices': !exists(json, 'Prices') ? undefined : (json['Prices'] === null ? null : (json['Prices'] as Array<any>).map(SrApiProductsCatalogueContractsCommonPriceResponseFromJSON)),
+        'category': SrApiProductsCatalogueCommonProductCategoryFromJSON(json['Category']),
+        'id': json['Id'],
+        'name': json['Name'],
+        'description': json['Description'],
+        'sKU': json['SKU'],
+        'retailer': SrApiProductsCatalogueCommonProductRetailerFromJSON(json['Retailer']),
+        'url': json['Url'],
+        'prices': ((json['Prices'] as Array<any>).map(SrApiProductsCatalogueContractsCommonPriceResponseFromJSON)),
     };
 }
 
@@ -133,7 +141,7 @@ export function SrApiProductsCatalogueContractsCommonProductResponseToJSON(value
         'SKU': value.sKU,
         'Retailer': SrApiProductsCatalogueCommonProductRetailerToJSON(value.retailer),
         'Url': value.url,
-        'Prices': value.prices === undefined ? undefined : (value.prices === null ? null : (value.prices as Array<any>).map(SrApiProductsCatalogueContractsCommonPriceResponseToJSON)),
+        'Prices': ((value.prices as Array<any>).map(SrApiProductsCatalogueContractsCommonPriceResponseToJSON)),
     };
 }
 

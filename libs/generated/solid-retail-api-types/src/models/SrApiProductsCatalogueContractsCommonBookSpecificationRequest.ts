@@ -24,7 +24,7 @@ export interface SrApiProductsCatalogueContractsCommonBookSpecificationRequest {
      * @type {string}
      * @memberof SrApiProductsCatalogueContractsCommonBookSpecificationRequest
      */
-    cover?: string | null;
+    cover: string;
 }
 
 /**
@@ -32,6 +32,7 @@ export interface SrApiProductsCatalogueContractsCommonBookSpecificationRequest {
  */
 export function instanceOfSrApiProductsCatalogueContractsCommonBookSpecificationRequest(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "cover" in value;
 
     return isInstance;
 }
@@ -46,7 +47,7 @@ export function SrApiProductsCatalogueContractsCommonBookSpecificationRequestFro
     }
     return {
         
-        'cover': !exists(json, 'Cover') ? undefined : json['Cover'],
+        'cover': json['Cover'],
     };
 }
 

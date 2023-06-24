@@ -55,7 +55,7 @@ export interface SrApiProductsCatalogueContractsCreateProductCreateClothingReque
      * @type {SrApiProductsCatalogueContractsCommonClothingSpecificationRequest}
      * @memberof SrApiProductsCatalogueContractsCreateProductCreateClothingRequest
      */
-    specifications?: SrApiProductsCatalogueContractsCommonClothingSpecificationRequest | null;
+    specifications: SrApiProductsCatalogueContractsCommonClothingSpecificationRequest;
 }
 
 /**
@@ -63,6 +63,7 @@ export interface SrApiProductsCatalogueContractsCreateProductCreateClothingReque
  */
 export function instanceOfSrApiProductsCatalogueContractsCreateProductCreateClothingRequest(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "specifications" in value;
 
     return isInstance;
 }
@@ -77,7 +78,7 @@ export function SrApiProductsCatalogueContractsCreateProductCreateClothingReques
     }
     return {
         ...SrApiProductsCatalogueContractsCreateProductCreateProductRequestFromJSONTyped(json, ignoreDiscriminator),
-        'specifications': !exists(json, 'Specifications') ? undefined : SrApiProductsCatalogueContractsCommonClothingSpecificationRequestFromJSON(json['Specifications']),
+        'specifications': SrApiProductsCatalogueContractsCommonClothingSpecificationRequestFromJSON(json['Specifications']),
     };
 }
 

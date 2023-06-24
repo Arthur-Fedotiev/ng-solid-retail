@@ -49,55 +49,55 @@ export interface SrApiProductsCatalogueContractsUpdateProductUpdateBookRequest {
      * @type {SrApiProductsCatalogueContractsCommonBookSpecificationRequest}
      * @memberof SrApiProductsCatalogueContractsUpdateProductUpdateBookRequest
      */
-    specifications?: SrApiProductsCatalogueContractsCommonBookSpecificationRequest | null;
+    specifications: SrApiProductsCatalogueContractsCommonBookSpecificationRequest;
     /**
      * 
      * @type {string}
      * @memberof SrApiProductsCatalogueContractsUpdateProductUpdateBookRequest
      */
-    id?: string;
+    id: string;
     /**
      * 
      * @type {string}
      * @memberof SrApiProductsCatalogueContractsUpdateProductUpdateBookRequest
      */
-    name?: string | null;
+    name: string;
     /**
      * 
      * @type {string}
      * @memberof SrApiProductsCatalogueContractsUpdateProductUpdateBookRequest
      */
-    description?: string | null;
+    description: string;
     /**
      * 
      * @type {string}
      * @memberof SrApiProductsCatalogueContractsUpdateProductUpdateBookRequest
      */
-    sKU?: string | null;
+    sKU: string;
     /**
      * 
      * @type {SrApiProductsCatalogueCommonProductRetailer}
      * @memberof SrApiProductsCatalogueContractsUpdateProductUpdateBookRequest
      */
-    retailer?: SrApiProductsCatalogueCommonProductRetailer;
+    retailer: SrApiProductsCatalogueCommonProductRetailer;
     /**
      * 
      * @type {string}
      * @memberof SrApiProductsCatalogueContractsUpdateProductUpdateBookRequest
      */
-    url?: string | null;
+    url: string;
     /**
      * 
      * @type {SrApiProductsCatalogueCommonProductCategory}
      * @memberof SrApiProductsCatalogueContractsUpdateProductUpdateBookRequest
      */
-    category?: SrApiProductsCatalogueCommonProductCategory;
+    category: SrApiProductsCatalogueCommonProductCategory;
     /**
      * 
      * @type {Array<SrApiProductsCatalogueContractsUpdateProductPrice>}
      * @memberof SrApiProductsCatalogueContractsUpdateProductUpdateBookRequest
      */
-    prices?: Array<SrApiProductsCatalogueContractsUpdateProductPrice> | null;
+    prices: Array<SrApiProductsCatalogueContractsUpdateProductPrice>;
 }
 
 /**
@@ -105,6 +105,15 @@ export interface SrApiProductsCatalogueContractsUpdateProductUpdateBookRequest {
  */
 export function instanceOfSrApiProductsCatalogueContractsUpdateProductUpdateBookRequest(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "specifications" in value;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "description" in value;
+    isInstance = isInstance && "sKU" in value;
+    isInstance = isInstance && "retailer" in value;
+    isInstance = isInstance && "url" in value;
+    isInstance = isInstance && "category" in value;
+    isInstance = isInstance && "prices" in value;
 
     return isInstance;
 }
@@ -119,15 +128,15 @@ export function SrApiProductsCatalogueContractsUpdateProductUpdateBookRequestFro
     }
     return {
         
-        'specifications': !exists(json, 'Specifications') ? undefined : SrApiProductsCatalogueContractsCommonBookSpecificationRequestFromJSON(json['Specifications']),
-        'id': !exists(json, 'Id') ? undefined : json['Id'],
-        'name': !exists(json, 'Name') ? undefined : json['Name'],
-        'description': !exists(json, 'Description') ? undefined : json['Description'],
-        'sKU': !exists(json, 'SKU') ? undefined : json['SKU'],
-        'retailer': !exists(json, 'Retailer') ? undefined : SrApiProductsCatalogueCommonProductRetailerFromJSON(json['Retailer']),
-        'url': !exists(json, 'Url') ? undefined : json['Url'],
-        'category': !exists(json, 'Category') ? undefined : SrApiProductsCatalogueCommonProductCategoryFromJSON(json['Category']),
-        'prices': !exists(json, 'Prices') ? undefined : (json['Prices'] === null ? null : (json['Prices'] as Array<any>).map(SrApiProductsCatalogueContractsUpdateProductPriceFromJSON)),
+        'specifications': SrApiProductsCatalogueContractsCommonBookSpecificationRequestFromJSON(json['Specifications']),
+        'id': json['Id'],
+        'name': json['Name'],
+        'description': json['Description'],
+        'sKU': json['SKU'],
+        'retailer': SrApiProductsCatalogueCommonProductRetailerFromJSON(json['Retailer']),
+        'url': json['Url'],
+        'category': SrApiProductsCatalogueCommonProductCategoryFromJSON(json['Category']),
+        'prices': ((json['Prices'] as Array<any>).map(SrApiProductsCatalogueContractsUpdateProductPriceFromJSON)),
     };
 }
 
@@ -148,7 +157,7 @@ export function SrApiProductsCatalogueContractsUpdateProductUpdateBookRequestToJ
         'Retailer': SrApiProductsCatalogueCommonProductRetailerToJSON(value.retailer),
         'Url': value.url,
         'Category': SrApiProductsCatalogueCommonProductCategoryToJSON(value.category),
-        'Prices': value.prices === undefined ? undefined : (value.prices === null ? null : (value.prices as Array<any>).map(SrApiProductsCatalogueContractsUpdateProductPriceToJSON)),
+        'Prices': ((value.prices as Array<any>).map(SrApiProductsCatalogueContractsUpdateProductPriceToJSON)),
     };
 }
 

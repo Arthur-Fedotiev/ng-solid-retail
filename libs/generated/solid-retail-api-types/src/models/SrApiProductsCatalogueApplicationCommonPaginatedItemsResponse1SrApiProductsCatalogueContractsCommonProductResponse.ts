@@ -31,19 +31,19 @@ export interface SrApiProductsCatalogueApplicationCommonPaginatedItemsResponse1S
      * @type {number}
      * @memberof SrApiProductsCatalogueApplicationCommonPaginatedItemsResponse1SrApiProductsCatalogueContractsCommonProductResponse
      */
-    pageIndex?: number;
+    pageIndex: number;
     /**
      * 
      * @type {number}
      * @memberof SrApiProductsCatalogueApplicationCommonPaginatedItemsResponse1SrApiProductsCatalogueContractsCommonProductResponse
      */
-    pageSize?: number;
+    pageSize: number;
     /**
      * 
      * @type {number}
      * @memberof SrApiProductsCatalogueApplicationCommonPaginatedItemsResponse1SrApiProductsCatalogueContractsCommonProductResponse
      */
-    count?: number;
+    count: number;
     /**
      * 
      * @type {Array<ApiV1CataloguePut200Response>}
@@ -57,6 +57,9 @@ export interface SrApiProductsCatalogueApplicationCommonPaginatedItemsResponse1S
  */
 export function instanceOfSrApiProductsCatalogueApplicationCommonPaginatedItemsResponse1SrApiProductsCatalogueContractsCommonProductResponse(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "pageIndex" in value;
+    isInstance = isInstance && "pageSize" in value;
+    isInstance = isInstance && "count" in value;
 
     return isInstance;
 }
@@ -71,9 +74,9 @@ export function SrApiProductsCatalogueApplicationCommonPaginatedItemsResponse1Sr
     }
     return {
         
-        'pageIndex': !exists(json, 'PageIndex') ? undefined : json['PageIndex'],
-        'pageSize': !exists(json, 'PageSize') ? undefined : json['PageSize'],
-        'count': !exists(json, 'Count') ? undefined : json['Count'],
+        'pageIndex': json['PageIndex'],
+        'pageSize': json['PageSize'],
+        'count': json['Count'],
         'data': !exists(json, 'Data') ? undefined : (json['Data'] === null ? null : (json['Data'] as Array<any>).map(ApiV1CataloguePut200ResponseFromJSON)),
     };
 }

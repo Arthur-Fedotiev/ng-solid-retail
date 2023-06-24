@@ -37,19 +37,19 @@ export interface SrApiProductsCatalogueContractsCommonPriceResponse {
      * @type {number}
      * @memberof SrApiProductsCatalogueContractsCommonPriceResponse
      */
-    value?: number;
+    value: number;
     /**
      * 
      * @type {SrApiProductsCatalogueCommonProductTier}
      * @memberof SrApiProductsCatalogueContractsCommonPriceResponse
      */
-    tier?: SrApiProductsCatalogueCommonProductTier;
+    tier: SrApiProductsCatalogueCommonProductTier;
     /**
      * 
      * @type {SrApiProductsCatalogueCommonCurrencyCode}
      * @memberof SrApiProductsCatalogueContractsCommonPriceResponse
      */
-    currency?: SrApiProductsCatalogueCommonCurrencyCode;
+    currency: SrApiProductsCatalogueCommonCurrencyCode;
 }
 
 /**
@@ -57,6 +57,9 @@ export interface SrApiProductsCatalogueContractsCommonPriceResponse {
  */
 export function instanceOfSrApiProductsCatalogueContractsCommonPriceResponse(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "value" in value;
+    isInstance = isInstance && "tier" in value;
+    isInstance = isInstance && "currency" in value;
 
     return isInstance;
 }
@@ -71,9 +74,9 @@ export function SrApiProductsCatalogueContractsCommonPriceResponseFromJSONTyped(
     }
     return {
         
-        'value': !exists(json, 'Value') ? undefined : json['Value'],
-        'tier': !exists(json, 'Tier') ? undefined : SrApiProductsCatalogueCommonProductTierFromJSON(json['Tier']),
-        'currency': !exists(json, 'Currency') ? undefined : SrApiProductsCatalogueCommonCurrencyCodeFromJSON(json['Currency']),
+        'value': json['Value'],
+        'tier': SrApiProductsCatalogueCommonProductTierFromJSON(json['Tier']),
+        'currency': SrApiProductsCatalogueCommonCurrencyCodeFromJSON(json['Currency']),
     };
 }
 

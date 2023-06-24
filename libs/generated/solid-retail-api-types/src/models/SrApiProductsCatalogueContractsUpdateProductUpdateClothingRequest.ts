@@ -49,55 +49,55 @@ export interface SrApiProductsCatalogueContractsUpdateProductUpdateClothingReque
      * @type {SrApiProductsCatalogueContractsCommonClothingSpecificationRequest}
      * @memberof SrApiProductsCatalogueContractsUpdateProductUpdateClothingRequest
      */
-    specifications?: SrApiProductsCatalogueContractsCommonClothingSpecificationRequest | null;
+    specifications: SrApiProductsCatalogueContractsCommonClothingSpecificationRequest;
     /**
      * 
      * @type {string}
      * @memberof SrApiProductsCatalogueContractsUpdateProductUpdateClothingRequest
      */
-    id?: string;
+    id: string;
     /**
      * 
      * @type {string}
      * @memberof SrApiProductsCatalogueContractsUpdateProductUpdateClothingRequest
      */
-    name?: string | null;
+    name: string;
     /**
      * 
      * @type {string}
      * @memberof SrApiProductsCatalogueContractsUpdateProductUpdateClothingRequest
      */
-    description?: string | null;
+    description: string;
     /**
      * 
      * @type {string}
      * @memberof SrApiProductsCatalogueContractsUpdateProductUpdateClothingRequest
      */
-    sKU?: string | null;
+    sKU: string;
     /**
      * 
      * @type {SrApiProductsCatalogueCommonProductRetailer}
      * @memberof SrApiProductsCatalogueContractsUpdateProductUpdateClothingRequest
      */
-    retailer?: SrApiProductsCatalogueCommonProductRetailer;
+    retailer: SrApiProductsCatalogueCommonProductRetailer;
     /**
      * 
      * @type {string}
      * @memberof SrApiProductsCatalogueContractsUpdateProductUpdateClothingRequest
      */
-    url?: string | null;
+    url: string;
     /**
      * 
      * @type {SrApiProductsCatalogueCommonProductCategory}
      * @memberof SrApiProductsCatalogueContractsUpdateProductUpdateClothingRequest
      */
-    category?: SrApiProductsCatalogueCommonProductCategory;
+    category: SrApiProductsCatalogueCommonProductCategory;
     /**
      * 
      * @type {Array<SrApiProductsCatalogueContractsUpdateProductPrice>}
      * @memberof SrApiProductsCatalogueContractsUpdateProductUpdateClothingRequest
      */
-    prices?: Array<SrApiProductsCatalogueContractsUpdateProductPrice> | null;
+    prices: Array<SrApiProductsCatalogueContractsUpdateProductPrice>;
 }
 
 /**
@@ -105,6 +105,15 @@ export interface SrApiProductsCatalogueContractsUpdateProductUpdateClothingReque
  */
 export function instanceOfSrApiProductsCatalogueContractsUpdateProductUpdateClothingRequest(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "specifications" in value;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "description" in value;
+    isInstance = isInstance && "sKU" in value;
+    isInstance = isInstance && "retailer" in value;
+    isInstance = isInstance && "url" in value;
+    isInstance = isInstance && "category" in value;
+    isInstance = isInstance && "prices" in value;
 
     return isInstance;
 }
@@ -119,15 +128,15 @@ export function SrApiProductsCatalogueContractsUpdateProductUpdateClothingReques
     }
     return {
         
-        'specifications': !exists(json, 'Specifications') ? undefined : SrApiProductsCatalogueContractsCommonClothingSpecificationRequestFromJSON(json['Specifications']),
-        'id': !exists(json, 'Id') ? undefined : json['Id'],
-        'name': !exists(json, 'Name') ? undefined : json['Name'],
-        'description': !exists(json, 'Description') ? undefined : json['Description'],
-        'sKU': !exists(json, 'SKU') ? undefined : json['SKU'],
-        'retailer': !exists(json, 'Retailer') ? undefined : SrApiProductsCatalogueCommonProductRetailerFromJSON(json['Retailer']),
-        'url': !exists(json, 'Url') ? undefined : json['Url'],
-        'category': !exists(json, 'Category') ? undefined : SrApiProductsCatalogueCommonProductCategoryFromJSON(json['Category']),
-        'prices': !exists(json, 'Prices') ? undefined : (json['Prices'] === null ? null : (json['Prices'] as Array<any>).map(SrApiProductsCatalogueContractsUpdateProductPriceFromJSON)),
+        'specifications': SrApiProductsCatalogueContractsCommonClothingSpecificationRequestFromJSON(json['Specifications']),
+        'id': json['Id'],
+        'name': json['Name'],
+        'description': json['Description'],
+        'sKU': json['SKU'],
+        'retailer': SrApiProductsCatalogueCommonProductRetailerFromJSON(json['Retailer']),
+        'url': json['Url'],
+        'category': SrApiProductsCatalogueCommonProductCategoryFromJSON(json['Category']),
+        'prices': ((json['Prices'] as Array<any>).map(SrApiProductsCatalogueContractsUpdateProductPriceFromJSON)),
     };
 }
 
@@ -148,7 +157,7 @@ export function SrApiProductsCatalogueContractsUpdateProductUpdateClothingReques
         'Retailer': SrApiProductsCatalogueCommonProductRetailerToJSON(value.retailer),
         'Url': value.url,
         'Category': SrApiProductsCatalogueCommonProductCategoryToJSON(value.category),
-        'Prices': value.prices === undefined ? undefined : (value.prices === null ? null : (value.prices as Array<any>).map(SrApiProductsCatalogueContractsUpdateProductPriceToJSON)),
+        'Prices': ((value.prices as Array<any>).map(SrApiProductsCatalogueContractsUpdateProductPriceToJSON)),
     };
 }
 

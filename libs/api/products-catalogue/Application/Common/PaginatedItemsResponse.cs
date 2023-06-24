@@ -2,6 +2,7 @@
 {
   public class PaginatedItemsResponse<TEntity> where TEntity : class
   {
+
     public int PageIndex { get; private set; }
     public int PageSize { get; private set; }
     public long Count { get; private set; }

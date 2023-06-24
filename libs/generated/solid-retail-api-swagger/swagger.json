@@ -363,6 +363,9 @@
   "components": {
     "schemas": {
       "Microsoft.AspNetCore.Http.HttpValidationProblemDetails": {
+        "required": [
+          "Errors"
+        ],
         "type": "object",
         "allOf": [
           {
@@ -378,7 +381,6 @@
                 "type": "string"
               }
             },
-            "nullable": true,
             "readOnly": true
           }
         },
@@ -412,6 +414,11 @@
         "additionalProperties": { }
       },
       "Sr.Api.ProductsCatalogue.Application.Common.PaginatedItemsResponse_1_Sr.Api.ProductsCatalogue.Contracts.Common.ProductResponse_": {
+        "required": [
+          "Count",
+          "PageIndex",
+          "PageSize"
+        ],
         "type": "object",
         "properties": {
           "PageIndex": {
@@ -542,6 +549,10 @@
         "type": "string"
       },
       "Sr.Api.ProductsCatalogue.Contracts.Common.BookResponse": {
+        "required": [
+          "Category",
+          "Specifications"
+        ],
         "type": "object",
         "allOf": [
           {
@@ -562,33 +573,40 @@
               {
                 "$ref": "#/components/schemas/Sr.Api.ProductsCatalogue.Contracts.Common.BookSpecificationResponse"
               }
-            ],
-            "nullable": true
+            ]
           }
         },
         "additionalProperties": false
       },
       "Sr.Api.ProductsCatalogue.Contracts.Common.BookSpecificationRequest": {
+        "required": [
+          "Cover"
+        ],
         "type": "object",
         "properties": {
           "Cover": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           }
         },
         "additionalProperties": false
       },
       "Sr.Api.ProductsCatalogue.Contracts.Common.BookSpecificationResponse": {
+        "required": [
+          "Cover"
+        ],
         "type": "object",
         "properties": {
           "Cover": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           }
         },
         "additionalProperties": false
       },
       "Sr.Api.ProductsCatalogue.Contracts.Common.ClothingResponse": {
+        "required": [
+          "Category",
+          "Specifications"
+        ],
         "type": "object",
         "allOf": [
           {
@@ -609,41 +627,49 @@
               {
                 "$ref": "#/components/schemas/Sr.Api.ProductsCatalogue.Contracts.Common.ClothingSpecificationResponse"
               }
-            ],
-            "nullable": true
+            ]
           }
         },
         "additionalProperties": false
       },
       "Sr.Api.ProductsCatalogue.Contracts.Common.ClothingSpecificationRequest": {
+        "required": [
+          "Color",
+          "Size"
+        ],
         "type": "object",
         "properties": {
           "Size": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "Color": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           }
         },
         "additionalProperties": false
       },
       "Sr.Api.ProductsCatalogue.Contracts.Common.ClothingSpecificationResponse": {
+        "required": [
+          "Color",
+          "Size"
+        ],
         "type": "object",
         "properties": {
           "Size": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "Color": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           }
         },
         "additionalProperties": false
       },
       "Sr.Api.ProductsCatalogue.Contracts.Common.PriceResponse": {
+        "required": [
+          "Currency",
+          "Tier",
+          "Value"
+        ],
         "type": "object",
         "properties": {
           "Value": {
@@ -668,6 +694,16 @@
         "additionalProperties": false
       },
       "Sr.Api.ProductsCatalogue.Contracts.Common.ProductResponse": {
+        "required": [
+          "Category",
+          "Description",
+          "Id",
+          "Name",
+          "Prices",
+          "Retailer",
+          "SKU",
+          "Url"
+        ],
         "type": "object",
         "properties": {
           "Category": {
@@ -683,16 +719,13 @@
             "format": "uuid"
           },
           "Name": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "Description": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "SKU": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "Retailer": {
             "allOf": [
@@ -702,20 +735,22 @@
             ]
           },
           "Url": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "Prices": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Sr.Api.ProductsCatalogue.Contracts.Common.PriceResponse"
-            },
-            "nullable": true
+            }
           }
         },
         "additionalProperties": false
       },
       "Sr.Api.ProductsCatalogue.Contracts.Common.ShoesResponse": {
+        "required": [
+          "Category",
+          "Specifications"
+        ],
         "type": "object",
         "allOf": [
           {
@@ -736,13 +771,16 @@
               {
                 "$ref": "#/components/schemas/Sr.Api.ProductsCatalogue.Contracts.Common.ShoesSpecificationResponse"
               }
-            ],
-            "nullable": true
+            ]
           }
         },
         "additionalProperties": false
       },
       "Sr.Api.ProductsCatalogue.Contracts.Common.ShoesSpecificationRequest": {
+        "required": [
+          "Color",
+          "Size"
+        ],
         "type": "object",
         "properties": {
           "Size": {
@@ -750,13 +788,16 @@
             "format": "float"
           },
           "Color": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           }
         },
         "additionalProperties": false
       },
       "Sr.Api.ProductsCatalogue.Contracts.Common.ShoesSpecificationResponse": {
+        "required": [
+          "Color",
+          "Size"
+        ],
         "type": "object",
         "properties": {
           "Size": {
@@ -764,13 +805,15 @@
             "format": "float"
           },
           "Color": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           }
         },
         "additionalProperties": false
       },
       "Sr.Api.ProductsCatalogue.Contracts.CreateProduct.CreateBookRequest": {
+        "required": [
+          "Specifications"
+        ],
         "type": "object",
         "allOf": [
           {
@@ -783,13 +826,15 @@
               {
                 "$ref": "#/components/schemas/Sr.Api.ProductsCatalogue.Contracts.Common.BookSpecificationRequest"
               }
-            ],
-            "nullable": true
+            ]
           }
         },
         "additionalProperties": false
       },
       "Sr.Api.ProductsCatalogue.Contracts.CreateProduct.CreateClothingRequest": {
+        "required": [
+          "Specifications"
+        ],
         "type": "object",
         "allOf": [
           {
@@ -802,15 +847,20 @@
               {
                 "$ref": "#/components/schemas/Sr.Api.ProductsCatalogue.Contracts.Common.ClothingSpecificationRequest"
               }
-            ],
-            "nullable": true
+            ]
           }
         },
         "additionalProperties": false
       },
       "Sr.Api.ProductsCatalogue.Contracts.CreateProduct.CreateProductRequest": {
         "required": [
-          "Category"
+          "Category",
+          "Description",
+          "Name",
+          "Prices",
+          "Retailer",
+          "SKU",
+          "Url"
         ],
         "type": "object",
         "properties": {
@@ -822,27 +872,22 @@
             ]
           },
           "Name": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "Description": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "SKU": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "Url": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "Prices": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Sr.Api.ProductsCatalogue.Contracts.CreateProduct.Price"
-            },
-            "nullable": true
+            }
           },
           "Retailer": {
             "allOf": [
@@ -858,6 +903,9 @@
         }
       },
       "Sr.Api.ProductsCatalogue.Contracts.CreateProduct.CreateShoesRequest": {
+        "required": [
+          "Specifications"
+        ],
         "type": "object",
         "allOf": [
           {
@@ -870,13 +918,17 @@
               {
                 "$ref": "#/components/schemas/Sr.Api.ProductsCatalogue.Contracts.Common.ShoesSpecificationRequest"
               }
-            ],
-            "nullable": true
+            ]
           }
         },
         "additionalProperties": false
       },
       "Sr.Api.ProductsCatalogue.Contracts.CreateProduct.Price": {
+        "required": [
+          "Currency",
+          "Tier",
+          "Value"
+        ],
         "type": "object",
         "properties": {
           "Value": {
@@ -901,6 +953,11 @@
         "additionalProperties": false
       },
       "Sr.Api.ProductsCatalogue.Contracts.UpdateProduct.Price": {
+        "required": [
+          "Currency",
+          "Tier",
+          "Value"
+        ],
         "type": "object",
         "properties": {
           "Value": {
@@ -925,6 +982,9 @@
         "additionalProperties": false
       },
       "Sr.Api.ProductsCatalogue.Contracts.UpdateProduct.UpdateBookRequest": {
+        "required": [
+          "Specifications"
+        ],
         "type": "object",
         "allOf": [
           {
@@ -937,13 +997,15 @@
               {
                 "$ref": "#/components/schemas/Sr.Api.ProductsCatalogue.Contracts.Common.BookSpecificationRequest"
               }
-            ],
-            "nullable": true
+            ]
           }
         },
         "additionalProperties": false
       },
       "Sr.Api.ProductsCatalogue.Contracts.UpdateProduct.UpdateClothingRequest": {
+        "required": [
+          "Specifications"
+        ],
         "type": "object",
         "allOf": [
           {
@@ -956,13 +1018,22 @@
               {
                 "$ref": "#/components/schemas/Sr.Api.ProductsCatalogue.Contracts.Common.ClothingSpecificationRequest"
               }
-            ],
-            "nullable": true
+            ]
           }
         },
         "additionalProperties": false
       },
       "Sr.Api.ProductsCatalogue.Contracts.UpdateProduct.UpdateProductRequest": {
+        "required": [
+          "Category",
+          "Description",
+          "Id",
+          "Name",
+          "Prices",
+          "Retailer",
+          "SKU",
+          "Url"
+        ],
         "type": "object",
         "properties": {
           "Id": {
@@ -970,16 +1041,13 @@
             "format": "uuid"
           },
           "Name": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "Description": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "SKU": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "Retailer": {
             "allOf": [
@@ -989,8 +1057,7 @@
             ]
           },
           "Url": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "Category": {
             "allOf": [
@@ -1003,13 +1070,15 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Sr.Api.ProductsCatalogue.Contracts.UpdateProduct.Price"
-            },
-            "nullable": true
+            }
           }
         },
         "additionalProperties": false
       },
       "Sr.Api.ProductsCatalogue.Contracts.UpdateProduct.UpdateShoesRequest": {
+        "required": [
+          "Specifications"
+        ],
         "type": "object",
         "allOf": [
           {
@@ -1022,8 +1091,7 @@
               {
                 "$ref": "#/components/schemas/Sr.Api.ProductsCatalogue.Contracts.Common.ShoesSpecificationRequest"
               }
-            ],
-            "nullable": true
+            ]
           }
         },
         "additionalProperties": false

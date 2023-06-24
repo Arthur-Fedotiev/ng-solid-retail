@@ -10,15 +10,12 @@ namespace Sr.SolidRetailApi.Common.Swagger
     {
       _ = services.AddSwaggerGen(options =>
         {
-          // adhere to ^[a-zA-Z0-9\.\-_]+$ pattern (could be `, [, [])
-          options.CustomSchemaIds(type =>
-          {
-            var regex = MyRegex();
-            return regex.Replace(type.ToString(), "_");
-          });
-          options.SwaggerDoc("v1", new OpenApiInfo { Title = "SOLID Retail API", Version = "v1" });
+          options.SchemaFilter<RequireNonNullablePropertiesSchemaFilter>();
+          options.SupportNonNullableReferenceTypes();
           options.UseAllOfToExtendReferenceSchemas();
           options.UseAllOfForInheritance();
+          options.CustomSchemaIds(type => SwaggerNameValidationRegex().Replace(type.ToString(), "_"));
+          options.SwaggerDoc("v1", new OpenApiInfo { Title = "SOLID Retail API", Version = "v1" });
           options.UseOneOfForPolymorphism();
           options.SelectDiscriminatorNameUsing(type => type.Name switch
               {
@@ -39,6 +36,6 @@ namespace Sr.SolidRetailApi.Common.Swagger
     }
 
     [GeneratedRegex("[^a-zA-Z0-9\\.\\-_]+")]
-    private static partial Regex MyRegex();
+    private static partial Regex SwaggerNameValidationRegex();
   }
 }

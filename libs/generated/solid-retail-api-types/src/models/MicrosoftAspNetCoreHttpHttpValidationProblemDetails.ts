@@ -25,7 +25,7 @@ export interface MicrosoftAspNetCoreHttpHttpValidationProblemDetails {
      * @type {{ [key: string]: Array<string>; }}
      * @memberof MicrosoftAspNetCoreHttpHttpValidationProblemDetails
      */
-    readonly errors?: { [key: string]: Array<string>; } | null;
+    readonly errors: { [key: string]: Array<string>; };
     /**
      * 
      * @type {string}
@@ -63,6 +63,7 @@ export interface MicrosoftAspNetCoreHttpHttpValidationProblemDetails {
  */
 export function instanceOfMicrosoftAspNetCoreHttpHttpValidationProblemDetails(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "errors" in value;
 
     return isInstance;
 }
@@ -78,7 +79,7 @@ export function MicrosoftAspNetCoreHttpHttpValidationProblemDetailsFromJSONTyped
     return {
         
             ...json,
-        'errors': !exists(json, 'Errors') ? undefined : json['Errors'],
+        'errors': json['Errors'],
         'type': !exists(json, 'type') ? undefined : json['type'],
         'title': !exists(json, 'title') ? undefined : json['title'],
         'status': !exists(json, 'status') ? undefined : json['status'],

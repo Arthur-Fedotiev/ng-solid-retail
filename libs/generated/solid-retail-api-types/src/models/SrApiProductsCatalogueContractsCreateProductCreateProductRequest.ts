@@ -55,37 +55,37 @@ export interface SrApiProductsCatalogueContractsCreateProductCreateProductReques
      * @type {string}
      * @memberof SrApiProductsCatalogueContractsCreateProductCreateProductRequest
      */
-    name?: string | null;
+    name: string;
     /**
      * 
      * @type {string}
      * @memberof SrApiProductsCatalogueContractsCreateProductCreateProductRequest
      */
-    description?: string | null;
+    description: string;
     /**
      * 
      * @type {string}
      * @memberof SrApiProductsCatalogueContractsCreateProductCreateProductRequest
      */
-    sKU?: string | null;
+    sKU: string;
     /**
      * 
      * @type {string}
      * @memberof SrApiProductsCatalogueContractsCreateProductCreateProductRequest
      */
-    url?: string | null;
+    url: string;
     /**
      * 
      * @type {Array<SrApiProductsCatalogueContractsCreateProductPrice>}
      * @memberof SrApiProductsCatalogueContractsCreateProductCreateProductRequest
      */
-    prices?: Array<SrApiProductsCatalogueContractsCreateProductPrice> | null;
+    prices: Array<SrApiProductsCatalogueContractsCreateProductPrice>;
     /**
      * 
      * @type {SrApiProductsCatalogueCommonProductRetailer}
      * @memberof SrApiProductsCatalogueContractsCreateProductCreateProductRequest
      */
-    retailer?: SrApiProductsCatalogueCommonProductRetailer;
+    retailer: SrApiProductsCatalogueCommonProductRetailer;
 }
 
 /**
@@ -94,6 +94,12 @@ export interface SrApiProductsCatalogueContractsCreateProductCreateProductReques
 export function instanceOfSrApiProductsCatalogueContractsCreateProductCreateProductRequest(value: object): boolean {
     let isInstance = true;
     isInstance = isInstance && "category" in value;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "description" in value;
+    isInstance = isInstance && "sKU" in value;
+    isInstance = isInstance && "url" in value;
+    isInstance = isInstance && "prices" in value;
+    isInstance = isInstance && "retailer" in value;
 
     return isInstance;
 }
@@ -120,12 +126,12 @@ export function SrApiProductsCatalogueContractsCreateProductCreateProductRequest
     return {
         
         'category': SrApiProductsCatalogueCommonProductCategoryFromJSON(json['Category']),
-        'name': !exists(json, 'Name') ? undefined : json['Name'],
-        'description': !exists(json, 'Description') ? undefined : json['Description'],
-        'sKU': !exists(json, 'SKU') ? undefined : json['SKU'],
-        'url': !exists(json, 'Url') ? undefined : json['Url'],
-        'prices': !exists(json, 'Prices') ? undefined : (json['Prices'] === null ? null : (json['Prices'] as Array<any>).map(SrApiProductsCatalogueContractsCreateProductPriceFromJSON)),
-        'retailer': !exists(json, 'Retailer') ? undefined : SrApiProductsCatalogueCommonProductRetailerFromJSON(json['Retailer']),
+        'name': json['Name'],
+        'description': json['Description'],
+        'sKU': json['SKU'],
+        'url': json['Url'],
+        'prices': ((json['Prices'] as Array<any>).map(SrApiProductsCatalogueContractsCreateProductPriceFromJSON)),
+        'retailer': SrApiProductsCatalogueCommonProductRetailerFromJSON(json['Retailer']),
     };
 }
 
@@ -143,7 +149,7 @@ export function SrApiProductsCatalogueContractsCreateProductCreateProductRequest
         'Description': value.description,
         'SKU': value.sKU,
         'Url': value.url,
-        'Prices': value.prices === undefined ? undefined : (value.prices === null ? null : (value.prices as Array<any>).map(SrApiProductsCatalogueContractsCreateProductPriceToJSON)),
+        'Prices': ((value.prices as Array<any>).map(SrApiProductsCatalogueContractsCreateProductPriceToJSON)),
         'Retailer': SrApiProductsCatalogueCommonProductRetailerToJSON(value.retailer),
     };
 }

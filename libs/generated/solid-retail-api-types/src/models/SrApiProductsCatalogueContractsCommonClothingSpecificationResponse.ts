@@ -24,13 +24,13 @@ export interface SrApiProductsCatalogueContractsCommonClothingSpecificationRespo
      * @type {string}
      * @memberof SrApiProductsCatalogueContractsCommonClothingSpecificationResponse
      */
-    size?: string | null;
+    size: string;
     /**
      * 
      * @type {string}
      * @memberof SrApiProductsCatalogueContractsCommonClothingSpecificationResponse
      */
-    color?: string | null;
+    color: string;
 }
 
 /**
@@ -38,6 +38,8 @@ export interface SrApiProductsCatalogueContractsCommonClothingSpecificationRespo
  */
 export function instanceOfSrApiProductsCatalogueContractsCommonClothingSpecificationResponse(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "size" in value;
+    isInstance = isInstance && "color" in value;
 
     return isInstance;
 }
@@ -52,8 +54,8 @@ export function SrApiProductsCatalogueContractsCommonClothingSpecificationRespon
     }
     return {
         
-        'size': !exists(json, 'Size') ? undefined : json['Size'],
-        'color': !exists(json, 'Color') ? undefined : json['Color'],
+        'size': json['Size'],
+        'color': json['Color'],
     };
 }
 
