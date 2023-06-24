@@ -16,7 +16,8 @@
       },
       "configurations": {
         "production": {
-          "configuration": "Release"
+          "configuration": "Release",
+          "noDependencies": false
         }
       }
     },

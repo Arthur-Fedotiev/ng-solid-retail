@@ -79,8 +79,8 @@ jobs:
           channelId: live
           projectId: ng-solid-retail
 
-      - name: Publish web api
-        run: dotnet publish apps/solid-retail-api -c Release -o ${{env.DOTNET_ROOT}}/solid-retail-api
+      - name: Publish web api with nx
+        run: npx nx run solid-retail-api:publish:production --output=${{env.DOTNET_ROOT}}/solid-retail-api
 
       - name: Upload be artifacts for deployment job
         uses: actions/upload-artifact@v2
