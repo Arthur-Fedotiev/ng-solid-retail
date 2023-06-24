@@ -23,7 +23,7 @@
       "configurations": {
         "production": {
           "configuration": "Release",
-          "noDependencies": true
+          "noDependencies": false
         }
       }
     },
@@ -31,7 +31,7 @@
       "executor": "@nx-dotnet/core:publish",
       "options": {
         "configuration": "Debug",
-        "noDependencies": true,
+        "noDependencies": false,
         "output": "dist/artifacts/apps/solid-retail-api"
       },
       "configurations": {
