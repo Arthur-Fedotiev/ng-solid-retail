@@ -32,8 +32,10 @@
         </mat-select>
       </mat-form-field>
 
-      <ng-container formGroupName="specifications">
-        <ng-template #specificationContainerView></ng-template>
+      <ng-container *ngIf="specificationCmp" formGroupName="specifications">
+        <ng-container
+          *ngComponentOutlet="specificationCmp; inputs: specificationInputs"
+        ></ng-container>
       </ng-container>
 
       <mat-form-field appearance="outline">

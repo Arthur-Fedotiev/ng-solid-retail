@@ -14,8 +14,7 @@ import {
   CategoryEnum,
   SpecificationsDataService,
 } from '@sr/products/application';
-import { Injectable, inject } from '@angular/core';
-import { ComponentType } from '@angular/cdk/portal';
+import { Injectable, Type, inject } from '@angular/core';
 import {
   FurnitureSpecificationControlComponent,
   ShoesSpecificationControlComponent,
@@ -23,7 +22,7 @@ import {
 } from '@sr/products/ui';
 
 export interface DynamicComponentConfig {
-  component: ComponentType<any>;
+  component: Type<object>;
   inputs: Record<string, any>;
 }
 

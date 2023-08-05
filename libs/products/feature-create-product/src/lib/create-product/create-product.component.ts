@@ -4,6 +4,7 @@ import {
   inject,
   ViewChild,
   ViewContainerRef,
+  Type,
 } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TRACK_BY_ID_OR_IDX } from '@sr/shared/util';
@@ -16,6 +17,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
+
 import {
   AsyncPipe,
   JsonPipe,
@@ -24,6 +26,7 @@ import {
   NgSwitch,
   NgSwitchCase,
   NgTemplateOutlet,
+  CommonModule,
 } from '@angular/common';
 import {
   CategoryEnum,
@@ -32,7 +35,6 @@ import {
 } from '@sr/products/application';
 import { ProductSizePipe } from './product-size.pipe';
 import { SpecificationControlDirective } from './specification-control.directive';
-import { CommonModule } from '@angular/common';
 import {
   BooksSpecificationControlComponent,
   FurnitureSpecificationControlComponent,
@@ -97,6 +99,9 @@ export class CreateProductComponent {
     SpecificationsDataService
   ).getCoverTypes();
 
+  protected specificationCmp: Type<object> | null = null;
+  protected specificationInputs?: Record<string, any>;
+
   public readonly vm$ = inject(CREATE_PRODUCT_VM_QUERY).get();
   public readonly trackById = inject(TRACK_BY_ID_OR_IDX);
   public readonly productForm = this.fb.nonNullable.group({
@@ -124,7 +129,7 @@ export class CreateProductComponent {
       specificationStrategy.buildFormGroup(this.fb)
     );
 
-    this.createSpecificationComponent(
+    this.setSpecificationComponent(
       specificationStrategy.getDynamicComponentConfig()
     );
   }
@@ -133,16 +138,11 @@ export class CreateProductComponent {
     this.createProductCommand.execute(this.productForm.getRawValue());
   }
 
-  private createSpecificationComponent({
-    component,
+  private setSpecificationComponent({
     inputs,
-  }: DynamicComponentConfig) {
-    this.cmpRef.clear();
-
-    const componentRef = this.cmpRef.createComponent(component);
-
-    Object.entries(inputs).forEach(([key, value]) => {
-      Object.assign(componentRef.instance, { [key]: value });
-    });
+    component,
+  }: DynamicComponentConfig): void {
+    this.specificationCmp = component;
+    this.specificationInputs = inputs;
   }
 }
