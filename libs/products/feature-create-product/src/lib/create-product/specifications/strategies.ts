@@ -16,6 +16,7 @@ import {
 } from '@sr/products/application';
 import { Injectable, Type, inject } from '@angular/core';
 import {
+  BooksSpecificationControlComponent,
   FurnitureSpecificationControlComponent,
   ShoesSpecificationControlComponent,
   SpecificationSelectComponent,
@@ -49,16 +50,18 @@ export class BooksSpecificationsFormGroupStrategy extends SpecificationsFormGrou
         null,
         Validators.required
       ),
+      author: fb.control<BooksCategoryFormGroup['author']>(
+        null,
+        Validators.required
+      ),
     });
   }
 
   getDynamicComponentConfig(): DynamicComponentConfig {
     return {
-      component: SpecificationSelectComponent,
+      component: BooksSpecificationControlComponent,
       inputs: {
-        label: 'Cover',
-        options: this.coverTypes,
-        formControlName: 'cover',
+        coverOptions: this.coverTypes,
       },
     };
   }

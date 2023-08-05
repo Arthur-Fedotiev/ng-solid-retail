@@ -1,83 +1,50 @@
 import {
-  ChangeDetectionStrategy,
   Component,
+  ChangeDetectionStrategy,
   Input,
-  ViewChild,
   inject,
 } from '@angular/core';
-import { CommonModule, NgFor } from '@angular/common';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import {
-  ControlContainer,
-  ControlValueAccessor,
-  FormControl,
-  FormControlDirective,
-  NG_VALUE_ACCESSOR,
   ReactiveFormsModule,
+  FormGroup,
+  ControlContainer,
 } from '@angular/forms';
-import { MatSelectModule } from '@angular/material/select';
-import { FormGroup } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { SpecificationSelectComponent } from '../specification-select/specification-select.component';
 
 @Component({
   selector: 'sr-books-specification-control',
   standalone: true,
-  imports: [MatFormFieldModule, ReactiveFormsModule, MatSelectModule, NgFor],
+  imports: [
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    SpecificationSelectComponent,
+    MatInputModule,
+  ],
   template: `
-    <mat-form-field appearance="outline">
-      <mat-label>{{ label }}</mat-label>
-      <mat-select
-        placeholder="Select Product {{ label }}"
-        [formControl]="control"
-      >
-        <mat-option *ngFor="let option of options" [value]="option">{{
-          option
-        }}</mat-option>
-      </mat-select>
-    </mat-form-field>
+    <form [formGroup]="productForm" class="tw-flex tw-align-baseline tw-gap-2 ">
+    <sr-specification-select
+            formControlName="cover"
+            label="Book Cover"
+            [options]="coverOptions"
+          />
+      <mat-form-field appearance="outline">
+        <mat-label>Author</mat-label>
+        <input matInput formControlName="author" />
+      </mat-form-field>
+    </form>
   `,
   styleUrls: ['./books-specification-control.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: BooksSpecificationControlComponent,
-      multi: true,
-    },
-  ],
 })
-export class BooksSpecificationControlComponent
-  implements ControlValueAccessor
-{
-  @ViewChild(FormControlDirective, { static: true })
-  formControlDirective!: FormControlDirective;
+export class BooksSpecificationControlComponent {
+  @Input({ required: true }) coverOptions: readonly string[] = [];
 
-  @Input() label = '';
-  @Input() options: readonly string[] = [];
-  @Input() formControl!: FormControl;
-  @Input() formControlName!: string;
-
+  protected readonly productForm!: FormGroup;
   private readonly controlContainer = inject(ControlContainer);
 
-  get control() {
-    return (
-      this.formControl ||
-      (this.controlContainer.control as FormGroup).get(this.formControlName)
-    );
-  }
-
-  registerOnTouched(fn: any): void {
-    this.formControlDirective?.valueAccessor?.registerOnTouched(fn);
-  }
-
-  registerOnChange(fn: any): void {
-    this.formControlDirective?.valueAccessor?.registerOnChange(fn);
-  }
-
-  writeValue(obj: any): void {
-    this.formControlDirective?.valueAccessor?.writeValue(obj);
-  }
-
-  setDisabledState(isDisabled: boolean): void {
-    this.formControlDirective?.valueAccessor?.setDisabledState?.(isDisabled);
+  constructor() {
+    this.productForm = this.controlContainer.control as FormGroup;
   }
 }

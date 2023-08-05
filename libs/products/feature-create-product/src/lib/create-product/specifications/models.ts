@@ -30,4 +30,5 @@ export type FurnitureCategoryFormGroup = SpecificationFormGroup<{
 
 export type BooksCategoryFormGroup = SpecificationFormGroup<{
   cover: Cover;
+  author: string;
 }>;
