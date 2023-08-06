@@ -62,6 +62,7 @@
     "@nx-dotnet/core": "^1.22.0",
     "@openapitools/openapi-generator-cli": "2.3.7",
     "@schematics/angular": "16.1.8",
+    "@tailwindcss/typography": "^0.5.9",
     "@testing-library/angular": "^13.1.0",
     "@testing-library/dom": "^9.0.0",
     "@testing-library/user-event": "^14.4.3",
