@@ -41,10 +41,5 @@ import { SpecificationSelectComponent } from '../specification-select/specificat
 export class BooksSpecificationControlComponent {
   @Input({ required: true }) coverOptions: readonly string[] = [];
 
-  protected readonly productForm!: FormGroup;
-  private readonly controlContainer = inject(ControlContainer);
-
-  constructor() {
-    this.productForm = this.controlContainer.control as FormGroup;
-  }
+  protected readonly productForm = <FormGroup>inject(ControlContainer).control;
 }
