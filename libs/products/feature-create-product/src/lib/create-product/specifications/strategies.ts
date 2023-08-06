@@ -9,7 +9,7 @@ import {
   FurnitureCategoryFormGroup,
   ShoesCategoryFormGroup,
   SmartphonesCategoryFormGroup,
-} from './models';
+} from './form-group.models';
 import {
   CategoryEnum,
   SpecificationsDataService,
@@ -21,24 +21,34 @@ import {
   ShoesSpecificationControlComponent,
   SpecificationSelectComponent,
 } from '@sr/products/ui';
+import {
+  BooksSpecificationInputs,
+  FurnitureSpecificationsInputs,
+  ShoesSpecificationsInputs,
+  SpecificationSelectComponentInputs,
+} from './input.models';
 
-export interface DynamicComponentConfig {
-  component: Type<object>;
-  inputs: Record<string, any>;
+export interface DynamicComponentConfig<TCmpInputs = object> {
+  component: Type<TCmpInputs>;
+  inputs: TCmpInputs;
 }
 
 export abstract class SpecificationsFormGroupStrategy<
-  T extends object = object
+  TCmpInputs = any,
+  TFormGroup = any
 > {
   abstract readonly category: CategoryEnum;
   abstract buildFormGroup(fb: FormBuilder): FormGroup<{
-    [K in keyof T]: FormControl<T[K]>;
+    [K in keyof TFormGroup]: FormControl<TFormGroup[K]>;
   }>;
 
-  abstract getDynamicComponentConfig(): DynamicComponentConfig;
+  abstract getDynamicComponentConfig(): DynamicComponentConfig<TCmpInputs>;
 }
 
-export class BooksSpecificationsFormGroupStrategy extends SpecificationsFormGroupStrategy<BooksCategoryFormGroup> {
+export class BooksSpecificationsFormGroupStrategy extends SpecificationsFormGroupStrategy<
+  BooksSpecificationInputs,
+  BooksCategoryFormGroup
+> {
   readonly category = CategoryEnum.Books;
   private readonly coverTypes = inject(
     SpecificationsDataService
@@ -57,7 +67,7 @@ export class BooksSpecificationsFormGroupStrategy extends SpecificationsFormGrou
     });
   }
 
-  getDynamicComponentConfig(): DynamicComponentConfig {
+  getDynamicComponentConfig(): DynamicComponentConfig<BooksSpecificationInputs> {
     return {
       component: BooksSpecificationControlComponent,
       inputs: {
@@ -67,7 +77,10 @@ export class BooksSpecificationsFormGroupStrategy extends SpecificationsFormGrou
   }
 }
 
-export class ShoesSpecificationsFormGroupStrategy extends SpecificationsFormGroupStrategy<ShoesCategoryFormGroup> {
+export class ShoesSpecificationsFormGroupStrategy extends SpecificationsFormGroupStrategy<
+  ShoesSpecificationsInputs,
+  ShoesCategoryFormGroup
+> {
   readonly category = CategoryEnum.Shoes;
   private readonly sizes = inject(SpecificationsDataService).getSizes(
     this.category
@@ -89,51 +102,21 @@ export class ShoesSpecificationsFormGroupStrategy extends SpecificationsFormGrou
     });
   }
 
-  getDynamicComponentConfig(): DynamicComponentConfig {
+  getDynamicComponentConfig(): DynamicComponentConfig<ShoesSpecificationsInputs> {
     return {
       component: ShoesSpecificationControlComponent,
       inputs: {
-        sizes: this.sizes,
+        shoesSizes: this.sizes,
         colors: this.colors,
       },
     };
   }
 }
 
-export class ClothingSpecificationsFormGroupStrategy extends SpecificationsFormGroupStrategy<ShoesCategoryFormGroup> {
-  readonly category = CategoryEnum.Clothing;
-  private readonly sizes = inject(SpecificationsDataService).getSizes(
-    this.category
-  );
-  private readonly colors = inject(SpecificationsDataService).getColors(
-    this.category
-  );
-
-  buildFormGroup(fb: FormBuilder) {
-    return fb.group({
-      size: fb.control<ShoesCategoryFormGroup['size']>(
-        null,
-        Validators.required
-      ),
-      color: fb.control<ShoesCategoryFormGroup['color']>(
-        null,
-        Validators.required
-      ),
-    });
-  }
-
-  getDynamicComponentConfig(): DynamicComponentConfig {
-    return {
-      component: ShoesSpecificationControlComponent,
-      inputs: {
-        sizes: this.sizes,
-        colors: this.colors,
-      },
-    };
-  }
-}
-
-export class SmartphonesSpecificationsFormGroupStrategy extends SpecificationsFormGroupStrategy<SmartphonesCategoryFormGroup> {
+export class SmartphonesSpecificationsFormGroupStrategy extends SpecificationsFormGroupStrategy<
+  SpecificationSelectComponentInputs,
+  SmartphonesCategoryFormGroup
+> {
   readonly category = CategoryEnum.Smartphones;
   private readonly colors = inject(SpecificationsDataService).getColors(
     this.category
@@ -148,7 +131,7 @@ export class SmartphonesSpecificationsFormGroupStrategy extends SpecificationsFo
     });
   }
 
-  getDynamicComponentConfig(): DynamicComponentConfig {
+  getDynamicComponentConfig(): DynamicComponentConfig<SpecificationSelectComponentInputs> {
     return {
       component: SpecificationSelectComponent,
       inputs: {
@@ -161,7 +144,10 @@ export class SmartphonesSpecificationsFormGroupStrategy extends SpecificationsFo
 }
 
 @Injectable()
-export class FurnitureSpecificationsFormGroupStrategy extends SpecificationsFormGroupStrategy<FurnitureCategoryFormGroup> {
+export class FurnitureSpecificationsFormGroupStrategy extends SpecificationsFormGroupStrategy<
+  FurnitureSpecificationsInputs,
+  FurnitureCategoryFormGroup
+> {
   readonly category = CategoryEnum.Furniture;
   private readonly colors = inject(SpecificationsDataService).getColors(
     this.category
@@ -180,7 +166,7 @@ export class FurnitureSpecificationsFormGroupStrategy extends SpecificationsForm
     });
   }
 
-  getDynamicComponentConfig(): DynamicComponentConfig {
+  getDynamicComponentConfig(): DynamicComponentConfig<FurnitureSpecificationsInputs> {
     return {
       component: FurnitureSpecificationControlComponent,
       inputs: {

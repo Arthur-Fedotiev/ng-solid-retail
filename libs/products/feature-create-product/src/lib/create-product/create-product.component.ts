@@ -85,9 +85,6 @@ import { STRATEGY_PROVIDERS } from './specifications/strategy.provider';
   ],
 })
 export class CreateProductComponent {
-  @ViewChild('specificationContainerView', { read: ViewContainerRef })
-  cmpRef!: ViewContainerRef;
-
   private readonly specificationStrategyFactory = inject(
     SpecificationsStrategyFactory
   );

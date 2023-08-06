@@ -2,7 +2,6 @@ import {
   SpecificationsFormGroupStrategy,
   BooksSpecificationsFormGroupStrategy,
   ShoesSpecificationsFormGroupStrategy,
-  ClothingSpecificationsFormGroupStrategy,
   SmartphonesSpecificationsFormGroupStrategy,
   FurnitureSpecificationsFormGroupStrategy,
   NullSpecificationsFormGroupStrategy,
@@ -17,12 +16,6 @@ export const STRATEGY_PROVIDERS = [
   {
     provide: SpecificationsFormGroupStrategy,
     useClass: ShoesSpecificationsFormGroupStrategy,
-    multi: true,
-  },
-
-  {
-    provide: SpecificationsFormGroupStrategy,
-    useClass: ClothingSpecificationsFormGroupStrategy,
     multi: true,
   },
   {
