@@ -30,8 +30,8 @@ export interface DynamicComponentConfig<TCmpInputs = object> {
 }
 
 export abstract class SpecificationsFormGroupStrategy<
-  TCmpInputs = any,
-  TFormGroup = any
+  TCmpInputs = object,
+  TFormGroup = object
 > {
   abstract readonly category: CategoryEnum;
   abstract buildFormGroup(fb: FormBuilder): FormGroup<{

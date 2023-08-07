@@ -5,7 +5,7 @@ export interface CreateProductForm {
   url: string;
   category: { id: string; name: string };
   prices: ReadonlyArray<Price>;
-  specifications: Record<string, any>;
+  specifications: Record<string, unknown>;
 }
 
 export interface Price {
