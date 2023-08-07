@@ -60,6 +60,8 @@
     "@nrwl/nx-cloud": "16.2.0",
     "@nrwl/workspace": "16.6.0",
     "@nx-dotnet/core": "^1.22.0",
+    "@nx/jest": "16.6.0",
+    "@nx/js": "16.6.0",
     "@openapitools/openapi-generator-cli": "2.3.7",
     "@schematics/angular": "16.1.8",
     "@tailwindcss/typography": "^0.5.9",

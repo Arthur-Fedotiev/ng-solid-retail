@@ -2,8 +2,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   inject,
-  ViewChild,
-  ViewContainerRef,
   Type,
 } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -35,19 +33,16 @@ import {
 } from '@sr/products/application';
 import { ProductSizePipe } from './product-size.pipe';
 import { SpecificationControlDirective } from './specification-control.directive';
-import {
-  BooksSpecificationControlComponent,
-  FurnitureSpecificationControlComponent,
-  SpecificationSelectComponent,
-  ShoesSpecificationControlComponent,
-  PricesFormComponent,
-} from '@sr/products/ui';
+
 import { UntilDestroy } from '@ngneat/until-destroy';
 
 import { ProductColorPipe } from './product-color.pipe';
 import { SpecificationsStrategyFactory } from './specifications/specifications-strategy.factory.service';
 import { DynamicComponentConfig } from './specifications/strategies';
 import { STRATEGY_PROVIDERS } from './specifications/strategy.provider';
+import { Observable, EMPTY } from 'rxjs';
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+import { PricesFormComponent } from '@sr/products/ui';
 
 @UntilDestroy()
 @Component({
@@ -76,11 +71,6 @@ import { STRATEGY_PROVIDERS } from './specifications/strategy.provider';
     MatButtonModule,
     ProductSizePipe,
     SpecificationControlDirective,
-
-    SpecificationSelectComponent,
-    ShoesSpecificationControlComponent,
-    FurnitureSpecificationControlComponent,
-    BooksSpecificationControlComponent,
     PricesFormComponent,
   ],
 })
@@ -96,7 +86,7 @@ export class CreateProductComponent {
     SpecificationsDataService
   ).getCoverTypes();
 
-  protected specificationCmp: Type<object> | null = null;
+  protected specificationCmp$: Observable<Type<object>> = EMPTY;
   protected specificationInputs?: Record<string, any>;
 
   public readonly vm$ = inject(CREATE_PRODUCT_VM_QUERY).get();
@@ -139,7 +129,7 @@ export class CreateProductComponent {
     inputs,
     component,
   }: DynamicComponentConfig): void {
-    this.specificationCmp = component;
+    this.specificationCmp$ = component;
     this.specificationInputs = inputs;
   }
 }
