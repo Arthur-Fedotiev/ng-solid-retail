@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { CategoryEnum } from '@sr/products/application';
+import { Category } from '@sr/products/application';
 import {
   SpecificationsFormGroupStrategy,
   NullSpecificationsFormGroupStrategy,
@@ -12,7 +12,7 @@ export class SpecificationsStrategyFactory {
     private strategies: SpecificationsFormGroupStrategy[]
   ) {}
 
-  create(category: CategoryEnum) {
+  create(category: Category) {
     return (
       this.strategies.find((strategy) => strategy.category === category) ??
       new NullSpecificationsFormGroupStrategy()

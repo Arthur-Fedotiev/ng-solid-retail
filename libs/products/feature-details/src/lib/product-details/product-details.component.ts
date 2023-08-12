@@ -1,24 +1,14 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Inject,
   OnDestroy,
   inject,
 } from '@angular/core';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import {
-  CategoryViewModel,
-  PriceViewModel,
-  ProductViewModel,
-} from '@sr/products/application';
+import { PriceViewModel, ProductViewModel } from '@sr/products/application';
 import { CompetitorsDialogComponent } from '@sr/products/ui';
 import { MatCardModule } from '@angular/material/card';
 import { NgIf, AsyncPipe, NgFor, NgTemplateOutlet } from '@angular/common';
-import {
-  toISOStringWithTimezone,
-  TrackByIdOrIdx,
-  TRACK_BY_ID_OR_IDX,
-} from '@sr/shared/util';
 import { LowestTierPricePipe } from './lowest-tier-price.pipe';
 import { ProductCategoriesComponent } from '@sr/products/ui';
 import { ProductPriceComponent } from '../product-price/product-price.component';
@@ -60,10 +50,7 @@ export class ProductDetailsComponent implements OnDestroy {
   private readonly competitorsQuery = inject(COMPETITORS_QUERY);
   public readonly vm$ = inject(PRODUCT_DETAIL_VM_QUERY).get();
 
-  constructor(
-    @Inject(TRACK_BY_ID_OR_IDX) public readonly trackById: TrackByIdOrIdx,
-    public readonly dialog: MatDialog
-  ) {}
+  constructor(public readonly dialog: MatDialog) {}
 
   public ngOnDestroy(): void {
     this.releaseResources();
@@ -71,15 +58,11 @@ export class ProductDetailsComponent implements OnDestroy {
 
   public updateProductPrice(
     product: ProductViewModel,
+    priceIdx: number,
     $event: PriceViewModel
   ): void {
-    const updatedPrices = product.prices.map((price) =>
-      price.id === $event.id
-        ? price.clone({
-            ...$event,
-            updateTime: toISOStringWithTimezone(new Date()),
-          })
-        : price
+    const updatedPrices = product.prices.map((price, idx) =>
+      idx === priceIdx ? price.clone({ ...$event }) : price
     );
     const updateProduct = product.clone({
       prices: updatedPrices,
@@ -92,7 +75,7 @@ export class ProductDetailsComponent implements OnDestroy {
     this.productDetailsCommandsAPI.delete(id);
   }
 
-  public openCompetitorsDialog(category: CategoryViewModel): void {
+  public openCompetitorsDialog(category: string): void {
     this.dialog.open(CompetitorsDialogComponent, {
       width: '500px',
       data: { category, retailers$: this.competitorsQuery.get(category) },

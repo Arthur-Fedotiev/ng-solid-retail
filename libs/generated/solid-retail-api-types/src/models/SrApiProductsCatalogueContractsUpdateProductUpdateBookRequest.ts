@@ -73,7 +73,7 @@ export interface SrApiProductsCatalogueContractsUpdateProductUpdateBookRequest {
      * @type {string}
      * @memberof SrApiProductsCatalogueContractsUpdateProductUpdateBookRequest
      */
-    sKU: string;
+    sku: string;
     /**
      * 
      * @type {SrApiProductsCatalogueCommonProductRetailer}
@@ -109,7 +109,7 @@ export function instanceOfSrApiProductsCatalogueContractsUpdateProductUpdateBook
     isInstance = isInstance && "id" in value;
     isInstance = isInstance && "name" in value;
     isInstance = isInstance && "description" in value;
-    isInstance = isInstance && "sKU" in value;
+    isInstance = isInstance && "sku" in value;
     isInstance = isInstance && "retailer" in value;
     isInstance = isInstance && "url" in value;
     isInstance = isInstance && "category" in value;
@@ -128,15 +128,15 @@ export function SrApiProductsCatalogueContractsUpdateProductUpdateBookRequestFro
     }
     return {
         
-        'specifications': SrApiProductsCatalogueContractsCommonBookSpecificationRequestFromJSON(json['Specifications']),
-        'id': json['Id'],
-        'name': json['Name'],
-        'description': json['Description'],
-        'sKU': json['SKU'],
-        'retailer': SrApiProductsCatalogueCommonProductRetailerFromJSON(json['Retailer']),
-        'url': json['Url'],
-        'category': SrApiProductsCatalogueCommonProductCategoryFromJSON(json['Category']),
-        'prices': ((json['Prices'] as Array<any>).map(SrApiProductsCatalogueContractsUpdateProductPriceFromJSON)),
+        'specifications': SrApiProductsCatalogueContractsCommonBookSpecificationRequestFromJSON(json['specifications']),
+        'id': json['id'],
+        'name': json['name'],
+        'description': json['description'],
+        'sku': json['sku'],
+        'retailer': SrApiProductsCatalogueCommonProductRetailerFromJSON(json['retailer']),
+        'url': json['url'],
+        'category': SrApiProductsCatalogueCommonProductCategoryFromJSON(json['category']),
+        'prices': ((json['prices'] as Array<any>).map(SrApiProductsCatalogueContractsUpdateProductPriceFromJSON)),
     };
 }
 
@@ -149,15 +149,15 @@ export function SrApiProductsCatalogueContractsUpdateProductUpdateBookRequestToJ
     }
     return {
         
-        'Specifications': SrApiProductsCatalogueContractsCommonBookSpecificationRequestToJSON(value.specifications),
-        'Id': value.id,
-        'Name': value.name,
-        'Description': value.description,
-        'SKU': value.sKU,
-        'Retailer': SrApiProductsCatalogueCommonProductRetailerToJSON(value.retailer),
-        'Url': value.url,
-        'Category': SrApiProductsCatalogueCommonProductCategoryToJSON(value.category),
-        'Prices': ((value.prices as Array<any>).map(SrApiProductsCatalogueContractsUpdateProductPriceToJSON)),
+        'specifications': SrApiProductsCatalogueContractsCommonBookSpecificationRequestToJSON(value.specifications),
+        'id': value.id,
+        'name': value.name,
+        'description': value.description,
+        'sku': value.sku,
+        'retailer': SrApiProductsCatalogueCommonProductRetailerToJSON(value.retailer),
+        'url': value.url,
+        'category': SrApiProductsCatalogueCommonProductCategoryToJSON(value.category),
+        'prices': ((value.prices as Array<any>).map(SrApiProductsCatalogueContractsUpdateProductPriceToJSON)),
     };
 }
 

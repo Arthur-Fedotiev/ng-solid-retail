@@ -1,10 +1,7 @@
 import { InjectionToken, inject } from '@angular/core';
-import {
-  CategoryViewModel,
-  ProductsFacadeService,
-  RetailerViewModel,
-} from '@sr/products/application';
-import { Observable } from 'rxjs';
+import { ProductsFacadeService } from '@sr/products/application';
+import { Observable, of } from 'rxjs';
+import { Retailer } from '@sr/products/entities';
 
 export const COMPETITORS_QUERY = new InjectionToken<CompetitorsQuery>(
   'CATEGORIES_QUERY',
@@ -13,14 +10,15 @@ export const COMPETITORS_QUERY = new InjectionToken<CompetitorsQuery>(
     factory: () => {
       const productsFacadeService = inject(ProductsFacadeService);
       return {
-        get: productsFacadeService.getCompetitorsForCategory$.bind(
-          productsFacadeService
-        ),
+        get: () => of([]),
+        // get: productsFacadeService.getCompetitorsForCategory$.bind(
+        //   productsFacadeService
+        // ),
       };
     },
   }
 );
 
 export interface CompetitorsQuery {
-  get: (category: CategoryViewModel) => Observable<RetailerViewModel[]>;
+  get: (category: string) => Observable<Retailer[]>;
 }

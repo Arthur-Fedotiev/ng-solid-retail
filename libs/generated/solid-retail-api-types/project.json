@@ -14,5 +14,5 @@
     }
   },
   "implicitDependencies": ["solid-retail-api-swagger"],
-  "tags": []
+  "tags": ["scope:shared", "type:entities"]
 }

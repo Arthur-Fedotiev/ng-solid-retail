@@ -20,7 +20,9 @@
 export const SrApiProductsCatalogueCommonProductCategory = {
     Shoes: 'Shoes',
     Clothing: 'Clothing',
-    Books: 'Books'
+    Books: 'Books',
+    Smartphones: 'Smartphones',
+    Furniture: 'Furniture'
 } as const;
 export type SrApiProductsCatalogueCommonProductCategory = typeof SrApiProductsCatalogueCommonProductCategory[keyof typeof SrApiProductsCatalogueCommonProductCategory];
 

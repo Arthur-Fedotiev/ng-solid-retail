@@ -8,7 +8,7 @@ export const PRODUCT_URLS = new InjectionToken<ProductUrls>('ProductUrls', {
     const { api } = inject(ENVIRONMENT);
 
     return {
-      productsApi: `${api}/products`,
+      productsApi: `${api}/v1/catalogue`,
       categoriesApi: `${api}/categories`,
       pricesApi: `${api}/prices`,
       retailersApi: `${api}/retailers`,

@@ -11,7 +11,8 @@ import {
   SmartphonesCategoryFormGroup,
 } from './form-group.models';
 import {
-  CategoryEnum,
+  Categories,
+  Category,
   SpecificationsDataService,
 } from '@sr/products/application';
 import { Injectable, Type, inject } from '@angular/core';
@@ -37,7 +38,7 @@ export abstract class SpecificationsFormGroupStrategy<
   TCmpInputs = any,
   TFormGroup = any
 > {
-  abstract readonly category: CategoryEnum;
+  abstract readonly category: Category | null;
   abstract buildFormGroup(fb: FormBuilder): FormGroup<{
     [K in keyof TFormGroup]: FormControl<TFormGroup[K]>;
   }>;
@@ -49,7 +50,7 @@ export class BooksSpecificationsFormGroupStrategy extends SpecificationsFormGrou
   BooksSpecificationInputs,
   BooksCategoryFormGroup
 > {
-  readonly category = CategoryEnum.Books;
+  readonly category = Categories.Books;
   private readonly coverTypes = inject(
     SpecificationsDataService
   ).getCoverTypes();
@@ -81,7 +82,7 @@ export class ShoesSpecificationsFormGroupStrategy extends SpecificationsFormGrou
   ShoesSpecificationsInputs,
   ShoesCategoryFormGroup
 > {
-  readonly category = CategoryEnum.Shoes;
+  readonly category = Categories.Shoes;
   private readonly sizes = inject(SpecificationsDataService).getSizes(
     this.category
   );
@@ -117,7 +118,7 @@ export class SmartphonesSpecificationsFormGroupStrategy extends SpecificationsFo
   SpecificationSelectComponentInputs,
   SmartphonesCategoryFormGroup
 > {
-  readonly category = CategoryEnum.Smartphones;
+  readonly category = Categories.Smartphones;
   private readonly colors = inject(SpecificationsDataService).getColors(
     this.category
   );
@@ -148,7 +149,7 @@ export class FurnitureSpecificationsFormGroupStrategy extends SpecificationsForm
   FurnitureSpecificationsInputs,
   FurnitureCategoryFormGroup
 > {
-  readonly category = CategoryEnum.Furniture;
+  readonly category = Categories.Furniture;
   private readonly colors = inject(SpecificationsDataService).getColors(
     this.category
   );
@@ -178,7 +179,7 @@ export class FurnitureSpecificationsFormGroupStrategy extends SpecificationsForm
 }
 
 export class NullSpecificationsFormGroupStrategy extends SpecificationsFormGroupStrategy {
-  readonly category = CategoryEnum.Null;
+  readonly category = null;
   buildFormGroup(fb: FormBuilder) {
     return fb.group({});
   }

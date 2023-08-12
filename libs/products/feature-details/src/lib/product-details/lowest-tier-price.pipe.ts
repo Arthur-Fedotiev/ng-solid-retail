@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { TierViewModel } from '@sr/products/application';
 
 @Pipe({
   name: 'srLowestTierPrice',
@@ -6,11 +7,22 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class LowestTierPricePipe implements PipeTransform {
   transform(
-    value: readonly { price: number; tier: number }[],
-    tier = 1
-  ): number | null {
-    const lowestPrice = value.reduce((prev: number | null, curr) => {
-      return curr.tier === tier && prev ? Math.min(prev, curr.price) : prev;
+    prices: readonly {
+      value: number;
+      tier: TierViewModel;
+    }[],
+    lowestTier = 'FirstTier' as const
+  ) {
+    const tierValueMap = {
+      FirstTier: 1,
+      SecondTier: 2,
+      ThirdTier: 3,
+    };
+
+    const lowestPrice = prices.reduce((prev: number | null, curr) => {
+      return tierValueMap[curr.tier] === tierValueMap[lowestTier] && prev
+        ? Math.min(prev, curr.value)
+        : prev;
     }, Infinity);
 
     return lowestPrice === Infinity ? null : lowestPrice;

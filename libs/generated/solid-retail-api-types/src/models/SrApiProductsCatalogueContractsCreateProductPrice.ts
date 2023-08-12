@@ -74,9 +74,9 @@ export function SrApiProductsCatalogueContractsCreateProductPriceFromJSONTyped(j
     }
     return {
         
-        'value': json['Value'],
-        'tier': SrApiProductsCatalogueCommonProductTierFromJSON(json['Tier']),
-        'currency': SrApiProductsCatalogueCommonCurrencyCodeFromJSON(json['Currency']),
+        'value': json['value'],
+        'tier': SrApiProductsCatalogueCommonProductTierFromJSON(json['tier']),
+        'currency': SrApiProductsCatalogueCommonCurrencyCodeFromJSON(json['currency']),
     };
 }
 
@@ -89,9 +89,9 @@ export function SrApiProductsCatalogueContractsCreateProductPriceToJSON(value?: 
     }
     return {
         
-        'Value': value.value,
-        'Tier': SrApiProductsCatalogueCommonProductTierToJSON(value.tier),
-        'Currency': SrApiProductsCatalogueCommonCurrencyCodeToJSON(value.currency),
+        'value': value.value,
+        'tier': SrApiProductsCatalogueCommonProductTierToJSON(value.tier),
+        'currency': SrApiProductsCatalogueCommonCurrencyCodeToJSON(value.currency),
     };
 }
 

@@ -38,7 +38,7 @@ namespace Sr.Api.ProductsCatalogue.Infrastructure.Repositories
 
     public async Task<Result> DeleteProductAsync(Guid id)
     {
-      var product = await _dbContext.Book
+      var product = await _dbContext.Products
           .FirstOrDefaultAsync(p => p.Id == ProductId.Create(id));
 
 
@@ -105,14 +105,20 @@ namespace Sr.Api.ProductsCatalogue.Infrastructure.Repositories
 
     public async Task<Result<Product>> UpdateProductAsync(UpdateProductCommand request)
     {
-      var isNewlyCreated = !await _dbContext.Products.AnyAsync(p => p.Id == ProductId.Create(request.Id));
-      var product = CreateProduct(request).Value;
+      var existingProduct = await _dbContext.Products
+          .FirstOrDefaultAsync(p => p.Id == ProductId.Create(request.Id));
+      var newProduct = CreateProduct(request).Value;
 
-      _ = isNewlyCreated ? _dbContext.Products.Add(product) : _dbContext.Products.Update(product);
+      if (existingProduct is null)
+      {
+        _ = _dbContext.Products.Add(newProduct);
+      }
 
-      _ = await _dbContext.SaveChangesAsync();
+      _ = _dbContext.Products.Remove(existingProduct);
+      _ = _dbContext.Products.Add(newProduct);
 
-      return Result.Ok(product);
+
+      return Result.Ok(newProduct);
 
     }
     private static Result<Product> CreateProduct(CreateProductCommand request)
@@ -124,7 +130,7 @@ namespace Sr.Api.ProductsCatalogue.Infrastructure.Repositories
           request.Name,
           request.Description,
           request.Sku,
-          request.Prices.ConvertAll(price => ProductPrice.Create(price.Value, ProductTier.FirstTier, Currency.USDollar)),
+          request.Prices.ConvertAll(price => ProductPrice.Create(price.Value, price.Tier, Currency.USDollar)),
           request.Retailer,
           request.Url,
           request.Specifications.AsT2.Cover
@@ -134,7 +140,7 @@ namespace Sr.Api.ProductsCatalogue.Infrastructure.Repositories
           request.Name,
           request.Description,
           request.Sku,
-          request.Prices.ConvertAll(price => ProductPrice.Create(price.Value, ProductTier.FirstTier, Currency.USDollar)),
+          request.Prices.ConvertAll(price => ProductPrice.Create(price.Value, price.Tier, Currency.USDollar)),
           request.Retailer,
           request.Url,
           request.Specifications.AsT1.Size,
@@ -145,7 +151,7 @@ namespace Sr.Api.ProductsCatalogue.Infrastructure.Repositories
           request.Name,
           request.Description,
           request.Sku,
-          request.Prices.ConvertAll(price => ProductPrice.Create(price.Value, ProductTier.FirstTier, Currency.USDollar)),
+          request.Prices.ConvertAll(price => ProductPrice.Create(price.Value, price.Tier, Currency.USDollar)),
           request.Retailer,
           request.Url,
           request.Specifications.AsT0.Size,
@@ -165,7 +171,7 @@ namespace Sr.Api.ProductsCatalogue.Infrastructure.Repositories
           request.Name,
           request.Description,
           request.Sku,
-          request.Prices.ConvertAll(price => ProductPrice.Create(price.Value, ProductTier.FirstTier, Currency.USDollar)),
+          request.Prices.ConvertAll(price => ProductPrice.Create(price.Value, price.Tier, Currency.USDollar)),
           request.Retailer,
           request.Url,
 
@@ -176,7 +182,7 @@ namespace Sr.Api.ProductsCatalogue.Infrastructure.Repositories
           request.Name,
           request.Description,
           request.Sku,
-          request.Prices.ConvertAll(price => ProductPrice.Create(price.Value, ProductTier.FirstTier, Currency.USDollar)),
+          request.Prices.ConvertAll(price => ProductPrice.Create(price.Value, price.Tier, Currency.USDollar)),
           request.Retailer,
           request.Url,
           request.Specifications.AsT1.Size,
@@ -187,7 +193,7 @@ namespace Sr.Api.ProductsCatalogue.Infrastructure.Repositories
           request.Name,
           request.Description,
           request.Sku,
-          request.Prices.ConvertAll(price => ProductPrice.Create(price.Value, ProductTier.FirstTier, Currency.USDollar)),
+          request.Prices.ConvertAll(price => ProductPrice.Create(price.Value, price.Tier, Currency.USDollar)),
           request.Retailer,
           request.Url,
           request.Specifications.AsT0.Size,

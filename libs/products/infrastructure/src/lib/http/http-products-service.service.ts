@@ -1,15 +1,22 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import {
-  ProductsApi,
-  Product,
   ProductUrls,
+  GetProductsPaginatedResponse,
   Category,
-  Price,
   Retailer,
+  ProductsApi,
+  ProductDTO,
+  PutProductDto,
 } from '@sr/products/entities';
-import { forkJoin, Observable, of, switchMap } from 'rxjs';
+import { map, Observable, tap } from 'rxjs';
 import { PRODUCT_URLS } from '../providers/products-urls.token';
+import {
+  ApiV1CataloguePut200Response,
+  ApiV1CataloguePostRequest,
+  ApiV1CataloguePutRequest,
+  SrApiProductsCatalogueCommonProductRetailer,
+} from '@sr/generated/solid-retail-api-types';
 
 @Injectable({
   providedIn: 'root',
@@ -20,14 +27,51 @@ export class HttpProductsService implements ProductsApi {
     private readonly http: HttpClient
   ) {}
 
+  getOneProduct(id: ProductDTO['id']): Observable<ProductDTO> {
+    return this.http
+      .get<GetProductsPaginatedResponse>(this.productUrls.productsApi, {
+        params: new HttpParams().set('ids', id),
+      })
+      .pipe(
+        map(this.normalizePaginatedResponse),
+        map((response) => response.data[0])
+      );
+  }
+
+  createProduct(
+    product: ApiV1CataloguePostRequest
+  ): Observable<ApiV1CataloguePut200Response> {
+    throw new Error('Method not implemented.');
+  }
+
+  deleteProduct(productId: string): Observable<void> {
+    return this.http.delete<void>(
+      `${this.productUrls.productsApi}/${productId}`
+    );
+  }
+
+  updateProduct(product: PutProductDto): Observable<ProductDTO> {
+    return this.http.put<ProductDTO>(this.productUrls.productsApi, product);
+  }
+  getCompetitorsForCategory(
+    category: Category
+  ): Observable<readonly SrApiProductsCatalogueCommonProductRetailer[]> {
+    throw new Error('Method not implemented.');
+  }
+
   public getCategories(): Observable<ReadonlyArray<Category>> {
     return this.http.get<ReadonlyArray<Category>>(
       this.productUrls.categoriesApi
     );
   }
 
-  public getProducts(): Observable<ReadonlyArray<Product>> {
-    return this.http.get<ReadonlyArray<Product>>(this.productUrls.productsApi);
+  public getProducts() {
+    return this.http
+      .get<GetProductsPaginatedResponse>(this.productUrls.productsApi)
+      .pipe(
+        tap(console.log),
+        map((response) => response.data)
+      );
   }
 
   public getRetailers() {
@@ -36,37 +80,27 @@ export class HttpProductsService implements ProductsApi {
     );
   }
 
-  public createProduct(product: Product): Observable<Product> {
-    const { Prices } = product;
-    const prices$ = Prices.length
-      ? Prices.map((price) => this.createOnePrice(price))
-      : [of({})];
-
-    return forkJoin(prices$).pipe(
-      switchMap(() =>
-        this.http.post<Product>(this.productUrls.productsApi, product)
-      )
-    );
+  private normalizePaginatedResponse(response: GetProductsPaginatedResponse) {
+    return {
+      ...response,
+      data: response.data ?? [],
+    };
   }
 
-  public deleteProduct(productId: string): Observable<void> {
-    return this.http.delete<void>(
-      `${this.productUrls.productsApi}/${productId}`
-    );
-  }
+  // public createProduct(product: Product): Observable<Product> {
+  //   const { Prices } = product;
+  //   const prices$ = Prices.length
+  //     ? Prices.map((price) => this.createOnePrice(price))
+  //     : [of({})];
 
-  private createOnePrice(price: Price): Observable<Price> {
-    return this.http.post<Price>(this.productUrls.pricesApi, price);
-  }
+  //   return forkJoin(prices$).pipe(
+  //     switchMap(() =>
+  //       this.http.post<Product>(this.productUrls.productsApi, product)
+  //     )
+  //   );
+  // }
 
-  getOneProduct(): Observable<Product> {
-    throw new Error('Method not implemented.');
-  }
-  updateProduct(): Observable<Product> {
-    throw new Error('Method not implemented.');
-  }
-
-  getCompetitorsForCategory(): Observable<readonly Retailer[]> {
-    throw new Error('Method not implemented.');
-  }
+  // private createOnePrice(price: Price): Observable<Price> {
+  //   return this.http.post<Price>(this.productUrls.pricesApi, price);
+  // }
 }

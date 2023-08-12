@@ -79,7 +79,7 @@ export function MicrosoftAspNetCoreHttpHttpValidationProblemDetailsFromJSONTyped
     return {
         
             ...json,
-        'errors': json['Errors'],
+        'errors': json['errors'],
         'type': !exists(json, 'type') ? undefined : json['type'],
         'title': !exists(json, 'title') ? undefined : json['title'],
         'status': !exists(json, 'status') ? undefined : json['status'],

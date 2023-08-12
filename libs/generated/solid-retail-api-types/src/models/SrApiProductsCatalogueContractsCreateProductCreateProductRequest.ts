@@ -67,7 +67,7 @@ export interface SrApiProductsCatalogueContractsCreateProductCreateProductReques
      * @type {string}
      * @memberof SrApiProductsCatalogueContractsCreateProductCreateProductRequest
      */
-    sKU: string;
+    sku: string;
     /**
      * 
      * @type {string}
@@ -96,7 +96,7 @@ export function instanceOfSrApiProductsCatalogueContractsCreateProductCreateProd
     isInstance = isInstance && "category" in value;
     isInstance = isInstance && "name" in value;
     isInstance = isInstance && "description" in value;
-    isInstance = isInstance && "sKU" in value;
+    isInstance = isInstance && "sku" in value;
     isInstance = isInstance && "url" in value;
     isInstance = isInstance && "prices" in value;
     isInstance = isInstance && "retailer" in value;
@@ -125,13 +125,13 @@ export function SrApiProductsCatalogueContractsCreateProductCreateProductRequest
     }
     return {
         
-        'category': SrApiProductsCatalogueCommonProductCategoryFromJSON(json['Category']),
-        'name': json['Name'],
-        'description': json['Description'],
-        'sKU': json['SKU'],
-        'url': json['Url'],
-        'prices': ((json['Prices'] as Array<any>).map(SrApiProductsCatalogueContractsCreateProductPriceFromJSON)),
-        'retailer': SrApiProductsCatalogueCommonProductRetailerFromJSON(json['Retailer']),
+        'category': SrApiProductsCatalogueCommonProductCategoryFromJSON(json['category']),
+        'name': json['name'],
+        'description': json['description'],
+        'sku': json['sku'],
+        'url': json['url'],
+        'prices': ((json['prices'] as Array<any>).map(SrApiProductsCatalogueContractsCreateProductPriceFromJSON)),
+        'retailer': SrApiProductsCatalogueCommonProductRetailerFromJSON(json['retailer']),
     };
 }
 
@@ -144,13 +144,13 @@ export function SrApiProductsCatalogueContractsCreateProductCreateProductRequest
     }
     return {
         
-        'Category': SrApiProductsCatalogueCommonProductCategoryToJSON(value.category),
-        'Name': value.name,
-        'Description': value.description,
-        'SKU': value.sKU,
-        'Url': value.url,
-        'Prices': ((value.prices as Array<any>).map(SrApiProductsCatalogueContractsCreateProductPriceToJSON)),
-        'Retailer': SrApiProductsCatalogueCommonProductRetailerToJSON(value.retailer),
+        'category': SrApiProductsCatalogueCommonProductCategoryToJSON(value.category),
+        'name': value.name,
+        'description': value.description,
+        'sku': value.sku,
+        'url': value.url,
+        'prices': ((value.prices as Array<any>).map(SrApiProductsCatalogueContractsCreateProductPriceToJSON)),
+        'retailer': SrApiProductsCatalogueCommonProductRetailerToJSON(value.retailer),
     };
 }
 

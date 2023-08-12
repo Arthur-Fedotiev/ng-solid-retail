@@ -1,8 +1,5 @@
 import { Pipe, PipeTransform, inject } from '@angular/core';
-import {
-  CategoryEnum,
-  SpecificationsDataService,
-} from '@sr/products/application';
+import { Category, SpecificationsDataService } from '@sr/products/application';
 
 @Pipe({
   name: 'srProductSize',
@@ -11,7 +8,7 @@ import {
 export class ProductSizePipe implements PipeTransform {
   private readonly specificationsService = inject(SpecificationsDataService);
 
-  transform(category: CategoryEnum) {
+  transform(category: Category) {
     return this.specificationsService.getSizes(category);
   }
 }

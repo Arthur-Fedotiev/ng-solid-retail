@@ -78,7 +78,7 @@ export function SrApiProductsCatalogueContractsCreateProductCreateShoesRequestFr
     }
     return {
         ...SrApiProductsCatalogueContractsCreateProductCreateProductRequestFromJSONTyped(json, ignoreDiscriminator),
-        'specifications': SrApiProductsCatalogueContractsCommonShoesSpecificationRequestFromJSON(json['Specifications']),
+        'specifications': SrApiProductsCatalogueContractsCommonShoesSpecificationRequestFromJSON(json['specifications']),
     };
 }
 
@@ -91,7 +91,7 @@ export function SrApiProductsCatalogueContractsCreateProductCreateShoesRequestTo
     }
     return {
         ...SrApiProductsCatalogueContractsCreateProductCreateProductRequestToJSON(value),
-        'Specifications': SrApiProductsCatalogueContractsCommonShoesSpecificationRequestToJSON(value.specifications),
+        'specifications': SrApiProductsCatalogueContractsCommonShoesSpecificationRequestToJSON(value.specifications),
     };
 }
 

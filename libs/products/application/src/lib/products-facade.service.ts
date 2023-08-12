@@ -1,5 +1,4 @@
 import { Injectable, inject } from '@angular/core';
-import { Product } from '@sr/products/entities';
 import { PRODUCTS_API } from '@sr/products/infrastructure';
 import {
   BehaviorSubject,
@@ -14,11 +13,9 @@ import {
 import { TO_PRODUCT_SAVE_DTO } from './providers/to-product-save-dto.token';
 
 import {
-  toCategoryViewModel,
   toProductShortInfo,
   toProductViewModel,
   toProductsByPrice,
-  toRetailerViewModel,
 } from './utils/mappers/to-view-model';
 import { ProductsNavigationManagerService } from './navigation/products-navigation-manager.service';
 import {
@@ -90,17 +87,13 @@ export class ProductsFacadeService {
   private get categoriesChanges$(): Observable<
     ReadonlyArray<CategoryViewModel>
   > {
-    return this.productsApi
-      .getCategories()
-      .pipe(map((categories) => categories.map(toCategoryViewModel)));
+    return this.productsApi.getCategories();
   }
 
   private get retailersChanges$(): Observable<
     ReadonlyArray<RetailerViewModel>
   > {
-    return this.productsApi
-      .getRetailers()
-      .pipe(map((retailers) => retailers.map(toRetailerViewModel)));
+    return this.productsApi.getRetailers();
   }
 
   public createProduct(createProductFormValue: CreateProductForm): void {
@@ -124,22 +117,22 @@ export class ProductsFacadeService {
 
   public selectedProductUpdate(product: ProductViewModel) {
     this.productsApi
-      .updateProduct(this.toProductSaveDto(product))
+      .updateProduct(this.toProductSaveDto(product) as any)
       .pipe(take(1))
       .subscribe(this.updateSelectedProduct);
   }
 
-  public getCompetitorsForCategory$({ id, name }: CategoryViewModel) {
-    return this.productsApi.getCompetitorsForCategory({ id, Name: name }).pipe(
-      map((retailers) => [
-        ...new Map(
-          retailers.map((retailer) => [retailer.id, retailer])
-        ).values(),
-      ]),
-      map((retailers) => retailers.map(toRetailerViewModel)),
-      take(1)
-    );
-  }
+  // public getCompetitorsForCategory$({ id, name }: CategoryViewModel) {
+  //   return this.productsApi.getCompetitorsForCategory({ id, Name: name }).pipe(
+  //     map((retailers) => [
+  //       ...new Map(
+  //         retailers.map((retailer) => [retailer.id, retailer])
+  //       ).values(),
+  //     ]),
+  //     map((retailers) => retailers.map(toRetailerViewModel)),
+  //     take(1)
+  //   );
+  // }
 
   public loadProduct(id: string) {
     this.productsApi
@@ -157,7 +150,7 @@ export class ProductsFacadeService {
     );
   }
 
-  private updateSelectedProduct = (selectedProduct: Product) => {
+  private updateSelectedProduct = (selectedProduct: any) => {
     this.state$.next(
       (this.state = {
         ...this.state,

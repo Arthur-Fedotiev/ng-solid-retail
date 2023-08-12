@@ -1,5 +1,5 @@
-import { Product } from '@sr/products/entities';
+import { ProductDTO } from '@sr/products/entities';
 import { ProductViewModel } from '../../../models';
 
-export const toProductViewModel = (product: Product): ProductViewModel =>
+export const toProductViewModel = (product: ProductDTO): ProductViewModel =>
   new ProductViewModel(product);

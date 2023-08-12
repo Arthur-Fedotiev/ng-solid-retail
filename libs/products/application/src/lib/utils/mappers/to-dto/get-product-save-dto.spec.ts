@@ -28,7 +28,7 @@ describe('getProductPostDto', () => {
       Prices: product.prices.map((price) => ({
         id: expectedId,
         productId: expectedId,
-        Price: price.price,
+        Price: price.value,
         Tier: price.tier,
         Retailer: { id: price.retailer.id, Name: price.retailer.name },
         UpdateTime: toISOStringWithTimezone(new Date()),
@@ -73,7 +73,7 @@ describe('getProductPostDto', () => {
       Prices: product.prices.map((price) => ({
         id: price.id,
         productId: expectedId,
-        Price: price.price,
+        Price: price.value,
         Tier: price.tier,
         Retailer: { id: price.retailer.id, Name: price.retailer.name },
         UpdateTime: price.updateTime,

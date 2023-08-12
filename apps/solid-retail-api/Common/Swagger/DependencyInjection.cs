@@ -19,7 +19,7 @@ namespace Sr.SolidRetailApi.Common.Swagger
           options.UseOneOfForPolymorphism();
           options.SelectDiscriminatorNameUsing(type => type.Name switch
               {
-                nameof(CreateProductRequest) => nameof(CreateProductRequest.Category),
+                nameof(CreateProductRequest) => nameof(CreateProductRequest.Category).ToLower(),
                 _ => null
               });
         });

@@ -1,3 +1,9 @@
+import {
+  SrApiProductsCatalogueCommonProductCategory,
+  SrApiProductsCatalogueCommonProductRetailer,
+  SrApiProductsCatalogueCommonProductTier,
+} from '@sr/generated/solid-retail-api-types';
+
 export const COVERS = ['Hardcover', 'Paperback', 'Kindle'] as const;
 
 export const SHOES_AND_CLOTHING_COLORS = [
@@ -38,3 +44,7 @@ export const FURNITURE_COLORS = [
   'Cedar',
   'Rosewood',
 ] as const;
+
+export const ProductCategory = SrApiProductsCatalogueCommonProductCategory;
+export const ProductRetailer = SrApiProductsCatalogueCommonProductRetailer;
+export const ProductTier = SrApiProductsCatalogueCommonProductTier;

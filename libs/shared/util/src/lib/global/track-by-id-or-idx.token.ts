@@ -7,7 +7,7 @@ const trackByIdOrIdxFactory: () => TrackByIdOrIdx =
     id ?? idx;
 
 export interface TrackByIdOrIdx {
-  (idx: number, item: WithId<unknown>): string | number;
+  (idx: number, item: Partial<WithId<unknown>>): string | number;
 }
 
 export const TRACK_BY_ID_OR_IDX = new InjectionToken<TrackByIdOrIdx>(

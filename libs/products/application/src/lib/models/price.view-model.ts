@@ -1,21 +1,16 @@
-import { Price } from '@sr/products/entities';
-import { RetailerViewModel } from './retailer.view-model';
+import { Price, ProductDTO } from '@sr/products/entities';
 
 export class PriceViewModel {
   constructor(
     private readonly dto: Price,
-    public readonly id: string = dto.id,
-    public readonly productId: string = dto.productId,
-    public readonly retailer: RetailerViewModel = new RetailerViewModel(
-      dto.Retailer.id,
-      dto.Retailer.Name
-    ),
-    public readonly tier: number = dto.Tier,
-    public readonly updateTime: string = dto.UpdateTime,
-    public readonly price: number = Number(dto.Price)
+    private readonly product: ProductDTO,
+    public readonly value = dto.value,
+    public readonly productId = product.id,
+    public readonly retailer = product.retailer,
+    public readonly tier = dto.tier
   ) {}
 
   public clone(dto: Partial<PriceViewModel> = {}): PriceViewModel {
-    return Object.assign(new PriceViewModel(this.dto), dto);
+    return Object.assign(new PriceViewModel(this.dto, this.product), dto);
   }
 }

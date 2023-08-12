@@ -5,8 +5,7 @@
 >
   <ng-container *ngIf="!isEditMode; else editTpl">
     <div fxFlex="50%" class="mat-subheading-2">
-      <span>{{ price.retailer.name }} - ${{ price.price }}</span>
-      <span class="update-time">{{ price.updateTime | date: 'medium' }}</span>
+      <span>{{ price.retailer }} - ${{ price.value }}</span>
     </div>
     <span fxFlex="25%" class="mat-subheading-2">
       Tier: {{ price.tier }}
@@ -46,22 +45,21 @@
     [formGroup]="priceForm"
   >
     <mat-form-field fxFlex="30%" fxFlex.gt-sm="100%" appearance="outline">
-      <mat-label>{{ price.retailer.name }} Price</mat-label>
+      <mat-label>{{ price.retailer }} Price</mat-label>
       <input
         matInput
         type="number"
         placeholder="Price"
-        [formControlName]="'price'"
+        [formControlName]="'value'"
       />
     </mat-form-field>
     <mat-form-field fxFlex="30%" fxFlex.gt-sm="100%" appearance="outline">
-      <mat-label>Price Tier Price</mat-label>
-      <input
-        matInput
-        type="number"
-        placeholder="Tier"
-        [formControlName]="'tier'"
-      />
+      <mat-label>Tier</mat-label>
+      <mat-select placeholder="Select Product Tier" formControlName="tier">
+        <mat-option *ngFor="let tier of tiers" [value]="tier">{{
+          tier
+        }}</mat-option>
+      </mat-select>
     </mat-form-field>
 
     <button

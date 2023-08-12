@@ -74,10 +74,10 @@ export function SrApiProductsCatalogueApplicationCommonPaginatedItemsResponse1Sr
     }
     return {
         
-        'pageIndex': json['PageIndex'],
-        'pageSize': json['PageSize'],
-        'count': json['Count'],
-        'data': !exists(json, 'Data') ? undefined : (json['Data'] === null ? null : (json['Data'] as Array<any>).map(ApiV1CataloguePut200ResponseFromJSON)),
+        'pageIndex': json['pageIndex'],
+        'pageSize': json['pageSize'],
+        'count': json['count'],
+        'data': !exists(json, 'data') ? undefined : (json['data'] === null ? null : (json['data'] as Array<any>).map(ApiV1CataloguePut200ResponseFromJSON)),
     };
 }
 
@@ -90,10 +90,10 @@ export function SrApiProductsCatalogueApplicationCommonPaginatedItemsResponse1Sr
     }
     return {
         
-        'PageIndex': value.pageIndex,
-        'PageSize': value.pageSize,
-        'Count': value.count,
-        'Data': value.data === undefined ? undefined : (value.data === null ? null : (value.data as Array<any>).map(ApiV1CataloguePut200ResponseToJSON)),
+        'pageIndex': value.pageIndex,
+        'pageSize': value.pageSize,
+        'count': value.count,
+        'data': value.data === undefined ? undefined : (value.data === null ? null : (value.data as Array<any>).map(ApiV1CataloguePut200ResponseToJSON)),
     };
 }
 

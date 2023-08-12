@@ -364,7 +364,7 @@
     "schemas": {
       "Microsoft.AspNetCore.Http.HttpValidationProblemDetails": {
         "required": [
-          "Errors"
+          "errors"
         ],
         "type": "object",
         "allOf": [
@@ -373,7 +373,7 @@
           }
         ],
         "properties": {
-          "Errors": {
+          "errors": {
             "type": "object",
             "additionalProperties": {
               "type": "array",
@@ -415,25 +415,25 @@
       },
       "Sr.Api.ProductsCatalogue.Application.Common.PaginatedItemsResponse_1_Sr.Api.ProductsCatalogue.Contracts.Common.ProductResponse_": {
         "required": [
-          "Count",
-          "PageIndex",
-          "PageSize"
+          "count",
+          "pageIndex",
+          "pageSize"
         ],
         "type": "object",
         "properties": {
-          "PageIndex": {
+          "pageIndex": {
             "type": "integer",
             "format": "int32"
           },
-          "PageSize": {
+          "pageSize": {
             "type": "integer",
             "format": "int32"
           },
-          "Count": {
+          "count": {
             "type": "integer",
             "format": "int64"
           },
-          "Data": {
+          "data": {
             "type": "array",
             "items": {
               "oneOf": [
@@ -465,7 +465,9 @@
         "enum": [
           "Shoes",
           "Clothing",
-          "Books"
+          "Books",
+          "Smartphones",
+          "Furniture"
         ],
         "type": "string"
       },
@@ -550,8 +552,8 @@
       },
       "Sr.Api.ProductsCatalogue.Contracts.Common.BookResponse": {
         "required": [
-          "Category",
-          "Specifications"
+          "category",
+          "specifications"
         ],
         "type": "object",
         "allOf": [
@@ -560,7 +562,7 @@
           }
         ],
         "properties": {
-          "Category": {
+          "category": {
             "allOf": [
               {
                 "$ref": "#/components/schemas/Sr.Api.ProductsCatalogue.Common.ProductCategory"
@@ -568,7 +570,7 @@
             ],
             "readOnly": true
           },
-          "Specifications": {
+          "specifications": {
             "allOf": [
               {
                 "$ref": "#/components/schemas/Sr.Api.ProductsCatalogue.Contracts.Common.BookSpecificationResponse"
@@ -580,11 +582,11 @@
       },
       "Sr.Api.ProductsCatalogue.Contracts.Common.BookSpecificationRequest": {
         "required": [
-          "Cover"
+          "cover"
         ],
         "type": "object",
         "properties": {
-          "Cover": {
+          "cover": {
             "type": "string"
           }
         },
@@ -592,11 +594,11 @@
       },
       "Sr.Api.ProductsCatalogue.Contracts.Common.BookSpecificationResponse": {
         "required": [
-          "Cover"
+          "cover"
         ],
         "type": "object",
         "properties": {
-          "Cover": {
+          "cover": {
             "type": "string"
           }
         },
@@ -604,8 +606,8 @@
       },
       "Sr.Api.ProductsCatalogue.Contracts.Common.ClothingResponse": {
         "required": [
-          "Category",
-          "Specifications"
+          "category",
+          "specifications"
         ],
         "type": "object",
         "allOf": [
@@ -614,7 +616,7 @@
           }
         ],
         "properties": {
-          "Category": {
+          "category": {
             "allOf": [
               {
                 "$ref": "#/components/schemas/Sr.Api.ProductsCatalogue.Common.ProductCategory"
@@ -622,7 +624,7 @@
             ],
             "readOnly": true
           },
-          "Specifications": {
+          "specifications": {
             "allOf": [
               {
                 "$ref": "#/components/schemas/Sr.Api.ProductsCatalogue.Contracts.Common.ClothingSpecificationResponse"
@@ -634,15 +636,15 @@
       },
       "Sr.Api.ProductsCatalogue.Contracts.Common.ClothingSpecificationRequest": {
         "required": [
-          "Color",
-          "Size"
+          "color",
+          "size"
         ],
         "type": "object",
         "properties": {
-          "Size": {
+          "size": {
             "type": "string"
           },
-          "Color": {
+          "color": {
             "type": "string"
           }
         },
@@ -650,15 +652,15 @@
       },
       "Sr.Api.ProductsCatalogue.Contracts.Common.ClothingSpecificationResponse": {
         "required": [
-          "Color",
-          "Size"
+          "color",
+          "size"
         ],
         "type": "object",
         "properties": {
-          "Size": {
+          "size": {
             "type": "string"
           },
-          "Color": {
+          "color": {
             "type": "string"
           }
         },
@@ -666,24 +668,24 @@
       },
       "Sr.Api.ProductsCatalogue.Contracts.Common.PriceResponse": {
         "required": [
-          "Currency",
-          "Tier",
-          "Value"
+          "currency",
+          "tier",
+          "value"
         ],
         "type": "object",
         "properties": {
-          "Value": {
+          "value": {
             "type": "number",
             "format": "double"
           },
-          "Tier": {
+          "tier": {
             "allOf": [
               {
                 "$ref": "#/components/schemas/Sr.Api.ProductsCatalogue.Common.ProductTier"
               }
             ]
           },
-          "Currency": {
+          "currency": {
             "allOf": [
               {
                 "$ref": "#/components/schemas/Sr.Api.ProductsCatalogue.Common.CurrencyCode"
@@ -695,18 +697,18 @@
       },
       "Sr.Api.ProductsCatalogue.Contracts.Common.ProductResponse": {
         "required": [
-          "Category",
-          "Description",
-          "Id",
-          "Name",
-          "Prices",
-          "Retailer",
-          "SKU",
-          "Url"
+          "category",
+          "description",
+          "id",
+          "name",
+          "prices",
+          "retailer",
+          "sku",
+          "url"
         ],
         "type": "object",
         "properties": {
-          "Category": {
+          "category": {
             "allOf": [
               {
                 "$ref": "#/components/schemas/Sr.Api.ProductsCatalogue.Common.ProductCategory"
@@ -714,30 +716,30 @@
             ],
             "readOnly": true
           },
-          "Id": {
+          "id": {
             "type": "string",
             "format": "uuid"
           },
-          "Name": {
+          "name": {
             "type": "string"
           },
-          "Description": {
+          "description": {
             "type": "string"
           },
-          "SKU": {
+          "sku": {
             "type": "string"
           },
-          "Retailer": {
+          "retailer": {
             "allOf": [
               {
                 "$ref": "#/components/schemas/Sr.Api.ProductsCatalogue.Common.ProductRetailer"
               }
             ]
           },
-          "Url": {
+          "url": {
             "type": "string"
           },
-          "Prices": {
+          "prices": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Sr.Api.ProductsCatalogue.Contracts.Common.PriceResponse"
@@ -748,8 +750,8 @@
       },
       "Sr.Api.ProductsCatalogue.Contracts.Common.ShoesResponse": {
         "required": [
-          "Category",
-          "Specifications"
+          "category",
+          "specifications"
         ],
         "type": "object",
         "allOf": [
@@ -758,7 +760,7 @@
           }
         ],
         "properties": {
-          "Category": {
+          "category": {
             "allOf": [
               {
                 "$ref": "#/components/schemas/Sr.Api.ProductsCatalogue.Common.ProductCategory"
@@ -766,7 +768,7 @@
             ],
             "readOnly": true
           },
-          "Specifications": {
+          "specifications": {
             "allOf": [
               {
                 "$ref": "#/components/schemas/Sr.Api.ProductsCatalogue.Contracts.Common.ShoesSpecificationResponse"
@@ -778,16 +780,16 @@
       },
       "Sr.Api.ProductsCatalogue.Contracts.Common.ShoesSpecificationRequest": {
         "required": [
-          "Color",
-          "Size"
+          "color",
+          "size"
         ],
         "type": "object",
         "properties": {
-          "Size": {
+          "size": {
             "type": "number",
             "format": "float"
           },
-          "Color": {
+          "color": {
             "type": "string"
           }
         },
@@ -795,16 +797,16 @@
       },
       "Sr.Api.ProductsCatalogue.Contracts.Common.ShoesSpecificationResponse": {
         "required": [
-          "Color",
-          "Size"
+          "color",
+          "size"
         ],
         "type": "object",
         "properties": {
-          "Size": {
+          "size": {
             "type": "number",
             "format": "float"
           },
-          "Color": {
+          "color": {
             "type": "string"
           }
         },
@@ -812,7 +814,7 @@
       },
       "Sr.Api.ProductsCatalogue.Contracts.CreateProduct.CreateBookRequest": {
         "required": [
-          "Specifications"
+          "specifications"
         ],
         "type": "object",
         "allOf": [
@@ -821,7 +823,7 @@
           }
         ],
         "properties": {
-          "Specifications": {
+          "specifications": {
             "allOf": [
               {
                 "$ref": "#/components/schemas/Sr.Api.ProductsCatalogue.Contracts.Common.BookSpecificationRequest"
@@ -833,7 +835,7 @@
       },
       "Sr.Api.ProductsCatalogue.Contracts.CreateProduct.CreateClothingRequest": {
         "required": [
-          "Specifications"
+          "specifications"
         ],
         "type": "object",
         "allOf": [
@@ -842,7 +844,7 @@
           }
         ],
         "properties": {
-          "Specifications": {
+          "specifications": {
             "allOf": [
               {
                 "$ref": "#/components/schemas/Sr.Api.ProductsCatalogue.Contracts.Common.ClothingSpecificationRequest"
@@ -854,42 +856,42 @@
       },
       "Sr.Api.ProductsCatalogue.Contracts.CreateProduct.CreateProductRequest": {
         "required": [
-          "Category",
-          "Description",
-          "Name",
-          "Prices",
-          "Retailer",
-          "SKU",
-          "Url"
+          "category",
+          "description",
+          "name",
+          "prices",
+          "retailer",
+          "sku",
+          "url"
         ],
         "type": "object",
         "properties": {
-          "Category": {
+          "category": {
             "allOf": [
               {
                 "$ref": "#/components/schemas/Sr.Api.ProductsCatalogue.Common.ProductCategory"
               }
             ]
           },
-          "Name": {
+          "name": {
             "type": "string"
           },
-          "Description": {
+          "description": {
             "type": "string"
           },
-          "SKU": {
+          "sku": {
             "type": "string"
           },
-          "Url": {
+          "url": {
             "type": "string"
           },
-          "Prices": {
+          "prices": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Sr.Api.ProductsCatalogue.Contracts.CreateProduct.Price"
             }
           },
-          "Retailer": {
+          "retailer": {
             "allOf": [
               {
                 "$ref": "#/components/schemas/Sr.Api.ProductsCatalogue.Common.ProductRetailer"
@@ -899,12 +901,12 @@
         },
         "additionalProperties": false,
         "discriminator": {
-          "propertyName": "Category"
+          "propertyName": "category"
         }
       },
       "Sr.Api.ProductsCatalogue.Contracts.CreateProduct.CreateShoesRequest": {
         "required": [
-          "Specifications"
+          "specifications"
         ],
         "type": "object",
         "allOf": [
@@ -913,7 +915,7 @@
           }
         ],
         "properties": {
-          "Specifications": {
+          "specifications": {
             "allOf": [
               {
                 "$ref": "#/components/schemas/Sr.Api.ProductsCatalogue.Contracts.Common.ShoesSpecificationRequest"
@@ -925,24 +927,24 @@
       },
       "Sr.Api.ProductsCatalogue.Contracts.CreateProduct.Price": {
         "required": [
-          "Currency",
-          "Tier",
-          "Value"
+          "currency",
+          "tier",
+          "value"
         ],
         "type": "object",
         "properties": {
-          "Value": {
+          "value": {
             "type": "number",
             "format": "double"
           },
-          "Tier": {
+          "tier": {
             "allOf": [
               {
                 "$ref": "#/components/schemas/Sr.Api.ProductsCatalogue.Common.ProductTier"
               }
             ]
           },
-          "Currency": {
+          "currency": {
             "allOf": [
               {
                 "$ref": "#/components/schemas/Sr.Api.ProductsCatalogue.Common.CurrencyCode"
@@ -954,24 +956,24 @@
       },
       "Sr.Api.ProductsCatalogue.Contracts.UpdateProduct.Price": {
         "required": [
-          "Currency",
-          "Tier",
-          "Value"
+          "currency",
+          "tier",
+          "value"
         ],
         "type": "object",
         "properties": {
-          "Value": {
+          "value": {
             "type": "number",
             "format": "double"
           },
-          "Tier": {
+          "tier": {
             "allOf": [
               {
                 "$ref": "#/components/schemas/Sr.Api.ProductsCatalogue.Common.ProductTier"
               }
             ]
           },
-          "Currency": {
+          "currency": {
             "allOf": [
               {
                 "$ref": "#/components/schemas/Sr.Api.ProductsCatalogue.Common.CurrencyCode"
@@ -983,7 +985,7 @@
       },
       "Sr.Api.ProductsCatalogue.Contracts.UpdateProduct.UpdateBookRequest": {
         "required": [
-          "Specifications"
+          "specifications"
         ],
         "type": "object",
         "allOf": [
@@ -992,7 +994,7 @@
           }
         ],
         "properties": {
-          "Specifications": {
+          "specifications": {
             "allOf": [
               {
                 "$ref": "#/components/schemas/Sr.Api.ProductsCatalogue.Contracts.Common.BookSpecificationRequest"
@@ -1004,7 +1006,7 @@
       },
       "Sr.Api.ProductsCatalogue.Contracts.UpdateProduct.UpdateClothingRequest": {
         "required": [
-          "Specifications"
+          "specifications"
         ],
         "type": "object",
         "allOf": [
@@ -1013,7 +1015,7 @@
           }
         ],
         "properties": {
-          "Specifications": {
+          "specifications": {
             "allOf": [
               {
                 "$ref": "#/components/schemas/Sr.Api.ProductsCatalogue.Contracts.Common.ClothingSpecificationRequest"
@@ -1025,48 +1027,48 @@
       },
       "Sr.Api.ProductsCatalogue.Contracts.UpdateProduct.UpdateProductRequest": {
         "required": [
-          "Category",
-          "Description",
-          "Id",
-          "Name",
-          "Prices",
-          "Retailer",
-          "SKU",
-          "Url"
+          "category",
+          "description",
+          "id",
+          "name",
+          "prices",
+          "retailer",
+          "sku",
+          "url"
         ],
         "type": "object",
         "properties": {
-          "Id": {
+          "id": {
             "type": "string",
             "format": "uuid"
           },
-          "Name": {
+          "name": {
             "type": "string"
           },
-          "Description": {
+          "description": {
             "type": "string"
           },
-          "SKU": {
+          "sku": {
             "type": "string"
           },
-          "Retailer": {
+          "retailer": {
             "allOf": [
               {
                 "$ref": "#/components/schemas/Sr.Api.ProductsCatalogue.Common.ProductRetailer"
               }
             ]
           },
-          "Url": {
+          "url": {
             "type": "string"
           },
-          "Category": {
+          "category": {
             "allOf": [
               {
                 "$ref": "#/components/schemas/Sr.Api.ProductsCatalogue.Common.ProductCategory"
               }
             ]
           },
-          "Prices": {
+          "prices": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Sr.Api.ProductsCatalogue.Contracts.UpdateProduct.Price"
@@ -1077,7 +1079,7 @@
       },
       "Sr.Api.ProductsCatalogue.Contracts.UpdateProduct.UpdateShoesRequest": {
         "required": [
-          "Specifications"
+          "specifications"
         ],
         "type": "object",
         "allOf": [
@@ -1086,7 +1088,7 @@
           }
         ],
         "properties": {
-          "Specifications": {
+          "specifications": {
             "allOf": [
               {
                 "$ref": "#/components/schemas/Sr.Api.ProductsCatalogue.Contracts.Common.ShoesSpecificationRequest"

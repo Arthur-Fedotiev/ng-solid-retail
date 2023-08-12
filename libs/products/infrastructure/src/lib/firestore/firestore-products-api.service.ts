@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import {
-  Category,
+  ProductCategory,
   Price,
   Product,
   ProductsApi,
-  Retailer,
+  ProductRetailer,
 } from '@sr/products/entities';
 import { convertOneSnap, convertSnaps } from '@sr/shared/util';
 import firebase from 'firebase/compat/app';

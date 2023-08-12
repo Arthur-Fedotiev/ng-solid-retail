@@ -54,8 +54,8 @@ export function SrApiProductsCatalogueContractsCommonClothingSpecificationReques
     }
     return {
         
-        'size': json['Size'],
-        'color': json['Color'],
+        'size': json['size'],
+        'color': json['color'],
     };
 }
 
@@ -68,8 +68,8 @@ export function SrApiProductsCatalogueContractsCommonClothingSpecificationReques
     }
     return {
         
-        'Size': value.size,
-        'Color': value.color,
+        'size': value.size,
+        'color': value.color,
     };
 }
 

@@ -2,8 +2,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   inject,
-  ViewChild,
-  ViewContainerRef,
   Type,
 } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -29,7 +27,8 @@ import {
   CommonModule,
 } from '@angular/common';
 import {
-  CategoryEnum,
+  Categories,
+  Category,
   Price,
   SpecificationsDataService,
 } from '@sr/products/application';
@@ -91,7 +90,7 @@ export class CreateProductComponent {
   private readonly createProductCommand = inject(CREATE_PRODUCT_COMMAND);
   private readonly fb = inject(FormBuilder);
 
-  protected readonly Categories = CategoryEnum;
+  protected readonly Categories = Object.values(Categories);
   protected readonly bookCovers = inject(
     SpecificationsDataService
   ).getCoverTypes();
@@ -112,12 +111,12 @@ export class CreateProductComponent {
       [Validators.required, Validators.minLength(3), Validators.maxLength(50)],
     ],
     url: ['', [Validators.required, Validators.maxLength(150)]],
-    category: [{ name: '' as CategoryEnum, id: '' }, Validators.required],
+    category: ['', Validators.required],
     specifications: this.fb.group({}),
     prices: this.fb.nonNullable.array<Price>([], [validateSize(1)]),
   });
 
-  public updateSpecifications(category: CategoryEnum) {
+  public updateSpecifications(category: Category) {
     const specificationStrategy =
       this.specificationStrategyFactory.create(category);
 
@@ -132,7 +131,7 @@ export class CreateProductComponent {
   }
 
   public onSave(): void {
-    this.createProductCommand.execute(this.productForm.getRawValue());
+    this.createProductCommand.execute(this.productForm.getRawValue() as any);
   }
 
   private setSpecificationComponent({

@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 using JsonSubTypes;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Converters;
@@ -28,7 +29,7 @@ namespace Sr.SolidRetailApi.Common.Serialization
 
     private static void SetupJsonOptions(JsonOptions options)
     {
-      options.JsonSerializerOptions.PropertyNamingPolicy = null;
+      options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
       options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
     }
 

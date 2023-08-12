@@ -1,11 +1,13 @@
 import { inject, InjectionToken } from '@angular/core';
-import { Product } from '@sr/products/entities';
+import { CreateProductDto, PutProductDto } from '@sr/products/entities';
 import { ID_GENERATOR } from '@sr/shared/util';
 import { CreateProductForm, ProductViewModel } from '../models';
 import { getSaveProductDto } from '../utils/mappers/to-dto/get-product-save-dto';
 
 export interface ToProductSaveDto {
-  (product: ProductViewModel | CreateProductForm): Product;
+  (product: ProductViewModel | CreateProductForm):
+    | CreateProductDto
+    | PutProductDto;
 }
 
 export const TO_PRODUCT_SAVE_DTO = new InjectionToken<ToProductSaveDto>(

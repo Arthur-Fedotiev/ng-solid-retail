@@ -67,7 +67,7 @@ export interface SrApiProductsCatalogueContractsCommonProductResponse {
      * @type {string}
      * @memberof SrApiProductsCatalogueContractsCommonProductResponse
      */
-    sKU: string;
+    sku: string;
     /**
      * 
      * @type {SrApiProductsCatalogueCommonProductRetailer}
@@ -97,7 +97,7 @@ export function instanceOfSrApiProductsCatalogueContractsCommonProductResponse(v
     isInstance = isInstance && "id" in value;
     isInstance = isInstance && "name" in value;
     isInstance = isInstance && "description" in value;
-    isInstance = isInstance && "sKU" in value;
+    isInstance = isInstance && "sku" in value;
     isInstance = isInstance && "retailer" in value;
     isInstance = isInstance && "url" in value;
     isInstance = isInstance && "prices" in value;
@@ -115,14 +115,14 @@ export function SrApiProductsCatalogueContractsCommonProductResponseFromJSONType
     }
     return {
         
-        'category': SrApiProductsCatalogueCommonProductCategoryFromJSON(json['Category']),
-        'id': json['Id'],
-        'name': json['Name'],
-        'description': json['Description'],
-        'sKU': json['SKU'],
-        'retailer': SrApiProductsCatalogueCommonProductRetailerFromJSON(json['Retailer']),
-        'url': json['Url'],
-        'prices': ((json['Prices'] as Array<any>).map(SrApiProductsCatalogueContractsCommonPriceResponseFromJSON)),
+        'category': SrApiProductsCatalogueCommonProductCategoryFromJSON(json['category']),
+        'id': json['id'],
+        'name': json['name'],
+        'description': json['description'],
+        'sku': json['sku'],
+        'retailer': SrApiProductsCatalogueCommonProductRetailerFromJSON(json['retailer']),
+        'url': json['url'],
+        'prices': ((json['prices'] as Array<any>).map(SrApiProductsCatalogueContractsCommonPriceResponseFromJSON)),
     };
 }
 
@@ -135,13 +135,13 @@ export function SrApiProductsCatalogueContractsCommonProductResponseToJSON(value
     }
     return {
         
-        'Id': value.id,
-        'Name': value.name,
-        'Description': value.description,
-        'SKU': value.sKU,
-        'Retailer': SrApiProductsCatalogueCommonProductRetailerToJSON(value.retailer),
-        'Url': value.url,
-        'Prices': ((value.prices as Array<any>).map(SrApiProductsCatalogueContractsCommonPriceResponseToJSON)),
+        'id': value.id,
+        'name': value.name,
+        'description': value.description,
+        'sku': value.sku,
+        'retailer': SrApiProductsCatalogueCommonProductRetailerToJSON(value.retailer),
+        'url': value.url,
+        'prices': ((value.prices as Array<any>).map(SrApiProductsCatalogueContractsCommonPriceResponseToJSON)),
     };
 }
 

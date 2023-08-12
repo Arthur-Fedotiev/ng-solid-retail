@@ -2,9 +2,10 @@ export { toProductViewModel } from './lib/utils/mappers/to-view-model/to-product
 export { makeProductViewModelsStub } from './lib/testing/make-product-view-models-stub';
 export { ProductsFacadeService } from './lib/products-facade.service';
 export { ProductDetailsResolver } from './lib/resolvers/product-details.resolver';
-export { CategoryEnum } from './lib/constants/category.enum';
+export { Categories as CategoryEnum } from './lib/shared/constants';
 export * from './lib/models';
 export * from './lib/resolvers/products-display.resolver';
 export * from './lib/cqrs/select-product.command';
 export { SpecificationsDataService } from './lib/specifications/specifications.service';
 export * from './lib/specifications/specifications.models';
+export * from './lib/shared';

@@ -7,14 +7,22 @@ import {
   Output,
 } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { PriceViewModel } from '@sr/products/application';
+import { PriceViewModel, TierViewModel } from '@sr/products/application';
 import { map, startWith } from 'rxjs';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { DatePipe, NgIf, AsyncPipe, NgTemplateOutlet } from '@angular/common';
+import {
+  DatePipe,
+  NgIf,
+  AsyncPipe,
+  NgTemplateOutlet,
+  NgFor,
+} from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
+import { PRODUCT_TIERS } from '../shared/constants';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   exportAs: 'omniaProductPrice',
@@ -26,6 +34,7 @@ import { MatInputModule } from '@angular/material/input';
   imports: [
     FlexLayoutModule,
     NgIf,
+    NgFor,
     AsyncPipe,
     MatButtonModule,
     DatePipe,
@@ -34,6 +43,7 @@ import { MatInputModule } from '@angular/material/input';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
+    MatSelectModule,
   ],
 })
 export class ProductPriceComponent implements OnInit {
@@ -44,25 +54,27 @@ export class ProductPriceComponent implements OnInit {
   @Output() protected discard = new EventEmitter<PriceViewModel>();
 
   public readonly priceForm = this.formBuilder.group<{
-    price: null | number;
-    tier: number;
+    value: null | number;
+    tier: TierViewModel;
   }>({
-    price: null,
-    tier: 1,
+    value: null,
+    tier: 'FirstTier',
   });
 
   public readonly isSaveDisabled$ = this.priceForm.valueChanges.pipe(
     map(
-      ({ price, tier }) =>
-        this.isChanged(price, 'price') || this.isChanged(tier, 'tier')
+      ({ value, tier }) =>
+        this.isChanged(value, 'value') || this.isChanged(tier, 'tier')
     ),
     startWith(true)
   );
 
+  protected readonly tiers = Object.values(PRODUCT_TIERS);
+
   constructor(private readonly formBuilder: FormBuilder) {}
 
   public ngOnInit(): void {
-    this.priceForm.setValue({ price: this.price.price, tier: this.price.tier });
+    this.priceForm.setValue({ value: this.price.value, tier: this.price.tier });
   }
 
   public toggleEditMode(): void {
@@ -83,11 +95,11 @@ export class ProductPriceComponent implements OnInit {
   }
 
   private resetForm(): void {
-    this.priceForm.reset({ price: this.price.price, tier: this.price.tier });
+    this.priceForm.reset({ value: this.price.value, tier: this.price.tier });
   }
 
   private isChanged(
-    val: number | null | undefined,
+    val: number | TierViewModel | null | undefined,
     key: keyof PriceViewModel
   ): boolean {
     return val === this.priceForm.get(key) || val == null;

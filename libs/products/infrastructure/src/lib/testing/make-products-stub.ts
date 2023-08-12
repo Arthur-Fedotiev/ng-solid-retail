@@ -1,41 +1,24 @@
-import { Product } from '@sr/products/entities';
+import { ProductDTO } from '@sr/products/entities';
 
-export const makeProductsStub = (count: number): ReadonlyArray<Product> =>
+export const makeProductsStub = (count: number): ReadonlyArray<ProductDTO> =>
   Array(count)
     .fill(0)
     .map((_, i) => ({
       id: i.toString(),
-      Name: `Product ${i}`,
-      Description: `Product ${i} description`,
-      Url: `Product ${i} url`,
-      Prices: [
+      name: `Product ${i}`,
+      description: `Product ${i} description`,
+      sku: `SKU-${i}`,
+      url: `https://product-${i}.com`,
+      category: 'Clothing',
+      prices: [
         {
-          id: '1',
-          productId: i.toString(),
-          Retailer: { id: '1', Name: 'Retailer 1' },
-          Price: i,
-          Tier: 1,
-          UpdateTime: '2020-01-01',
-        },
-        {
-          id: '2',
-          productId: i.toString(),
-          Retailer: { id: '2', Name: 'Retailer 2' },
-          Price: i * 2,
-
-          Tier: 2,
-          UpdateTime: '2020-01-02',
-        },
-        {
-          id: '3',
-          productId: i.toString(),
-          Retailer: { id: '3', Name: 'Retailer 3' },
-          Price: i * 3,
-          Tier: 3,
-          UpdateTime: '2020-01-03',
+          tier: 'FirstTier',
+          value: 1,
+          currency: 'EUR',
         },
       ],
-      Category: { id: '1', Name: 'Gin' },
-      Specifications: { cover: 'hard' },
-      SKU: '12345',
+      retailer: 'Amazon',
+      specifications: {
+        cover: 'Hardcover',
+      },
     }));

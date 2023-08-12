@@ -124,7 +124,7 @@ describe('ProductsFacadeService', () => {
       const productsViewModelsStub = makeProductViewModelsStub(1);
       const expectedShortInfo = {
         id: productsViewModelsStub[0].id,
-        price: productsViewModelsStub[0].prices[0].price,
+        price: productsViewModelsStub[0].prices[0].value,
         name: productsViewModelsStub[0].name,
         sku: productsViewModelsStub[0].sku,
         url: productsViewModelsStub[0].url,

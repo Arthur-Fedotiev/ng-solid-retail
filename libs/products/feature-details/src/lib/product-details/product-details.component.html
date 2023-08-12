@@ -38,11 +38,11 @@
 
       <h3 class="tw-text-xl tw-text-center">Prices by retailers</h3>
 
-      <div *ngFor="let price of vm.product.prices; trackBy: trackById">
+      <div *ngFor="let price of vm.product.prices; index as idx">
         <sr-product-price
           #productPrice="omniaProductPrice"
           [price]="price"
-          (save)="updateProductPrice(vm.product, $event)"
+          (save)="updateProductPrice(vm.product, idx, $event)"
         >
           <button action mat-mini-fab color="primary">
             <mat-icon>edit</mat-icon>

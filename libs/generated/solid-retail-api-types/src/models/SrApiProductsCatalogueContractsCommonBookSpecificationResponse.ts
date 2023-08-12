@@ -47,7 +47,7 @@ export function SrApiProductsCatalogueContractsCommonBookSpecificationResponseFr
     }
     return {
         
-        'cover': json['Cover'],
+        'cover': json['cover'],
     };
 }
 
@@ -60,7 +60,7 @@ export function SrApiProductsCatalogueContractsCommonBookSpecificationResponseTo
     }
     return {
         
-        'Cover': value.cover,
+        'cover': value.cover,
     };
 }
 

@@ -26,14 +26,12 @@ import { NgFor } from '@angular/common';
         selected
         color="primary"
         (click)="onCategorySelected(category)"
-        >{{ category.name }}</mat-chip
+        >{{ category }}</mat-chip
       >
     </mat-chip-set>
   `,
 })
-export class ProductCategoriesComponent<
-  T extends { id: string; name: string }
-> {
+export class ProductCategoriesComponent<T extends string> {
   @Input() category!: T;
   @Output() categorySelected = new EventEmitter<T>();
 
