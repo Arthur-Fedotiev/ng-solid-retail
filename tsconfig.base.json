@@ -36,6 +36,7 @@
       ],
       "@sr/products/shell": ["libs/products/shell/src/index.ts"],
       "@sr/products/ui": ["libs/products/ui/src/index.ts"],
+      "@sr/products/ui-lazy": ["libs/products/ui-lazy/src/index.ts"],
       "@sr/shared/assets": ["libs/shared/assets/src/index.ts"],
       "@sr/shared/environments": ["libs/shared/environments/src/index.ts"],
       "@sr/shared/styles": ["libs/shared/styles/src/index.ts"],

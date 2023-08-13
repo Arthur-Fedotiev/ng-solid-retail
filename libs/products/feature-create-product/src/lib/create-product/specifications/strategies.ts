@@ -16,12 +16,8 @@ import {
   SpecificationsDataService,
 } from '@sr/products/application';
 import { Injectable, Type, inject } from '@angular/core';
-import {
-  BooksSpecificationControlComponent,
-  FurnitureSpecificationControlComponent,
-  ShoesSpecificationControlComponent,
-  SpecificationSelectComponent,
-} from '@sr/products/ui';
+import { Observable, from, map } from 'rxjs';
+
 import {
   BooksSpecificationInputs,
   FurnitureSpecificationsInputs,
@@ -30,13 +26,13 @@ import {
 } from './input.models';
 
 export interface DynamicComponentConfig<TCmpInputs = object> {
-  component: Type<TCmpInputs>;
+  component: Observable<Type<TCmpInputs>>;
   inputs: TCmpInputs;
 }
 
 export abstract class SpecificationsFormGroupStrategy<
-  TCmpInputs = any,
-  TFormGroup = any
+  TCmpInputs = object,
+  TFormGroup = object
 > {
   abstract readonly category: Category | null;
   abstract buildFormGroup(fb: FormBuilder): FormGroup<{
@@ -70,7 +66,11 @@ export class BooksSpecificationsFormGroupStrategy extends SpecificationsFormGrou
 
   getDynamicComponentConfig(): DynamicComponentConfig<BooksSpecificationInputs> {
     return {
-      component: BooksSpecificationControlComponent,
+      component: from(
+        import(
+          'libs/products/ui-lazy/src/lib/specification-controls/books-specification-control/books-specification-control.component'
+        )
+      ).pipe(map((m) => m.BooksSpecificationControlComponent)),
       inputs: {
         coverOptions: this.coverTypes,
       },
@@ -105,9 +105,13 @@ export class ShoesSpecificationsFormGroupStrategy extends SpecificationsFormGrou
 
   getDynamicComponentConfig(): DynamicComponentConfig<ShoesSpecificationsInputs> {
     return {
-      component: ShoesSpecificationControlComponent,
+      component: from(
+        import(
+          'libs/products/ui-lazy/src/lib/specification-controls/shoes-specification-control/shoes-specification-control.component'
+        )
+      ).pipe(map((m) => m.ShoesSpecificationControlComponent)),
       inputs: {
-        shoesSizes: this.sizes,
+        shoesSizes: this.sizes as number[],
         colors: this.colors,
       },
     };
@@ -134,7 +138,11 @@ export class SmartphonesSpecificationsFormGroupStrategy extends SpecificationsFo
 
   getDynamicComponentConfig(): DynamicComponentConfig<SpecificationSelectComponentInputs> {
     return {
-      component: SpecificationSelectComponent,
+      component: from(
+        import(
+          'libs/products/ui-lazy/src/lib/specification-controls/specification-select/specification-select.component'
+        )
+      ).pipe(map((m) => m.SpecificationSelectComponent)),
       inputs: {
         label: 'Color',
         options: this.colors,
@@ -169,7 +177,11 @@ export class FurnitureSpecificationsFormGroupStrategy extends SpecificationsForm
 
   getDynamicComponentConfig(): DynamicComponentConfig<FurnitureSpecificationsInputs> {
     return {
-      component: FurnitureSpecificationControlComponent,
+      component: from(
+        import(
+          'libs/products/ui-lazy/src/lib/specification-controls/furniture-specification-control/furniture-specification-control.component'
+        )
+      ).pipe(map((m) => m.FurnitureSpecificationControlComponent)),
       inputs: {
         colors: this.colors,
         materials: ['Wood', 'Plastic'],

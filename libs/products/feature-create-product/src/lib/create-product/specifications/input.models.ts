@@ -1,29 +1,22 @@
-import {
-  BooksSpecificationControlComponent,
-  FurnitureSpecificationControlComponent,
-  ShoesSpecificationControlComponent,
-  SpecificationSelectComponent,
-} from '@sr/products/ui';
+export interface BooksSpecificationInputs {
+  coverOptions: readonly string[];
+}
 
-export type BooksSpecificationInputs = Pick<
-  BooksSpecificationControlComponent,
-  'coverOptions'
->;
+export interface FurnitureSpecificationsInputs {
+  colors: readonly string[];
+  materials: readonly string[];
+}
 
-export type ShoesSpecificationsInputs = Pick<
-  ShoesSpecificationControlComponent,
-  'colors' | 'shoesSizes'
->;
+export interface SpecificationSelectComponentInputs {
+  label: string;
+  options: readonly (string | number)[];
+  formControlName: string;
+}
 
-export type SpecificationSelectComponentInputs = Pick<
-  SpecificationSelectComponent,
-  'label' | 'options' | 'formControlName'
->;
-
-export type FurnitureSpecificationsInputs = Pick<
-  FurnitureSpecificationControlComponent,
-  'colors' | 'materials'
->;
+export interface ShoesSpecificationsInputs {
+  colors: readonly string[];
+  shoesSizes: readonly (string | number)[];
+}
 
 export type SpecificationInputs =
   | BooksSpecificationInputs
