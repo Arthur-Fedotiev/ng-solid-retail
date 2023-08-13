@@ -1,5 +1,8 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { injectSelectProductCommand, injectVM } from '@sr/products/application';
+import {
+  injectSelectProductCommand,
+  injectResolvedProductsVM,
+} from '@sr/products/application';
 import { ProductCardComponent } from '@sr/products/ui';
 import { LetModule } from '@ngrx/component';
 import { LIST_SHELL } from '@sr/shared/ui-list';
@@ -21,6 +24,6 @@ import { LIST_SHELL } from '@sr/shared/ui-list';
   `,
 })
 export class ProductsDisplayFeatureComponent {
-  protected readonly vm$ = injectVM();
+  protected readonly vm$ = injectResolvedProductsVM();
   protected readonly selectProductCommand = injectSelectProductCommand();
 }

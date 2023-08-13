@@ -1,7 +1,8 @@
+import { inject } from '@angular/core';
 import { Routes } from '@angular/router';
 import {
   ProductDetailsResolver,
-  ProductsDisplayResolver,
+  PRODUCTS_DISPLAY_VM_QUERY,
 } from '@sr/products/application';
 import { ResolvedDataKeys } from '@sr/shared/util';
 
@@ -14,7 +15,8 @@ export const PRODUCT_ROUTES: Routes = [
         (m) => m.ProductsDisplayFeatureComponent
       ),
     resolve: {
-      [ResolvedDataKeys.ViewModel]: ProductsDisplayResolver,
+      [ResolvedDataKeys.ViewModel]: () =>
+        inject(PRODUCTS_DISPLAY_VM_QUERY).get(),
     },
   },
   {
