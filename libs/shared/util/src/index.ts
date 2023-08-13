@@ -6,6 +6,5 @@ export {
   TRACK_BY_ID_OR_IDX,
   TrackByIdOrIdx,
 } from './lib/global/track-by-id-or-idx.token';
-export * from './lib/firestore/mapping.functions';
 export * from './lib/types/data.interfaces';
 export * from './lib/resolved-data-contracts';
