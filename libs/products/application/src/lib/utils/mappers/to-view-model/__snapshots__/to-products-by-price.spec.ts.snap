@@ -6,37 +6,13 @@ exports[`#toProductsByPrice should return a ProductByPrice 1`] = `
     "id": "0",
     "name": "Product 0",
     "price": {
-      "price": 0,
+      "price": 1,
       "retailer": {
-        "name": "Retailer 1",
+        "name": "Amazon",
       },
     },
-    "sku": "12345",
-    "url": "Product 0 url",
-  },
-  {
-    "id": "0",
-    "name": "Product 0",
-    "price": {
-      "price": 0,
-      "retailer": {
-        "name": "Retailer 2",
-      },
-    },
-    "sku": "12345",
-    "url": "Product 0 url",
-  },
-  {
-    "id": "0",
-    "name": "Product 0",
-    "price": {
-      "price": 0,
-      "retailer": {
-        "name": "Retailer 3",
-      },
-    },
-    "sku": "12345",
-    "url": "Product 0 url",
+    "sku": "SKU-0",
+    "url": "https://product-0.com",
   },
   {
     "id": "1",
@@ -44,35 +20,11 @@ exports[`#toProductsByPrice should return a ProductByPrice 1`] = `
     "price": {
       "price": 1,
       "retailer": {
-        "name": "Retailer 1",
+        "name": "Amazon",
       },
     },
-    "sku": "12345",
-    "url": "Product 1 url",
-  },
-  {
-    "id": "1",
-    "name": "Product 1",
-    "price": {
-      "price": 2,
-      "retailer": {
-        "name": "Retailer 2",
-      },
-    },
-    "sku": "12345",
-    "url": "Product 1 url",
-  },
-  {
-    "id": "1",
-    "name": "Product 1",
-    "price": {
-      "price": 3,
-      "retailer": {
-        "name": "Retailer 3",
-      },
-    },
-    "sku": "12345",
-    "url": "Product 1 url",
+    "sku": "SKU-1",
+    "url": "https://product-1.com",
   },
 ]
 `;

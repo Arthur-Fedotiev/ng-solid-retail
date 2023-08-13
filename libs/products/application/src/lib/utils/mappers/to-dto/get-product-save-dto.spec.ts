@@ -1,85 +1,57 @@
-import { toISOStringWithTimezone } from '@sr/shared/util';
-import { CreateProductForm } from '../../../models/create-product-from.interface';
-import { ProductViewModel } from '../../../models/product.view-model';
 import { getSaveProductDto } from './get-product-save-dto';
 
 describe('getProductPostDto', () => {
   it('should return a Product dto for POST', () => {
-    const idGeneratorMock = jest.fn(() => 'id');
     const product = {
       name: 'Product 1',
       sku: 'skU',
       description: 'Description 1',
-      category: { id: '1', name: 'Category 1' },
-      prices: [{ price: 100, tier: 1, retailer: { Name: 'Retailer 1' } }],
-    } as unknown as CreateProductForm;
-
-    const expectedId = idGeneratorMock();
-
-    const expected = {
-      id: expectedId,
-      Name: product.name,
-      SKU: product.sku.toUpperCase(),
-      Description: product.description,
-      Category: {
-        id: product.category.id,
-        Name: product.category.name,
-      },
-      Prices: product.prices.map((price) => ({
-        id: expectedId,
-        productId: expectedId,
-        Price: price.value,
-        Tier: price.tier,
-        Retailer: { id: price.retailer.id, Name: price.retailer.name },
-        UpdateTime: toISOStringWithTimezone(new Date()),
-      })),
+      category: 'Shoes',
+      retailer: 'Amazon',
+      url: 'http://example.com',
+      specifications: { color: 'red', size: '36' },
+      prices: [{ value: 100, tier: 'FirstTier', currency: 'USD' }],
     };
 
-    expect(getSaveProductDto(idGeneratorMock)(product)).toEqual(expected);
+    const expected = {
+      name: product.name,
+      sku: product.sku.toUpperCase(),
+      description: product.description,
+      category: product.category,
+      retailer: product.retailer,
+      specifications: product.specifications,
+      url: product.url,
+      prices: product.prices.map((price) => expect.objectContaining(price)),
+    };
+
+    expect(getSaveProductDto(product as any)).toEqual(expected);
   });
 
   it('should return a Product dto for PATCH', () => {
-    const idGeneratorMock = jest.fn(() => 'id');
     const product = {
-      id: 'existingId',
+      id: '1',
       name: 'Product 1',
       sku: 'skU',
       description: 'Description 1',
+      category: 'Shoes',
+      retailer: 'Amazon',
       url: 'http://example.com',
-      category: { id: '1', name: 'Category 1' },
-      prices: [
-        {
-          updateTime: '2020-01-01T00:00:00.000Z',
-          id: 'existingId',
-          price: 100,
-          tier: 1,
-          retailer: { id: 'priceID', Name: 'Retailer 1' },
-        },
-      ],
-    } as unknown as ProductViewModel;
-
-    const expectedId = product.id;
-
-    const expected = {
-      id: expectedId,
-      Name: product.name,
-      SKU: product.sku.toUpperCase(),
-      Description: product.description,
-      Category: {
-        id: product.category.id,
-        Name: product.category.name,
-      },
-      Url: product.url,
-      Prices: product.prices.map((price) => ({
-        id: price.id,
-        productId: expectedId,
-        Price: price.value,
-        Tier: price.tier,
-        Retailer: { id: price.retailer.id, Name: price.retailer.name },
-        UpdateTime: price.updateTime,
-      })),
+      specifications: { color: 'red', size: '36' },
+      prices: [{ value: 100, tier: 'FirstTier', currency: 'USD' }],
     };
 
-    expect(getSaveProductDto(idGeneratorMock)(product)).toEqual(expected);
+    const expected = {
+      id: product.id,
+      name: product.name,
+      sku: product.sku.toUpperCase(),
+      description: product.description,
+      url: product.url,
+      category: product.category,
+      retailer: product.retailer,
+      specifications: product.specifications,
+      prices: product.prices.map((price) => expect.objectContaining(price)),
+    };
+
+    expect(getSaveProductDto(product as any)).toEqual(expected);
   });
 });

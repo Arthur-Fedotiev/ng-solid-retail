@@ -1,9 +1,8 @@
 import { fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
-import { Product, ProductsApi } from '@sr/products/entities';
+import { ProductsApi } from '@sr/products/entities';
 import { PRODUCTS_API, makeProductsStub } from '@sr/products/infrastructure';
 import { ID_GENERATOR } from '@sr/shared/util';
 import { asyncScheduler, of, scheduled, Subject } from 'rxjs';
-import { CategoryEnum } from './constants/category.enum';
 import { ProductsStateModel } from './models/products-state.model';
 import { ProductViewModel } from './models/product.view-model';
 
@@ -12,6 +11,8 @@ import { TO_PRODUCT_SAVE_DTO } from './providers/to-product-save-dto.token';
 import { makeProductViewModelsStub } from './testing/make-product-view-models-stub';
 import { toProductViewModel } from './utils/mappers/to-view-model';
 import { ProductsNavigationManagerService } from './navigation/products-navigation-manager.service';
+import { Categories, Retailers } from './shared/constants';
+import { ProductDTO } from '@sr/products/entities';
 
 describe('ProductsFacadeService', () => {
   const getProductsSubj$ = new Subject();
@@ -76,7 +77,7 @@ describe('ProductsFacadeService', () => {
   afterEach(() => jest.clearAllMocks());
 
   describe('loadProducts', () => {
-    let productsStub: ReadonlyArray<Product>;
+    let productsStub: ReadonlyArray<ProductDTO>;
 
     beforeEach(() => (productsStub = makeProductsStub(5)));
 
@@ -128,7 +129,7 @@ describe('ProductsFacadeService', () => {
         name: productsViewModelsStub[0].name,
         sku: productsViewModelsStub[0].sku,
         url: productsViewModelsStub[0].url,
-        retailer: productsViewModelsStub[0].prices[0].retailer.name,
+        retailer: productsViewModelsStub[0].prices[0].retailer,
         toString: expect.any(Function),
       };
 
@@ -140,60 +141,6 @@ describe('ProductsFacadeService', () => {
         expect(products[0]).toEqual(expectedShortInfo);
       });
 
-      tick();
-    }));
-  });
-
-  describe('loadCategories', () => {
-    it('should delegate to GetCategories', fakeAsync(() => {
-      productsApiProviderMock.getCategories.mockReturnValue(
-        scheduled([[]], asyncScheduler)
-      );
-
-      expect(productsApiProviderMock.getCategories).toHaveBeenCalledTimes(1);
-    }));
-
-    it('should set categories state', fakeAsync(() => {
-      const categoriesStub = [
-        { id: '1', Name: 'Category 1' },
-        { id: '2', Name: 'Category 2' },
-      ];
-
-      const expected = categoriesStub.map((c) => ({ id: c.id, name: c.Name }));
-
-      service.categories$.subscribe((categories) => {
-        expect(categories).toEqual(expected);
-      });
-
-      getCategoriesSubj$.next(categoriesStub);
-      tick();
-    }));
-  });
-
-  describe('#loadRetailers', () => {
-    it('should delegate to GetRetailers', fakeAsync(() => {
-      productsApiProviderMock.getRetailers.mockReturnValue(
-        scheduled([[]], asyncScheduler)
-      );
-
-      expect(productsApiProviderMock.getRetailers).toHaveBeenCalledTimes(1);
-    }));
-
-    it('should set retailers state', fakeAsync(() => {
-      const retailersStub = [
-        { id: '1', Name: 'Retailer 1' },
-        { id: '2', Name: 'Retailer 2' },
-      ];
-
-      const expected = retailersStub.map((r) => ({ id: r.id, name: r.Name }));
-
-      tick();
-
-      service.retailers$.subscribe((retailers) => {
-        expect(retailers).toEqual(expected);
-      });
-
-      getRetailersSubj$.next(retailersStub);
       tick();
     }));
   });
@@ -241,7 +188,7 @@ describe('ProductsFacadeService', () => {
       const id = 'id';
 
       productsApiProviderMock.getOneProduct.mockReturnValue(
-        scheduled([{} as Product], asyncScheduler)
+        scheduled([{} as ProductDTO], asyncScheduler)
       );
       service.loadProduct(id);
 
@@ -268,13 +215,13 @@ describe('ProductsFacadeService', () => {
   describe('#updateProductPrice', () => {
     it('should delegate to UpdateProduct passing updated product an updated price', fakeAsync(() => {
       const productStub = makeProductsStub(1)[0];
-      const priceStub = productStub.Prices[0];
+      const priceStub = productStub.prices[0];
 
       const expectedProduct = { ...productStub, Prices: [priceStub] };
 
       toProductSaveDtoMock.mockReturnValue(expectedProduct);
       productsApiProviderMock.updateProduct.mockReturnValue(
-        of(expectedProduct as Product)
+        of(expectedProduct as ProductDTO)
       );
 
       service.selectedProductUpdate(toProductViewModel(productStub));
@@ -287,23 +234,23 @@ describe('ProductsFacadeService', () => {
 
   describe('#getCompetitorsForCategory$', () => {
     it('should delegate to GetCompetitorsForCategory passing Category', fakeAsync(() => {
-      const categoryStub = { id: '1', name: CategoryEnum.AlcoholDrinks };
-      const expected = { id: '1', Name: CategoryEnum.AlcoholDrinks };
+      const categoryStub = Categories.Books;
 
       service.getCompetitorsForCategory$(categoryStub);
       tick();
 
       expect(
         productsApiProviderMock.getCompetitorsForCategory
-      ).toHaveBeenCalledWith(expected);
+      ).toHaveBeenCalledWith(categoryStub);
     }));
 
     it('should return retailers mapped to view models', fakeAsync(() => {
-      const categoryStub = { id: '1', name: CategoryEnum.AlcoholDrinks };
-      const expected = [{ id: '1', name: 'Competitor 1' }];
+      const categoryStub = Categories.Books;
+      const retailersStub = [Retailers.Amazon];
+      const expected = [{ value: Retailers.Amazon, label: Retailers.Amazon }];
 
       productsApiProviderMock.getCompetitorsForCategory.mockReturnValue(
-        of([{ id: '1', Name: 'Competitor 1' }])
+        of(retailersStub)
       );
 
       service
