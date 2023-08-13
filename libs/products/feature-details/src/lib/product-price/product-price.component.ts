@@ -55,7 +55,7 @@ export class ProductPriceComponent implements OnInit {
 
   public readonly priceForm = this.formBuilder.group<{
     value: null | number;
-    tier: TierViewModel;
+    tier: TierViewModel['value'];
   }>({
     value: null,
     tier: 'FirstTier',
@@ -99,7 +99,7 @@ export class ProductPriceComponent implements OnInit {
   }
 
   private isChanged(
-    val: number | TierViewModel | null | undefined,
+    val: number | TierViewModel['value'] | null | undefined,
     key: keyof PriceViewModel
   ): boolean {
     return val === this.priceForm.get(key) || val == null;

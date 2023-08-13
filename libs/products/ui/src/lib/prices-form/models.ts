@@ -10,5 +10,12 @@ export type PriceFormGroup = FormGroup<{
 }>;
 
 export interface PricesFormVM {
-  readonly retailers: readonly { readonly name: string }[];
+  readonly retailers: readonly {
+    readonly label: string;
+    readonly value: string;
+  }[];
+  readonly tiers: readonly {
+    readonly label: string;
+    readonly value: string;
+  }[];
 }

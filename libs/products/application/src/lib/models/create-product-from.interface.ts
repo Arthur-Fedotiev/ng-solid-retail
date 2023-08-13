@@ -1,23 +1,20 @@
-import {
-  SpecificationsViewModel,
-  TierViewModel,
-  RetailerViewModel,
-  CategoryViewModel,
-} from './view-models';
+import { Tier, Retailer } from '@sr/products/entities';
+import { Category } from '../shared/models';
+import { SpecificationsViewModel } from './view-models';
 
 export interface CreateProductForm {
   name: string;
   sku: string;
   description: string;
   url: string;
-  category: CategoryViewModel;
+  category: Category;
   prices: ReadonlyArray<Price>;
-  retailer: RetailerViewModel;
+  retailer: Retailer;
   specifications: SpecificationsViewModel;
 }
 
 export interface Price {
   value: number;
-  tier: TierViewModel;
-  retailer: RetailerViewModel;
+  tier: Tier;
+  retailer: Retailer;
 }

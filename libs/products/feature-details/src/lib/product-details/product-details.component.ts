@@ -5,12 +5,18 @@ import {
   inject,
 } from '@angular/core';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { PriceViewModel, ProductViewModel } from '@sr/products/application';
-import { CompetitorsDialogComponent } from '@sr/products/ui';
+import {
+  Category,
+  PriceViewModel,
+  ProductViewModel,
+} from '@sr/products/application';
+import {
+  CompetitorsDialogComponent,
+  ProductCategoriesComponent,
+} from '@sr/products/ui';
 import { MatCardModule } from '@angular/material/card';
 import { NgIf, AsyncPipe, NgFor, NgTemplateOutlet } from '@angular/common';
 import { LowestTierPricePipe } from './lowest-tier-price.pipe';
-import { ProductCategoriesComponent } from '@sr/products/ui';
 import { ProductPriceComponent } from '../product-price/product-price.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -75,7 +81,7 @@ export class ProductDetailsComponent implements OnDestroy {
     this.productDetailsCommandsAPI.delete(id);
   }
 
-  public openCompetitorsDialog(category: string): void {
+  public openCompetitorsDialog(category: Category): void {
     this.dialog.open(CompetitorsDialogComponent, {
       width: '500px',
       data: { category, retailers$: this.competitorsQuery.get(category) },

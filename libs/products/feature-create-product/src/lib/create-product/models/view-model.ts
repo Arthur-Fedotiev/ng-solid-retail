@@ -1,6 +1,11 @@
-import { CategoryViewModel, RetailerViewModel } from '@sr/products/application';
+import {
+  CategoryViewModel,
+  RetailerViewModel,
+  TierViewModel,
+} from '@sr/products/application';
 
 export interface CreateProductVM {
   categories: ReadonlyArray<CategoryViewModel>;
-  retailers: ReadonlyArray<{ name: RetailerViewModel }>;
+  retailers: ReadonlyArray<RetailerViewModel>;
+  tiers: ReadonlyArray<TierViewModel>;
 }

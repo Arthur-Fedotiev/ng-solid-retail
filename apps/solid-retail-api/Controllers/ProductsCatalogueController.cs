@@ -7,6 +7,8 @@ using Sr.Api.ProductsCatalogue.Application.Commands.DeleteProduct;
 using Sr.Api.ProductsCatalogue.Application.Commands.UpdateProduct;
 using Sr.Api.ProductsCatalogue.Application.Common;
 using Sr.Api.ProductsCatalogue.Application.GetProducts.Queries;
+using Sr.Api.ProductsCatalogue.Application.Queries.GetRetailersByCategory;
+using Sr.Api.ProductsCatalogue.Common;
 using Sr.Api.ProductsCatalogue.Contracts.Common;
 using Sr.Api.ProductsCatalogue.Contracts.CreateProduct;
 using Sr.Api.ProductsCatalogue.Contracts.UpdateProduct;
@@ -35,6 +37,15 @@ namespace Sr.SolidRetailApi.Controllers
       var result = await _mediator.Send(new GetProductsQuery(pageSize, pageIndex, ids, categories));
 
       return ResponseFor<PaginatedItemsResponse<Product>, PaginatedItemsResponse<ProductResponse>>(result);
+    }
+
+    [HttpGet("retailers/{category}")]
+    [ProducesResponseType(typeof(IReadOnlyList<ProductRetailer>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> GetRetailersByCategory(ProductCategory category)
+    {
+      return ResponseFor<IReadOnlyList<ProductRetailer>, IReadOnlyList<ProductRetailer>>(await _mediator.Send(new GetRetailersByCategoryQuery(category)));
     }
 
     [HttpPost]
@@ -69,6 +80,8 @@ namespace Sr.SolidRetailApi.Controllers
 
       return ResponseFor<Guid, Guid>(deleteProductResult);
     }
+
+
 
     private IActionResult ResponseFor<TFrom, TTo>(Result<TFrom> result)
     {

@@ -9,7 +9,7 @@ export class LowestTierPricePipe implements PipeTransform {
   transform(
     prices: readonly {
       value: number;
-      tier: TierViewModel;
+      tier: TierViewModel['value'];
     }[],
     lowestTier = 'FirstTier' as const
   ) {

@@ -4,6 +4,7 @@ using Sr.Api.ProductsCatalogue.Application.Commands.CreateProduct;
 using Sr.Api.ProductsCatalogue.Application.Commands.UpdateProduct;
 using Sr.Api.ProductsCatalogue.Application.GetProducts.Queries;
 using Sr.Api.ProductsCatalogue.Application.Persistance;
+using Sr.Api.ProductsCatalogue.Application.Queries.GetRetailersByCategory;
 using Sr.Api.ProductsCatalogue.Common;
 using Sr.Api.ProductsCatalogue.Domain.Product.AggregateRoot;
 using Sr.Api.ProductsCatalogue.Domain.Product.Errors;
@@ -121,6 +122,18 @@ namespace Sr.Api.ProductsCatalogue.Infrastructure.Repositories
       return Result.Ok(newProduct);
 
     }
+
+    public async Task<Result<IReadOnlyList<ProductRetailer>>> GetRetailersByCategoryAsync(GetRetailersByCategoryQuery query)
+    {
+      var retailers = await _dbContext.Products
+        .Where(p => p.Category == query.category)
+        .Select(p => p.Retailer)
+        .Distinct()
+        .ToListAsync();
+
+      return retailers;
+    }
+
     private static Result<Product> CreateProduct(CreateProductCommand request)
     {
       return request.Category switch
@@ -202,5 +215,7 @@ namespace Sr.Api.ProductsCatalogue.Infrastructure.Repositories
         _ => Result.Fail<Product>(DomainErrors.Product.CategoryNotSupported)
       };
     }
+
+
   }
 }

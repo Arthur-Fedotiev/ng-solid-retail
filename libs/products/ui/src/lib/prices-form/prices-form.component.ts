@@ -49,17 +49,20 @@ import { MatButtonModule } from '@angular/material/button';
               <input
                 matInput
                 type="number"
-                formControlName="price"
+                formControlName="value"
                 placeholder="Product Price"
               />
             </mat-form-field>
+
             <mat-form-field appearance="outline">
-              <mat-label>Tier</mat-label>
-              <input
-                matInput
-                formControlName="tier"
-                placeholder="Product Tier"
-              />
+              <mat-label>Retailer</mat-label>
+              <mat-select formControlName="tier" placeholder="Product Tier">
+                <mat-option
+                  *ngFor="let tier of vm.tiers"
+                  [value]="tier.value"
+                  >{{ tier.label }}</mat-option
+                >
+              </mat-select>
             </mat-form-field>
             <mat-form-field appearance="outline">
               <mat-label>Retailer</mat-label>
@@ -69,8 +72,8 @@ import { MatButtonModule } from '@angular/material/button';
               >
                 <mat-option
                   *ngFor="let retailer of vm.retailers"
-                  [value]="retailer"
-                  >{{ retailer.name }}</mat-option
+                  [value]="retailer.value"
+                  >{{ retailer.label }}</mat-option
                 >
               </mat-select>
             </mat-form-field>
@@ -108,8 +111,8 @@ import { MatButtonModule } from '@angular/material/button';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PricesFormComponent implements OnInit {
-  @Input() vm!: PricesFormVM;
-  @Input() name!: string;
+  @Input({ required: true }) vm!: PricesFormVM;
+  @Input({ required: true }) name!: string;
 
   private readonly fb = inject(NonNullableFormBuilder);
 
@@ -138,12 +141,15 @@ export class PricesFormComponent implements OnInit {
 
   private get priceFormGroup() {
     return this.fb.group({
-      tier: [1, [Validators.required, Validators.min(1), Validators.max(3)]],
+      tier: [
+        'FirstTier',
+        [Validators.required, Validators.min(1), Validators.max(3)],
+      ],
       retailer: [
         null as unknown as PriceFormGroup['controls']['retailer']['value'],
         Validators.required,
       ],
-      price: [0, [Validators.required, Validators.min(1)]],
+      value: [0, [Validators.required, Validators.min(1)]],
     });
   }
 }

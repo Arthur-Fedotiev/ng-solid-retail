@@ -1,4 +1,4 @@
-<div *ngrxLet="vm$ as vm" class="tw-flex tw-flex-nowrap tw-justify-center">
+<div class="tw-flex tw-flex-nowrap tw-justify-center">
   <section class="tw-w-11/12 sm:tw-w-3/5 md:tw-w-3/4 lg:tw-w-1/2">
     <h3 class="tw-text-2xl tw-mb-4">Create New Product</h3>
     <form [formGroup]="productForm" class="tw-flex tw-flex-col tw-flex-nowrap">
@@ -22,12 +22,12 @@
           #category="matSelect"
           placeholder="Select Product Categories"
           formControlName="category"
-          (valueChange)="updateSpecifications($event.name)"
+          (valueChange)="updateSpecifications($event)"
         >
           <mat-option
             *ngFor="let category of vm.categories"
-            [value]="category"
-            >{{ category }}</mat-option
+            [value]="category.value"
+            >{{ category.label }}</mat-option
           >
         </mat-select>
       </mat-form-field>
@@ -55,9 +55,18 @@
       <sr-prices-form
         name="prices"
         [vm]="{
-          retailers: vm.retailers
+          retailers: vm.retailers,
+          tiers: vm.tiers,
         }"
       ></sr-prices-form>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="onSave()"
+        [disabled]="!productForm.valid || !productForm.dirty"
+      >
+        SAVE
+      </button>
     </form>
   </section>
 </div>

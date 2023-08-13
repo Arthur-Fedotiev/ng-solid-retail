@@ -27,7 +27,6 @@ import {
   CommonModule,
 } from '@angular/common';
 import {
-  Categories,
   Category,
   Price,
   SpecificationsDataService,
@@ -90,7 +89,6 @@ export class CreateProductComponent {
   private readonly createProductCommand = inject(CREATE_PRODUCT_COMMAND);
   private readonly fb = inject(FormBuilder);
 
-  protected readonly Categories = Object.values(Categories);
   protected readonly bookCovers = inject(
     SpecificationsDataService
   ).getCoverTypes();
@@ -98,7 +96,7 @@ export class CreateProductComponent {
   protected specificationCmp: Type<object> | null = null;
   protected specificationInputs?: Record<string, any>;
 
-  public readonly vm$ = inject(CREATE_PRODUCT_VM_QUERY).get();
+  public readonly vm = inject(CREATE_PRODUCT_VM_QUERY).get();
   public readonly trackById = inject(TRACK_BY_ID_OR_IDX);
   public readonly productForm = this.fb.nonNullable.group({
     name: [
@@ -131,6 +129,11 @@ export class CreateProductComponent {
   }
 
   public onSave(): void {
+    console.log(
+      'this.productForm.getRawValue()',
+      this.productForm.getRawValue()
+    );
+
     this.createProductCommand.execute(this.productForm.getRawValue() as any);
   }
 

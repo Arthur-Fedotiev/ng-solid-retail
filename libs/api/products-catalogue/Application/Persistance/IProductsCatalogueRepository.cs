@@ -2,6 +2,8 @@
 using Sr.Api.ProductsCatalogue.Application.Commands.CreateProduct;
 using Sr.Api.ProductsCatalogue.Application.Commands.UpdateProduct;
 using Sr.Api.ProductsCatalogue.Application.GetProducts.Queries;
+using Sr.Api.ProductsCatalogue.Application.Queries.GetRetailersByCategory;
+using Sr.Api.ProductsCatalogue.Common;
 using Sr.Api.ProductsCatalogue.Domain.Product.AggregateRoot;
 
 namespace Sr.Api.ProductsCatalogue.Application.Persistance
@@ -12,5 +14,6 @@ namespace Sr.Api.ProductsCatalogue.Application.Persistance
     Task<Result<(IReadOnlyList<Product> products, int count)>> GetProductsAsync(GetProductsQuery query);
     Task<Result> DeleteProductAsync(Guid id);
     Task<Result<Product>> UpdateProductAsync(UpdateProductCommand request);
+    Task<Result<IReadOnlyList<ProductRetailer>>> GetRetailersByCategoryAsync(GetRetailersByCategoryQuery query);
   }
 }

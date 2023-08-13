@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
-import { TRACK_BY_ID_OR_IDX, TrackByIdOrIdx } from '@sr/shared/util';
 import { Observable } from 'rxjs';
 import { MatListModule } from '@angular/material/list';
 import { NgIf, AsyncPipe, NgFor } from '@angular/common';
@@ -8,7 +7,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 interface CompetitorsDialogData {
   category: { name: string };
-  retailers$: Observable<{ name: string; id: string }[]>;
+  retailers$: Observable<{ label: string; value: string }[]>;
 }
 
 @Component({
@@ -29,10 +28,8 @@ interface CompetitorsDialogData {
     <div mat-dialog-content>
       <ng-container *ngIf="data.retailers$ | async as competitors; else loading"
         ><mat-list>
-          <mat-list-item
-            *ngFor="let competitor of competitors; trackBy: trackById"
-          >
-            <li>{{ competitor.name }}</li>
+          <mat-list-item *ngFor="let competitor of competitors">
+            <li>{{ competitor.label }}</li>
           </mat-list-item>
         </mat-list></ng-container
       >
@@ -48,8 +45,5 @@ interface CompetitorsDialogData {
   `,
 })
 export class CompetitorsDialogComponent {
-  constructor(
-    @Inject(MAT_DIALOG_DATA) public data: CompetitorsDialogData,
-    @Inject(TRACK_BY_ID_OR_IDX) public readonly trackById: TrackByIdOrIdx
-  ) {}
+  constructor(@Inject(MAT_DIALOG_DATA) public data: CompetitorsDialogData) {}
 }

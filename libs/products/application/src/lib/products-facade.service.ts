@@ -19,12 +19,12 @@ import {
 } from './utils/mappers/to-view-model';
 import { ProductsNavigationManagerService } from './navigation/products-navigation-manager.service';
 import {
-  CategoryViewModel,
   CreateProductForm,
   ProductViewModel,
   ProductsStateModel,
   RetailerViewModel,
 } from './models';
+import { Category } from './shared';
 
 @Injectable({
   providedIn: 'root',
@@ -36,11 +36,7 @@ export class ProductsFacadeService {
     ProductsNavigationManagerService
   );
 
-  private state = new ProductsStateModel(
-    this.productsChanges$,
-    this.categoriesChanges$,
-    this.retailersChanges$
-  );
+  private state = new ProductsStateModel(this.productsChanges$);
 
   public readonly state$ = new BehaviorSubject<ProductsStateModel>(this.state);
   public readonly products$ = this.state$.pipe(
@@ -64,36 +60,10 @@ export class ProductsFacadeService {
     map((products) => products.map(toProductShortInfo))
   );
 
-  public readonly categories$ = this.state$.pipe(
-    map((state) => state.categories$),
-    switchAll(),
-    distinctUntilChanged(),
-    filter(Boolean)
-  );
-
-  public readonly retailers$ = this.state$.pipe(
-    map((state) => state.retailers$),
-    switchAll(),
-    distinctUntilChanged(),
-    filter(Boolean)
-  );
-
   private get productsChanges$(): Observable<ReadonlyArray<ProductViewModel>> {
     return this.productsApi
       .getProducts()
       .pipe(map((products) => products.map(toProductViewModel)));
-  }
-
-  private get categoriesChanges$(): Observable<
-    ReadonlyArray<CategoryViewModel>
-  > {
-    return this.productsApi.getCategories();
-  }
-
-  private get retailersChanges$(): Observable<
-    ReadonlyArray<RetailerViewModel>
-  > {
-    return this.productsApi.getRetailers();
   }
 
   public createProduct(createProductFormValue: CreateProductForm): void {
@@ -122,17 +92,12 @@ export class ProductsFacadeService {
       .subscribe(this.updateSelectedProduct);
   }
 
-  // public getCompetitorsForCategory$({ id, name }: CategoryViewModel) {
-  //   return this.productsApi.getCompetitorsForCategory({ id, Name: name }).pipe(
-  //     map((retailers) => [
-  //       ...new Map(
-  //         retailers.map((retailer) => [retailer.id, retailer])
-  //       ).values(),
-  //     ]),
-  //     map((retailers) => retailers.map(toRetailerViewModel)),
-  //     take(1)
-  //   );
-  // }
+  public getCompetitorsForCategory$(category: Category) {
+    return this.productsApi.getCompetitorsForCategory(category).pipe(
+      map((retailers) => retailers.map((value) => ({ value, label: value } satisfies RetailerViewModel))),
+      take(1)
+    );
+  }
 
   public loadProduct(id: string) {
     this.productsApi

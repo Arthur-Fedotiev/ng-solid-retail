@@ -1,13 +1,11 @@
-import { IdGenerator } from '@sr/shared/util';
 import { ProductViewModel } from '../../../models/product.view-model';
 import { Category, CreateProductDto,  } from '@sr/products/entities';
 import { CreateProductForm } from '../../../models';
 
 
 export const getSaveProductDto =
-  (IdGenerator: IdGenerator) =>
-  (product: ProductViewModel | CreateProductForm) => {
 
+  (product: ProductViewModel | CreateProductForm) => {
     const result = {
       ...('id' in product ? { id: product.id } : {  }),
       name: product.name,
