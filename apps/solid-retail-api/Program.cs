@@ -4,6 +4,7 @@ using Sr.Api.ProductsCatalogue.Infrastructure;
 using Sr.SolidRetailApi;
 using Sr.SolidRetailApi.Common.Errors;
 using Sr.SolidRetailApi.Common.Swagger;
+using Sr.SolidRetailApi.Common.Security;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,15 +18,7 @@ builder.Services.AddSingleton<ProblemDetailsFactory, SolidRetailProblemDetailsFa
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-  _ = app.UseCors(builder =>
-  {
-    _ = builder.AllowAnyOrigin()
-      .AllowAnyMethod()
-      .AllowAnyHeader();
-  });
-}
+app.ConfigureWebAppCors();
 
 app.UseExceptionHandler("/error");
 app.UseSwaggerConfiguration();
@@ -34,3 +27,4 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
