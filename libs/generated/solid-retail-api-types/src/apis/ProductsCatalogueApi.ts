@@ -20,6 +20,8 @@ import type {
   ApiV1CataloguePut200Response,
   ApiV1CataloguePutRequest,
   SrApiProductsCatalogueApplicationCommonPaginatedItemsResponse1SrApiProductsCatalogueContractsCommonProductResponse,
+  SrApiProductsCatalogueCommonProductCategory,
+  SrApiProductsCatalogueCommonProductRetailer,
 } from '../models';
 import {
     ApiV1CatalogueGet500ResponseFromJSON,
@@ -32,6 +34,10 @@ import {
     ApiV1CataloguePutRequestToJSON,
     SrApiProductsCatalogueApplicationCommonPaginatedItemsResponse1SrApiProductsCatalogueContractsCommonProductResponseFromJSON,
     SrApiProductsCatalogueApplicationCommonPaginatedItemsResponse1SrApiProductsCatalogueContractsCommonProductResponseToJSON,
+    SrApiProductsCatalogueCommonProductCategoryFromJSON,
+    SrApiProductsCatalogueCommonProductCategoryToJSON,
+    SrApiProductsCatalogueCommonProductRetailerFromJSON,
+    SrApiProductsCatalogueCommonProductRetailerToJSON,
 } from '../models';
 
 export interface ApiV1CatalogueGetRequest {
@@ -51,6 +57,10 @@ export interface ApiV1CataloguePostOperationRequest {
 
 export interface ApiV1CataloguePutOperationRequest {
     apiV1CataloguePutRequest?: ApiV1CataloguePutRequest;
+}
+
+export interface ApiV1CatalogueRetailersCategoryGetRequest {
+    category: SrApiProductsCatalogueCommonProductCategory;
 }
 
 /**
@@ -181,6 +191,34 @@ export class ProductsCatalogueApi extends runtime.BaseAPI {
      */
     async apiV1CataloguePut(requestParameters: ApiV1CataloguePutOperationRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiV1CataloguePut200Response> {
         const response = await this.apiV1CataloguePutRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async apiV1CatalogueRetailersCategoryGetRaw(requestParameters: ApiV1CatalogueRetailersCategoryGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<SrApiProductsCatalogueCommonProductRetailer>>> {
+        if (requestParameters.category === null || requestParameters.category === undefined) {
+            throw new runtime.RequiredError('category','Required parameter requestParameters.category was null or undefined when calling apiV1CatalogueRetailersCategoryGet.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/api/v1/catalogue/retailers/{category}`.replace(`{${"category"}}`, encodeURIComponent(String(requestParameters.category))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(SrApiProductsCatalogueCommonProductRetailerFromJSON));
+    }
+
+    /**
+     */
+    async apiV1CatalogueRetailersCategoryGet(requestParameters: ApiV1CatalogueRetailersCategoryGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<SrApiProductsCatalogueCommonProductRetailer>> {
+        const response = await this.apiV1CatalogueRetailersCategoryGetRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

@@ -310,6 +310,77 @@
         }
       }
     },
+    "/api/v1/catalogue/retailers/{category}": {
+      "get": {
+        "tags": [
+          "ProductsCatalogue"
+        ],
+        "parameters": [
+          {
+            "name": "category",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/Sr.Api.ProductsCatalogue.Common.ProductCategory"
+                }
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Sr.Api.ProductsCatalogue.Common.ProductRetailer"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                    },
+                    {
+                      "$ref": "#/components/schemas/Microsoft.AspNetCore.Http.HttpValidationProblemDetails"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                    },
+                    {
+                      "$ref": "#/components/schemas/Microsoft.AspNetCore.Http.HttpValidationProblemDetails"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/catalogue/{id}": {
       "delete": {
         "tags": [
