@@ -4,7 +4,7 @@
   "targets": {
     "build": {
       "executor": "nx:noop",
-      "outputs": ["libs/generated/solid-retail-api-swagger"]
+      "outputs": ["{projectRoot}"]
     }
   },
   "implicitDependencies": ["solid-retail-api"]

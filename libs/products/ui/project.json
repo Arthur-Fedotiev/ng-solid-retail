@@ -1,5 +1,6 @@
 {
   "name": "products-ui",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/products/ui/src",
   "prefix": "sr",

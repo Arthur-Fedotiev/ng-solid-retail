@@ -1,5 +1,6 @@
 {
   "name": "products-feature-create-product",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/products/feature-create-product/src",
   "prefix": "sr",

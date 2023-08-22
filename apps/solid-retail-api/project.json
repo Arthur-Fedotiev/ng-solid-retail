@@ -4,7 +4,7 @@
   "targets": {
     "swagger": {
       "executor": "@nx-dotnet/core:update-swagger",
-      "outputs": ["options.output"],
+      "outputs": ["{workspaceRoot}/options.output"],
       "options": {
         "output": "libs/generated/solid-retail-api-swagger/swagger.json"
       },
