@@ -1,4 +1,4 @@
-namespace Sr.SolidRetailApi.Common.Security
+﻿namespace Sr.SolidRetailApi.Common.Security
 {
   public static class CorsConfiguration
   {
