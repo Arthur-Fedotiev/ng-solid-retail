@@ -5,15 +5,6 @@
 export const environment = {
   production: false,
   api: 'http://localhost:3000/api',
-  firebaseConfig: {
-    apiKey: 'AIzaSyBPBP6kDnoWlpqKX275hBOtEqbXxGbEPnQ',
-    authDomain: 'ng-solid-retail.firebaseapp.com',
-    projectId: 'ng-solid-retail',
-    storageBucket: 'ng-solid-retail.appspot.com',
-    messagingSenderId: '649321509722',
-    appId: '1:649321509722:web:bba0179c2190b2e5d5b963',
-    measurementId: 'G-0DYVLMDDZN',
-  },
 };
 
 /*
