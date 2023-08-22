@@ -17,7 +17,7 @@
       {
         app.UseCors(builder =>
         {
-          _ = builder.WithOrigins("https://ng-solid-retail.firebaseapp.com/")
+          _ = builder.WithOrigins("https://ng-solid-retail.firebaseapp.com")
             .AllowAnyMethod()
             .AllowAnyHeader();
         });
